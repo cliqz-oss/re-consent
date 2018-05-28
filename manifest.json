@@ -1,0 +1,34 @@
+{
+    "author": "Cliqz",
+    "description": "Managing your data preferences",
+    "manifest_version": 2,
+    "name": "Consenter",
+    "version": "0.0.1",
+    "background": {
+        "scripts": [
+            "node_modules/spanan/dist/index.browser.js",
+            "background.js"
+        ]
+    },
+    "permissions": [
+        "tabs",
+        "<all_urls>",
+        "storage",
+        "webRequest"
+    ],
+    "page_action": {
+        "browser_style": true,
+        "default_title": "Consenter",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": [
+                "node_modules/spanan/dist/index.browser.js",
+                "content-script.js"
+            ],
+            "run_at": "document_end"
+        }
+    ]
+}
