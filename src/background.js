@@ -1,3 +1,4 @@
+const { ConsentString } = require('consent-string');
 
 console.log('hello word', Spanan, ConsentString);
 const spanan = new Spanan.default();
@@ -32,3 +33,9 @@ browser.runtime.onMessage.addListener((message) => {
 const runDetector = function(tab) {
   browser.tabs.sendMessage(tab, { action: 'checkIAB' });
 }
+
+/*
+const vendorList = await fetch('https://vendorlist.consensu.org/vendorlist.json').then(r => r.json());
+  consent.setGlobalVendorList(vendorList);
+  console.log(consent.getConsentString());
+  */

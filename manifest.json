@@ -7,14 +7,15 @@
     "background": {
         "scripts": [
             "node_modules/spanan/dist/index.browser.js",
-            "background.js"
+            "dist/background.js"
         ]
     },
     "permissions": [
         "tabs",
         "<all_urls>",
         "storage",
-        "webRequest"
+        "webRequest",
+        "cookies"
     ],
     "page_action": {
         "browser_style": true,

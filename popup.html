@@ -3,18 +3,46 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
   </head>
 
-<body>
+<body style="width: 350px; margin-top: 10px; margin-bottom: 10px">
 
-  <div class="panel">
-    <div id="download-entry" class="panel-section panel-section-header">
-      <div class="text-section-header" id="message">Checking Consent settings...</div>
+  <div id="root" >
+    <!-- <div class="row">
+      <div class="col">
+        <h4>Consent given for <span id="site-name"></span></h4>
+        <p>Updated <span id="consent-update"></span></p>
+      </div>
     </div>
+    <div class="row">
+      <div class="col">
+          <div class="list-group">
+            <div class="list-group-item">
+              <h5>Information storage and access</h5>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" id="opt-in">Opt-in</button>
+                <button type="button" class="btn" id="opt-in">Opt-out</button>
+              </div>
+            </div>
+            <div class="list-group-item">
+              <h5>Personalisation</h5>
+              <div class="btn-group" role="group">
+                  <button type="button" class="btn">Opt-in</button>
+                  <button type="button" class="btn">Opt-out</button>
+                </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+          <p>Consent obtained by <span class="consenter-gatherer"></span> using <span class="consenter-framework"></span></p>
+        </div>
+    </div> -->
   </div>
 
-  <script src="node_modules/spanan/dist/index.browser.js"></script>
-  <script src="popup.js"></script>
+  <script src="dist/popup.js"></script>
 </body>
 
 </html>
