@@ -16,17 +16,7 @@ spanan.export({
   }
 });
 
-// iab api detection
-browser.webRequest.onCompleted.addListener((details) => {
-  const [,, hostname,] = details.url.split('/');
-  if (hostname.endsWith('consensu.org')) {
-    console.log('show', details.tabId);
-    browser.pageAction.show(details.tabId);
-  }
-}, { urls: ['<all_urls>'] });
-
 browser.runtime.onMessage.addListener((message) => {
-  // console.log('xxx', message);
   spanan.handleMessage(message);
 });
 
@@ -34,8 +24,15 @@ const runDetector = function(tab) {
   browser.tabs.sendMessage(tab, { action: 'checkIAB' });
 }
 
-/*
-const vendorList = await fetch('https://vendorlist.consensu.org/vendorlist.json').then(r => r.json());
-  consent.setGlobalVendorList(vendorList);
-  console.log(consent.getConsentString());
-  */
+browser.runtime.onConnect.addListener((port) => {
+  if (!port.sender.tab) {
+    return;
+  }
+  const tabId = port.sender.tab.id;
+  port.onMessage.addListener((message) => {
+    console.log(message);
+    if (message.cmp) {
+      browser.pageAction.show(tabId);
+    }
+  });
+});

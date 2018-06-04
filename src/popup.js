@@ -2,11 +2,7 @@ import 'babel-polyfill';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { hasIabConsent, IABConsent, setConsentCookie } from './iab-framework';
-
-// async function getTab() {
-//   const tabs = await browser.tabs.query({active: true, currentWindow: true});
-//   return tabs[0];
-// }
+import { hasTrustArcConsent } from './trustarc';
 
 class Popup extends Component {
 
@@ -14,13 +10,16 @@ class Popup extends Component {
     browser.tabs.query({active: true, currentWindow: true}).then(async (tab) => {
       this.setState({ tab: tab[0] });
       const iabConsent = await hasIabConsent(tab[0]);
-      this.setState({ kind: 'iab', consent: iabConsent });
+      if (iabConsent) {
+        this.setState({ kind: 'iab', consent: iabConsent });
+        return;
+      }
     });
   }
 
-  onIABCookieChanged(consentData) {
-    setConsentCookie(this.state.tab, consentData);
-    this.setState({ consent: { consentData } });
+  async onIABCookieChanged(consent, consentData) {
+    const newState = await setConsentCookie(this.state.tab, consent, consentData);
+    this.setState({ consent: newState });
   }
 
   render() {
