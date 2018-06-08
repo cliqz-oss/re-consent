@@ -17,18 +17,13 @@ class Popup extends Component {
     });
   }
 
-  async onIABCookieChanged(consent, consentData) {
-    const newState = await setConsentCookie(this.state.tab, consent, consentData);
-    this.setState({ consent: newState });
-  }
-
   render() {
     if (this.state && this.state.tab) {
       const { tab, kind, consent } = this.state;
       const [,, host, ] = this.state.tab.url.split('/');
       let contents = null;
       if (kind === 'iab') {
-        contents = <IABConsent tab={tab} consent={consent} onChanged={this.onIABCookieChanged.bind(this)}/>;
+        contents = <IABConsent tab={tab} consent={consent} />;
       }
       return (
         <div className="container" >

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ConsentString } from 'consent-string';
 import createPageChannel from './page-actions';
+import moment from 'moment';
 
 export const PURPOSES = {
   1: 'Information storage and access',
@@ -22,7 +23,6 @@ async function getConsentCookie(tab) {
 
 async function addVendorList(page, consent) {
   let vendorList = await page.getVendorList();
-  console.log(vendorList);
   if (!vendorList || !vendorList.vendorListVersion) {
     vendorList = await fetch('https://vendorlist.consensu.org/vendorlist.json').then(r => r.json());
   }
@@ -30,14 +30,13 @@ async function addVendorList(page, consent) {
 }
 
 export async function setConsentCookie(tab, consent, newConsent) {
-  console.log('set cookie', tab, newConsent);
   const page = createPageChannel(tab.id);
   await addVendorList(page, newConsent);
   const cookie = await getConsentCookie(tab);
   const res = await browser.cookies.set({
     expirationDate: cookie.expirationDate,
     firstPartyDomain: cookie.firstPartyDomain || undefined,
-    domain: cookie.domain.startsWith('.') ? domain : undefined,
+    domain: cookie.domain.startsWith('.') ? cookie.domain : undefined,
     httpOnly: cookie.httpOnly,
     name: cookie.name,
     path: cookie.path,
@@ -48,7 +47,6 @@ export async function setConsentCookie(tab, consent, newConsent) {
   });
   await page.resetCmp();
   consent.metadata = newConsent.getConsentString();
-  console.log('xxx consent',  consent);
   return consent;
 }
 
@@ -79,9 +77,7 @@ export class IABConsentCategoryList extends Component {
   render() {
     const { purposes, onChange } = this.props;
     const allowedPurposes = purposes || [];
-    console.log('purposes', allowedPurposes);
     const onClick = (action, purposeId) => {
-      console.log(this, action, purposeId);
       if (action === 'in' && allowedPurposes.indexOf(purposeId) === -1) {
         allowedPurposes.push(purposeId);
         onChange(allowedPurposes);
@@ -113,29 +109,33 @@ export class IABConsentCategoryList extends Component {
 export class IABConsent extends Component {
 
   async onChange(allowed) {
-    const consent = this.props.consent;
+    const { consent, tab } = this.props;
     const consentData = new ConsentString(consent.metadata);
     consentData.setPurposesAllowed(allowed);
-    this.props.onChanged(consent, consentData);
+    await setConsentCookie(tab, consent, consentData);
+    allowed.forEach((purpose) => {
+      consent.purposeConsents[purpose] = true;
+    });
+    this.setState({ consent, tab });
+    browser.tabs.reload(tab.id);
   }
 
   render() {
-    const { metadata } = this.props.consent;
-    // const consentData = new ConsentString(metadata);
-    const purposeConsents = this.props.consent.purposeConsents
+    const { metadata, purposeConsents, gdprApplies } = this.props.consent;
+    const consentData = new ConsentString(metadata);
     const allowedPurposes = Object.keys(purposeConsents)
       .filter(k => purposeConsents[k])
       .reduce((l, v) => [...l, parseInt(v)], []);
-    console.log('xxx', allowedPurposes);
+    console.log('xxx', this.props.consent, consentData);
     return (
       <div className="row">
         <div className="col">
-          {/* <h5>Publisher specific:</h5>
-          <IABConsentCategoryList purposes={publisherAllowedPurposes} /> */}
+          <p>GDPR Applies? {gdprApplies ? 'Yes' : 'No'}</p>
           <IABConsentCategoryList
             purposes={allowedPurposes}
             onChange={this.onChange.bind(this)}
           />
+          <small>Obtained {moment(consentData.created).fromNow()}, updated {moment(consentData.lastUpdated).fromNow()}</small>
         </div>
       </div>
     )
