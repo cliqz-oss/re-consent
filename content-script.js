@@ -20,7 +20,6 @@ const api = {
     window.eval('window.__cmp("getVendorList", null, (r) => window._cmpVendors = r);');
     return new Promise((resolve) => {
       setTimeout(() => {
-        console.log('xxx', window.wrappedJSObject._cmpVendors);
         resolve(window.wrappedJSObject._cmpVendors);
       }, 500);
     });
@@ -28,8 +27,10 @@ const api = {
   getLocalStorage(key) {
     return localStorage.getItem(key);
   },
+  setLocalStorage(key, value) {
+    localStorage.setItem(key, value);
+  },
   resetCmp() {
-    console.log('reset cmp');
     window.wrappedJSObject._cmpConsent = null;
     window.wrappedJSObject._cmpVendors = null;
   },
