@@ -1,8 +1,8 @@
 {
-    "author": "Cliqz",
+    "author": "Cliqz GmbH",
     "description": "Managing your data preferences",
     "manifest_version": 2,
-    "name": "Consenter",
+    "name": "Consentric",
     "version": "0.0.1",
     "background": {
         "scripts": [
@@ -19,7 +19,7 @@
     ],
     "page_action": {
         "browser_style": true,
-        "default_title": "Consenter",
+        "default_title": "Consentric",
         "default_popup": "popup.html"
     },
     "content_scripts": [

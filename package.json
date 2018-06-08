@@ -1,5 +1,5 @@
 {
-  "name": "consent-centre",
+  "name": "Consentric",
   "version": "0.0.1",
   "description": "",
   "main": "background.js",
@@ -25,6 +25,6 @@
     "build": "webpack",
     "watch": "webpack -w --mode development"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Cliqz GmbH",
+  "license": "MPL-2.0"
 }
