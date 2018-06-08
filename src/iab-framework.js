@@ -184,7 +184,7 @@ export class IABConsent extends Component {
     console.log('xxx', this.props.consent, consentData);
     return (
       <div className="row">
-        <div className="col">
+        <div className="col-sm">
           <p>GDPR Applies? {gdprApplies ? 'Yes' : 'No'}</p>
           { !writeable ? <ReadOnlyWarning tab={this.props.tab}/> : null }
           <IABConsentCategoryList
@@ -197,7 +197,12 @@ export class IABConsent extends Component {
             onChange={this.onChange.bind(this)}
             readOnly={!writeable}
           />
+        </div>
+        <div className="col-sm">
           <small>Obtained {moment(consentData.created).fromNow()}, updated {moment(consentData.lastUpdated).fromNow()}</small>
+          <p>
+            <a href="http://advertisingconsent.eu/iab-europe-transparency-consent-framework-list-of-registered-cmps/" target="_blank">CMP ID</a>: {consentData.cmpId}
+          </p>
         </div>
       </div>
     )

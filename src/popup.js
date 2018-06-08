@@ -24,6 +24,8 @@ class Popup extends Component {
       let contents = null;
       if (kind === 'iab') {
         contents = <IABConsent tab={tab} consent={consent} />;
+      } else {
+        contents = <p>Waiting for consent data...</p>;
       }
       return (
         <div className="container" >
