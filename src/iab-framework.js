@@ -11,7 +11,18 @@ export const PURPOSES = {
   5: 'Measurement',
 }
 
-async function getConsentCookie(tab) {
+async function getConsentCookie(tab, consent) {
+  if (consent) {
+    // if consent is specified, look for a consent cookie matching the one returned from the CMP
+    const consentCookies = await browser.cookies.getAll({
+      name: 'euconsent',
+      storeId: tab.cookieStoreId,
+    });
+    const matchedCookie = consentCookies.find(c => c.value === consent.metadata);
+    if (matchedCookie) {
+      return matchedCookie;
+    }
+  }
   const cookie = await browser.cookies.get({
     // firstPartyDomain: host,
     name: 'euconsent',
@@ -31,8 +42,7 @@ async function addVendorList(page, consent) {
 
 export async function setConsentCookie(tab, consent, newConsent) {
   const page = createPageChannel(tab.id);
-  await addVendorList(page, newConsent);
-  const cookie = await getConsentCookie(tab);
+  const [cookie, ] = await Promise.all([getConsentCookie(tab, consent), addVendorList(page, newConsent)]);
   const res = await browser.cookies.set({
     expirationDate: cookie.expirationDate,
     firstPartyDomain: cookie.firstPartyDomain || undefined,
@@ -42,7 +52,7 @@ export async function setConsentCookie(tab, consent, newConsent) {
     path: cookie.path,
     secure: cookie.secure,
     storeId: cookie.storeId,
-    url: `${tab.url}`,
+    url: `${cookie.httpOnly ? 'http' : 'https'}://${cookie.domain.startsWith('.') ? cookie.domain.substring(1) : cookie.domain}${cookie.path}`,
     value: newConsent.getConsentString(),
   });
   await page.resetCmp();
@@ -54,7 +64,10 @@ export async function hasIabConsent(tab) {
   const page = createPageChannel(tab.id);
   const hasCmp = await page.hasCmp()
   if (hasCmp) {
-    return await page.getConsentData();
+    const consent = await page.getConsentData();
+    const cookie = await getConsentCookie(tab, consent);
+    consent.hasConsentCookie = cookie ? true : false;
+    return consent;
   } else {
     return false;
   }
@@ -75,9 +88,12 @@ class ConsentButton extends Component {
 export class IABConsentCategoryList extends Component {
 
   render() {
-    const { purposes, onChange } = this.props;
+    const { purposes, onChange, readOnly } = this.props;
     const allowedPurposes = purposes || [];
     const onClick = (action, purposeId) => {
+      if (readOnly) {
+        return;
+      }
       if (action === 'in' && allowedPurposes.indexOf(purposeId) === -1) {
         allowedPurposes.push(purposeId);
         onChange(allowedPurposes);
@@ -106,6 +122,18 @@ export class IABConsentCategoryList extends Component {
   }
 }
 
+export class ReadOnlyWarning extends Component {
+  render() {
+    return (
+      <div className="alert alert-warning" role="alert">
+        <p>
+          No consent cookie found, cannot update consent settings.
+        </p>
+      </div>
+    )
+  }
+}
+
 export class IABConsent extends Component {
 
   async onChange(allowed) {
@@ -121,19 +149,22 @@ export class IABConsent extends Component {
   }
 
   render() {
-    const { metadata, purposeConsents, gdprApplies } = this.props.consent;
+    const { metadata, purposeConsents, gdprApplies, hasConsentCookie } = this.props.consent;
     const consentData = new ConsentString(metadata);
     const allowedPurposes = Object.keys(purposeConsents)
       .filter(k => purposeConsents[k])
       .reduce((l, v) => [...l, parseInt(v)], []);
+    const writeable = hasConsentCookie;
     console.log('xxx', this.props.consent, consentData);
     return (
       <div className="row">
         <div className="col">
           <p>GDPR Applies? {gdprApplies ? 'Yes' : 'No'}</p>
+          { !writeable ? <ReadOnlyWarning tab={this.props.tab}/> : null }
           <IABConsentCategoryList
             purposes={allowedPurposes}
             onChange={this.onChange.bind(this)}
+            readOnly={!writeable}
           />
           <small>Obtained {moment(consentData.created).fromNow()}, updated {moment(consentData.lastUpdated).fromNow()}</small>
         </div>
