@@ -122,6 +122,32 @@ export class IABConsentCategoryList extends Component {
   }
 }
 
+export class ConsentAllButtons extends Component {
+
+  render() {
+    const { purposeConsents, onChange, readOnly } = this.props;
+    const onClick = (action) => {
+      if (readOnly) {
+        return;
+      }
+      if (action === 'out') {
+        onChange([]);
+      } else {
+        onChange(Object.keys(purposeConsents).map(Number));
+      }
+    };
+
+    return (
+      <div className="btn-toolbar p-3 mx-auto">
+        <div className="btn-group" role="group">
+          <ConsentButton active={false} onClick={onClick.bind(undefined, 'in')}>Opt-In to all</ConsentButton>
+          <ConsentButton active={false} onClick={onClick.bind(undefined, 'out')}>Opt-Out of all</ConsentButton>
+        </div>
+      </div>
+    )
+  }
+}
+
 export class ReadOnlyWarning extends Component {
   render() {
     return (
@@ -163,6 +189,11 @@ export class IABConsent extends Component {
           { !writeable ? <ReadOnlyWarning tab={this.props.tab}/> : null }
           <IABConsentCategoryList
             purposes={allowedPurposes}
+            onChange={this.onChange.bind(this)}
+            readOnly={!writeable}
+          />
+          <ConsentAllButtons
+            purposeConsents={purposeConsents}
             onChange={this.onChange.bind(this)}
             readOnly={!writeable}
           />
