@@ -31,11 +31,10 @@ async function getConsentCookie(tab, consent) {
       return matchedCookie;
     }
   }
-  const cookie = await browser.cookies.get(cookieWrapper({
-    name: 'euconsent',
+  const cookie = (await browser.cookies.getAll(cookieWrapper({
     url: tab.url,
     storeId: tab.cookieStoreId,
-  }, tab.url, false));
+  }, tab.url, false))).find(c => c.name.toLowerCase() === 'euconsent');
   return cookie;
 }
 
@@ -132,6 +131,9 @@ export async function hasIabConsent(tab) {
   const hasCmp = await page.hasCmp()
   if (hasCmp) {
     const consent = await page.getConsentData();
+    if (!consent) {
+      return false;
+    }
     const [cookie, lso, oilCookie] = await Promise.all([
       getConsentCookie(tab, consent),
       getConsentLSO(page, consent),
