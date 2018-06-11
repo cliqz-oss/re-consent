@@ -12,24 +12,30 @@ export const PURPOSES = {
 }
 const localStorageKey = 'crfgL0cSt0r';
 
+function cookieWrapper(opts, url, thirdParty) {
+  if (browser.privacy.websites.firstPartyIsolate) {
+    opts.firstPartyDomain = thirdParty === true ? url.split('/')[2] : '';
+  }
+  return opts;
+}
+
 async function getConsentCookie(tab, consent) {
   if (consent) {
     // if consent is specified, look for a consent cookie matching the one returned from the CMP
-    const consentCookies = await browser.cookies.getAll({
+    const consentCookies = await browser.cookies.getAll(cookieWrapper({
       name: 'euconsent',
       storeId: tab.cookieStoreId,
-    });
+    }, tab.url, true));
     const matchedCookie = consentCookies.find(c => c.value === consent.metadata);
     if (matchedCookie) {
       return matchedCookie;
     }
   }
-  const cookie = await browser.cookies.get({
-    // firstPartyDomain: host,
+  const cookie = await browser.cookies.get(cookieWrapper({
     name: 'euconsent',
     url: tab.url,
     storeId: tab.cookieStoreId,
-  });
+  }, tab.url, false));
   return cookie;
 }
 
@@ -44,12 +50,12 @@ async function getConsentLSO(page, consent) {
 async function getOilCookie(tab) {
   // oil.js implement does not store the consentString
   // https://github.com/as-ideas/oil
-  const cookie = await browser.cookies.get({
+  const cookie = await browser.cookies.get(cookieWrapper({
     // firstPartyDomain: host,
     name: 'oil_data',
     url: tab.url,
     storeId: tab.cookieStoreId,
-  });
+  }, tab.url));
   return cookie;
 }
 

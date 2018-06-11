@@ -2,7 +2,6 @@ import 'babel-polyfill';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { hasIabConsent, IABConsent, setConsentCookie } from './iab-framework';
-import { hasTrustArcConsent } from './trustarc';
 
 class Popup extends Component {
 

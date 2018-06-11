@@ -15,7 +15,8 @@
         "<all_urls>",
         "storage",
         "webRequest",
-        "cookies"
+        "cookies",
+        "privacy"
     ],
     "page_action": {
         "browser_style": true,
