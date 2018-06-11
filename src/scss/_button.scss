@@ -1,0 +1,40 @@
+@import 'bootstrap/scss/buttons';
+
+.btn {
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  &, &:hover {
+    color: white;
+  }
+}
+
+.btn-secondary {
+  &, &:hover {
+    color: #5F7C86;
+  }
+}
+
+.btn-link {
+  font-weight: $font-weight-bold;
+
+  &, &:hover {
+    color: #04B6F1;
+  }
+}
+
+.btn-light {
+  &, &:hover {
+    color: #00AEF0;
+  }
+}
+
+.btn-outline-light {
+  &:hover {
+    color: #00AEF0;
+  }
+}
