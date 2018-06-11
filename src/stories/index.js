@@ -4,6 +4,8 @@ import { storiesOf } from '@storybook/react';
 
 import Button from '../components/Button';
 
+import '../index.css';
+
 storiesOf('Button', module)
   .add('default', () => (
     <Button>

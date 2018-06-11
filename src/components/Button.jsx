@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const Button = ({ children }) => (
-  <button>{children}</button>
+  <button className="btn btn-primary">{children}</button>
 );
 
 Button.propTypes = {
