@@ -1,0 +1,25 @@
+.header {
+  background-color: $blue;
+  color: white;
+  padding: 80px 0;
+
+  &__title {
+    font-size: 40px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  &__lead {
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 550px;
+  }
+
+  &__buttons {
+    margin-top: 48px;
+
+    .btn {
+      margin-right: 1rem;
+    }
+  }
+}

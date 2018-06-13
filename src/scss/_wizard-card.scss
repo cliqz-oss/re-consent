@@ -1,0 +1,70 @@
+.wizard-card {
+  font-size: 14px;
+  line-height: 1.714;
+  padding: 24px 0 32px 0;
+
+  &__icon {
+    box-sizing: content-box;
+    flex: 0 0 auto;
+    width: 24px;
+  }
+
+  &__content {
+    flex: 0.6;
+    margin-bottom: 24px;
+
+    strong {
+      color: black;
+    }
+  }
+
+  &__address-form {
+    margin-bottom: 8px;
+  }
+
+  &__pdf {
+    &-box {
+      align-items: center;
+      border-radius: 8px;
+      border: 2px solid $secondary;
+      display: flex;
+      margin-bottom: 24px;
+      padding: 16px;
+    }
+
+    &__icon {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+
+      background-color: $dark;
+      border-radius: 8px;
+      color: white;
+      font-weight: $font-weight-bold;
+
+      width: 48px;
+      height: 48px;
+    }
+
+    &__content {
+      font-size: 1rem;
+      padding-right: 18px;
+      padding-left: 18px;
+
+      strong {
+        color: black;
+      }
+    }
+
+    &__button {
+      flex: 0 0 auto;
+    }
+  }
+
+  &__buttons {
+    .btn {
+      margin-left: 1rem;
+    }
+  }
+}

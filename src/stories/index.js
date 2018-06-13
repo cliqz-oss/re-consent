@@ -51,10 +51,27 @@ storiesOf('Shadow', module)
     </div>
   ));
 
+storiesOf('Fields', module)
+  .add('default', () => (
+    <div className="form-group">
+      <input type="text" className="form-control" placeholder="First Name" />
+    </div>
+  ))
+  .add('invalid', () => (
+    <div className="form-group">
+      <input type="text" className="form-control is-invalid" placeholder="First Name" />
+    </div>
+  ))
+  .add('valid', () => (
+    <div className="form-group">
+      <input type="text" className="form-control is-valid" placeholder="First Name" />
+    </div>
+  ));
+
 storiesOf('Privacy Feature Card', module)
   .add('default', () => (
     <div className="privacy-feature-card shadow">
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col privacy-feature-card__icon">
             <span role="img" aria-label="smile">😀</span>
@@ -64,7 +81,7 @@ storiesOf('Privacy Feature Card', module)
             Allow Facebook to recognise your face in photos and videos?
           </div>
           <div className="col privacy-feature-card__about">
-            <button className="btn btn-link">About</button>
+            <button className="btn btn-link">What is this ?</button>
           </div>
           <div className="col privacy-feature-card__cta">
             <button className="btn btn-primary">Deactivate</button>
@@ -74,9 +91,142 @@ storiesOf('Privacy Feature Card', module)
     </div>
   ));
 
-storiesOf('Fields', module)
+storiesOf('Wizard Card', module)
+  .add('letter-address-form', () => (
+    <div className="wizard-card shadow">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col wizard-card__icon">
+            1
+          </div>
+          <div className="col wizard-card__content">
+            <strong>Personalize your letter</strong> <br />
+            Here is some desc
+          </div>
+          <div className="col wizard-card__address-form">
+            <form>
+              <div className="row">
+                <div className="col-6">
+                  <div className="form-group">
+                    <input type="text" className="form-control" placeholder="First Name" />
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Last Name" />
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Address" />
+                  </div>
+                </div>
+                <div className="col-3">
+                  <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Post Code" />
+                  </div>
+                </div>
+                <div className="col">
+                  <div className="form-group">
+                    <input type="text" className="form-control" placeholder="City" />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col wizard-card__buttons text-right">
+            <button className="btn btn-primary">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))
+  .add('letter-pdf', () => (
+    <div className="wizard-card shadow">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col wizard-card__icon">
+            2
+          </div>
+          <div className="col wizard-card__content">
+            <strong>Print generated PDF</strong> <br />
+            Here is some desc
+          </div>
+          <div className="col wizard-card__pdf">
+            <div className="wizard-card__pdf-box">
+              <div className="wizard-card__pdf__icon">
+                PDF
+              </div>
+              <div className="wizard-card__pdf__content">
+                <strong>Dana Nedamaldeen Nightmare for Facebook</strong> <nobr>4 MB PDF</nobr>
+              </div>
+              <div className="wizard-card__pdf__button">
+                <button className="btn btn-secondary">
+                  Print PDF
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col wizard-card__buttons text-right">
+            <button className="btn btn-primary">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))
+  .add('letter-send', () => (
+    <div className="wizard-card shadow">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col wizard-card__icon">
+            3
+          </div>
+          <div className="col wizard-card__content">
+            <strong>Bring it to the post office, we are paying for the stamp</strong> <br />
+            Here is some desc
+          </div>
+        </div>
+        <div className="row">
+          <div className="col wizard-card__buttons text-right">
+            <button className="btn btn-secondary">
+              Print Free Stamp
+            </button>
+            <button className="btn btn-primary">
+              Find next post box
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ));
+
+storiesOf('Header', module)
   .add('default', () => (
-    <div clallName="form-group">
-      <input type="text" className="form-control" placeholder="First Name" />
+    <div className="header">
+      <div className="container">
+        <p className="header__title">Data infringement detected!</p>
+        <p className="header__lead">
+          <strong>Facebook</strong> is collecting your data and you should be aware of that.
+          We have detected some of the suspicious ones.
+        </p>
+        <div className="header__buttons">
+          <button className="btn btn-outline-light">
+            What do they collect?
+          </button>
+          <button className="btn btn-light">
+            Send a nightmare letter
+          </button>
+        </div>
+      </div>
     </div>
   ));
