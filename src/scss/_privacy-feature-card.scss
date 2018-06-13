@@ -1,0 +1,30 @@
+.privacy-feature-card {
+  font-size: 14px;
+  line-height: 1.714;
+  padding: 24px 0;
+
+  &__icon {
+    box-sizing: content-box;
+    flex: 0;
+    width: 24px;
+  }
+
+  &__content {
+    strong {
+      color: black;
+    }
+
+    .badge {
+      margin-left: 1em;
+      vertical-align: top;
+    }
+  }
+
+  &__about {
+    flex: 0;
+  }
+
+  &__cta {
+    flex: 0;
+  }
+}

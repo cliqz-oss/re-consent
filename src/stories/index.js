@@ -50,3 +50,33 @@ storiesOf('Shadow', module)
       Lorem ipsum
     </div>
   ));
+
+storiesOf('Privacy Feature Card', module)
+  .add('default', () => (
+    <div className="privacy-feature-card shadow">
+      <div className="container">
+        <div className="row">
+          <div className="col privacy-feature-card__icon">
+            <span role="img" aria-label="smile">😀</span>
+          </div>
+          <div className="col privacy-feature-card__content">
+            <strong>Face recognition</strong> <span className="badge badge-danger">Active</span><br />
+            Allow Facebook to recognise your face in photos and videos?
+          </div>
+          <div className="col privacy-feature-card__about">
+            <button className="btn btn-link">About</button>
+          </div>
+          <div className="col privacy-feature-card__cta">
+            <button className="btn btn-primary">Deactivate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ));
+
+storiesOf('Fields', module)
+  .add('default', () => (
+    <div clallName="form-group">
+      <input type="text" className="form-control" placeholder="First Name" />
+    </div>
+  ));
