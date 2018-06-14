@@ -12,10 +12,6 @@
   &__content {
     flex: 0.6;
     margin-bottom: 24px;
-
-    strong {
-      color: black;
-    }
   }
 
   &__address-form {
@@ -67,4 +63,40 @@
       margin-left: 1rem;
     }
   }
+
+  &__tick {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    left: 34%;
+    transform: rotate(45deg);
+  }
+
+  &__tick:before {
+    content: "";
+    position: absolute;
+    width:3px;
+    height:20px;
+    background-color:$primary;
+    left:14px;
+    top:7px;
+  }
+
+  &__tick:after {
+    content:"";
+    position: absolute;
+    width:7px;
+    height:3px;
+    background-color:$primary;
+    left:8px;
+    top:24px;
+  }
+  &__content-subtitle{
+    color: $dark;
+  }
+}
+
+.wizard-card--done {
+  color: black;
+  padding-bottom: 0;
 }
