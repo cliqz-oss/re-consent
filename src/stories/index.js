@@ -235,13 +235,14 @@ storiesOf('Header', module)
     </div>
   ));
 
-storiesOf('Settings Page Body', module)
-  .add('section-container', () => (
+storiesOf('Settings Section', module)
+  .add('default', () => (
     <div className="settings-section">
       <div className="container">
         <p className="settings-section__title">Write a Nightmare letter</p>
         <p className="settings-section__content">
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+        </p>
         <div className="settings-section__button">
           <button className="btn btn-link">
             Show me a nightmare letter example
