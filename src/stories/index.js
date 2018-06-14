@@ -213,12 +213,12 @@ storiesOf('Wizard Card', module)
     <div className="wizard-card wizard-card--done shadow">
       <div className="container-fluid">
         <div className="row">
-          <div className="col wizard-card__icon wizard-card--done">
+          <div className="col wizard-card__icon">
             3
           </div>
-          <div className="col wizard-card__content wizard-card--done">
+          <div className="col wizard-card__content">
             <strong>Bring it to the post office, we are paying for the stamp</strong> <br />
-            <p className="wizard-card__content-subtitle">Here is some desc</p>
+            Here is some desc
           </div>
           <div className="wizard-card__tick">
           </div>
