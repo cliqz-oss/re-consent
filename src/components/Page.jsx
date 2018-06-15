@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { IconLocation, IconFace, IconCloseCopy, IconThirdPartyAccess, IconAds, IconOneNo, IconTwoNo, IconThreeNo } from './Icons';
+
 const Page = () => (
   <div className="page">
     <div className="header">
@@ -34,7 +36,7 @@ const Page = () => (
             <div className="container-fluid">
               <div className="row">
                 <div className="col privacy-feature-card__icon">
-                    1
+                  <IconFace />
                 </div>
                 <div className="col privacy-feature-card__content">
                   <strong>Face recognition</strong> <span className="badge badge-danger">Active</span><br />
@@ -54,7 +56,7 @@ const Page = () => (
             <div className="container-fluid">
               <div className="row">
                 <div className="col privacy-feature-card__icon">
-                    2
+                  <IconCloseCopy />
                 </div>
                 <div className="col privacy-feature-card__content">
                   <strong>Data shared with Cambridge Analytica</strong> <span className="badge badge-danger">Active</span><br />
@@ -74,7 +76,7 @@ const Page = () => (
             <div className="container-fluid">
               <div className="row">
                 <div className="col privacy-feature-card__icon">
-                    3
+                  <IconLocation />
                 </div>
                 <div className="col privacy-feature-card__content">
                   <strong>Location Sharing</strong> <span className="badge badge-primary">Deactivated</span><br />
@@ -102,7 +104,7 @@ const Page = () => (
             <div className="container-fluid">
               <div className="row">
                 <div className="col privacy-feature-card__icon">
-                    4
+                  <IconThirdPartyAccess />
                 </div>
                 <div className="col privacy-feature-card__content">
                   <strong>Third Party Data Access</strong><br />
@@ -124,7 +126,7 @@ const Page = () => (
             <div className="container-fluid">
               <div className="row">
                 <div className="col privacy-feature-card__icon">
-                    5
+                  <IconAds />
                 </div>
                 <div className="col privacy-feature-card__content">
                   <strong>Advertisers who uploaded your data to Facebook</strong><br />
@@ -167,7 +169,7 @@ const Page = () => (
             <div className="container-fluid">
               <div className="row">
                 <div className="col wizard-card__icon">
-                  1
+                  <IconOneNo />
                 </div>
                 <div className="col wizard-card__content">
                   <strong>Personalize your letter</strong> <br />
@@ -221,7 +223,7 @@ const Page = () => (
             <div className="container-fluid">
               <div className="row">
                 <div className="col wizard-card__icon">
-                  2
+                  <IconTwoNo />
                 </div>
                 <div className="col wizard-card__content">
                   <strong>Print generated PDF</strong> <br />
@@ -235,10 +237,10 @@ const Page = () => (
             <div className="container-fluid">
               <div className="row">
                 <div className="col wizard-card__icon">
-                  3
+                  <IconThreeNo />
                 </div>
                 <div className="col wizard-card__content">
-                  <strong>Bring it to the post office, we are paying for the stamp </strong> <br />
+                  <strong>Bring it to the post office, we are paying for the stamp <span role="img" aria-label="claps">👏</span></strong><br />
                   Here is some desc
                 </div>
               </div>
