@@ -6,15 +6,19 @@
     font-size: 20px;
     font-weight: 600;
     line-height: 1.6;
+    margin-top: 50px;
+    padding-left: 24px;
   }
 
   &__content {
     max-width: 570px;
+    padding-left: 24px;
   }
 
   &__button {
     margin-bottom: 16px;
-
+    padding-bottom: 16px;
+    padding-left: 24px;
     .btn {
       border: 0;
       padding: 0;

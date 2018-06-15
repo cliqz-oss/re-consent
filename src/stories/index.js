@@ -2,6 +2,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
+import Page from '../components/Page';
 import '../index.css';
 
 storiesOf('Button', module)
@@ -66,6 +67,11 @@ storiesOf('Fields', module)
     <div className="form-group">
       <input type="text" className="form-control is-valid" placeholder="First Name" />
     </div>
+  ))
+  .add('active', () => (
+    <div className="form-group">
+      <input type="text" className="form-control is-active" placeholder="First Name" />
+    </div>
   ));
 
 storiesOf('Tick', module)
@@ -83,7 +89,9 @@ storiesOf('Privacy Feature Card', module)
           </div>
           <div className="col privacy-feature-card__content">
             <strong>Face recognition</strong> <span className="badge badge-danger">Active</span><br />
-            Allow Facebook to recognise your face in photos and videos?
+            <div className="privacy-feature-card__subtitle">
+              Allow Facebook to recognise your face in photos and videos?
+            </div>
           </div>
           <div className="col privacy-feature-card__about">
             <button className="btn btn-link">What is this ?</button>
@@ -278,9 +286,15 @@ storiesOf('Settings Section', module)
 
 storiesOf('Page Layout', module)
   .add('default', () => (
-    <div className="body_layout">
-      <div className="footer">
-        © 2018 Cliqz All rights reserved.
-      </div>
+    <div className="body_layout" />
+  ))
+  .add('footer', () => (
+    <div className="footer">
+      © 2018 Cliqz All rights reserved.
     </div>
+  ));
+
+storiesOf('Page', module)
+  .add('default', () => (
+    <Page />
   ));
