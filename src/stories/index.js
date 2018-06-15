@@ -220,12 +220,19 @@ storiesOf('Wizard Card', module)
             <strong>Bring it to the post office, we are paying for the stamp</strong> <br />
             Here is some desc
           </div>
-          <div className="wizard-card__tick">
+          <div className="col wizard-card__tick">
+            <div className="tick">
+            </div>
           </div>
         </div>
       </div>
     </div>
-  ));
+  ))
+  .add('tick', () => (
+    <div className="tick">
+    </div>
+  ))
+  ;
 
 storiesOf('Header', module)
   .add('default', () => (

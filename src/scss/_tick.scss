@@ -1,0 +1,11 @@
+.tick {
+  position: relative;
+  width: 10px;
+  height: 22px;
+  top: 12px;
+
+  border-width: 3px 0 0 3px;
+  border-color: $primary;
+  border-style: solid;
+  transform: rotate(-135deg);
+}

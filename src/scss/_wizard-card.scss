@@ -73,15 +73,7 @@
   }
 
   &__tick {
-    position: relative;
-    width: 10px;
-    height: 22px;
-    top: 30%;
-
-    border-width: 3px 0 0 3px;
-    border-color: $primary;
-    border-style: solid;
     margin-left: auto;
-    transform: rotate(-135deg);
+    flex: 0;
   }
 }
