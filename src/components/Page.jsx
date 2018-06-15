@@ -17,13 +17,14 @@ const Page = () => (
             Send a nightmare letter
           </button>
         </div>
-        <a className="header__scroll-indicator" href="#scroll-indicator">
+        <a className="header__scroll-indicator" href="#scroll-to">
           <div className="header__scroll-indicator__arrow" />
         </a>
       </div>
     </div>
 
-    <div id="scroll-indicator" />
+    <div id="scroll-to" />
+
     <div className="settings-section">
       <div className="container">
         <p className="settings-section__title">Detected Data</p>

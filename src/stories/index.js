@@ -253,7 +253,7 @@ storiesOf('Header', module)
             Send a nightmare letter
           </button>
         </div>
-        <a className="header__scroll-indicator" href="#scroll-indicator">
+        <a className="header__scroll-indicator" href="#scroll-to">
           <div className="header__scroll-indicator__arrow" />
         </a>
       </div>
