@@ -207,7 +207,6 @@ storiesOf('Wizard Card', module)
             Here is some desc
           </div>
         </div>
-        <div className="w-100" />
         <div className="row">
           <div className="col wizard-card__buttons text-right">
             <button className="btn btn-secondary">

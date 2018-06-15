@@ -236,6 +236,28 @@ const Page = () => (
                   Here is some desc
                 </div>
                 <div className="w-100" />
+                <div className="col wizard-card__pdf">
+                  <div className="wizard-card__pdf-box">
+                    <div className="wizard-card__pdf__icon">
+                      PDF
+                    </div>
+                    <div className="wizard-card__pdf__content">
+                      <strong>Dana Nedamaldeen Nightmare for Facebook</strong> <nobr>4 MB PDF</nobr>
+                    </div>
+                    <div className="wizard-card__pdf__button">
+                      <button className="btn btn-secondary">
+                        Print PDF
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col wizard-card__buttons text-right">
+                  <button className="btn btn-primary">
+                    Next
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -250,7 +272,16 @@ const Page = () => (
                   <strong>Bring it to the post office, we are paying for the stamp <span role="img" aria-label="claps">👏</span></strong><br />
                   Here is some desc
                 </div>
-                <div className="w-100" />
+              </div>
+              <div className="row">
+                <div className="col wizard-card__buttons text-right">
+                  <button className="btn btn-secondary">
+                    Print Free Stamp
+                  </button>
+                  <button className="btn btn-primary">
+                    Find next post box
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -22,13 +22,13 @@
       color: black;
     }
 
-    @include media-breakpoint-down('md'){
-      margin-bottom: 1rem;
-    }
-
     .badge {
       margin-left: 1em;
       vertical-align: top;
+    }
+
+    @include media-breakpoint-down('md'){
+      margin-bottom: 1rem;
     }
   }
 
