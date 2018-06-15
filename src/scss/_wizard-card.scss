@@ -3,6 +3,11 @@
   line-height: 1.714;
   padding: 24px 0 32px 0;
   background: white;
+  border-bottom: 1px solid $secondary;
+
+  &--current {
+    position: relative;
+  }
 
   &__icon {
     box-sizing: content-box;
@@ -18,6 +23,12 @@
   &--done &__content {
     margin-bottom: 0;
 
+    strong {
+      color: black;
+    }
+  }
+
+  &--current &__content {
     strong {
       color: black;
     }

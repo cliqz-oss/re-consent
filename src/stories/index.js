@@ -67,11 +67,6 @@ storiesOf('Fields', module)
     <div className="form-group">
       <input type="text" className="form-control is-valid" placeholder="First Name" />
     </div>
-  ))
-  .add('active', () => (
-    <div className="form-group">
-      <input type="text" className="form-control is-active" placeholder="First Name" />
-    </div>
   ));
 
 storiesOf('Tick', module)
@@ -284,11 +279,8 @@ storiesOf('Settings Section', module)
     </div>
   ));
 
-storiesOf('Page Layout', module)
+storiesOf('Footer', module)
   .add('default', () => (
-    <div className="body_layout" />
-  ))
-  .add('footer', () => (
     <div className="footer">
       © 2018 Cliqz All rights reserved.
     </div>

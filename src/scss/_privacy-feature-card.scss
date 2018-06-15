@@ -1,9 +1,9 @@
 .privacy-feature-card {
+  background: white;
   font-size: 14px;
   line-height: 1.714;
+  margin-bottom: 1rem;
   padding: 24px 0;
-  background: white;
-  margin-bottom: 16px;
 
   &__icon {
     box-sizing: content-box;
@@ -21,6 +21,7 @@
       vertical-align: top;
     }
   }
+
   &__subtitle {
     max-width: 500px;
   }
