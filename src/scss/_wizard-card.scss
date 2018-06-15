@@ -13,6 +13,17 @@
     box-sizing: content-box;
     flex: 0 0 auto;
     width: 24px;
+
+    svg {
+      fill: $dark;
+    }
+  }
+
+  &--done &__icon,
+  &--current &__icon {
+    svg {
+      fill: black;
+    }
   }
 
   &__content {
