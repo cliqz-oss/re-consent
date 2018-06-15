@@ -275,3 +275,12 @@ storiesOf('Settings Section', module)
       </div>
     </div>
   ));
+
+storiesOf('Page Layout', module)
+  .add('default', () => (
+    <div className="body_layout">
+      <div className="footer">
+        © 2018 Cliqz All rights reserved.
+      </div>
+    </div>
+  ));
