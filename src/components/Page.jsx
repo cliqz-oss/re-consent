@@ -42,6 +42,7 @@ const Page = () => (
                   <strong>Face recognition</strong> <span className="badge badge-danger">Active</span><br />
                     Allow Facebook to recognise your face in photos and videos?
                 </div>
+                <div className="w-100" />
                 <div className="col privacy-feature-card__about">
                   <button className="btn btn-link">What is this ?</button>
                 </div>
@@ -62,6 +63,7 @@ const Page = () => (
                   <strong>Data shared with Cambridge Analytica</strong> <span className="badge badge-danger">Active</span><br />
                       Allow Facebook to build a history of the locations you have been to?
                 </div>
+                <div className="w-100" />
                 <div className="col privacy-feature-card__about">
                   <button className="btn btn-link">What is this ?</button>
                 </div>
@@ -82,6 +84,7 @@ const Page = () => (
                   <strong>Location Sharing</strong> <span className="badge badge-primary">Deactivated</span><br />
                       Allow Facebook to build a history of the locations you have been to?
                 </div>
+                <div className="w-100" />
                 <div className="col privacy-feature-card__about">
                   <button className="btn btn-link">What is this ?</button>
                 </div>
@@ -112,6 +115,7 @@ const Page = () => (
                       Allow third party applications to access your data through Facebook ?
                   </div>
                 </div>
+                <div className="w-100" />
                 <div className="col privacy-feature-card__about">
                   <button className="btn btn-link">What is this ?</button>
                 </div>
@@ -135,6 +139,7 @@ const Page = () => (
                       includes your contact information
                   </div>
                 </div>
+                <div className="w-100" />
                 <div className="col privacy-feature-card__about">
                   <button className="btn btn-link">What is this ?</button>
                 </div>
@@ -175,6 +180,7 @@ const Page = () => (
                   <strong>Personalize your letter</strong> <br />
                   Here is some desc
                 </div>
+                <div className="w-100" />
                 <div className="col wizard-card__address-form">
                   <form>
                     <div className="row">
@@ -229,6 +235,7 @@ const Page = () => (
                   <strong>Print generated PDF</strong> <br />
                   Here is some desc
                 </div>
+                <div className="w-100" />
               </div>
             </div>
           </div>
@@ -243,6 +250,7 @@ const Page = () => (
                   <strong>Bring it to the post office, we are paying for the stamp <span role="img" aria-label="claps">👏</span></strong><br />
                   Here is some desc
                 </div>
+                <div className="w-100" />
               </div>
             </div>
           </div>

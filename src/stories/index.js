@@ -88,6 +88,7 @@ storiesOf('Privacy Feature Card', module)
               Allow Facebook to recognise your face in photos and videos?
             </div>
           </div>
+          <div className="w-100" />
           <div className="col privacy-feature-card__about">
             <button className="btn btn-link">What is this ?</button>
           </div>
@@ -111,6 +112,7 @@ storiesOf('Wizard Card', module)
             <strong>Personalize your letter</strong> <br />
             Here is some desc
           </div>
+          <div className="w-100" />
           <div className="col wizard-card__address-form">
             <form>
               <div className="row">
@@ -166,6 +168,7 @@ storiesOf('Wizard Card', module)
             <strong>Print generated PDF</strong> <br />
             Here is some desc
           </div>
+          <div className="w-100" />
           <div className="col wizard-card__pdf">
             <div className="wizard-card__pdf-box">
               <div className="wizard-card__pdf__icon">
@@ -204,6 +207,7 @@ storiesOf('Wizard Card', module)
             Here is some desc
           </div>
         </div>
+        <div className="w-100" />
         <div className="row">
           <div className="col wizard-card__buttons text-right">
             <button className="btn btn-secondary">

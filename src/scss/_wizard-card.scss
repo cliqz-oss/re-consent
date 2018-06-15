@@ -5,6 +5,12 @@
   background: white;
   border-bottom: 1px solid $secondary;
 
+  .w-100 {
+    @include media-breakpoint-up('md') {
+      display: none;
+    }
+  }
+
   &--current {
     position: relative;
   }

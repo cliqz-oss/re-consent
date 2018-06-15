@@ -5,6 +5,12 @@
   margin-bottom: 1rem;
   padding: 24px 0;
 
+  .w-100 {
+    @include media-breakpoint-up('md') {
+      display: none;
+    }
+  }
+
   &__icon {
     box-sizing: content-box;
     flex: 0;
@@ -14,6 +20,10 @@
   &__content {
     strong {
       color: black;
+    }
+
+    @include media-breakpoint-down('md'){
+      margin-bottom: 1rem;
     }
 
     .badge {
@@ -28,6 +38,10 @@
 
   &__about {
     flex: 0;
+
+    @include media-breakpoint-down('md') {
+      margin-left: auto;
+    }
   }
 
   &__cta {

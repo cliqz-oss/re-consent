@@ -24,5 +24,9 @@
 
   &__cards {
     margin: 0 -24px;
+
+    @include media-breakpoint-down('xs'){
+      margin: 0;
+    }
   }
 }
