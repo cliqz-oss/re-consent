@@ -254,7 +254,9 @@ storiesOf('Header', module)
           </button>
         </div>
         <div className="header__scroll-indicator">
-          <div className="header__scroll-indicator__arrow" />
+          <a className="header__scroll-indicator__arrow" href="#scroll-indicator" id="scroll-indicator">
+            <div />
+          </a>
         </div>
       </div>
     </div>
