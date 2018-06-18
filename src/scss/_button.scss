@@ -39,3 +39,17 @@
     color: #00AEF0;
   }
 }
+
+.btn-icon {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+
+  svg {
+    fill: currentColor;
+  }
+
+  svg + span, span + svg {
+    margin-left: 0.5rem;
+  }
+}

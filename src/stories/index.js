@@ -3,6 +3,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Page from '../components/Page';
+import { IconStamp } from '../components/Icons';
+
 import '../index.css';
 
 storiesOf('Button', module)
@@ -31,6 +33,12 @@ storiesOf('Button', module)
         What do they collect?
       </button>
     </div>
+  ))
+  .add('with-icon', () => (
+    <button className="btn btn-secondary btn-icon">
+      <IconStamp />
+      <span>Print Free Stamp</span>
+    </button>
   ));
 
 storiesOf('Badge', module)

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconLocation, IconFace, IconCloseCopy, IconThirdPartyAccess, IconAds, IconOneNo, IconTwoNo, IconThreeNo } from './Icons';
+import { IconLocation, IconFace, IconCloseCopy, IconThirdPartyAccess, IconAds, IconStamp, IconPrint, IconArrowRight, IconOneNo, IconTwoNo, IconThreeNo } from './Icons';
 
 const Page = () => (
   <div className="page">
@@ -245,8 +245,9 @@ const Page = () => (
                       <strong>Dana Nedamaldeen Nightmare for Facebook</strong> <nobr>4 MB PDF</nobr>
                     </div>
                     <div className="wizard-card__pdf__button">
-                      <button className="btn btn-secondary">
-                        Print PDF
+                      <button className="btn btn-secondary btn-icon">
+                        <IconPrint />
+                        <span>Print PDF</span>
                       </button>
                     </div>
                   </div>
@@ -275,11 +276,13 @@ const Page = () => (
               </div>
               <div className="row">
                 <div className="col wizard-card__buttons text-right">
-                  <button className="btn btn-secondary">
-                    Print Free Stamp
+                  <button className="btn btn-secondary btn-icon">
+                    <IconStamp />
+                    <span>Print Free Stamp</span>
                   </button>
-                  <button className="btn btn-primary">
-                    Find next post box
+                  <button className="btn btn-primary btn-icon">
+                    <span>Find next post box</span>
+                    <IconArrowRight />
                   </button>
                 </div>
               </div>

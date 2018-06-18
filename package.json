@@ -10,7 +10,7 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "HOST=0.0.0.0 react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "deploy": "npm run build && aws s3 sync --delete --acl public-read build/ s3://cliqz/website",
     "build-css": "node-sass-chokidar --include-path ./node_modules src/scss/index.scss -o src/",

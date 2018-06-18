@@ -13,7 +13,7 @@
 
   &__icon {
     box-sizing: content-box;
-    flex: 0;
+    flex: 0 0 auto;
     width: 24px;
   }
 
@@ -37,7 +37,8 @@
   }
 
   &__about {
-    flex: 0;
+    flex: 0 0 auto;
+    width: auto;
 
     @include media-breakpoint-down('md') {
       margin-left: auto;
@@ -45,6 +46,7 @@
   }
 
   &__cta {
-    flex: 0;
+    flex: 0 0 auto;
+    width: auto;
   }
 }
