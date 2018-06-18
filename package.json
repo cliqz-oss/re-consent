@@ -18,7 +18,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "deploy-storybook": "npm run build-storybook && aws s3 sync --acl public-read build/ s3://cliqz/storybook"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.7",
