@@ -1,0 +1,108 @@
+.detection-cards {
+  max-width: 340px;
+  min-height: 240px;
+  background: white;
+	box-shadow: 0 24px 40px -4px rgba(0,0,0,0.16);
+
+  &__close{
+    text-align: right;
+
+    svg{
+      position: relative;
+      right: 24px;
+      top: 24px;
+      display: inline;
+      fill: $dark;
+    }
+  }
+
+  &__circle {
+    height: 112px;
+    width: 112px;
+
+    background-color: rgba(119,255,202,0.16);
+    border-radius: 50%;
+    margin-top: 10px;
+    padding: 24px;
+
+  }
+
+  &__circle-suspicious {
+    height: 112px;
+    width: 112px;
+
+    background-color: rgba(255,0,73,0.04);
+    border-radius: 50%;
+    padding: 24px;
+
+  }
+
+  &__icon {
+    padding: 10px 113px 24px 115px;
+    text-align: center;
+    vertical-align: middle;
+
+    svg {
+      fill: #26CD88;
+    }
+  }
+
+  &__icon-animation{
+    background-image: url('./assets/scan-icon.png');
+    height: 112px;
+    width: 112px;
+
+    -moz-animation:spin 1s ease-in-out infinite;
+    -webkit-animation:spin 1s ease-in-out infinite;
+    animation:spin 1s ease-in-out infinite;
+  }
+
+  &__icon-suspicious {
+    padding: 20px 113px 24px 115px;
+    text-align: center;
+    vertical-align: middle;
+
+    svg {
+      fill: $danger;
+    }
+  }
+
+
+  &__title {
+    padding-bottom: 10px;
+    color: $dark;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: center;
+  }
+
+  &__subtitle {
+    color: $blue;
+    letter-spacing: 0.34px;
+    line-height: 20px;
+    padding-bottom: 38px;
+    text-align: center;
+  }
+
+  &__small-cards {
+    max-width: 240px;
+    background: white;
+    font-size: 14px;
+    line-height: 1.714;
+    margin-bottom: 1rem;
+    padding: 25px 32px;
+
+    svg {
+      box-sizing: content-box;
+      flex: 0 0 auto;
+      width: 24px;
+    }
+  }
+  &__small-cards-title {
+    margin-right: auto;
+  }
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(-360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(-360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }

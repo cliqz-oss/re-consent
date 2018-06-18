@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Page from '../components/Page';
-import { IconStamp } from '../components/Icons';
+import { IconStamp, IconPrivacyOK, IconClose, IconSkull, IconFace } from '../components/Icons';
 
 import '../index.css';
 
@@ -294,6 +294,83 @@ storiesOf('Footer', module)
   .add('default', () => (
     <div className="footer">
       © 2018 Cliqz All rights reserved.
+    </div>
+  ));
+
+storiesOf('Detection Cards', module)
+  .add('scanning', () => (
+    <div className="page" style={{ height: '1000px' }} >
+      <div className="detection-cards">
+        <div className="detection-cards__close">
+          <a href="#close">
+            <IconClose />
+          </a>
+        </div>
+        <div className="detection-cards__icon">
+          <div className="detection-cards__icon-animation" />
+        </div>
+        <div className="detection-cards__title">
+          Facebook Privacy Scanning ...
+        </div>
+      </div>
+    </div>
+  ))
+  .add('small-cards', () => (
+    <div className="detection-cards__small-cards">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <IconFace />
+          </div>
+          <div className="col detection-cards__small-cards-title">
+            fds
+          </div>
+        </div>
+      </div>
+    </div>
+  ))
+  .add('suspicious', () => (
+    <div className="page" style={{ height: '1000px' }}>
+      <div className="detection-cards">
+        <div className="detection-cards__close">
+          <a href="#close">
+            <IconClose />
+          </a>
+        </div>
+        <div className="detection-cards__icon-suspicious">
+          <div className="detection-cards__circle-suspicious">
+            <IconSkull />
+          </div>
+        </div>
+        <div className="detection-cards__title">
+        Suspicious infringement of privacy detected!
+        </div>
+        <div className="detection-cards__subtitle">
+          Show me what I 've done
+        </div>
+      </div>
+    </div>
+  ))
+  .add('well-set', () => (
+    <div className="page" style={{ height: '1000px' }}>
+      <div className="detection-cards">
+        <div className="detection-cards__close">
+          <a href="#close">
+            <IconClose />
+          </a>
+        </div>
+        <div className="detection-cards__icon">
+          <div className="detection-cards__circle">
+            <IconPrivacyOK />
+          </div>
+        </div>
+        <div className="detection-cards__title">
+          Privacy Well Set!
+        </div>
+        <div className="detection-cards__subtitle">
+          Show me what I 've done
+        </div>
+      </div>
     </div>
   ));
 
