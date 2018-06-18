@@ -63,6 +63,10 @@
       display: flex;
       margin-bottom: 24px;
       padding: 16px;
+
+      @include media-breakpoint-down('xs') {
+        flex-wrap: wrap;
+      }
     }
 
     &__icon {
@@ -91,13 +95,20 @@
     }
 
     &__button {
+
       flex: 0 0 auto;
+
+      @include media-breakpoint-down('xs') {
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 
   &__buttons {
     .btn {
       margin-left: 1rem;
+      margin-top: 1rem;
     }
   }
 
