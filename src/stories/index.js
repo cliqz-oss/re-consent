@@ -6,6 +6,7 @@ import Page from '../components/Page';
 import { IconStamp, IconPrivacyOK, IconClose, IconSkull, IconFace } from '../components/Icons';
 
 import '../index.css';
+import detectIcon from '../assets/scan-icon.png';
 
 storiesOf('Button', module)
   .add('primary', () => (
@@ -299,77 +300,50 @@ storiesOf('Footer', module)
 
 storiesOf('Detection Cards', module)
   .add('scanning', () => (
-    <div className="page" style={{ height: '1000px' }} >
-      <div className="detection-cards">
-        <div className="detection-cards__close">
-          <a href="#close">
-            <IconClose />
-          </a>
-        </div>
-        <div className="detection-cards__icon">
-          <div className="detection-cards__icon-animation" />
-        </div>
-        <div className="detection-cards__title">
-          Facebook Privacy Scanning ...
-        </div>
+    <div className="detection-card">
+      <div className="detection-card__close">
+        <IconClose />
       </div>
-    </div>
-  ))
-  .add('small-cards', () => (
-    <div className="detection-cards__small-cards">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col">
-            <IconFace />
-          </div>
-          <div className="col detection-cards__small-cards-title">
-            fds
-          </div>
-        </div>
+      <div className="detection-card__icon">
+        <img className="detection-card__icon--detect" src={detectIcon} alt="No img" />
+      </div>
+      <div className="detection-card__title detection-card__title--light">
+        Facebook Privacy Scanning <span>.</span><span>.</span><span>.</span>
       </div>
     </div>
   ))
   .add('suspicious', () => (
-    <div className="page" style={{ height: '1000px' }}>
-      <div className="detection-cards">
-        <div className="detection-cards__close">
-          <a href="#close">
-            <IconClose />
-          </a>
+    <div className="detection-card">
+      <div className="detection-card__close">
+        <IconClose />
+      </div>
+      <div className="detection-card__icon">
+        <div className="detection-card__icon--suspicious">
+          <IconSkull />
         </div>
-        <div className="detection-cards__icon-suspicious">
-          <div className="detection-cards__circle-suspicious">
-            <IconSkull />
-          </div>
-        </div>
-        <div className="detection-cards__title">
+      </div>
+      <div className="detection-card__title">
         Suspicious infringement of privacy detected!
-        </div>
-        <div className="detection-cards__subtitle">
-          Show me what I 've done
-        </div>
       </div>
     </div>
   ))
   .add('well-set', () => (
-    <div className="page" style={{ height: '1000px' }}>
-      <div className="detection-cards">
-        <div className="detection-cards__close">
-          <a href="#close">
-            <IconClose />
-          </a>
+    <div className="detection-card">
+      <div className="detection-card__close">
+        <IconClose />
+      </div>
+      <div className="detection-card__icon">
+        <div className="detection-card__icon--success">
+          <IconPrivacyOK />
         </div>
-        <div className="detection-cards__icon">
-          <div className="detection-cards__circle">
-            <IconPrivacyOK />
-          </div>
-        </div>
-        <div className="detection-cards__title">
-          Privacy Well Set!
-        </div>
-        <div className="detection-cards__subtitle">
-          Show me what I 've done
-        </div>
+      </div>
+      <div className="detection-card__title">
+        Privacy Well Set!
+      </div>
+      <div className="detection-card__button">
+        <button className="btn btn-link">
+          Show me what I&apos;ve done
+        </button>
       </div>
     </div>
   ));
