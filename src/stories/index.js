@@ -300,50 +300,52 @@ storiesOf('Footer', module)
 
 storiesOf('Detection Cards', module)
   .add('scanning', () => (
-    <div className="detection-card">
-      <div className="detection-card__close">
-        <IconClose />
-      </div>
-      <div className="detection-card__icon">
-        <img className="detection-card__icon--detect" src={detectIcon} alt="No img" />
-      </div>
-      <div className="detection-card__title detection-card__title--light">
-        Facebook Privacy Scanning <span>.</span><span>.</span><span>.</span>
+    <div style={{ margin: '2rem' }}>
+      <div className="detection-card">
+        <div className="detection-card__close">
+          <IconClose />
+        </div>
+        <div className="detection-card__icon detection-card__icon--detect">
+          <img src={detectIcon} alt="" />
+        </div>
+        <div className="detection-card__title detection-card__title--light">
+          Facebook Privacy Scanning <span className="detection-card__title__progress"><span>.</span><span>.</span><span>.</span></span>
+        </div>
       </div>
     </div>
   ))
   .add('suspicious', () => (
-    <div className="detection-card">
-      <div className="detection-card__close">
-        <IconClose />
-      </div>
-      <div className="detection-card__icon">
-        <div className="detection-card__icon--suspicious">
+    <div style={{ margin: '2rem' }}>
+      <div className="detection-card">
+        <div className="detection-card__close">
+          <IconClose />
+        </div>
+        <div className="detection-card__icon detection-card__icon--suspicious">
           <IconSkull />
         </div>
-      </div>
-      <div className="detection-card__title">
-        Suspicious infringement of privacy detected!
+        <div className="detection-card__title">
+          Suspicious infringement of privacy detected!
+        </div>
       </div>
     </div>
   ))
-  .add('well-set', () => (
-    <div className="detection-card">
-      <div className="detection-card__close">
-        <IconClose />
-      </div>
-      <div className="detection-card__icon">
-        <div className="detection-card__icon--success">
+  .add('success', () => (
+    <div style={{ margin: '2rem' }}>
+      <div className="detection-card">
+        <div className="detection-card__close">
+          <IconClose />
+        </div>
+        <div className="detection-card__icon detection-card__icon--success">
           <IconPrivacyOK />
         </div>
-      </div>
-      <div className="detection-card__title">
-        Privacy Well Set!
-      </div>
-      <div className="detection-card__button">
-        <button className="btn btn-link">
-          Show me what I&apos;ve done
-        </button>
+        <div className="detection-card__title">
+          Privacy Well Set!
+        </div>
+        <div className="detection-card__button">
+          <button className="btn btn-link">
+            Show me what I&apos;ve done
+          </button>
+        </div>
       </div>
     </div>
   ));
