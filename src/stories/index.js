@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Page from '../components/Page';
-import { IconStamp, IconPrivacyOK, IconClose, IconSkull, IconFace } from '../components/Icons';
+import { IconStamp, IconPrivacyOK, IconClose, IconSkull, IconFace, IconCloseCopy } from '../components/Icons';
 
 import '../index.css';
 import detectIcon from '../assets/scan-icon.png';
@@ -81,6 +81,13 @@ storiesOf('Fields', module)
 storiesOf('Tick', module)
   .add('default', () => (
     <div className="tick" />
+  ));
+
+storiesOf('Arrow Down', module)
+  .add('default', () => (
+    <div style={{ margin: '2rem' }} >
+      <div className="arrow-down" />
+    </div>
   ));
 
 storiesOf('Privacy Feature Card', module)
@@ -299,6 +306,25 @@ storiesOf('Footer', module)
   ));
 
 storiesOf('Detection Cards', module)
+  .add('suspicious elements', () => (
+    <div style={{ margin: '2rem' }}>
+      <div className="detection-card__summary__item">
+        <div className="row">
+          <div className="col detection-card__summary__item__icon">
+            <IconFace />
+          </div>
+          <div className="col detection-card__summary__item__title">
+            Face Recognition
+          </div>
+          <div className="col detection-card__summary__item__badge">
+            <span className="badge badge-danger">
+              Active
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))
   .add('scanning', () => (
     <div style={{ margin: '2rem' }}>
       <div className="detection-card">
@@ -325,6 +351,58 @@ storiesOf('Detection Cards', module)
         </div>
         <div className="detection-card__title">
           Suspicious infringement of privacy detected!
+        </div>
+
+
+        <div className="detection-card__summary">
+
+          <div className="detection-card__summary__item">
+            <div className="row">
+              <div className="col detection-card__summary__item__icon">
+                <IconFace />
+              </div>
+              <div className="col detection-card__summary__item__title">
+                Face Recognition
+              </div>
+              <div className="col detection-card__summary__item__badge">
+                <span className="badge badge-danger">
+                  Active
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="detection-card__summary__line" />
+
+          <div className="detection-card__summary__item">
+            <div className="row">
+              <div className="col detection-card__summary__item__icon">
+                <IconCloseCopy />
+              </div>
+              <div className="col detection-card__summary__item__title">
+                Cambridge Analytica
+              </div>
+              <div className="col detection-card__summary__item__badge">
+                <span className="badge badge-danger">
+                  Public
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="detection-card__summary__cta">
+            <button className="btn btn-primary">
+              How to Deactivate ?
+            </button>
+          </div>
+
+          <div className="detection-card__summary__ignore-link">
+            <button className="btn btn-link btn-icon">
+              <span>Remind me later</span> &nbsp;
+              <div className="arrow-down" />
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
