@@ -2,11 +2,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
+import DetectionCardScanning from '../components/DetectionCardScanning';
+import DetectionCardSuccess from '../components/DetectionCardSuccess';
+import DetectionCardSuspicious from '../components/DetectionCardSuspicious';
 import Page from '../components/Page';
-import { IconStamp, IconPrivacyOK, IconClose, IconSkull, IconFace, IconCloseCopy } from '../components/Icons';
+import { IconStamp } from '../components/Icons';
 
-import '../index.css';
-import detectIcon from '../assets/scan-icon.png';
+import '../scss/index-website.scss';
 
 storiesOf('Button', module)
   .add('primary', () => (
@@ -308,92 +310,17 @@ storiesOf('Footer', module)
 storiesOf('Detection Cards', module)
   .add('scanning', () => (
     <div style={{ margin: '2rem' }}>
-      <div className="detection-card">
-        <div className="detection-card__close">
-          <IconClose />
-        </div>
-        <div className="detection-card__icon detection-card__icon--detect">
-          <img src={detectIcon} alt="" />
-        </div>
-        <div className="detection-card__title detection-card__title--light">
-          Facebook Privacy Scanning <span className="detection-card__title__progress"><span>.</span><span>.</span><span>.</span></span>
-        </div>
-      </div>
+      <DetectionCardScanning />
     </div>
   ))
   .add('suspicious', () => (
     <div style={{ margin: '2rem' }}>
-      <div className="detection-card">
-        <div className="detection-card__close">
-          <IconClose />
-        </div>
-        <div className="detection-card__icon detection-card__icon--suspicious">
-          <IconSkull />
-        </div>
-        <div className="detection-card__title">
-          Suspicious infringement of privacy detected!
-        </div>
-        <div className="detection-card__summary">
-          <div className="detection-card__summary__item">
-            <div className="detection-card__summary__item__icon">
-              <IconFace />
-            </div>
-            <div className="detection-card__summary__item__title">
-              Face Recognition
-            </div>
-            <div className="detection-card__summary__item__badge">
-              <span className="badge badge-danger">
-                Active
-              </span>
-            </div>
-          </div>
-          <div className="detection-card__summary__line" />
-          <div className="detection-card__summary__item">
-            <div className="detection-card__summary__item__icon">
-              <IconCloseCopy />
-            </div>
-            <div className="detection-card__summary__item__title">
-              Cambridge Analytica
-            </div>
-            <div className="detection-card__summary__item__badge">
-              <span className="badge badge-danger">
-                Public
-              </span>
-            </div>
-          </div>
-          <div className="detection-card__summary__cta">
-            <button className="btn btn-primary">
-              How to Deactivate?
-            </button>
-          </div>
-          <div className="detection-card__summary__ignore-link">
-            <button className="btn btn-link btn-icon">
-              <span>Remind me later</span> &nbsp;
-              <span className="arrow-down" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <DetectionCardSuspicious />
     </div>
   ))
   .add('success', () => (
     <div style={{ margin: '2rem' }}>
-      <div className="detection-card">
-        <div className="detection-card__close">
-          <IconClose />
-        </div>
-        <div className="detection-card__icon detection-card__icon--success">
-          <IconPrivacyOK />
-        </div>
-        <div className="detection-card__title">
-          Privacy Well Set!
-        </div>
-        <div className="detection-card__button">
-          <button className="btn btn-link">
-            Show me what I&apos;ve done
-          </button>
-        </div>
-      </div>
+      <DetectionCardSuccess />
     </div>
   ));
 

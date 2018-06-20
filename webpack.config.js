@@ -4,7 +4,10 @@ const path = require('path');
 const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    plugin: './src/index-plugin.jsx',
+    website: './src/index-website.jsx',
+  },
   mode,
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -16,6 +19,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      chunks: ['website'],
     }),
   ],
   devtool: mode !== 'production' ? 'inline-source-map' : false,
@@ -30,7 +34,21 @@ module.exports = {
         use: 'file-loader',
       },
       {
-        test: /\.scss$/,
+        test: path.resolve(__dirname, 'src/scss/index-plugin.scss'),
+        use: [
+          'style-loader',
+          'css-loader?module',
+          'postcss-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['./node_modules'],
+            },
+          },
+        ],
+      },
+      {
+        test: path.resolve(__dirname, 'src/scss/index-website.scss'),
         use: [
           'style-loader',
           'css-loader',
