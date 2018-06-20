@@ -96,63 +96,58 @@
 
   &__summary {
     background: #F9F9FA;
-    margin: 32px -32px -32px -32px;
+    margin: 40px -32px -32px -32px;
+    padding: 8px 32px 0 32px;
     overflow: hidden;
 
     &__item {
-      position: relative;
-      margin: 20px 32px 20px 32px;
-      max-width: 340px;
+      display: flex;
+      margin: 16px 0;
 
       &__icon {
-        box-sizing: content-box;
         flex: 0 0 auto;
         width: 24px;
-        padding: 0;
       }
 
       &__title {
         flex: 1 1 auto;
         width: auto;
         color: black;
+        padding: 0 10px;
       }
 
       &__badge {
-        flex: 0 1 auto;
+        flex: 0 0 auto;
         width: auto;
       }
     }
 
     &__line {
-      border: 0.5px solid $secondary;
-      margin: 0 24px;
+      border-top: 1px solid $secondary;
     }
 
     &__cta {
-      text-align: center;
+      margin-top: 2rem;
 
       .btn {
-        font-size: 14px;
+        width: 100%;
         letter-spacing: 0.3px;
       }
-
     }
 
     &__ignore-link {
       text-align: center;
-      margin: 10px;
 
-      .btn {
+      .arrow-down {
         font-size: 1rem;
-        font-weight: 400;
-        text-transform: none;
+
+        &:after {
+          vertical-align: 0.15em;
+        }
       }
     }
-
   }
 }
-
-
 
 @keyframes spin { 100% { transform: rotate(-360deg); } }
 @keyframes blink { 0% { opacity: .05; } 20% { opacity: 1; } 100% { opacity: .05; } }
