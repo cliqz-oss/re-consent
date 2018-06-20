@@ -10,13 +10,9 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "start": "HOST=0.0.0.0 react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "start": "webpack-dev-server --host 0.0.0.0 --open",
+    "build": "rm -rf build && NODE_ENV=production webpack",
     "deploy": "npm run build && aws s3 sync --delete --acl public-read build/ s3://cliqz/website",
-    "build-css": "node-sass-chokidar --include-path ./node_modules src/scss/index.scss -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./node_modules src/scss/index.scss -o src/ --watch --recursive",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "deploy-storybook": "npm run build-storybook && aws s3 sync --delete --acl public-read storybook-static/ s3://cliqz/storybook"
@@ -26,14 +22,27 @@
     "@storybook/addon-links": "^3.4.7",
     "@storybook/addons": "^3.4.7",
     "@storybook/react": "^3.4.7",
+    "autoprefixer": "^8.6.3",
     "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "babel-runtime": "^6.26.0",
+    "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
-    "node-sass-chokidar": "^1.3.0"
-  },
-  "homepage": "/website"
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass-chokidar": "^1.3.0",
+    "postcss": "^6.0.22",
+    "postcss-loader": "^2.1.5",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
+  }
 }
