@@ -17,7 +17,9 @@ class DetectionCard extends React.Component {
   constructor(props) {
     super(props);
 
+    this.onClose = this.onClose.bind(this);
     this.state = {
+      closed: false,
       status: 'scanning',
       features: [],
     };
@@ -31,17 +33,25 @@ class DetectionCard extends React.Component {
     this.setState({ status, features }); // eslint-disable-line react/no-did-mount-set-state
   }
 
+  onClose() {
+    this.setState({ closed: true });
+  }
+
   render() {
-    const { status, features } = this.state;
+    const { closed, status, features } = this.state;
+
+    if (closed) {
+      return null;
+    }
 
     let component = null;
 
     if (status === 'scanning') {
-      component = <DetectionCardScanning />;
+      component = <DetectionCardScanning onClose={this.onClose} />;
     } else if (status === 'suspicious') {
-      component = <DetectionCardSuspicious features={features} />;
+      component = <DetectionCardSuspicious onClose={this.onClose} features={features} />;
     } else if (status === 'success') {
-      component = <DetectionCardSuccess />;
+      component = <DetectionCardSuccess onClose={this.onClose} />;
     }
 
     return (

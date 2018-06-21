@@ -1,12 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 import style from '../scss/index-plugin.scss';
 import { IconClose, IconSkull } from './Icons';
 
-const DetectionCardSuspicious = ({ features }) => (
+const DetectionCardSuspicious = ({ onClose, features }) => (
   <div className={style['detection-card']}>
-    <div className={style['detection-card__close']}>
+    <div className={style['detection-card__close']} onClick={onClose}>
       <IconClose />
     </div>
     <div className={[style['detection-card__icon'], style['detection-card__icon--suspicious']].join(' ')}>
@@ -49,11 +49,16 @@ const DetectionCardSuspicious = ({ features }) => (
 );
 
 DetectionCardSuspicious.propTypes = {
+  onClose: PropTypes.func,
   features: PropTypes.arrayOf(PropTypes.shape({
     suspicious: PropTypes.bool.isRequired,
     icon: PropTypes.node.isRequired,
     title: PropTypes.string.isRequired,
   })).isRequired,
+};
+
+DetectionCardSuspicious.defaultProps = {
+  onClose: null,
 };
 
 export default DetectionCardSuspicious;

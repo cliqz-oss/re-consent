@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import detectIcon from '!url-loader!../assets/scan-icon.png';
 import style from '../scss/index-plugin.scss';
 import { IconClose } from './Icons';
 
-const DetectionCardScanning = () => (
+const DetectionCardScanning = ({ onClose }) => (
   <div className={style['detection-card']}>
-    <div className={style['detection-card__close']}>
+    <div className={style['detection-card__close']} onClick={onClose}>
       <IconClose />
     </div>
     <div className={[style['detection-card__icon'], style['detection-card__icon--detect']].join(' ')}>
@@ -17,5 +18,13 @@ const DetectionCardScanning = () => (
     </div>
   </div>
 );
+
+DetectionCardScanning.propTypes = {
+  onClose: PropTypes.func,
+};
+
+DetectionCardScanning.defaultProps = {
+  onClose: null,
+};
 
 export default DetectionCardScanning;

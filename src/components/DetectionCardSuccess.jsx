@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import style from '../scss/index-plugin.scss';
 import { IconClose, IconPrivacyOK } from './Icons';
 
-const DetectionCardSuccess = () => (
+const DetectionCardSuccess = ({ onClose }) => (
   <div className={style['detection-card']}>
-    <div className={style['detection-card__close']}>
+    <div className={style['detection-card__close']} onClick={onClose}>
       <IconClose />
     </div>
     <div className={[style['detection-card__icon'], style['detection-card__icon--success']].join(' ')}>
@@ -21,5 +22,13 @@ const DetectionCardSuccess = () => (
     </div>
   </div>
 );
+
+DetectionCardSuccess.propTypes = {
+  onClose: PropTypes.func,
+};
+
+DetectionCardSuccess.defaultProps = {
+  onClose: null,
+};
 
 export default DetectionCardSuccess;
