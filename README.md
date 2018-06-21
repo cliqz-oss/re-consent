@@ -16,3 +16,10 @@ This project was implemented with [Create React App](https://github.com/facebook
 
 - Deploy Storybook command
 `npm run deploy-storybook`
+
+## Storybook
+
+We use `@storybook/react@v4.0.0-alpha.9` to be able to use webpack 4.
+These dependencies are required just for the storybook:
+- babel-plugin-transform-decorators-legacy
+- babel-preset-es2015
