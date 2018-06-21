@@ -32,3 +32,9 @@ Use the following commands to run everything in an isolated docker container.
 - Run the tests: `docker-compose exec app npm run test`
 
 *Note*: On MacOS High Sierra the file watchers don't always work reliable, that's why it is recommended to use docker instead.
+
+
+## Browser Extension
+To install & test the browser extension, follow this tutorial: https://developer.chrome.com/extensions/getstarted
+
+*Note*: You need to reload the extension in the extensions tab after a code update.
