@@ -40,7 +40,7 @@ async function detectLocationSharing() {
     const text = doc.getElementById('SettingsPage_Content').innerText.toLowerCase();
     const enabled = [
       'Dein Standort-Verlauf ist ein',
-      'Your Location History is off',
+      'Your Location History is on',
     ].some(value => text.includes(value.toLowerCase()));
 
     result.suspicious = enabled;
