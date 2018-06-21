@@ -4,13 +4,19 @@ import DetectionCardScanning from './DetectionCardScanning';
 import DetectionCardSuccess from './DetectionCardSuccess';
 import DetectionCardSuspicious from './DetectionCardSuspicious';
 
-import detectFacebookFeatures from '../features/facebook';
 import style from '../scss/index-plugin.scss';
 
-async function detectFeatures() {
-  return [
-    ...await detectFacebookFeatures(),
-  ];
+function detectFeatures() {
+  return new Promise((resolve) => {
+    chrome.runtime.sendMessage(
+      {
+        message: 'detect_features',
+      },
+      (features) => {
+        resolve(features);
+      },
+    );
+  });
 }
 
 function getErrorTitle(features) {

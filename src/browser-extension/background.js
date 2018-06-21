@@ -1,20 +1,6 @@
-const requestPage = url =>
-  new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.onload = () => {
-      if (this.readyState === XMLHttpRequest.DONE) {
-        resolve(this.responseXML);
-      }
-    };
+import detectFacebookFeatures from '../features/facebook';
 
-    xhr.onerror = () => reject(new Error(xhr.statusText));
-
-    xhr.open('GET', url, true);
-    xhr.responseType = 'document';
-
-    xhr.send();
-  });
-
+/*
 const detectGoogleFeatures = () =>
   new Promise((resolve) => {
     requestPage('https://myaccount.google.com/activitycontrols').then((targetDocument) => {
@@ -32,12 +18,19 @@ const detectGoogleFeatures = () =>
       });
     });
   });
+*/
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+async function detectFeatures() {
+  return [
+    ...await detectFacebookFeatures(),
+  ];
+}
+
+chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   const { message, url } = request;
 
   if (message === 'detect_features') {
-    detectGoogleFeatures(url).then((features) => {
+    await detectFeatures(url).then((features) => {
       sendResponse(features);
     });
   }

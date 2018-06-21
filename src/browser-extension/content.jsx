@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import DetectionCard from './components/DetectionCard';
+import DetectionCard from '../components/DetectionCard';
 
 const element = global.document.createElement('div');
 
