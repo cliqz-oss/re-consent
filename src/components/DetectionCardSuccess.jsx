@@ -4,7 +4,7 @@ import React from 'react';
 import style from '../scss/index-plugin.scss';
 import { IconClose, IconPrivacyOK } from './Icons';
 
-const DetectionCardSuccess = ({ onClose }) => (
+const DetectionCardSuccess = ({ onClose, infoUrl }) => (
   <div className={style['detection-card']}>
     <div className={style['detection-card__close']} onClick={onClose}>
       <IconClose />
@@ -16,19 +16,21 @@ const DetectionCardSuccess = ({ onClose }) => (
       Privacy Well Set!
     </div>
     <div className={style['detection-card__button']}>
-      <button className={[style.btn, style['btn-link']].join(' ')}>
+      <a className={[style.btn, style['btn-link']].join(' ')} target="_blank" rel="noopener noreferrer" href={infoUrl}>
         Show me what I&apos;ve done
-      </button>
+      </a>
     </div>
   </div>
 );
 
 DetectionCardSuccess.propTypes = {
   onClose: PropTypes.func,
+  infoUrl: PropTypes.string,
 };
 
 DetectionCardSuccess.defaultProps = {
   onClose: null,
+  infoUrl: '#',
 };
 
 export default DetectionCardSuccess;

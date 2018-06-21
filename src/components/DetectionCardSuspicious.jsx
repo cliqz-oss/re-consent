@@ -4,7 +4,7 @@ import React from 'react';
 import style from '../scss/index-plugin.scss';
 import { IconClose, IconSkull } from './Icons';
 
-const DetectionCardSuspicious = ({ onClose, features }) => (
+const DetectionCardSuspicious = ({ onClose, infoUrl, features }) => (
   <div className={style['detection-card']}>
     <div className={style['detection-card__close']} onClick={onClose}>
       <IconClose />
@@ -34,9 +34,9 @@ const DetectionCardSuspicious = ({ onClose, features }) => (
         ))}
       </div>
       <div className={style['detection-card__summary__cta']}>
-        <button className={[style.btn, style['btn-info']].join(' ')}>
+        <a className={[style.btn, style['btn-info']].join(' ')} target="_blank" rel="noopener noreferrer" href={infoUrl}>
           How to Deactivate?
-        </button>
+        </a>
       </div>
       <div className={style['detection-card__summary__ignore-link']}>
         <button className={[style.btn, style['btn-link']].join(' ')}>
@@ -50,6 +50,7 @@ const DetectionCardSuspicious = ({ onClose, features }) => (
 
 DetectionCardSuspicious.propTypes = {
   onClose: PropTypes.func,
+  infoUrl: PropTypes.string,
   features: PropTypes.arrayOf(PropTypes.shape({
     suspicious: PropTypes.bool,
     icon: PropTypes.node.isRequired,
@@ -59,6 +60,7 @@ DetectionCardSuspicious.propTypes = {
 
 DetectionCardSuspicious.defaultProps = {
   onClose: null,
+  infoUrl: '#',
 };
 
 export default DetectionCardSuspicious;

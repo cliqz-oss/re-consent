@@ -21,6 +21,10 @@ function getErrorTitle(features) {
   }
 }
 
+function getInfoUrl() {
+  return 'http://cliqz.s3-website.eu-central-1.amazonaws.com/website/';
+}
+
 class DetectionCard extends React.Component {
   constructor(props) {
     super(props);
@@ -59,14 +63,22 @@ class DetectionCard extends React.Component {
       return null;
     }
 
+    const infoUrl = getInfoUrl(features);
+
     let component = null;
 
     if (status === 'scanning') {
       component = <DetectionCardScanning onClose={this.onClose} />;
     } else if (status === 'suspicious') {
-      component = <DetectionCardSuspicious onClose={this.onClose} features={features} />;
+      component = (
+        <DetectionCardSuspicious
+          onClose={this.onClose}
+          infoUrl={infoUrl}
+          features={features}
+        />
+      );
     } else if (status === 'success') {
-      component = <DetectionCardSuccess onClose={this.onClose} />;
+      component = <DetectionCardSuccess onClose={this.onClose} infoUrl={infoUrl} />;
     }
 
     return (
