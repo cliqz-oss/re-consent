@@ -6,6 +6,7 @@
   background: white;
   box-shadow: 0 24px 40px -4px rgba(0,0,0,0.16);
   box-sizing: border-box;
+  font-family: $font-family-sans-serif;
   font-size: 16px;
   font-weight: $font-weight-base;
   padding: 50px 32px 20px 32px;
@@ -144,10 +145,11 @@
     }
 
     &__cta {
-      margin-top: 32px;
+      margin-top: 16px;
 
       .btn {
-        font-size: 12px;
+        border-radius: 0;
+        font-size: 14px;
         letter-spacing: 0.3px;
         width: 100%;
       }
@@ -156,12 +158,13 @@
     &__ignore-link {
       text-align: center;
 
-      .btn-link {
-        font-weight: 500;
-      }
-      .arrow-down {
+      .btn {
         font-size: 16px;
+        font-weight: $font-weight-base;
+        text-transform: none;
+      }
 
+      .arrow-down {
         &:after {
           vertical-align: 0.15em;
         }

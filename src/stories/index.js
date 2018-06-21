@@ -26,6 +26,11 @@ storiesOf('Button', module)
       What is this?
     </button>
   ))
+  .add('info', () => (
+    <button className="btn btn-info">
+      How to deactivate?
+    </button>
+  ))
   .add('light', () => (
     <div style={{ background: '#00AEF0', padding: '2em' }}>
       <button className="btn btn-light">
@@ -36,11 +41,6 @@ storiesOf('Button', module)
         What do they collect?
       </button>
     </div>
-  ))
-  .add('info', () => (
-    <button className="btn btn-info">
-      <span>How to deactivate?</span>
-    </button>
   ))
   .add('with-icon', () => (
     <button className="btn btn-secondary btn-icon">
