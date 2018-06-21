@@ -47,8 +47,12 @@ async function detectLocationSharing() {
   return result;
 }
 
+export function triggerDetection(url) {
+  return (new URL(url)).hostname === 'www.facebook.com';
+}
+
 export default async function detect(url) {
-  if ((new URL(url)).hostname !== 'www.facebook.com') {
+  if (!triggerDetection(url)) {
     return [];
   }
 

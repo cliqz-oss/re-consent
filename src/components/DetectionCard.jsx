@@ -4,6 +4,8 @@ import DetectionCardScanning from './DetectionCardScanning';
 import DetectionCardSuccess from './DetectionCardSuccess';
 import DetectionCardSuspicious from './DetectionCardSuspicious';
 
+import { triggerDetection as triggerFacebookDetection } from '../features/facebook';
+
 import style from '../scss/index-plugin.scss';
 
 function detectFeatures(url) {
@@ -18,6 +20,12 @@ function detectFeatures(url) {
       },
     );
   });
+}
+
+function triggerDetection(url) {
+  return [
+    triggerFacebookDetection(url),
+  ].some(value => value);
 }
 
 function getErrorTitle(features) {
@@ -38,7 +46,7 @@ class DetectionCard extends React.Component {
 
     this.onClose = this.onClose.bind(this);
     this.state = {
-      closed: false,
+      closed: true,
       status: 'scanning',
       features: [],
       errors: [],
@@ -46,12 +54,25 @@ class DetectionCard extends React.Component {
   }
 
   async componentDidMount() {
-    const features = await detectFeatures(String(window.location));
-    const errors = features.filter(feature => feature.error);
-    const suspicious = features.some(feature => feature.suspicious);
-    const status = suspicious ? 'suspicious' : 'success';
+    const url = String(window.location);
 
-    this.setState({ status, features, errors }); // eslint-disable-line react/no-did-mount-set-state
+    if (triggerDetection(url)) {
+      this.setState({ // eslint-disable-line react/no-did-mount-set-state
+        closed: false,
+        status: 'scanning',
+      });
+
+      const features = await detectFeatures(url);
+      const errors = features.filter(feature => feature.error);
+      const suspicious = features.some(feature => feature.suspicious);
+      const status = suspicious ? 'suspicious' : 'success';
+
+      this.setState({ // eslint-disable-line react/no-did-mount-set-state
+        status,
+        features,
+        errors,
+      });
+    }
   }
 
   onClose() {
