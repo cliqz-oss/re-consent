@@ -25,7 +25,7 @@ These dependencies are required just for the storybook:
 - babel-preset-es2015
 
 
-# Docker
+## Docker
 Use the following commands to run everything in an isolated docker container.
 
 - Run the development server: `docker-compose up`
