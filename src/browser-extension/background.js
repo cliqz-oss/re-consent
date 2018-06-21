@@ -20,17 +20,17 @@ const detectGoogleFeatures = () =>
   });
 */
 
-async function detectFeatures() {
+async function detectFeatures(url) {
   return [
-    ...await detectFacebookFeatures(),
+    ...await detectFacebookFeatures(url),
   ];
 }
 
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { message, url } = request;
 
   if (message === 'detect_features') {
-    await detectFeatures(url).then((features) => {
+    detectFeatures(url).then((features) => {
       sendResponse(features);
     });
   }

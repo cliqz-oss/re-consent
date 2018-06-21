@@ -6,11 +6,12 @@ import DetectionCardSuspicious from './DetectionCardSuspicious';
 
 import style from '../scss/index-plugin.scss';
 
-function detectFeatures() {
+function detectFeatures(url) {
   return new Promise((resolve) => {
     chrome.runtime.sendMessage(
       {
         message: 'detect_features',
+        url,
       },
       (features) => {
         resolve(features);
@@ -45,7 +46,7 @@ class DetectionCard extends React.Component {
   }
 
   async componentDidMount() {
-    const features = await detectFeatures();
+    const features = await detectFeatures(String(window.location));
     const errors = features.filter(feature => feature.error);
     const suspicious = features.some(feature => feature.suspicious);
     const status = suspicious ? 'suspicious' : 'success';

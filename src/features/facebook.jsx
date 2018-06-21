@@ -1,7 +1,3 @@
-import React from 'react';
-
-import { IconLocation, IconFace } from '../components/Icons';
-
 async function fetchDocument(url) {
   const response = await fetch(url, { credentials: 'include' });
 
@@ -17,7 +13,7 @@ async function fetchDocument(url) {
 }
 
 async function detectFaceRecognition() {
-  const result = { title: 'Face Recognition', icon: <IconFace /> };
+  const result = { title: 'Face Recognition', icon: 'IconFace' };
 
   try {
     const doc = await fetchDocument('https://www.facebook.com/settings?tab=facerec');
@@ -33,7 +29,7 @@ async function detectFaceRecognition() {
 }
 
 async function detectLocationSharing() {
-  const result = { title: 'Location Sharing', icon: <IconLocation /> };
+  const result = { title: 'Location Sharing', icon: 'IconLocation' };
 
   try {
     const doc = await fetchDocument('https://www.facebook.com/settings?tab=location');
@@ -51,8 +47,8 @@ async function detectLocationSharing() {
   return result;
 }
 
-export default async function detect() {
-  if (window.location.host !== 'www.facebook.com') {
+export default async function detect(url) {
+  if ((new URL(url)).hostname !== 'www.facebook.com') {
     return [];
   }
 

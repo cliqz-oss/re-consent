@@ -6,13 +6,14 @@ const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
   entry: {
-    plugin: './src/index-plugin.jsx',
+    content: './src/browser-extension/content.jsx',
+    background: './src/browser-extension/background.js',
     website: './src/index-website.jsx',
   },
   mode,
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].[hash].bundle.js',
+    filename: '[name].js',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -35,6 +36,10 @@ module.exports = {
       },
       {
         test: /\.(jpg|png)$/,
+        use: 'file-loader',
+      },
+      {
+        test: /\.json$/,
         use: 'file-loader',
       },
       {
