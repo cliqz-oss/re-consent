@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import style from '../scss/index-plugin.scss';
-import { IconClose, IconCloseCopy, IconFace, IconSkull } from './Icons';
+import { IconClose, IconSkull } from './Icons';
 
-const DetectionCardSuspicious = () => (
+const DetectionCardSuspicious = ({ features }) => (
   <div className={style['detection-card']}>
     <div className={style['detection-card__close']}>
       <IconClose />
@@ -15,32 +16,22 @@ const DetectionCardSuspicious = () => (
       Suspicious infringement of privacy detected!
     </div>
     <div className={style['detection-card__summary']}>
-      <div className={style['detection-card__summary__item']}>
-        <div className={style['detection-card__summary__item__icon']}>
-          <IconFace />
-        </div>
-        <div className={style['detection-card__summary__item__title']}>
-          Face Recognition
-        </div>
-        <div className={style['detection-card__summary__item__badge']}>
-          <span className={[style.badge, style['badge-danger']].join(' ')}>
-            Active
-          </span>
-        </div>
-      </div>
-      <div className={style['detection-card__summary__line']} />
-      <div className={style['detection-card__summary__item']}>
-        <div className={style['detection-card__summary__item__icon']}>
-          <IconCloseCopy />
-        </div>
-        <div className={style['detection-card__summary__item__title']}>
-          Cambridge Analytica
-        </div>
-        <div className={style['detection-card__summary__item__badge']}>
-          <span className={[style.badge, style['badge-danger']].join(' ')}>
-            Public
-          </span>
-        </div>
+      <div className={style['detection-card__summary__items']}>
+        {features.filter(feature => feature.suspicious).map(feature => (
+          <div className={style['detection-card__summary__item']}>
+            <div className={style['detection-card__summary__item__icon']}>
+              {feature.icon}
+            </div>
+            <div className={style['detection-card__summary__item__title']}>
+              {feature.title}
+            </div>
+            <div className={style['detection-card__summary__item__badge']}>
+              <span className={[style.badge, style['badge-danger']].join(' ')}>
+                Active
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
       <div className={style['detection-card__summary__cta']}>
         <button className={[style.btn, style['btn-primary']].join(' ')}>
@@ -56,5 +47,13 @@ const DetectionCardSuspicious = () => (
     </div>
   </div>
 );
+
+DetectionCardSuspicious.propTypes = {
+  features: PropTypes.arrayOf(PropTypes.shape({
+    suspicious: PropTypes.bool.isRequired,
+    icon: PropTypes.node.isRequired,
+    title: PropTypes.string.isRequired,
+  })).isRequired,
+};
 
 export default DetectionCardSuspicious;

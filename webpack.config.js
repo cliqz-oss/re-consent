@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -17,6 +18,9 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      regeneratorRuntime: 'regenerator-runtime',
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       chunks: ['website'],

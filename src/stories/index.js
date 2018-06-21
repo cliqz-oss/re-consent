@@ -6,7 +6,7 @@ import DetectionCardScanning from '../components/DetectionCardScanning';
 import DetectionCardSuccess from '../components/DetectionCardSuccess';
 import DetectionCardSuspicious from '../components/DetectionCardSuspicious';
 import Page from '../components/Page';
-import { IconStamp } from '../components/Icons';
+import { IconFace, IconLocation, IconStamp } from '../components/Icons';
 
 import '../scss/index-website.scss';
 
@@ -315,7 +315,12 @@ storiesOf('Detection Cards', module)
   ))
   .add('suspicious', () => (
     <div style={{ margin: '2rem' }}>
-      <DetectionCardSuspicious />
+      <DetectionCardSuspicious
+        features={[
+          { suspicious: true, icon: <IconFace />, title: 'Face Recognition' },
+          { suspicious: true, icon: <IconLocation />, title: 'Location Sharing' },
+        ]}
+      />
     </div>
   ))
   .add('success', () => (

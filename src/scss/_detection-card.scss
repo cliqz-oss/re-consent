@@ -109,12 +109,21 @@
   &__summary {
     background: #F9F9FA;
     margin: 40px -32px -32px -32px;
-    padding: 8px 32px 0 32px;
-    overflow: hidden;
+    padding: 0 32px;
+
+    &__items {
+      overflow: hidden;
+      padding-top: 8px;
+    }
 
     &__item {
       display: flex;
-      margin: 16px 0;
+      padding: 16px 0;
+      border-top: 1px solid $secondary;
+
+      &:first-child {
+        border-top: 0;
+      }
 
       &__icon {
         flex: 0 0 auto;
@@ -132,10 +141,6 @@
         flex: 0 0 auto;
         width: auto;
       }
-    }
-
-    &__line {
-      border-top: 1px solid $secondary;
     }
 
     &__cta {
