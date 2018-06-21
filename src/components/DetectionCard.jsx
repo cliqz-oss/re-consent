@@ -4,6 +4,8 @@ import DetectionCardScanning from './DetectionCardScanning';
 import DetectionCardSuccess from './DetectionCardSuccess';
 import DetectionCardSuspicious from './DetectionCardSuspicious';
 
+import style from '../scss/index-plugin.scss';
+
 class DetectionCard extends React.Component {
   constructor(props) {
     super(props);
@@ -16,15 +18,21 @@ class DetectionCard extends React.Component {
   render() {
     const { status } = this.state;
 
+    let component = null;
+
     if (status === 'scanning') {
-      return <DetectionCardScanning />;
+      component = <DetectionCardScanning />;
     } else if (status === 'suspicious') {
-      return <DetectionCardSuspicious />;
+      component = <DetectionCardSuspicious />;
     } else if (status === 'success') {
-      return <DetectionCardSuccess />;
+      component = <DetectionCardSuccess />;
     }
 
-    return null;
+    return (
+      <div className={style['detection-card-wrapper']}>
+        {component}
+      </div>
+    );
   }
 }
 

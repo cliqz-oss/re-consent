@@ -2,9 +2,20 @@
   position: relative;
   max-width: 340px;
 
+  -webkit-font-smoothing : antialiased;
   background: white;
   box-shadow: 0 24px 40px -4px rgba(0,0,0,0.16);
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: $font-weight-base;
   padding: 50px 32px 20px 32px;
+
+  &-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000000;
+  }
 
   &__close {
     position: absolute;
@@ -21,6 +32,7 @@
   }
 
   &__icon {
+    box-sizing: border-box;
     height: 112px;
     width: 112px;
     margin: 0 auto 24px auto;
@@ -86,7 +98,7 @@
     text-align: center;
 
     .btn {
-      font-size: 1rem;
+      font-size: 16px;
       font-weight: 400;
       letter-spacing: 0.34px;
       line-height: 20px;
@@ -127,11 +139,12 @@
     }
 
     &__cta {
-      margin-top: 2rem;
+      margin-top: 32px;
 
       .btn {
-        width: 100%;
+        font-size: 12px;
         letter-spacing: 0.3px;
+        width: 100%;
       }
     }
 
@@ -139,7 +152,7 @@
       text-align: center;
 
       .arrow-down {
-        font-size: 1rem;
+        font-size: 16px;
 
         &:after {
           vertical-align: 0.15em;
