@@ -13,6 +13,14 @@ async function detectFeatures() {
   ];
 }
 
+function getErrorTitle(features) {
+  try {
+    return features.map(feature => feature.error).join('\n');
+  } catch (e) {
+    return '';
+  }
+}
+
 class DetectionCard extends React.Component {
   constructor(props) {
     super(props);
@@ -22,15 +30,17 @@ class DetectionCard extends React.Component {
       closed: false,
       status: 'scanning',
       features: [],
+      errors: [],
     };
   }
 
   async componentDidMount() {
     const features = await detectFeatures();
+    const errors = features.filter(feature => feature.error);
     const suspicious = features.some(feature => feature.suspicious);
     const status = suspicious ? 'suspicious' : 'success';
 
-    this.setState({ status, features }); // eslint-disable-line react/no-did-mount-set-state
+    this.setState({ status, features, errors }); // eslint-disable-line react/no-did-mount-set-state
   }
 
   onClose() {
@@ -38,7 +48,12 @@ class DetectionCard extends React.Component {
   }
 
   render() {
-    const { closed, status, features } = this.state;
+    const {
+      closed,
+      status,
+      features,
+      errors,
+    } = this.state;
 
     if (closed) {
       return null;
@@ -57,6 +72,12 @@ class DetectionCard extends React.Component {
     return (
       <div className={style['detection-card-wrapper']}>
         {component}
+
+        {!!errors.length && (
+          <div className={style['detection-card-wrapper__error']} title={getErrorTitle(errors)}>
+            {errors.length} {errors.length === 1 ? 'error' : 'errors'}
+          </div>
+        )}
       </div>
     );
   }

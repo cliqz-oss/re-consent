@@ -51,7 +51,7 @@ const DetectionCardSuspicious = ({ onClose, features }) => (
 DetectionCardSuspicious.propTypes = {
   onClose: PropTypes.func,
   features: PropTypes.arrayOf(PropTypes.shape({
-    suspicious: PropTypes.bool.isRequired,
+    suspicious: PropTypes.bool,
     icon: PropTypes.node.isRequired,
     title: PropTypes.string.isRequired,
   })).isRequired,

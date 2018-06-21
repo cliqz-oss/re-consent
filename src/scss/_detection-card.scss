@@ -18,6 +18,15 @@
     z-index: 10000000;
   }
 
+  &-wrapper__error {
+    color: red;
+    font-size: 12px;
+    margin-top: -2em;
+    padding: 0.5em;
+    position: relative;
+    text-align: right;
+  }
+
   &__close {
     position: absolute;
     right: 20px;
