@@ -41,7 +41,7 @@ async function detectLocationSharing() {
     const enabled = [
       'Dein Standort-Verlauf ist ein',
       'Your Location History is off',
-    ].includes(text);
+    ].some(value => text.contains(value));
 
     result.suspicious = enabled;
   } catch (error) {
