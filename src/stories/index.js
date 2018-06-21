@@ -37,6 +37,11 @@ storiesOf('Button', module)
       </button>
     </div>
   ))
+  .add('info', () => (
+    <button className="btn btn-info">
+      <span>How to deactivate?</span>
+    </button>
+  ))
   .add('with-icon', () => (
     <button className="btn btn-secondary btn-icon">
       <IconStamp />

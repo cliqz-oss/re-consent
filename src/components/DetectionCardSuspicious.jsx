@@ -34,7 +34,7 @@ const DetectionCardSuspicious = ({ onClose, features }) => (
         ))}
       </div>
       <div className={style['detection-card__summary__cta']}>
-        <button className={[style.btn, style['btn-primary']].join(' ')}>
+        <button className={[style.btn, style['btn-info']].join(' ')}>
           How to Deactivate?
         </button>
       </div>
