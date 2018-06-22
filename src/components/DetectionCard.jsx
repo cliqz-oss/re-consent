@@ -25,10 +25,10 @@ function getInfoUrl(features) {
       suspicious,
     }));
 
-  const stringifiedData = JSON.stringify({
+  const stringifiedData = encodeURIComponent(JSON.stringify({
     suspiciousFeatures,
-    site: getCurrentSiteName(String(window.location)),
-  });
+    site: getCurrentSiteName(window.location),
+  }));
 
   return `http://cliqz.s3-website.eu-central-1.amazonaws.com/website/?data=${stringifiedData}`;
 }
