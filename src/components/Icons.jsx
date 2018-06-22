@@ -85,4 +85,10 @@ export const IconClose = () => (
   </svg>
 );
 
-export const getIconByName = name => global[name];
+export const getIconByName = (name) => {
+  const icon = module.exports[name];
+  if (icon) {
+    return icon();
+  }
+  return null;
+};

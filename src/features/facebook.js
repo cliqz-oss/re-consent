@@ -1,7 +1,7 @@
 import { fetchDocument } from './utils';
 
-const faceRecognitionFeature = { title: 'Face Recognition', key: 'face' };
-const locationSharingFeature = { title: 'Location Sharing', key: 'location' };
+const faceRecognitionFeature = { title: 'Face Recognition', key: 'face', icon: 'IconFace' };
+const locationSharingFeature = { title: 'Location Sharing', key: 'location', icon: 'LocationFace' };
 
 export const features = [
   faceRecognitionFeature,
