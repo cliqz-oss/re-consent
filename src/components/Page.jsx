@@ -2,7 +2,8 @@ import React from 'react';
 
 import { IconLocation, IconFace, IconCloseCopy, IconThirdPartyAccess, IconAds, IconStamp, IconPrint, IconArrowRight, IconOneNo, IconTwoNo, IconThreeNo } from './Icons';
 
-const Page = ({ site, face, locationSharing }) => (
+
+const Page = ({ site, features }) => (
   <div className="page">
     <div className="header">
       <div className="container">
@@ -31,84 +32,38 @@ const Page = ({ site, face, locationSharing }) => (
     <div className="settings-section">
       <div className="container">
         <p className="settings-section__title">Detected Data</p>
-
         <div className="settings-section__cards">
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconFace />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Face recognition</strong>
-                  { face.suspicious
+
+          {features.map(feature => (
+            <div className="privacy-feature-card shadow">
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col privacy-feature-card__icon">
+                    { feature.icon }
+                  </div>
+                  <div className="col privacy-feature-card__content">
+                    <strong>{feature.title}</strong>
+                    { feature.suspicious
                       ? <span className="badge badge-danger">Active</span>
                       : <span className="badge badge-primary">Deactivated</span>
                     }<br />
-                    Allow Facebook to recognise your face in photos and videos?
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  { face.suspicious
-                    ? <button className="btn btn-primary">Deactivate</button>
-                    : <button className="btn btn-secondary">Show Setting</button>
-                  }
+                    {feature.subtitle}
+                  </div>
+                  <div className="w-100" />
+                  <div className="col privacy-feature-card__about">
+                    <button className="btn btn-link">What is this ?</button>
+                  </div>
+                  <div className="col privacy-feature-card__cta">
+                    { feature.suspicious
+                      ? <button className="btn btn-primary">Deactivate</button>
+                      : <button className="btn btn-secondary">Show Settings</button>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+            ))}
 
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconCloseCopy />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Data shared with Cambridge Analytica</strong><span className="badge badge-danger">Active</span><br />
-                      Allow Facebook to build a history of the locations you have been to?
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-primary">Deactivate</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconLocation />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Location Sharing</strong>
-                  { locationSharing.suspicious
-                    ? <span className="badge badge-danger">Active</span>
-                    : <span className="badge badge-primary">Deactivated</span>
-                  }<br />
-                      Allow Facebook to build a history of the locations you have been to?
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  { locationSharing.suspicious
-                    ? <button className="btn btn-primary">Deactivate</button>
-                    : <button className="btn btn-secondary">Show Setting</button>
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
