@@ -2,13 +2,14 @@ import React from 'react';
 
 import { IconLocation, IconFace, IconCloseCopy, IconThirdPartyAccess, IconAds, IconStamp, IconPrint, IconArrowRight, IconOneNo, IconTwoNo, IconThreeNo } from './Icons';
 
-const Page = () => (
+const Page = ({ site, face, locationSharing }) => (
   <div className="page">
     <div className="header">
       <div className="container">
         <p className="header__title">Data infringement detected!</p>
         <p className="header__lead">
-          <strong>Facebook</strong> is collecting your data and you should be aware of that.
+          <strong> {site} </strong>
+          is collecting your data and you should be aware of that.
           We have detected some of the suspicious ones.
         </p>
         <div className="header__buttons">
@@ -39,7 +40,11 @@ const Page = () => (
                   <IconFace />
                 </div>
                 <div className="col privacy-feature-card__content">
-                  <strong>Face recognition</strong> <span className="badge badge-danger">Active</span><br />
+                  <strong>Face recognition</strong>
+                  { face.suspicious
+                      ? <span className="badge badge-danger">Active</span>
+                      : <span className="badge badge-primary">Deactivated</span>
+                    }<br />
                     Allow Facebook to recognise your face in photos and videos?
                 </div>
                 <div className="w-100" />
@@ -47,7 +52,10 @@ const Page = () => (
                   <button className="btn btn-link">What is this ?</button>
                 </div>
                 <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-primary">Deactivate</button>
+                  { face.suspicious
+                    ? <button className="btn btn-primary">Deactivate</button>
+                    : <button className="btn btn-secondary">Show Setting</button>
+                  }
                 </div>
               </div>
             </div>
@@ -60,7 +68,7 @@ const Page = () => (
                   <IconCloseCopy />
                 </div>
                 <div className="col privacy-feature-card__content">
-                  <strong>Data shared with Cambridge Analytica</strong> <span className="badge badge-danger">Active</span><br />
+                  <strong>Data shared with Cambridge Analytica</strong><span className="badge badge-danger">Active</span><br />
                       Allow Facebook to build a history of the locations you have been to?
                 </div>
                 <div className="w-100" />
@@ -81,7 +89,11 @@ const Page = () => (
                   <IconLocation />
                 </div>
                 <div className="col privacy-feature-card__content">
-                  <strong>Location Sharing</strong> <span className="badge badge-primary">Deactivated</span><br />
+                  <strong>Location Sharing</strong>
+                  { locationSharing.suspicious
+                    ? <span className="badge badge-danger">Active</span>
+                    : <span className="badge badge-primary">Deactivated</span>
+                  }<br />
                       Allow Facebook to build a history of the locations you have been to?
                 </div>
                 <div className="w-100" />
@@ -89,7 +101,10 @@ const Page = () => (
                   <button className="btn btn-link">What is this ?</button>
                 </div>
                 <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-secondary">Show Setting</button>
+                  { locationSharing.suspicious
+                    ? <button className="btn btn-primary">Deactivate</button>
+                    : <button className="btn btn-secondary">Show Setting</button>
+                  }
                 </div>
               </div>
             </div>
