@@ -2,12 +2,60 @@ import { fetchDocument } from './utils';
 
 
 export const features = [
-  { title: 'Search History', key: 'search' },
-  { title: 'Location History', key: 'location' },
-  { title: 'Device Information', key: 'device' },
-  { title: 'Audio History', key: 'audio' },
-  { title: 'Youtube Search History', key: 'youtubeSearch' },
-  { title: 'Youtube Watch', key: 'youtubeWatch' },
+  {
+    title: 'Search History',
+    key: 'google-search',
+    icon: 'IconLocation',
+    settingsUrl: 'https://myaccount.google.com/activitycontrols',
+    aboutUrl: 'https://cliqz.com',
+    description: 'Allow Google to track all of your Web & App Activity?',
+    group: 'automatically-detected',
+  },
+  {
+    title: 'Location History',
+    key: 'google-location',
+    icon: 'IconLocation',
+    settingsUrl: 'https://myaccount.google.com/activitycontrols',
+    aboutUrl: 'https://cliqz.com',
+    description: 'Allow Google to track your location?',
+    group: 'automatically-detected',
+  },
+  {
+    title: 'Device Information',
+    key: 'google-device',
+    icon: 'IconLocation',
+    settingsUrl: 'https://myaccount.google.com/activitycontrols',
+    aboutUrl: 'https://cliqz.com',
+    description: 'Allow Google to track your device?',
+    group: 'automatically-detected',
+  },
+  {
+    title: 'Audio History',
+    key: 'google-audio',
+    icon: 'IconLocation',
+    settingsUrl: 'https://myaccount.google.com/activitycontrols',
+    aboutUrl: 'https://cliqz.com',
+    description: 'Allow Google to record your voice and audio on Google services?',
+    group: 'automatically-detected',
+  },
+  {
+    title: 'Youtube Search History',
+    key: 'google-youtubeSearch',
+    icon: 'IconLocation',
+    settingsUrl: 'https://myaccount.google.com/activitycontrols',
+    aboutUrl: 'https://cliqz.com',
+    description: 'Allow Google to save your searches on YouTube?',
+    group: 'automatically-detected',
+  },
+  {
+    title: 'Youtube Watch',
+    key: 'google-youtubeWatch',
+    icon: 'IconLocation',
+    settingsUrl: 'https://myaccount.google.com/activitycontrols',
+    aboutUrl: 'https://cliqz.com',
+    description: 'Allow Google to store all of your Youtube Watch History?',
+    group: 'automatically-detected',
+  },
 ];
 
 
@@ -33,7 +81,7 @@ async function detectGoogleFeatures() {
       error = fetchError;
     } else {
       try {
-        suspicious = getSetting(doc, feature.key);
+        suspicious = getSetting(doc, feature.key.replace('google-', ''));
       } catch (e) {
         error = e;
       }
