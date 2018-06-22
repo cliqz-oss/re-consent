@@ -51,7 +51,7 @@ export function triggerDetection(url) {
   return (new URL(url)).hostname === 'www.facebook.com';
 }
 
-export default async function detect(url) {
+export async function detectFeatures(url) {
   if (!triggerDetection(url)) {
     return [];
   }

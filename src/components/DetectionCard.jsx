@@ -3,7 +3,6 @@ import React from 'react';
 import DetectionCardScanning from './DetectionCardScanning';
 import DetectionCardSuccess from './DetectionCardSuccess';
 import DetectionCardSuspicious from './DetectionCardSuspicious';
-import { triggerDetection } from '../features';
 
 import style from '../scss/index-plugin.scss';
 
@@ -40,7 +39,7 @@ class DetectionCard extends React.Component {
 
     this.onClose = this.onClose.bind(this);
     this.state = {
-      closed: true,
+      closed: false,
       status: 'scanning',
       features: [],
       errors: [],
@@ -49,24 +48,16 @@ class DetectionCard extends React.Component {
 
   async componentDidMount() {
     const url = String(window.location);
+    const features = await detectFeatures(url);
+    const errors = features.filter(feature => feature.error);
+    const suspicious = features.some(feature => feature.suspicious);
+    const status = suspicious ? 'suspicious' : 'success';
 
-    if (triggerDetection(url)) {
-      this.setState({ // eslint-disable-line react/no-did-mount-set-state
-        closed: false,
-        status: 'scanning',
-      });
-
-      const features = await detectFeatures(url);
-      const errors = features.filter(feature => feature.error);
-      const suspicious = features.some(feature => feature.suspicious);
-      const status = suspicious ? 'suspicious' : 'success';
-
-      this.setState({ // eslint-disable-line react/no-did-mount-set-state
-        status,
-        features,
-        errors,
-      });
-    }
+    this.setState({ // eslint-disable-line react/no-did-mount-set-state
+      status,
+      features,
+      errors,
+    });
   }
 
   onClose() {
