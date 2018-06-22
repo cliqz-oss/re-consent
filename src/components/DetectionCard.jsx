@@ -18,10 +18,12 @@ function getErrorTitle(features) {
 }
 
 function getInfoUrl(features) {
-  const suspiciousFeatures = features.map(({ key, suspicious }) => ({
-    key,
-    suspicious,
-  }));
+  const suspiciousFeatures = features
+    .filter(feature => feature.suspicious)
+    .map(({ key, suspicious }) => ({
+      key,
+      suspicious,
+    }));
 
   const stringifiedData = JSON.stringify({
     suspiciousFeatures,
