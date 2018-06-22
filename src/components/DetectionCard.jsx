@@ -26,7 +26,7 @@ function getInfoUrl(features) {
     site: 'facebook',
   });
 
-  return `ttp://cliqz.s3-website.eu-central-1.amazonaws.com/website/?data=${stringifiedData}`;
+  return `http://cliqz.s3-website.eu-central-1.amazonaws.com/website/?data=${stringifiedData}`;
 }
 
 function detectFeatures(url) {
