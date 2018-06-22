@@ -14,23 +14,21 @@ const Page = ({ site, features }) => (
           We have detected some of the suspicious ones.
         </p>
         <div className="header__buttons">
-          <button className="btn btn-outline-light">
+          <a className="btn btn-outline-light" href="#automatically-detected">
             What do they collect?
-          </button>
-          <button className="btn btn-light">
+          </a>
+          <a className="btn btn-light" href="#nightmare-letter">
             Send a nightmare letter
-          </button>
+          </a>
         </div>
-        <a className="header__scroll-indicator" href="#scroll-to">
+        <a className="header__scroll-indicator" href="#automatically-detected">
           <div className="header__scroll-indicator__arrow" />
         </a>
       </div>
     </div>
 
-    <div id="scroll-to" />
-
     {[['automatically-detected', 'Detected Data'], ['manual-check', 'Manually check data']].filter(([groupName]) => features.some(feature => feature.group === groupName)).map(([groupName, groupTitle]) => (
-      <div className="settings-section" key={groupName}>
+      <div className="settings-section" key={groupName} id={groupName}>
         <div className="container">
           <p className="settings-section__title">{groupTitle}</p>
           <div className="settings-section__cards">
@@ -68,7 +66,7 @@ const Page = ({ site, features }) => (
       </div>
     ))}
 
-    <div className="settings-section">
+    <div className="settings-section" id="nightmare-letter">
       <div className="container">
         <p className="settings-section__title">Write a Nightmare letter</p>
 
