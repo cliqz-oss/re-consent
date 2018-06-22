@@ -1,23 +1,37 @@
 import { fetchDocument } from './utils';
 
+const faceRecognitionFeature = { title: 'Face Recognition', key: 'face' };
+const locationSharingFeature = { title: 'Location Sharing', key: 'location' };
+
+export const features = [
+  faceRecognitionFeature,
+  locationSharingFeature,
+];
+
 async function detectFaceRecognition() {
-  const result = { title: 'Face Recognition', icon: 'IconFace' };
+  let suspicious;
+  let error;
 
   try {
     const doc = await fetchDocument('https://www.facebook.com/settings?tab=facerec');
     const text = doc.querySelector('.fbSettingsListItemContent .fwb').textContent.toLowerCase();
     const enabled = ['yes', 'ja'].includes(text);
 
-    result.suspicious = enabled;
-  } catch (error) {
-    result.error = error;
+    suspicious = enabled;
+  } catch (e) {
+    error = e;
   }
 
-  return result;
+  return {
+    ...faceRecognitionFeature,
+    error,
+    suspicious,
+  };
 }
 
 async function detectLocationSharing() {
-  const result = { title: 'Location Sharing', icon: 'IconLocation' };
+  let suspicious;
+  let error;
 
   try {
     const doc = await fetchDocument('https://www.facebook.com/settings?tab=location');
@@ -27,12 +41,16 @@ async function detectLocationSharing() {
       'Your Location History is on',
     ].some(value => text.includes(value.toLowerCase()));
 
-    result.suspicious = enabled;
-  } catch (error) {
-    result.error = error;
+    suspicious = enabled;
+  } catch (e) {
+    error = e;
   }
 
-  return result;
+  return {
+    ...locationSharingFeature,
+    error,
+    suspicious,
+  };
 }
 
 export function triggerDetection(url) {

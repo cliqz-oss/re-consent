@@ -1,11 +1,13 @@
 import {
   triggerDetection as triggerFacebookDetection,
   detectFeatures as detectFacebookFeatures,
+  features as facebookFeatures,
 } from './facebook';
 
 import {
   triggerDetection as triggerGoogleDetection,
   detectFeatures as detectGoogleFeatures,
+  features as googleFeatures,
 } from './google';
 
 
@@ -22,3 +24,8 @@ export async function detectFeatures(url) {
     ...await detectGoogleFeatures(url),
   ];
 }
+
+export const features = {
+  google: googleFeatures,
+  facebook: facebookFeatures,
+};

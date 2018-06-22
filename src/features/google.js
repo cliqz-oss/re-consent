@@ -1,16 +1,17 @@
 import { fetchDocument } from './utils';
 
 
-async function detectGoogleFeatures() {
-  const features = [
-    { title: 'Search History', key: 'search' },
-    { title: 'Location History', key: 'location' },
-    { title: 'Device Information', key: 'device' },
-    { title: 'Audio History', key: 'audio' },
-    { title: 'Youtube Search History', key: 'youtubeSearch' },
-    { title: 'Youtube Watch', key: 'youtubeWatch' },
-  ];
+export const features = [
+  { title: 'Search History', key: 'search' },
+  { title: 'Location History', key: 'location' },
+  { title: 'Device Information', key: 'device' },
+  { title: 'Audio History', key: 'audio' },
+  { title: 'Youtube Search History', key: 'youtubeSearch' },
+  { title: 'Youtube Watch', key: 'youtubeWatch' },
+];
 
+
+async function detectGoogleFeatures() {
   const getSetting = (doc, name) => doc
     .querySelector(`[data-aid="${name},udcSettingsUi"] > [role="checkbox"]`)
     .getAttribute('aria-checked') === 'true';
