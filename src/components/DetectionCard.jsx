@@ -4,6 +4,8 @@ import DetectionCardScanning from './DetectionCardScanning';
 import DetectionCardSuccess from './DetectionCardSuccess';
 import DetectionCardSuspicious from './DetectionCardSuspicious';
 
+import { getCurrentSiteName } from '../features';
+
 import style from '../scss/index-plugin.scss';
 
 
@@ -23,7 +25,7 @@ function getInfoUrl(features) {
 
   const stringifiedData = JSON.stringify({
     suspiciousFeatures,
-    site: 'facebook',
+    site: getCurrentSiteName(String(window.location)),
   });
 
   return `http://cliqz.s3-website.eu-central-1.amazonaws.com/website/?data=${stringifiedData}`;

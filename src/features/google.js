@@ -5,6 +5,7 @@ export const features = [
   {
     title: 'Search History',
     key: 'google-search',
+    selectorName: 'search',
     icon: 'IconLocation',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     aboutUrl: 'https://cliqz.com',
@@ -14,6 +15,7 @@ export const features = [
   {
     title: 'Location History',
     key: 'google-location',
+    selectorName: 'location',
     icon: 'IconLocation',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     aboutUrl: 'https://cliqz.com',
@@ -23,6 +25,7 @@ export const features = [
   {
     title: 'Device Information',
     key: 'google-device',
+    selectorName: 'device',
     icon: 'IconLocation',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     aboutUrl: 'https://cliqz.com',
@@ -32,6 +35,7 @@ export const features = [
   {
     title: 'Audio History',
     key: 'google-audio',
+    selectorName: 'audio',
     icon: 'IconLocation',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     aboutUrl: 'https://cliqz.com',
@@ -40,7 +44,8 @@ export const features = [
   },
   {
     title: 'Youtube Search History',
-    key: 'google-youtubeSearch',
+    key: 'google-youtube-search',
+    selectorName: 'youtubeSearch',
     icon: 'IconLocation',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     aboutUrl: 'https://cliqz.com',
@@ -49,7 +54,8 @@ export const features = [
   },
   {
     title: 'Youtube Watch',
-    key: 'google-youtubeWatch',
+    key: 'google-youtube-watch',
+    selectorName: 'youtubeWatch',
     icon: 'IconLocation',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     aboutUrl: 'https://cliqz.com',
@@ -81,7 +87,7 @@ async function detectGoogleFeatures() {
       error = fetchError;
     } else {
       try {
-        suspicious = getSetting(doc, feature.key.replace('google-', ''));
+        suspicious = getSetting(doc, feature.selectorName);
       } catch (e) {
         error = e;
       }

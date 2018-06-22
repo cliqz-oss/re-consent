@@ -25,6 +25,18 @@ export async function detectFeatures(url) {
   ];
 }
 
+export function getCurrentSiteName(url) {
+  if (triggerFacebookDetection(url)) {
+    return 'Facebook';
+  }
+
+  if (triggerGoogleDetection(url)) {
+    return 'Google';
+  }
+
+  return null;
+}
+
 export const features = {
   google: googleFeatures,
   facebook: facebookFeatures,
