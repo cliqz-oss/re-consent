@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -26,6 +27,12 @@ module.exports = {
       template: './src/index.html',
       chunks: ['website'],
     }),
+    new CopyWebpackPlugin([
+      {
+        from: 'src/browser-extension/manifest.json',
+        to: 'manifest.json',
+      },
+    ]),
   ],
   devtool: mode !== 'production' ? 'inline-source-map' : false,
   module: {
@@ -36,10 +43,6 @@ module.exports = {
       },
       {
         test: /\.(jpg|png)$/,
-        use: 'file-loader',
-      },
-      {
-        test: /\.json$/,
         use: 'file-loader',
       },
       {

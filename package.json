@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.1.1",
+    "copy-webpack-plugin": "^4.5.1",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
@@ -12,7 +13,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --open",
-    "build": "rm -rf build && NODE_ENV=production webpack && cp src/browser-extension/manifest.json build/",
+    "build": "rm -rf build && NODE_ENV=production webpack",
     "deploy": "npm run build && aws s3 sync --delete --acl public-read build/ s3://cliqz/website",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "rm -rf storybook-static && build-storybook",
