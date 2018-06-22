@@ -1,16 +1,4 @@
-async function fetchDocument(url) {
-  const response = await fetch(url, { credentials: 'include' });
-
-  if (response.status !== 200) {
-    throw Error(response.statusText);
-  }
-
-  const text = await response.text();
-  const parser = new window.DOMParser();
-  const document = parser.parseFromString(text, 'text/html');
-
-  return document;
-}
+import { fetchDocument } from './utils';
 
 async function detectFaceRecognition() {
   const result = { title: 'Face Recognition', icon: 'IconFace' };
