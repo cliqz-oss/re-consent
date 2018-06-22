@@ -47,7 +47,7 @@ const Page = ({ site, features }) => (
                       ? <span className="badge badge-danger">Active</span>
                       : <span className="badge badge-primary">Deactivated</span>
                     }<br />
-                    {feature.subtitle}
+                    {feature.description}
                   </div>
                   <div className="w-100" />
                   <div className="col privacy-feature-card__about">

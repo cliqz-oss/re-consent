@@ -18,14 +18,14 @@ const features = [
     key: 'face',
     icon: 'IconFace',
     title: 'Face Recognition',
-    subtitle: 'Allow Facebook to recognise your face in photos and videos?',
+    description: 'Allow Facebook to recognise your face in photos and videos?',
     suspicious: urlParams.suspiciousFeatures[0].suspicious,
   },
   {
     key: 'location',
     icon: 'IconLocation',
     title: 'Location Sharing',
-    subtitle: 'Allow Facebook to build a history of the locations you have been to?',
+    description: 'Allow Facebook to build a history of the locations you have been to?',
     suspicious: urlParams.suspiciousFeatures[1].suspicious,
   },
 ];
