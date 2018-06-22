@@ -13,7 +13,7 @@ const faceRecognitionFeature = {
 const locationSharingFeature = {
   title: 'Location Sharing',
   key: 'facebook-location',
-  icon: 'LocationFace',
+  icon: 'IconLocation',
   settingsUrl: 'https://www.facebook.com/settings?tab=location',
   aboutUrl: 'https://cliqz.com',
   description: 'Allow Facebook to build a history of the locations you have been to?',

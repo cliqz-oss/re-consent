@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IconLocation, IconFace, IconCloseCopy, IconThirdPartyAccess, IconAds, IconStamp, IconPrint, IconArrowRight, IconOneNo, IconTwoNo, IconThreeNo } from './Icons';
+import { IconStamp, IconPrint, IconArrowRight, IconOneNo, IconTwoNo, IconThreeNo, getIconByName } from './Icons';
 
 
 const Page = ({ site, features }) => (
@@ -29,99 +29,44 @@ const Page = ({ site, features }) => (
 
     <div id="scroll-to" />
 
-    <div className="settings-section">
-      <div className="container">
-        <p className="settings-section__title">Detected Data</p>
-        <div className="settings-section__cards">
-
-          {features.map(feature => (
-            <div className="privacy-feature-card shadow">
-              <div className="container-fluid">
-                <div className="row">
-                  <div className="col privacy-feature-card__icon">
-                    { feature.icon }
-                  </div>
-                  <div className="col privacy-feature-card__content">
-                    <strong>{feature.title}</strong>
-                    { feature.suspicious
-                      ? <span className="badge badge-danger">Active</span>
-                      : <span className="badge badge-primary">Deactivated</span>
-                    }<br />
-                    {feature.description}
-                  </div>
-                  <div className="w-100" />
-                  <div className="col privacy-feature-card__about">
-                    <button className="btn btn-link">What is this ?</button>
-                  </div>
-                  <div className="col privacy-feature-card__cta">
-                    { feature.suspicious
-                      ? <button className="btn btn-primary">Deactivate</button>
-                      : <button className="btn btn-secondary">Show Settings</button>
-                    }
+    {[['automatically-detected', 'Detected Data'], ['manual-check', 'Manually check data']].filter(([groupName]) => features.some(feature => feature.group === groupName)).map(([groupName, groupTitle]) => (
+      <div className="settings-section" key={groupName}>
+        <div className="container">
+          <p className="settings-section__title">{groupTitle}</p>
+          <div className="settings-section__cards">
+            {features.filter(feature => feature.group === groupName).map(feature => (
+              <div className="privacy-feature-card shadow" key={feature.key}>
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col privacy-feature-card__icon">
+                      { getIconByName(feature.icon) }
+                    </div>
+                    <div className="col privacy-feature-card__content">
+                      <strong>{feature.title}</strong>
+                      { feature.suspicious
+                        ? <span className="badge badge-danger">Active</span>
+                        : <span className="badge badge-primary">Deactivated</span>
+                      }<br />
+                      {feature.description}
+                    </div>
+                    <div className="w-100" />
+                    <div className="col privacy-feature-card__about">
+                      <a target="_blank" rel="noopener noreferrer" href={feature.aboutUrl} className="btn btn-link">What is this ?</a>
+                    </div>
+                    <div className="col privacy-feature-card__cta">
+                      { feature.suspicious
+                        ? <a href={feature.settingsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Deactivate</a>
+                        : <a href={feature.settingsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">Show Settings</a>
+                      }
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            ))}
-
-        </div>
-      </div>
-    </div>
-
-    <div className="settings-section">
-      <div className="container">
-        <p className="settings-section__title">Manually check data</p>
-
-        <div className="settings-section__cards">
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconThirdPartyAccess />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Third Party Data Access</strong><br />
-                  <div className="privacy-feature-card__subtitle">
-                      Allow third party applications to access your data through Facebook ?
-                  </div>
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-secondary">Show Setting</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconAds />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Advertisers who uploaded your data to Facebook</strong><br />
-                  <div className="privacy-feature-card__subtitle">
-                      Advertisers are running ads using a contact list they uploaded that
-                      includes your contact information
-                  </div>
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-secondary">Show Setting</button>
-                </div>
-              </div>
-            </div>
+              ))}
           </div>
         </div>
       </div>
-    </div>
+    ))}
 
     <div className="settings-section">
       <div className="container">

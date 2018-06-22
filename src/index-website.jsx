@@ -3,37 +3,34 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 
+import { features } from './features';
+
 import './scss/index-website.scss';
 
+const url = new URL(window.location);
+const urlParams = JSON.parse(url.searchParams.get('data'));
 
-const urlString = 'http://localhost:8080/?data={%22suspiciousFeatures%22:[{%22key%22:%22face%22,%22suspicious%22:false},{%22key%22:%22location%22,%22suspicious%22:true}],%22site%22:%22facebook%22}';
+const { site, suspiciousFeatures } = urlParams;
 
-// const { urlString } = window.location.search;
+function isSuspicious(key) {
+  const matches = suspiciousFeatures.filter(suspiciousFeature => suspiciousFeature.key === key);
+  if (matches.length) {
+    return matches[0].suspicious;
+  }
 
-const requestUrl = new URL(urlString);
-const urlParams = JSON.parse(requestUrl.searchParams.get('data'));
+  return false;
+}
 
-const features = [
-  {
-    key: 'face',
-    icon: 'IconFace',
-    title: 'Face Recognition',
-    description: 'Allow Facebook to recognise your face in photos and videos?',
-    suspicious: urlParams.suspiciousFeatures[0].suspicious,
-  },
-  {
-    key: 'location',
-    icon: 'IconLocation',
-    title: 'Location Sharing',
-    description: 'Allow Facebook to build a history of the locations you have been to?',
-    suspicious: urlParams.suspiciousFeatures[1].suspicious,
-  },
-];
+const enrichedFeatures = features[site.toLowerCase()].map(feature => ({
+  ...feature,
+  suspicious: isSuspicious(feature.key),
+}));
+
 
 ReactDOM.render(
   <App
-    site={urlParams.site}
-    features={features}
+    site={site}
+    features={enrichedFeatures}
   />,
   global.document.getElementById('root'),
 );
