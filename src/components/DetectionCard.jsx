@@ -3,10 +3,22 @@ import React from 'react';
 import DetectionCardScanning from './DetectionCardScanning';
 import DetectionCardSuccess from './DetectionCardSuccess';
 import DetectionCardSuspicious from './DetectionCardSuspicious';
-
-import { triggerDetection as triggerFacebookDetection } from '../features/facebook';
+import { triggerDetection } from '../features';
 
 import style from '../scss/index-plugin.scss';
+
+
+function getErrorTitle(features) {
+  try {
+    return features.map(feature => feature.error).join('\n');
+  } catch (e) {
+    return '';
+  }
+}
+
+function getInfoUrl() {
+  return 'http://cliqz.s3-website.eu-central-1.amazonaws.com/website/';
+}
 
 function detectFeatures(url) {
   return new Promise((resolve) => {
@@ -20,24 +32,6 @@ function detectFeatures(url) {
       },
     );
   });
-}
-
-function triggerDetection(url) {
-  return [
-    triggerFacebookDetection(url),
-  ].some(value => value);
-}
-
-function getErrorTitle(features) {
-  try {
-    return features.map(feature => feature.error).join('\n');
-  } catch (e) {
-    return '';
-  }
-}
-
-function getInfoUrl() {
-  return 'http://cliqz.s3-website.eu-central-1.amazonaws.com/website/';
 }
 
 class DetectionCard extends React.Component {
