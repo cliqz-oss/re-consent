@@ -15,8 +15,18 @@ function getErrorTitle(features) {
   }
 }
 
-function getInfoUrl() {
-  return 'http://cliqz.s3-website.eu-central-1.amazonaws.com/website/';
+function getInfoUrl(features) {
+  const suspiciousFeatures = features.map(({ key, suspicious }) => ({
+    key,
+    suspicious,
+  }));
+
+  const stringifiedData = JSON.stringify({
+    suspiciousFeatures,
+    site: 'facebook',
+  });
+
+  return `ttp://cliqz.s3-website.eu-central-1.amazonaws.com/website/?data=${stringifiedData}`;
 }
 
 function detectFeatures(url) {
