@@ -1,13 +1,17 @@
-export async function fetchDocument(url) { // eslint-disable-line import/prefer-default-export
+export async function fetchDocument(url, format='html') { // eslint-disable-line import/prefer-default-export
   const response = await fetch(url, { credentials: 'include' });
 
   if (response.status !== 200) {
     throw Error(response.statusText);
   }
 
-  const text = await response.text();
-  const parser = new window.DOMParser();
-  const document = parser.parseFromString(text, 'text/html');
+  if (format === 'html') {
+    const text = await response.text();
+    const parser = new window.DOMParser();
+    return parser.parseFromString(text, 'text/html');
+  } else if (format === 'json') {
+    return response.json();
+  }
 
-  return document;
+  return response.text();
 }
