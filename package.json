@@ -13,10 +13,10 @@
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0 --open",
     "build": "rm -rf build && NODE_ENV=production webpack",
-    "deploy": "npm run build && aws s3 sync --delete --acl public-read build/ s3://cliqz/website",
+    "deploy": "npm run build && aws s3 sync --delete --acl public-read --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate build/ s3://cliqz/website",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "rm -rf storybook-static && build-storybook",
-    "deploy-storybook": "npm run build-storybook && aws s3 sync --delete --acl public-read storybook-static/ s3://cliqz/storybook"
+    "deploy-storybook": "npm run build-storybook && aws s3 sync --delete --acl public-read --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate storybook-static/ s3://cliqz/storybook"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.7",
