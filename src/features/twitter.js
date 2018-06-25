@@ -60,8 +60,6 @@ async function detectTwitterFeatures() {
       }
     }
 
-    console.log(error);
-
     return {
       ...feature,
       error,

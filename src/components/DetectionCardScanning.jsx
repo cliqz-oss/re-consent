@@ -16,7 +16,7 @@ const DetectionCardScanning = ({ onClose }) => (
       <img src={detectIcon} alt="" />
     </div>
     <div className={[style['detection-card__title'], style['detection-card__title--light']].join(' ')}>
-      {getCurrentSiteName(window.location)} Privacy Scanning <span className={style['detection-card__title__progress']}><span>.</span><span>.</span><span>.</span></span>
+      {getCurrentSiteName(window.location.href)} Privacy Scanning <span className={style['detection-card__title__progress']}><span>.</span><span>.</span><span>.</span></span>
     </div>
   </div>
 );

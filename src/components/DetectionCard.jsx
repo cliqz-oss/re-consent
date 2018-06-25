@@ -27,7 +27,7 @@ function getInfoUrl(features) {
 
   const stringifiedData = encodeURIComponent(JSON.stringify({
     suspiciousFeatures,
-    site: getCurrentSiteName(window.location),
+    site: getCurrentSiteName(window.location.href),
   }));
 
   return `http://cliqz.s3-website.eu-central-1.amazonaws.com/website/?data=${stringifiedData}`;
