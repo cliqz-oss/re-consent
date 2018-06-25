@@ -4,14 +4,10 @@ import DetectionCardScanning from './DetectionCardScanning';
 import DetectionCardSuccess from './DetectionCardSuccess';
 import DetectionCardSuspicious from './DetectionCardSuspicious';
 
-import detectFacebookFeatures from '../features/facebook';
+import { getCurrentSiteName } from '../features';
+
 import style from '../scss/index-plugin.scss';
 
-async function detectFeatures() {
-  return [
-    ...await detectFacebookFeatures(),
-  ];
-}
 
 function getErrorTitle(features) {
   try {
@@ -21,8 +17,34 @@ function getErrorTitle(features) {
   }
 }
 
-function getInfoUrl() {
-  return 'http://cliqz.s3-website.eu-central-1.amazonaws.com/website/';
+function getInfoUrl(features) {
+  const suspiciousFeatures = features
+    .filter(feature => feature.suspicious)
+    .map(({ key, suspicious }) => ({
+      key,
+      suspicious,
+    }));
+
+  const stringifiedData = encodeURIComponent(JSON.stringify({
+    suspiciousFeatures,
+    site: getCurrentSiteName(window.location.href),
+  }));
+
+  return `http://cliqz.s3-website.eu-central-1.amazonaws.com/website/?data=${stringifiedData}`;
+}
+
+function detectFeatures(url) {
+  return new Promise((resolve) => {
+    chrome.runtime.sendMessage(
+      {
+        message: 'detect_features',
+        url,
+      },
+      (features) => {
+        resolve(features);
+      },
+    );
+  });
 }
 
 class DetectionCard extends React.Component {
@@ -39,12 +61,17 @@ class DetectionCard extends React.Component {
   }
 
   async componentDidMount() {
-    const features = await detectFeatures();
+    const url = String(window.location);
+    const features = await detectFeatures(url);
     const errors = features.filter(feature => feature.error);
     const suspicious = features.some(feature => feature.suspicious);
     const status = suspicious ? 'suspicious' : 'success';
 
-    this.setState({ status, features, errors }); // eslint-disable-line react/no-did-mount-set-state
+    this.setState({ // eslint-disable-line react/no-did-mount-set-state
+      status,
+      features,
+      errors,
+    });
   }
 
   onClose() {

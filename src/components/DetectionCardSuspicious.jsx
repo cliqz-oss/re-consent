@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import style from '../scss/index-plugin.scss';
-import { IconClose, IconSkull } from './Icons';
+import { IconClose, IconSkull, getIconByName } from './Icons';
 
 const DetectionCardSuspicious = ({ onClose, infoUrl, features }) => (
   <div className={style['detection-card']}>
@@ -20,7 +20,7 @@ const DetectionCardSuspicious = ({ onClose, infoUrl, features }) => (
         {features.filter(feature => feature.suspicious).map(feature => (
           <div className={style['detection-card__summary__item']}>
             <div className={style['detection-card__summary__item__icon']}>
-              {feature.icon}
+              {getIconByName(feature.icon)}
             </div>
             <div className={style['detection-card__summary__item__title']}>
               {feature.title}

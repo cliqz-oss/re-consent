@@ -1,159 +1,72 @@
 import React from 'react';
 
-import { IconLocation, IconFace, IconCloseCopy, IconThirdPartyAccess, IconAds, IconStamp, IconPrint, IconArrowRight, IconOneNo, IconTwoNo, IconThreeNo } from './Icons';
+import { IconStamp, IconPrint, IconArrowRight, IconOneNo, IconTwoNo, IconThreeNo, getIconByName } from './Icons';
 
-const Page = () => (
+
+const Page = ({ site, features }) => (
   <div className="page">
     <div className="header">
       <div className="container">
         <p className="header__title">Data infringement detected!</p>
         <p className="header__lead">
-          <strong>Facebook</strong> is collecting your data and you should be aware of that.
+          <strong> {site} </strong>
+          is collecting your data and you should be aware of that.
           We have detected some of the suspicious ones.
         </p>
         <div className="header__buttons">
-          <button className="btn btn-outline-light">
+          <a className="btn btn-outline-light" href="#automatically-detected">
             What do they collect?
-          </button>
-          <button className="btn btn-light">
+          </a>
+          <a className="btn btn-light" href="#nightmare-letter">
             Send a nightmare letter
-          </button>
+          </a>
         </div>
-        <a className="header__scroll-indicator" href="#scroll-to">
+        <a className="header__scroll-indicator" href="#automatically-detected">
           <div className="header__scroll-indicator__arrow" />
         </a>
       </div>
     </div>
 
-    <div id="scroll-to" />
-
-    <div className="settings-section">
-      <div className="container">
-        <p className="settings-section__title">Detected Data</p>
-
-        <div className="settings-section__cards">
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconFace />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Face recognition</strong> <span className="badge badge-danger">Active</span><br />
-                    Allow Facebook to recognise your face in photos and videos?
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-primary">Deactivate</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconCloseCopy />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Data shared with Cambridge Analytica</strong> <span className="badge badge-danger">Active</span><br />
-                      Allow Facebook to build a history of the locations you have been to?
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-primary">Deactivate</button>
+    {[['automatically-detected', 'Detected Data'], ['manual-check', 'Manually check data']].filter(([groupName]) => features.some(feature => feature.group === groupName)).map(([groupName, groupTitle]) => (
+      <div className="settings-section" key={groupName} id={groupName}>
+        <div className="container">
+          <p className="settings-section__title">{groupTitle}</p>
+          <div className="settings-section__cards">
+            {features.filter(feature => feature.group === groupName).map(feature => (
+              <div className="privacy-feature-card shadow" key={feature.key}>
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col privacy-feature-card__icon">
+                      { getIconByName(feature.icon) }
+                    </div>
+                    <div className="col privacy-feature-card__content">
+                      <strong>{feature.title}</strong>
+                      { feature.suspicious
+                        ? <span className="badge badge-danger">Active</span>
+                        : <span className="badge badge-primary">Deactivated</span>
+                      }<br />
+                      {feature.description}
+                    </div>
+                    <div className="w-100" />
+                    <div className="col privacy-feature-card__about">
+                      <a target="_blank" rel="noopener noreferrer" href={feature.aboutUrl} className="btn btn-link">What is this ?</a>
+                    </div>
+                    <div className="col privacy-feature-card__cta">
+                      { feature.suspicious
+                        ? <a href={feature.settingsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Deactivate</a>
+                        : <a href={feature.settingsUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">Show Settings</a>
+                      }
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconLocation />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Location Sharing</strong> <span className="badge badge-primary">Deactivated</span><br />
-                      Allow Facebook to build a history of the locations you have been to?
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-secondary">Show Setting</button>
-                </div>
-              </div>
-            </div>
+              ))}
           </div>
         </div>
       </div>
-    </div>
+    ))}
 
-    <div className="settings-section">
-      <div className="container">
-        <p className="settings-section__title">Manually check data</p>
-
-        <div className="settings-section__cards">
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconThirdPartyAccess />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Third Party Data Access</strong><br />
-                  <div className="privacy-feature-card__subtitle">
-                      Allow third party applications to access your data through Facebook ?
-                  </div>
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-secondary">Show Setting</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="privacy-feature-card shadow">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col privacy-feature-card__icon">
-                  <IconAds />
-                </div>
-                <div className="col privacy-feature-card__content">
-                  <strong>Advertisers who uploaded your data to Facebook</strong><br />
-                  <div className="privacy-feature-card__subtitle">
-                      Advertisers are running ads using a contact list they uploaded that
-                      includes your contact information
-                  </div>
-                </div>
-                <div className="w-100" />
-                <div className="col privacy-feature-card__about">
-                  <button className="btn btn-link">What is this ?</button>
-                </div>
-                <div className="col privacy-feature-card__cta">
-                  <button className="btn btn-secondary">Show Setting</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div className="settings-section">
+    <div className="settings-section" id="nightmare-letter">
       <div className="container">
         <p className="settings-section__title">Write a Nightmare letter</p>
 

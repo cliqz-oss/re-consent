@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -6,13 +7,14 @@ const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
   entry: {
-    plugin: './src/index-plugin.jsx',
+    content: './src/browser-extension/content.jsx',
+    background: './src/browser-extension/background.js',
     website: './src/index-website.jsx',
   },
   mode,
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].[hash].bundle.js',
+    filename: '[name].js',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -25,6 +27,12 @@ module.exports = {
       template: './src/index.html',
       chunks: ['website'],
     }),
+    new CopyWebpackPlugin([
+      {
+        from: 'src/browser-extension/manifest.json',
+        to: 'manifest.json',
+      },
+    ]),
   ],
   devtool: mode !== 'production' ? 'inline-source-map' : false,
   module: {

@@ -4,6 +4,8 @@ import React from 'react';
 import detectIcon from '!url-loader!../assets/scan-icon.png';
 import style from '../scss/index-plugin.scss';
 import { IconClose } from './Icons';
+import { getCurrentSiteName } from '../features';
+
 
 const DetectionCardScanning = ({ onClose }) => (
   <div className={style['detection-card']}>
@@ -14,7 +16,7 @@ const DetectionCardScanning = ({ onClose }) => (
       <img src={detectIcon} alt="" />
     </div>
     <div className={[style['detection-card__title'], style['detection-card__title--light']].join(' ')}>
-      Facebook Privacy Scanning <span className={style['detection-card__title__progress']}><span>.</span><span>.</span><span>.</span></span>
+      {getCurrentSiteName(window.location.href)} Privacy Scanning <span className={style['detection-card__title__progress']}><span>.</span><span>.</span><span>.</span></span>
     </div>
   </div>
 );
