@@ -1,4 +1,4 @@
-const port = browser.runtime.connect();
+const port = chrome.runtime.connect();
 
 const api = {
   hasCmp() {
@@ -17,7 +17,11 @@ const api = {
     });
   },
   getVendorList(version) {
-    window.eval('window.__cmp("getVendorList", null, (r) => window._cmpVendors = r);');
+    try {
+      window.eval('window.__cmp("getVendorList", null, (r) => window._cmpVendors = r);');
+    } catch(e) {
+
+    }
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(window.wrappedJSObject._cmpVendors);
@@ -39,14 +43,14 @@ const api = {
 const spanan = new Spanan.default();
 spanan.export(api, {
   respond(response, request) {
-    browser.runtime.sendMessage({
+    chrome.runtime.sendMessage({
       response: response,
       uuid: request.uuid
     });
   }
 });
 
-browser.runtime.onMessage.addListener((message) => {
+chrome.runtime.onMessage.addListener((message) => {
   spanan.handleMessage(message);
 });
 

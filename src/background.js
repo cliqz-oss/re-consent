@@ -1,6 +1,5 @@
-const { ConsentString } = require('consent-string');
 
-browser.runtime.onConnect.addListener((port) => {
+chrome.runtime.onConnect.addListener((port) => {
   if (!port.sender.tab) {
     return;
   }
@@ -8,7 +7,7 @@ browser.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener((message) => {
     console.log(message);
     if (message.cmp) {
-      browser.pageAction.show(tabId);
+      chrome.pageAction.show(tabId);
     }
   });
 });
