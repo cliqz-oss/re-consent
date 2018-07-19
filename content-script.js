@@ -53,7 +53,54 @@ class ApiFirefox extends ApiBase {
   }
 }
 
-const api = new ApiFirefox();
+const MSG_SOURCE_PAGE = 'consentric-from-page';
+const MSG_SOURCE_CS = 'consentic-from-content-script';
+
+class ApiChrome extends ApiBase {
+  constructor() {
+    super();
+    this._cmp = false;
+    this.pageChannel = new Spanan.default((message) => {
+      window.postMessage({
+        source: MSG_SOURCE_CS,
+        ...message,
+      }, "*");
+    });
+    this.pageProxy = this.pageChannel.createProxy();
+    window.addEventListener("message", this._handleMessage.bind(this));
+    this._injectPageScript();
+  }
+
+  hasCmp() {
+    return this._cmp;
+  }
+
+  queryCmp(method) {
+    return this.pageProxy.queryCmp(method);
+  }
+
+  _injectPageScript() {
+    const scriptTag = document.createElement('script');
+    scriptTag.src = chrome.runtime.getURL('page-script.js');
+    const target = document.documentElement;
+    target.appendChild(scriptTag);
+    scriptTag.parentNode.removeChild(scriptTag);
+  }
+
+  _handleMessage(event) {
+    if (event.source == window && event.data && event.data.source === MSG_SOURCE_PAGE) {
+      const { data } = event;
+      if (data.cmp === true) {
+        this._cmp = true;
+        port.postMessage({ cmp: true });
+      } else {
+        this.pageChannel.handleMessage(event.data);
+      }
+    }
+  }
+}
+
+const api = window.wrappedJSObject !== undefined ? new ApiFirefox() : new ApiChrome();
 
 const spanan = new Spanan.default();
 spanan.export({

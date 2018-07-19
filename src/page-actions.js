@@ -1,4 +1,5 @@
 import Spanan from 'spanan';
+import browser from 'webextension-polyfill';
 
 export default function createPageChannel(tabId) {
   const pageChannel = new Spanan((message) => browser.tabs.sendMessage(tabId, message));

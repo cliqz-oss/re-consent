@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import browser from 'webextension-polyfill';
 import { hasIabConsent, IABConsent } from './iab-framework';
 
 class Popup extends Component {

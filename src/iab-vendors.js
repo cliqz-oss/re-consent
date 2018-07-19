@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 
 const localStorageKey = 'crfgL0cSt0r';
 
@@ -14,9 +15,8 @@ function cookieWrapper(opts, url, thirdParty) {
 }
 
 async function updateCookie(cookie, newValue) {
-  return browser.cookies.set({
+  const newCookie = {
     expirationDate: cookie.expirationDate,
-    firstPartyDomain: cookie.firstPartyDomain || undefined,
     domain: cookie.domain.startsWith('.') ? cookie.domain : undefined,
     httpOnly: cookie.httpOnly,
     name: cookie.name,
@@ -25,7 +25,11 @@ async function updateCookie(cookie, newValue) {
     storeId: cookie.storeId,
     url: `${cookie.httpOnly ? 'http' : 'https'}://${cookie.domain.startsWith('.') ? cookie.domain.substring(1) : cookie.domain}${cookie.path}`,
     value: newValue,
-  });
+  };
+  if (isThirdPartyIsolateEnabled()) {
+    newCookie.firstPartyDomain = cookie.firstPartyDomain || undefined;
+  }
+  return browser.cookies.set(newCookie);
 }
 
 export class EUConsentCookie {

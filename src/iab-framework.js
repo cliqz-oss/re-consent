@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { ConsentString } from 'consent-string';
-import createPageChannel from './page-actions';
+import browser from 'webextension-polyfill';
 import moment from 'moment';
+import createPageChannel from './page-actions';
 import { EUConsentCookie, LocalStorageConsent, OilCookie } from './iab-vendors';
 
 export const PURPOSES = {
