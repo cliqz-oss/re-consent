@@ -36,6 +36,10 @@ export async function hasIabConsent(tab) {
     if (!consent) {
       return false;
     }
+    const { purposeConsents, vendorConsents, metadata } = await page.getVendorConsents();
+    consent.purposeConsents = purposeConsents;
+    consent.vendorConsents = vendorConsents;
+    consent.metadata = metadata;
     consent.storage = [
       new EUConsentCookie(tab, consent),
       new LocalStorageConsent(page),
@@ -137,7 +141,7 @@ export class IABConsent extends Component {
 
   async onChange(allowed) {
     const { consent, tab } = this.props;
-    const consentData = new ConsentString(consent.metadata);
+    const consentData = new ConsentString(consent.consentData);
     consentData.setPurposesAllowed(allowed);
     await setConsentCookie(tab, consent, consentData);
     allowed.forEach((purpose) => {
@@ -148,10 +152,10 @@ export class IABConsent extends Component {
   }
 
   render() {
-    const { metadata, purposeConsents, gdprApplies, writeable } = this.props.consent;
-    const consentData = new ConsentString(metadata);
+    const { consentData, purposeConsents, gdprApplies, writeable } = this.props.consent;
+    const consent = new ConsentString(consentData);
     console.log('getVendorConsents', this.props.consent);
-    console.log('consentCookieData', consentData);
+    console.log('consentCookieData', consent);
     const allowedPurposes = Object.keys(purposeConsents || {})
       .filter(k => purposeConsents[k])
       .reduce((l, v) => [...l, parseInt(v)], []);
@@ -172,9 +176,9 @@ export class IABConsent extends Component {
           />
         </div>
         <div className="col-sm">
-          <small>Obtained {moment(consentData.created).fromNow()}, updated {moment(consentData.lastUpdated).fromNow()}</small>
+          <small>Obtained {moment(consent.created).fromNow()}, updated {moment(consent.lastUpdated).fromNow()}</small>
           <p>
-            <a href="http://advertisingconsent.eu/iab-europe-transparency-consent-framework-list-of-registered-cmps/" target="_blank">CMP ID</a>: {consentData.cmpId}
+            <a href="http://advertisingconsent.eu/iab-europe-transparency-consent-framework-list-of-registered-cmps/" target="_blank">CMP ID</a>: {consent.cmpId}
           </p>
         </div>
       </div>

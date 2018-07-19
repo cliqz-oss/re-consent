@@ -1,47 +1,69 @@
 const port = chrome.runtime.connect();
 
-const api = {
-  hasCmp() {
-    return typeof window.wrappedJSObject.__cmp === 'function';
-  },
-  getConsentData() {
-    window.eval('window.__cmp("getVendorConsents", [], (r) => window._cmpConsent = r);');
-    return new Promise((resolve) => {
-      if (window.wrappedJSObject._cmpConsent) {
-        resolve(window.wrappedJSObject._cmpConsent);
-      } else {
-      setTimeout(() => {
-          resolve(window.wrappedJSObject._cmpConsent);
-        }, 500);
-      }
-    });
-  },
-  getVendorList(version) {
-    try {
-      window.eval('window.__cmp("getVendorList", null, (r) => window._cmpVendors = r);');
-    } catch(e) {
-
-    }
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(window.wrappedJSObject._cmpVendors);
-      }, 500);
-    });
-  },
+class ApiBase {
   getLocalStorage(key) {
     return localStorage.getItem(key);
-  },
+  }
+
   setLocalStorage(key, value) {
     localStorage.setItem(key, value);
-  },
-  resetCmp() {
-    window.wrappedJSObject._cmpConsent = null;
-    window.wrappedJSObject._cmpVendors = null;
-  },
-};
+  }
+
+  queryCmp(/* method, args */) {
+    throw 'Should be implemented by sub class';
+  }
+
+  getConsentData() {
+    return this.queryCmp('getConsentData', []);
+  }
+
+  getVendorConsents() {
+    return this.queryCmp('getVendorConsents');
+  }
+
+  getVendorList() {
+    return this.queryCmp('getVendorList', null);
+  }
+}
+
+class ApiFirefox extends ApiBase {
+  constructor() {
+    super();
+    this.queryCtr = 0;
+  }
+
+  hasCmp() {
+    return typeof window.wrappedJSObject.__cmp === 'function';
+  }
+
+  /**
+   * Query the __cmp object in the host page. Uses the firefox specific exportFunction method
+   * and window.eval in order to add a callback which is accessible to the host page, and execute
+   * __cmp inside the page scope.
+   * @param {*} method
+   */
+  queryCmp(method) {
+    this.queryCtr += 1;
+    const tmpName = `_cmpRes${this.queryCtr}`;
+    return new Promise((resolve) => {
+      exportFunction(resolve, window, { defineAs: tmpName });
+      const script = `window.__cmp("${method}", null, (r) => window.${tmpName}(r));`;
+      window.eval(script);
+    });
+  }
+}
+
+const api = new ApiFirefox();
 
 const spanan = new Spanan.default();
-spanan.export(api, {
+spanan.export({
+  hasCmp: api.hasCmp.bind(api),
+  getLocalStorage: api.getLocalStorage.bind(api),
+  setLocalStorage: api.setLocalStorage.bind(api),
+  getConsentData: api.getConsentData.bind(api),
+  getVendorConsents: api.getVendorConsents.bind(api),
+  getVendorList: api.getVendorList.bind(api),
+}, {
   respond(response, request) {
     chrome.runtime.sendMessage({
       response: response,
