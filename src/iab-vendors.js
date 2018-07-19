@@ -55,7 +55,7 @@ export class EUConsentCookie {
         const consentCookies = await browser.cookies.getAll(cookieWrapper({
           storeId: this.tab.cookieStoreId,
         }, this.tab.url, true));
-        this.cookies = consentCookies.filter(c => c.value.startsWith(this.consent.metadata));
+        this.cookies = consentCookies.filter(c => c.value.startsWith(this.consent.consentData));
         if (this.cookies.length === 0) {
           this.cookies = consentCookies.filter(c => this.tab.url.indexOf(c.domain) > -1 && c.name.toLowerCase() === 'euconsent');
         }
