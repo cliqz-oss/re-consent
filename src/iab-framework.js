@@ -179,7 +179,7 @@ export class IABConsent extends Component {
         <div className="col-sm">
           <small>Obtained {moment(consent.created).fromNow()}, updated {moment(consent.lastUpdated).fromNow()}</small>
           <p>
-            <a href="http://advertisingconsent.eu/iab-europe-transparency-consent-framework-list-of-registered-cmps/" target="_blank">CMP ID</a>: {consent.cmpId}
+            <a href="https://advertisingconsent.eu/cmp-list/" target="_blank">CMP ID</a>: {consent.cmpId}
           </p>
         </div>
       </div>
