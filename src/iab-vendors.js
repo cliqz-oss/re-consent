@@ -2,15 +2,20 @@ import browser from 'webextension-polyfill';
 
 const localStorageKey = 'crfgL0cSt0r';
 
-function isThirdPartyIsolateEnabled() {
-  return browser.privacy.websites.firstPartyIsolate === true;
+async function isThirdPartyIsolateEnabled() {
+  if (browser.privacy && browser.privacy.websites.firstPartyIsolate) {
+    const isolateEnabled = await browser.privacy.websites.firstPartyIsolate.get({});
+    if (isolateEnabled.value === true) {
+      return true;
+    }
+  }
+  return false;
 }
 
-function cookieWrapper(opts, url, thirdParty) {
-  if (isThirdPartyIsolateEnabled()) {
-    opts.firstPartyDomain = thirdParty === true ? url.split('/')[2] : '';
+async function cookieWrapper(opts, url, thirdParty) {
+  if (await isThirdPartyIsolateEnabled()) {
+    opts.firstPartyDomain = url.split('/')[2].replace('www.', '');
   }
-  console.log(opts);
   return opts;
 }
 
@@ -26,8 +31,8 @@ async function updateCookie(cookie, newValue) {
     url: `${cookie.httpOnly ? 'http' : 'https'}://${cookie.domain.startsWith('.') ? cookie.domain.substring(1) : cookie.domain}${cookie.path}`,
     value: newValue,
   };
-  if (isThirdPartyIsolateEnabled()) {
-    newCookie.firstPartyDomain = cookie.firstPartyDomain || undefined;
+  if (await isThirdPartyIsolateEnabled()) {
+    newCookie.firstPartyDomain = cookie.firstPartyDomain || '';
   }
   return browser.cookies.set(newCookie);
 }
@@ -56,7 +61,7 @@ export class EUConsentCookie {
     if (!this._checked) {
       this.cookies = [];
       if (this.consent) {
-        const consentCookies = await browser.cookies.getAll(cookieWrapper({
+        const consentCookies = await browser.cookies.getAll(await cookieWrapper({
           storeId: this.tab.cookieStoreId,
         }, this.tab.url, true));
         this.cookies = consentCookies.filter(c => c.value.startsWith(this.consent.consentData));
@@ -64,9 +69,9 @@ export class EUConsentCookie {
           this.cookies = consentCookies.filter(c => this.tab.url.indexOf(c.domain) > -1 && c.name.toLowerCase() === 'euconsent');
         }
       }
-      if (isThirdPartyIsolateEnabled()) {
+      if (await isThirdPartyIsolateEnabled()) {
         // if third party isolation is on, the previous query will have only got third-party cookies
-        const consentCookies = (await browser.cookies.getAll(cookieWrapper({
+        const consentCookies = (await browser.cookies.getAll(await cookieWrapper({
           url: this.tab.url,
           storeId: this.tab.cookieStoreId,
         }, this.tab.url, false))).filter(c => c.name.toLowerCase() === this.cookieName);
@@ -148,7 +153,7 @@ export class OilCookie {
 
   async get() {
     if (!this.checked) {
-      this.cookie = await browser.cookies.get(cookieWrapper({
+      this.cookie = await browser.cookies.get(await cookieWrapper({
         name: 'oil_data',
         url: this.tab.url,
         storeId: this.tab.cookieStoreId,
