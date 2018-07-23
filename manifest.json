@@ -1,4 +1,9 @@
 {
+    "applications": {
+        "gecko": {
+            "id": "gdprtool@cliqz.com"
+        }
+    },
     "author": "Cliqz GmbH",
     "description": "Managing your data preferences",
     "manifest_version": 2,
@@ -6,7 +11,7 @@
     "version": "0.0.1",
     "background": {
         "scripts": [
-            "node_modules/spanan/dist/index.browser.js",
+            "vendor/spanan.js",
             "dist/background.js"
         ]
     },
@@ -27,7 +32,7 @@
         {
             "matches": ["<all_urls>"],
             "js": [
-                "node_modules/spanan/dist/index.browser.js",
+                "vendor/spanan.js",
                 "content-script.js"
             ],
             "run_at": "document_end"
