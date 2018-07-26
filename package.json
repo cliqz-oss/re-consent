@@ -10,7 +10,7 @@
     "moment": "^2.22.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "spanan": "^2.0.0",
+    "spanan": "2.1.0",
     "web-ext": "^2.7.0",
     "webextension-polyfill": "^0.2.1",
     "webpack": "^4.6.0",

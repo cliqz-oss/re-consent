@@ -14,7 +14,7 @@ export const PURPOSES = {
 }
 
 async function addVendorList(page, consent) {
-  let vendorList = await page.getVendorList();
+  let vendorList = await page.getVendorList().catch(() => null);
   if (!vendorList || !vendorList.vendorListVersion) {
     vendorList = await fetch('https://vendorlist.consensu.org/vendorlist.json').then(r => r.json());
   }

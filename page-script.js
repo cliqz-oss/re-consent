@@ -19,7 +19,7 @@ window.addEventListener("message", function(event) {
         window.postMessage({
           source: MSG_SOURCE_PAGE,
           uuid,
-          response: {},
+          error: e.toString(),
         }, '*');
       }
     }

@@ -45,10 +45,14 @@ class ApiFirefox extends ApiBase {
   queryCmp(method) {
     this.queryCtr += 1;
     const tmpName = `_cmpRes${this.queryCtr}`;
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       exportFunction(resolve, window, { defineAs: tmpName });
       const script = `window.__cmp("${method}", null, (r) => window.${tmpName}(r));`;
-      window.eval(script);
+      try {
+        window.eval(script);
+      } catch(e) {
+        reject(e);
+      }
     });
   }
 }
@@ -114,6 +118,12 @@ spanan.export({
   respond(response, request) {
     chrome.runtime.sendMessage({
       response: response,
+      uuid: request.uuid
+    });
+  },
+  respondWithError(error, request) {
+    chrome.runtime.sendMessage({
+      error: error.toString(),
       uuid: request.uuid
     });
   }
