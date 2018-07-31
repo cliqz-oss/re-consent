@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import detectIcon from '!url-loader!../assets/scan-icon.png';
+import detectIcon from '../assets/scan-icon.png';
 
 const DetectionCardScanning = ({ siteName }) => (
   <div className="detection-card">
