@@ -1,4 +1,4 @@
-export async function fetchDocument(url, format='html') { // eslint-disable-line import/prefer-default-export
+export async function fetchDocument(url, format = 'html') { // eslint-disable-line import/prefer-default-export
   const response = await fetch(url, { credentials: 'include' });
 
   if (response.status !== 200) {

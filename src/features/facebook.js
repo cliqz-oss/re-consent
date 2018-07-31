@@ -1,3 +1,4 @@
+import Detector from './base';
 import { fetchDocument } from './utils';
 
 const faceRecognitionFeature = {
@@ -7,7 +8,7 @@ const faceRecognitionFeature = {
   settingsUrl: 'https://www.facebook.com/settings?tab=facerec',
   aboutUrl: 'https://cliqz.com',
   description: 'Allow Facebook to recognise your face in photos and videos?',
-  group: 'automatically-detected'
+  group: 'automatically-detected',
 };
 
 const locationSharingFeature = {
@@ -24,8 +25,8 @@ const thirdPartyDataAccessFeature = {
   title: 'Third Party Data Access',
   key: 'facebook-third-party-data-access',
   icon: 'IconThirdPartyAccess',
-  aboutUrl: 'https://cliqz.com',
   settingsUrl: 'https://www.facebook.com/settings?tab=applications',
+  aboutUrl: 'https://cliqz.com',
   description: 'Allow third party applications to access your data through Facebook?',
   group: 'manual-check',
 };
@@ -34,77 +35,46 @@ const advertisersFeature = {
   title: 'Advertisers who uploaded your data to Facebook',
   key: 'facebook-advertisers',
   icon: 'IconAds',
-  aboutUrl: 'https://cliqz.com',
   settingsUrl: 'https://www.facebook.com/ads/preferences/?entry_product=ad_settings_screen',
+  aboutUrl: 'https://cliqz.com',
   description: 'Advertisers are running ads using a contact list they uploaded that includes your contact information',
   group: 'manual-check',
 };
 
-export const features = [
-  faceRecognitionFeature,
-  locationSharingFeature,
-  thirdPartyDataAccessFeature,
-  advertisersFeature,
-];
-
 async function detectFaceRecognition() {
-  let suspicious;
-  let error;
-
-  try {
-    const doc = await fetchDocument('https://www.facebook.com/settings?tab=facerec');
-    const text = doc.querySelector('.fbSettingsListItemContent .fwb').textContent.toLowerCase();
-    const enabled = ['yes', 'ja'].includes(text);
-
-    suspicious = enabled;
-  } catch (e) {
-    error = e;
-  }
-
-  return {
-    ...faceRecognitionFeature,
-    error,
-    suspicious,
-  };
+  const doc = await fetchDocument(faceRecognitionFeature.settingsUrl);
+  const text = doc.querySelector('.fbSettingsListItemContent .fwb').textContent.toLowerCase();
+  const enabled = ['yes', 'ja'].includes(text);
+  return enabled;
 }
 
 async function detectLocationSharing() {
-  let suspicious;
-  let error;
-
-  try {
-    const doc = await fetchDocument('https://www.facebook.com/settings?tab=location');
-    const text = doc.getElementById('SettingsPage_Content').innerText.toLowerCase();
-    const enabled = [
-      'Dein Standort-Verlauf ist ein',
-      'Your Location History is on',
-    ].some(value => text.includes(value.toLowerCase()));
-
-    suspicious = enabled;
-  } catch (e) {
-    error = e;
-  }
-
-  return {
-    ...locationSharingFeature,
-    error,
-    suspicious,
-  };
+  const doc = await fetchDocument(locationSharingFeature.settingsUrl);
+  const text = doc.getElementById('SettingsPage_Content').innerText.toLowerCase();
+  const enabled = [
+    'Dein Standort-Verlauf ist ein',
+    'Your Location History is on',
+  ].some(value => text.includes(value.toLowerCase()));
+  return enabled;
 }
 
-export function triggerDetection(url) {
-  return (new URL(url)).hostname === 'www.facebook.com';
-}
-
-export async function detectFeatures(url) {
-  if (!triggerDetection(url)) {
-    return [];
+export default class FacebookDetector extends Detector {
+  getDomains() {
+    return [
+      'www.facebook.com',
+    ];
   }
 
-  const result = [];
+  getSiteName() {
+    return 'Facebook';
+  }
 
-  result.push(await detectFaceRecognition());
-  result.push(await detectLocationSharing());
-
-  return result;
+  async detect() {
+    return [
+      await this.detectFeature(faceRecognitionFeature, detectFaceRecognition),
+      await this.detectFeature(locationSharingFeature, detectLocationSharing),
+      thirdPartyDataAccessFeature,
+      advertisersFeature,
+    ];
+  }
 }

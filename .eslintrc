@@ -1,7 +1,11 @@
 {
-    "extends": "airbnb",
-    "env": {
-      "browser": true,
-      "webextensions": true
-    }
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "webextensions": true
+  },
+  "rules": {
+    "class-methods-use-this": 0,
+    "no-param-reassign": 0,
+  },
 }

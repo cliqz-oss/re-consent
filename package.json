@@ -4,16 +4,19 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.1.1",
+    "consent-string": "^1.2.4",
+    "moment": "^2.22.2",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
     "regenerator-runtime": "^0.11.1",
-    "whatwg-fetch": "^2.0.4"
+    "webextension-polyfill": "^0.3.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --open",
+    "start": "webpack --watch",
     "build": "rm -rf build && NODE_ENV=production webpack",
-    "deploy": "npm run build && aws s3 sync --delete --acl public-read --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate build/ s3://cliqz/website",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "rm -rf storybook-static && build-storybook",
     "deploy-storybook": "npm run build-storybook && aws s3 sync --delete --acl public-read --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate storybook-static/ s3://cliqz/storybook"
@@ -36,6 +39,7 @@
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^2.1.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
