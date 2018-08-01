@@ -1,9 +1,9 @@
 FROM node:9.6.1
 
-RUN mkdir /app
-WORKDIR /app
-COPY package.json /app/package.json
+WORKDIR /app/
+
+COPY package.json /app/
 
 RUN npm install --silent
 
-CMD ["npm", "start"]
+CMD npm start

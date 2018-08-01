@@ -1,22 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import style from '../scss/index-plugin.scss';
-import { IconClose, IconPrivacyOK } from './Icons';
+import { IconPrivacyOK } from './Icons';
 
-const DetectionCardSuccess = ({ onClose, infoUrl }) => (
-  <div className={style['detection-card']}>
-    <div className={style['detection-card__close']} onClick={onClose}>
-      <IconClose />
-    </div>
-    <div className={[style['detection-card__icon'], style['detection-card__icon--success']].join(' ')}>
+const DetectionCardSuccess = ({ pageUrl }) => (
+  <div className="detection-card">
+    <div className="detection-card__icon detection-card__icon--success">
       <IconPrivacyOK />
     </div>
-    <div className={style['detection-card__title']}>
+    <div className="detection-card__title">
       Privacy Well Set!
     </div>
-    <div className={style['detection-card__button']}>
-      <a className={[style.btn, style['btn-link']].join(' ')} target="_blank" rel="noopener noreferrer" href={infoUrl}>
+    <div className="detection-card__button">
+      <a className="btn btn-link" target="_blank" rel="noopener noreferrer" href={pageUrl}>
         Show me what I&apos;ve done
       </a>
     </div>
@@ -24,13 +20,11 @@ const DetectionCardSuccess = ({ onClose, infoUrl }) => (
 );
 
 DetectionCardSuccess.propTypes = {
-  onClose: PropTypes.func,
-  infoUrl: PropTypes.string,
+  pageUrl: PropTypes.string,
 };
 
 DetectionCardSuccess.defaultProps = {
-  onClose: null,
-  infoUrl: '#',
+  pageUrl: '#',
 };
 
 export default DetectionCardSuccess;

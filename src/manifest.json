@@ -1,0 +1,29 @@
+{
+  "name": "Cliqz Privacy Warning",
+  "version": "1.0",
+  "description": "Cliqz Privacy Warning",
+  "manifest_version": 2,
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "permissions": [
+    "<all_urls>",
+    "cookies",
+    "privacy",
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    "content-page-bridge.js",
+    "page.html"
+  ]
+}

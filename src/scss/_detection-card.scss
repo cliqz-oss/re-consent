@@ -1,44 +1,13 @@
 .detection-card {
-  position: relative;
   max-width: 340px;
-
-  -webkit-font-smoothing : antialiased;
-  background: white;
-  box-shadow: 0 24px 40px -4px rgba(0,0,0,0.16);
-  box-sizing: border-box;
-  font-family: $font-family-sans-serif;
-  font-size: 16px;
-  font-weight: $font-weight-base;
   padding: 50px 32px 20px 32px;
-
-  &-wrapper {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 10000000;
-  }
 
   &-wrapper__error {
     color: red;
     font-size: 12px;
     margin-top: -2em;
     padding: 0.5em;
-    position: relative;
     text-align: right;
-  }
-
-  &__close {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-
-    cursor: pointer;
-    padding: 12px;
-
-    svg {
-      display: block;
-      fill: $dark;
-    }
   }
 
   &__icon {

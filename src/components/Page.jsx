@@ -1,16 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { IconStamp, IconPrint, IconArrowRight, IconOneNo, IconTwoNo, IconThreeNo, getIconByName } from './Icons';
 
-
-const Page = ({ site, features }) => (
+const Page = ({ siteName, featureGroups }) => (
   <div className="page">
     <div className="header">
       <div className="container">
         <p className="header__title">Data infringement detected!</p>
         <p className="header__lead">
-          <strong> {site} </strong>
-          is collecting your data and you should be aware of that.
+          <strong>{siteName}</strong> is collecting your data and you should be aware of that.
           We have detected some of the suspicious ones.
         </p>
         <div className="header__buttons">
@@ -27,12 +27,12 @@ const Page = ({ site, features }) => (
       </div>
     </div>
 
-    {[['automatically-detected', 'Detected Data'], ['manual-check', 'Manually check data']].filter(([groupName]) => features.some(feature => feature.group === groupName)).map(([groupName, groupTitle]) => (
+    {featureGroups.map(([groupName, groupTitle, features]) => (
       <div className="settings-section" key={groupName} id={groupName}>
         <div className="container">
           <p className="settings-section__title">{groupTitle}</p>
           <div className="settings-section__cards">
-            {features.filter(feature => feature.group === groupName).map(feature => (
+            {features.map(feature => (
               <div className="privacy-feature-card shadow" key={feature.key}>
                 <div className="container-fluid">
                   <div className="row">
@@ -211,4 +211,33 @@ const Page = ({ site, features }) => (
   </div>
 );
 
-export default Page;
+Page.propTypes = {
+  siteName: PropTypes.string,
+  featureGroups: PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
+};
+
+Page.defaultProps = {
+  siteName: null,
+};
+
+const mapStateToProps = (state) => {
+  const { siteName } = state;
+  const features = state.features || [];
+  const featureGroups = (
+    [
+      ['automatically-detected', 'Detected Data'],
+      ['manual-check', 'Manually check data'],
+    ]
+      .map(([groupName, groupTitle]) => (
+        [groupName, groupTitle, features.filter(feature => feature.group === groupName)]
+      ))
+      .filter(([,, groupFeatures]) => groupFeatures.length)
+  );
+
+  return {
+    siteName,
+    featureGroups,
+  };
+};
+
+export default connect(mapStateToProps)(Page);
