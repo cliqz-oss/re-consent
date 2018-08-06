@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { getIconByName } from '../Icons';
 
 const PopupList = ({
   title,
@@ -9,7 +8,9 @@ const PopupList = ({
 }) => (
   <div className="popup-list">
     <div className="popup-list__header">
-      {getIconByName(icon)}
+      <span className="popup-list__icon">
+        {icon}
+      </span>
       <span className="popup-list__title">
         {title}
       </span>
@@ -23,7 +24,7 @@ const PopupList = ({
 
 PopupList.propTypes = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.node.isRequired,
   children: PropTypes.arrayOf(PropTypes.node).isRequired,
 };
 

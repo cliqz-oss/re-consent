@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import { getIconByName } from '../Icons';
+
 
 const PopupHeader = ({
   applicationState,
@@ -10,7 +12,9 @@ const PopupHeader = ({
   return (
     <div className="popup-header">
       {getIconByName(`Icon${applicationState}`)}
-      {title}
+      <div className="popup-header__title">
+        {title}
+      </div>
     </div>
   );
 };

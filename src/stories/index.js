@@ -3,6 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
+import { APPLICATION_STATE } from '../constants';
 import DetectionCardScanning from '../components/DetectionCardScanning';
 import DetectionCardSuccess from '../components/DetectionCardSuccess';
 import DetectionCardSuspicious from '../components/DetectionCardSuspicious';
@@ -12,6 +13,10 @@ import PopupFooter from '../components/popup/PopupFooter';
 import PopupListItemCheckbox from '../components/popup/PopupListItemCheckbox';
 import PopupListItemButton from '../components/popup/PopupListItemButton';
 import PopupList from '../components/popup/PopupList';
+import Popup from '../components/popup/Popup';
+
+import consentFixture from './fixtures/consent.json';
+import featuresFixture from './fixtures/features.json';
 
 import '../scss/index.scss';
 
@@ -89,9 +94,45 @@ storiesOf('Detection Cards', module)
   ));
 
 storiesOf('Popup', module)
-  .add('PopupHeader', () => (
-    <PopupHeader applicationState="review" />
+  .add('Scanning', () => (
+    <Popup
+      applicationState={APPLICATION_STATE.SCANNING}
+      changeConsent={action('Change Consent')}
+    />
   ))
+  .add('Review with disabled consent', () => (
+    <Popup
+      applicationState={APPLICATION_STATE.REVIEW}
+      features={featuresFixture}
+      consent={consentFixture}
+      changeConsent={action('Change Consent')}
+    />
+  ))
+  .add('Review with enabled consent', () => (
+    <Popup
+      applicationState={APPLICATION_STATE.REVIEW}
+      features={featuresFixture}
+      consent={{ ...consentFixture, storageName: 'some-storage-name' }}
+      changeConsent={action('Change Consent')}
+    />
+  ))
+  .add('Review with features only', () => (
+    <Popup
+      applicationState={APPLICATION_STATE.REVIEW}
+      features={featuresFixture}
+      changeConsent={action('Change Consent')}
+    />
+  ));
+
+storiesOf('PopupHeader', module)
+  .add('Review', () => (
+    <PopupHeader applicationState={APPLICATION_STATE.REVIEW} />
+  ))
+  .add('Edited', () => (
+    <PopupHeader applicationState={APPLICATION_STATE.EDITED} />
+  ));
+
+storiesOf('PopupFooter', module)
   .add('PopupFooter', () => (
     <PopupFooter detailPageUrl="http://some-link" />
   ));

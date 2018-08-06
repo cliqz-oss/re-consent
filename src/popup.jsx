@@ -10,7 +10,6 @@ import reducer from './reducer';
 
 import './scss/index.scss';
 
-const PAGE_URL = 'https://cliqz.com/magazine/consentric';
 
 const store = createStore(reducer);
 
@@ -28,7 +27,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     <Provider store={store}>
       <React.Fragment>
         <ConsentCard changeConsent={changeConsent} />
-        <DetectionCard pageUrl={PAGE_URL} />
+        <DetectionCard />
       </React.Fragment>
     </Provider>,
     element,

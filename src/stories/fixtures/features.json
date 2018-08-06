@@ -1,0 +1,20 @@
+[
+    {
+        "key": "1",
+        "title": "Face Recognition",
+        "suspicious": true,
+        "settingsUrl": "some-url"
+    },
+    {
+        "key": "2",
+        "title": "Cambridge Analytica",
+        "suspicious": false,
+        "settingsUrl": "some-url"
+    },
+    {
+        "key": "3",
+        "title": "Location Sharing",
+        "suspicious": true,
+        "settingsUrl": "some-url"
+    }
+]

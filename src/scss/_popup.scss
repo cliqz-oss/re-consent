@@ -1,3 +1,5 @@
+$popup-side-padding: 30px;
+
 $popup-list-border-color: #E7ECEE;
 $popup-list-background-color: #F9F9FA;
 $popup-list-toggle-checked-background-color: $blue;
@@ -6,20 +8,42 @@ $popup-list-toggle-height: 24px;
 $popup-list-toggle-width: 40px;
 $popup-list-toggle-padding: 4px;
 
-.popup-header {
 
+.popup {
+  font-size: 13px;
+}
+
+.popup-header {
+  padding: $popup-side-padding;
+
+  text-align: center;
+
+  &__title {
+    padding-top: 5px;
+    color: black;
+  }
 }
 
 .popup-list {
   margin-top: 30px;
 
   &__header {
-    padding: 18px 30px;
+    padding: 15px $popup-side-padding;
     text-transform: uppercase;
   }
 
   &__title {
-    padding-left: 10px;
+    padding-left: 30px;
+  }
+
+  &__icon {
+    position: relative;
+
+    svg {
+      height: 17px;
+      position: absolute;
+      fill: currentColor;
+    }
   }
 
   &__items {
@@ -32,8 +56,8 @@ $popup-list-toggle-padding: 4px;
   display: flex;
   justify-content: space-between;
 
-  margin: 0 30px;
-  padding: 15px 0;
+  margin: 0 $popup-side-padding;
+  padding: 12px 0;
   line-height: $popup-list-toggle-height;
 
   border-bottom: 1px solid $popup-list-border-color;
@@ -74,5 +98,7 @@ $popup-list-toggle-padding: 4px;
 }
 
 .popup-footer {
+  padding: $popup-side-padding;
 
+  text-align: center;
 }

@@ -12,7 +12,7 @@ const PopupListItemButton = ({
     </div>
     {/* Dana will provide a new design here, that's why we don't need to care about it right now */}
     {isActive && (
-      <a href={changeUrl} className="btn btn-link" >Deactivate</a>
+      <a href={changeUrl}>Deactivate</a>
     )}
     {!isActive && 'Deactivated'}
   </div>

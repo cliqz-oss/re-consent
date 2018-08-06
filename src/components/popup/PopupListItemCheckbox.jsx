@@ -26,9 +26,13 @@ const PopupListItemCheckbox = ({
 
 PopupListItemCheckbox.propTypes = {
   checked: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+};
+
+PopupListItemCheckbox.defaultProps = {
+  disabled: false,
 };
 
 export default PopupListItemCheckbox;

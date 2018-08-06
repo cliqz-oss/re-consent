@@ -1,20 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
-const PopupFooter = ({
-  detailPageUrl,
-}) => (
+import { DETAIL_PAGE_URL } from './../../constants';
+
+
+const PopupFooter = () => (
   <div className="popup-footer">
-    <div className="detection-card__summary__cta">
-      <a className="btn btn-info" target="_blank" rel="noopener noreferrer" href={detailPageUrl}>
-        Show me the details
-      </a>
-    </div>
+    <a className="btn btn-info" target="_blank" rel="noopener noreferrer" href={DETAIL_PAGE_URL}>
+      Show me the details
+    </a>
   </div>
 );
-
-PopupFooter.propTypes = {
-  detailPageUrl: PropTypes.string.isRequired,
-};
 
 export default PopupFooter;

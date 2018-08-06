@@ -1,41 +1,92 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { APPLICATION_STATES } from '../../constants';
-import DetectionCardScanning from './DetectionCardScanning';
+import { APPLICATION_STATE } from '../../constants';
+import DetectionCardScanning from '../DetectionCardScanning';
 import PopupHeader from './PopupHeader';
 import PopupFooter from './PopupFooter';
-import FeatureCard from './FeatureCard';
-import ConsentCard from './ConsentCard';
+import PopupList from './PopupList';
+import PopupListItemButton from './PopupListItemButton';
+import PopupListItemCheckbox from './PopupListItemCheckbox';
+import { IconCogWheel, IconEyes } from '../Icons';
+
+const PURPOSES = {
+  1: 'Information storage and access',
+  2: 'Personalisation',
+  3: 'Ad selection, delivery, reporting',
+  4: 'Content selection, delivery, reporting',
+  5: 'Measurement',
+};
+
 
 const Popup = ({
   applicationState,
-  detailPageUrl,
-  features,
   changeConsent,
+  consent,
+  features,
 }) => {
-  if (applicationState === APPLICATION_STATES.SCANNING) {
+  if (applicationState === APPLICATION_STATE.SCANNING) {
     return <DetectionCardScanning />;
   }
+
   return (
-    <div>
+    <div className="popup">
       <PopupHeader applicationState={applicationState} />
-      <ConsentCard changeConsent={changeConsent} />
-      <FeatureCard features={features} />
-      <PopupFooter detailPageUrl={detailPageUrl} />
+      {consent && (
+        <PopupList title="Third Party Consents" icon={<IconEyes />}>
+          {Object.keys(PURPOSES).map((purposeId) => {
+            const purposeTitle = PURPOSES[purposeId];
+            const allowed = consent.vendorConsents.purposeConsents[purposeId];
+            const readOnly = !consent.storageName;
+            const onChange = () => changeConsent(consent, [purposeId], !allowed);
+
+            return (
+              <PopupListItemCheckbox
+                key={purposeId}
+                title={purposeTitle}
+                checked={allowed}
+                disabled={readOnly}
+                onChange={onChange}
+              />
+            );
+          })}
+        </PopupList>
+      )}
+      <PopupList title="Privacy Settings" icon={<IconCogWheel />}>
+        {features.map(feature => (
+          <PopupListItemButton
+            key={feature.key}
+            title={feature.title}
+            isActive={feature.suspicious}
+            changeUrl={feature.settingsUrl}
+          />
+        ))}
+      </PopupList>
+      <PopupFooter />
     </div>
   );
 };
 
 Popup.propTypes = {
   applicationState: PropTypes.string.isRequired,
-  detailPageUrl: PropTypes.string.isRequired,
-  features: PropTypes.arrayOf(PropTypes.object),
   changeConsent: PropTypes.func.isRequired,
+  consent: PropTypes.shape({
+    consentData: PropTypes.object.isRequired,
+    vendorConsents: PropTypes.object.isRequired,
+    vendorList: PropTypes.object,
+    storageName: PropTypes.string,
+  }),
+  features: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    suspicious: PropTypes.bool.isRequired,
+    settingsUrl: PropTypes.string.isRequired,
+  })),
 };
 
 Popup.defaultProps = {
-  features: null,
+  consent: null,
+  features: [],
 };
 
 export default Popup;
