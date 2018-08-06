@@ -33,6 +33,10 @@ module.exports = {
         from: 'src/manifest.json',
         to: 'manifest.json',
       },
+      {
+        from: 'src/assets/icons',
+        to: 'icons',
+      },
     ]),
   ],
   devtool: mode !== 'production' ? 'inline-source-map' : false,
