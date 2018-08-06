@@ -7,7 +7,6 @@ import { createStore } from 'redux';
 import ConsentCard from './components/ConsentCard';
 import DetectionCard from './components/DetectionCard';
 import reducer from './reducer';
-import { tabLoaded } from './utils';
 
 import './scss/index.scss';
 
@@ -34,13 +33,13 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     element,
   );
 
-  await tabLoaded(tab);
-
   browser.runtime.onMessage.addListener((message, sender) => {
     if (!sender.tab || sender.tab.id !== tab.id) {
       return;
     }
-    if (message.type === 'stateChanged') {
+    if (message.type === 'contentReady') {
+      browser.tabs.sendMessage(tab.id, { type: 'getState' });
+    } else if (message.type === 'stateChanged') {
       store.dispatch({ type: 'stateChanged', state: message.state });
     }
   });
