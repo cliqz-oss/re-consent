@@ -37,7 +37,11 @@ async function detectConsent(consent, tab, localStorage, dispatch) {
 
   const storageArgs = { consent, tab, localStorage };
   const storages = await Promise.all((
-    ['EUConsentCookie', 'LocalStorageConsent', 'OilCookie']
+    // Order is important!
+    // Some providers might use one storage and sync with another one.
+    // E.g. at chip.de oil cookie is used to get consent
+    // and amazon ads copies data on page load to local storage.
+    ['EUConsentCookie', 'OilCookie', 'LocalStorageConsent']
       .map(storageName => [storageName, new (getStorageClass(storageName))(storageArgs)])
       .map(async ([storageName, storage]) => [storageName, storage, await storage.exists()])
   ));
