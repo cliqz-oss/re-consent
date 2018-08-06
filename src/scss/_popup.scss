@@ -8,11 +8,6 @@ $popup-list-toggle-height: 24px;
 $popup-list-toggle-width: 40px;
 $popup-list-toggle-padding: 4px;
 
-
-.popup {
-  font-size: 13px;
-}
-
 .popup-header {
   padding: $popup-side-padding;
 
@@ -71,6 +66,7 @@ $popup-list-toggle-padding: 4px;
 
 .popup-list {
   margin-top: 30px;
+  font-size: 13px;
 
   &__header {
     padding: 15px $popup-side-padding;

@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 
 import { APPLICATION_STATE } from '../constants';
 import PopupScanning from '../components/popup/PopupScanning';
-import { IconStamp } from '../components/Icons';
+import { IconStamp, IconCogWheel } from '../components/Icons';
 import PopupHeader from '../components/popup/PopupHeader';
 import PopupFooter from '../components/popup/PopupFooter';
 import PopupListItemCheckbox from '../components/popup/PopupListItemCheckbox';
@@ -133,7 +133,7 @@ storiesOf('PopupList', module)
   .add('PopupList', () => (
     <PopupList
       title="Some title"
-      icon="IconFace"
+      icon={<IconCogWheel />}
     >
       <PopupListItemButton
         title="Some title"
@@ -151,7 +151,7 @@ storiesOf('PopupList', module)
     <div>
       <PopupList
         title="List one"
-        icon="IconFace"
+        icon={<IconCogWheel />}
       >
         <PopupListItemButton
           title="Some title"
@@ -161,7 +161,7 @@ storiesOf('PopupList', module)
       </PopupList>
       <PopupList
         title="List two"
-        icon="IconFace"
+        icon={<IconCogWheel />}
       >
         <PopupListItemCheckbox
           title="Some title"
