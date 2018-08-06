@@ -98,6 +98,7 @@ storiesOf('Popup', module)
     <Popup
       applicationState={APPLICATION_STATE.SCANNING}
       changeConsent={action('Change Consent')}
+      siteName="Facebook.com"
     />
   ))
   .add('Review with disabled consent', () => (
@@ -106,6 +107,7 @@ storiesOf('Popup', module)
       features={featuresFixture}
       consent={consentFixture}
       changeConsent={action('Change Consent')}
+      siteName="Facebook.com"
     />
   ))
   .add('Review with enabled consent', () => (
@@ -114,6 +116,7 @@ storiesOf('Popup', module)
       features={featuresFixture}
       consent={{ ...consentFixture, storageName: 'some-storage-name' }}
       changeConsent={action('Change Consent')}
+      siteName="Facebook.com"
     />
   ))
   .add('Review with features only', () => (
@@ -121,15 +124,22 @@ storiesOf('Popup', module)
       applicationState={APPLICATION_STATE.REVIEW}
       features={featuresFixture}
       changeConsent={action('Change Consent')}
+      siteName="Facebook.com"
     />
   ));
 
 storiesOf('PopupHeader', module)
   .add('Review', () => (
-    <PopupHeader applicationState={APPLICATION_STATE.REVIEW} />
+    <PopupHeader
+      applicationState={APPLICATION_STATE.REVIEW}
+      siteName="Facebook.com"
+    />
   ))
   .add('Edited', () => (
-    <PopupHeader applicationState={APPLICATION_STATE.EDITED} />
+    <PopupHeader
+      applicationState={APPLICATION_STATE.EDITED}
+      siteName="Facebook.com"
+    />
   ));
 
 storiesOf('PopupFooter', module)

@@ -18,6 +18,10 @@ $popup-list-toggle-padding: 4px;
 
   text-align: center;
 
+  &__icon {
+    height: 30px;
+  }
+
   &__title {
     padding-top: 5px;
     color: black;

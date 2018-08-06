@@ -24,6 +24,7 @@ const Popup = ({
   changeConsent,
   consent,
   features,
+  siteName,
 }) => {
   if (applicationState === APPLICATION_STATE.SCANNING) {
     return <DetectionCardScanning />;
@@ -31,7 +32,7 @@ const Popup = ({
 
   return (
     <div className="popup">
-      <PopupHeader applicationState={applicationState} />
+      <PopupHeader applicationState={applicationState} siteName={siteName} />
       {consent && (
         <PopupList title="Third Party Consents" icon={<IconEyes />}>
           {Object.keys(PURPOSES).map((purposeId) => {
@@ -82,6 +83,7 @@ Popup.propTypes = {
     suspicious: PropTypes.bool.isRequired,
     settingsUrl: PropTypes.string.isRequired,
   })),
+  siteName: PropTypes.string.isRequired,
 };
 
 Popup.defaultProps = {
