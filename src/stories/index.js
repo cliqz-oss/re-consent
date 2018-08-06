@@ -10,7 +10,7 @@ import { IconFace, IconLocation, IconStamp } from '../components/Icons';
 import PopupHeader from '../components/popup/PopupHeader';
 import PopupFooter from '../components/popup/PopupFooter';
 import PopupListItemCheckbox from '../components/popup/PopupListItemCheckbox';
-import PopupListItemStatus from '../components/popup/PopupListItemStatus';
+import PopupListItemButton from '../components/popup/PopupListItemButton';
 import PopupList from '../components/popup/PopupList';
 
 import '../scss/index.scss';
@@ -102,9 +102,10 @@ storiesOf('PopupList', module)
       title="Some title"
       icon="IconFace"
     >
-      <PopupListItemStatus
+      <PopupListItemButton
         title="Some title"
         isActive
+        changeUrl="some-url"
       />
       <PopupListItemCheckbox
         title="Some title"
@@ -112,19 +113,45 @@ storiesOf('PopupList', module)
         onChange={action('Checkbox changed')}
       />
     </PopupList>
+  ))
+  .add('PopupList stacked', () => (
+    <div>
+      <PopupList
+        title="List one"
+        icon="IconFace"
+      >
+        <PopupListItemButton
+          title="Some title"
+          isActive
+          changeUrl="some-url"
+        />
+      </PopupList>
+      <PopupList
+        title="List two"
+        icon="IconFace"
+      >
+        <PopupListItemCheckbox
+          title="Some title"
+          checked
+          onChange={action('Checkbox changed')}
+        />
+      </PopupList>
+    </div>
   ));
 
 storiesOf('PopupListItem', module)
-  .add('PopupListItemStatus active', () => (
-    <PopupListItemStatus
+  .add('PopupListItemButton active', () => (
+    <PopupListItemButton
       title="Some title"
       isActive
+      changeUrl="some-url"
     />
   ))
-  .add('PopupListItemStatus inactive', () => (
-    <PopupListItemStatus
+  .add('PopupListItemButton inactive', () => (
+    <PopupListItemButton
       title="Some title"
       isActive={false}
+      changeUrl="some-url"
     />
   ))
   .add('PopupListItemCheckbox checked', () => (
