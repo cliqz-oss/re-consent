@@ -22,7 +22,7 @@
   "scripts": {
     "start": "webpack --watch",
     "build": "rm -rf build && NODE_ENV=production webpack",
-    "storybook": "start-storybook -p 9009",
+    "storybook": "start-storybook -p 9009 -s ./build",
     "build-storybook": "rm -rf storybook-static && build-storybook",
     "deploy-storybook": "npm run build-storybook && aws s3 sync --delete --acl public-read --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate storybook-static/ s3://cliqz/storybook"
   },
