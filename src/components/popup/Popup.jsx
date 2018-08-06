@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { APPLICATION_STATE } from '../../constants';
-import DetectionCardScanning from '../DetectionCardScanning';
+import PopupScanning from './PopupScanning';
 import PopupHeader from './PopupHeader';
 import PopupFooter from './PopupFooter';
 import PopupList from './PopupList';
@@ -27,7 +27,7 @@ const Popup = ({
   siteName,
 }) => {
   if (applicationState === APPLICATION_STATE.SCANNING) {
-    return <DetectionCardScanning />;
+    return <PopupScanning siteName={siteName} />;
   }
 
   return (

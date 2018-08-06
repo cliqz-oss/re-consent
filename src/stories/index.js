@@ -4,10 +4,8 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import { APPLICATION_STATE } from '../constants';
-import DetectionCardScanning from '../components/DetectionCardScanning';
-import DetectionCardSuccess from '../components/DetectionCardSuccess';
-import DetectionCardSuspicious from '../components/DetectionCardSuspicious';
-import { IconFace, IconLocation, IconStamp } from '../components/Icons';
+import PopupScanning from '../components/popup/PopupScanning';
+import { IconStamp } from '../components/Icons';
 import PopupHeader from '../components/popup/PopupHeader';
 import PopupFooter from '../components/popup/PopupFooter';
 import PopupListItemCheckbox from '../components/popup/PopupListItemCheckbox';
@@ -71,27 +69,6 @@ storiesOf('Badge', module)
     </span>
   ));
 
-storiesOf('Detection Cards', module)
-  .add('scanning', () => (
-    <div style={{ margin: '2rem' }}>
-      <DetectionCardScanning />
-    </div>
-  ))
-  .add('suspicious', () => (
-    <div style={{ margin: '2rem' }}>
-      <DetectionCardSuspicious
-        features={[
-          { suspicious: true, icon: <IconFace />, title: 'Face Recognition' },
-          { suspicious: true, icon: <IconLocation />, title: 'Location Sharing' },
-        ]}
-      />
-    </div>
-  ))
-  .add('success', () => (
-    <div style={{ margin: '2rem' }}>
-      <DetectionCardSuccess />
-    </div>
-  ));
 
 storiesOf('Popup', module)
   .add('Scanning', () => (
@@ -145,6 +122,11 @@ storiesOf('PopupHeader', module)
 storiesOf('PopupFooter', module)
   .add('PopupFooter', () => (
     <PopupFooter detailPageUrl="http://some-link" />
+  ));
+
+storiesOf('PopupScanning', module)
+  .add('default', () => (
+    <PopupScanning siteName="Facebook.com" />
   ));
 
 storiesOf('PopupList', module)
