@@ -3,6 +3,8 @@ services:
   app:
     container_name: cliqz-privacy-warning
     build: .
+    ports:
+      - '9009:9009'
     volumes:
       - '.:/app'
       - '/app/node_modules'
