@@ -7,6 +7,7 @@ import DetectionCardSuccess from '../components/DetectionCardSuccess';
 import DetectionCardSuspicious from '../components/DetectionCardSuspicious';
 import { IconFace, IconLocation, IconStamp } from '../components/Icons';
 
+import '../scss/index.scss';
 
 storiesOf('Button', module)
   .add('primary', () => (
