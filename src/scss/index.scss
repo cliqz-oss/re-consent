@@ -6,11 +6,14 @@
 
 @import 'bootstrap/scss/reboot';
 
+@import 'react-toggle/style';
+
 @import 'typography';
 
 @import 'badge';
 @import 'button';
 @import 'detection-card';
+@import 'popup';
 
 @import 'bootstrap/scss/utilities/clearfix';
 @import 'bootstrap/scss/utilities/flex';

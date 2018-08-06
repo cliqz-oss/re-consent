@@ -1,0 +1,76 @@
+$popup-list-border-color: #E7ECEE;
+$popup-list-background-color: #F9F9FA;
+$popup-list-toggle-checked-background-color: $blue;
+$popup-list-toggle-unchecked-background-color: #CCD6DA;
+$popup-list-toggle-height: 24px;
+$popup-list-toggle-width: 40px;
+$popup-list-toggle-padding: 4px;
+
+.popup-header {
+
+}
+
+.popup-list {
+  &__header {
+    padding: 18px 30px;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    padding-left: 10px;
+  }
+
+  &__items {
+    background-color: $popup-list-background-color;
+    border: 1px solid $popup-list-border-color;
+  }
+}
+
+.popup-list-item {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 0 30px;
+  padding: 15px 0;
+  line-height: $popup-list-toggle-height;
+
+  border-bottom: 1px solid $popup-list-border-color;
+  color: black;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__toggle {
+    .react-toggle-track {
+      width: $popup-list-toggle-width;
+      height: $popup-list-toggle-height;
+    }
+
+    .react-toggle-thumb {
+      border: none;
+      top: $popup-list-toggle-padding;
+      left: $popup-list-toggle-padding;
+      width: $popup-list-toggle-height - 2 * $popup-list-toggle-padding;
+      height: $popup-list-toggle-height - 2 * $popup-list-toggle-padding;
+    }
+
+    &.react-toggle--checked .react-toggle-thumb {
+      left: $popup-list-toggle-width - $popup-list-toggle-height + $popup-list-toggle-padding;
+    }
+
+    &:not(.react-toggle--checked) .react-toggle-track,
+    &:not(.react-toggle--checked):hover:not(.react-toggle--disabled) .react-toggle-track {
+      background-color: $popup-list-toggle-unchecked-background-color;
+    }
+
+    &.react-toggle--checked .react-toggle-track,
+    &.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+      background-color: $popup-list-toggle-checked-background-color;
+    }
+  }
+}
+
+.popup-footer {
+
+}

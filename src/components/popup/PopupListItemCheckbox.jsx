@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Toggle from 'react-toggle';
+
+
 const PopupListItemCheckbox = ({
   checked,
+  disabled,
   onChange,
   title,
 }) => (
@@ -10,14 +14,19 @@ const PopupListItemCheckbox = ({
     <div className="popup-list-item__title">
       {title}
     </div>
-    <div className="popup-list-item__checkbox">
-      <input type="checkbox" checked={checked} onChange={onChange} />
-    </div>
+    <Toggle
+      defaultChecked={checked}
+      disabled={disabled}
+      icons={false}
+      onChange={onChange}
+      className="popup-list-item__toggle"
+    />
   </div>
 );
 
 PopupListItemCheckbox.propTypes = {
   checked: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };

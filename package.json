@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@storybook/addon-actions": "^3.4.7",
+    "@storybook/addon-links": "^3.4.7",
+    "@storybook/addons": "^3.4.7",
+    "@storybook/react": "v4.0.0-alpha.9",
     "bootstrap": "^4.1.1",
     "consent-string": "^1.2.4",
     "moment": "^2.22.2",
@@ -10,13 +14,10 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",
+    "react-toggle": "^4.0.2",
     "redux": "^4.0.0",
     "regenerator-runtime": "^0.11.1",
-    "webextension-polyfill": "^0.3.0",
-    "@storybook/addon-actions": "^3.4.7",
-    "@storybook/addon-links": "^3.4.7",
-    "@storybook/addons": "^3.4.7",
-    "@storybook/react": "v4.0.0-alpha.9"
+    "webextension-polyfill": "^0.3.0"
   },
   "scripts": {
     "start": "webpack --watch",

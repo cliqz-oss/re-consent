@@ -131,6 +131,7 @@ storiesOf('PopupListItem', module)
     <PopupListItemCheckbox
       title="Some title"
       checked
+      disabled={false}
       onChange={action('Checkbox changed')}
     />
   ))
@@ -138,6 +139,15 @@ storiesOf('PopupListItem', module)
     <PopupListItemCheckbox
       title="Some title"
       checked={false}
+      disabled={false}
+      onChange={action('Checkbox changed')}
+    />
+  ))
+  .add('PopupListItemCheckbox disabled', () => (
+    <PopupListItemCheckbox
+      title="Some title"
+      checked
+      disabled
       onChange={action('Checkbox changed')}
     />
   ));

@@ -8,13 +8,16 @@ const PopupList = ({
   children,
 }) => (
   <div className="popup-list">
-    <div className="popup-list__title">
+    <div className="popup-list__header">
       {getIconByName(icon)}
-      {title}
+      <span className="popup-list__title">
+        {title}
+      </span>
     </div>
     <div className="popup-list__items">
       {children}
     </div>
+
   </div>
 );
 
