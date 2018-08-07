@@ -27,7 +27,9 @@ browser.runtime.onMessage.addListener((message, sender) => {
   if (!sender.tab || sender.tab.id !== tabId) {
     return;
   }
-  if (message.type === 'stateChanged') {
+  if (message.type === 'contentReady') {
+    browser.tabs.sendMessage(tabId, { type: 'getState' });
+  } else if (message.type === 'stateChanged') {
     store.dispatch({ type: 'stateChanged', state: message.state });
   }
 });

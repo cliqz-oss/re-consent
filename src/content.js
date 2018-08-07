@@ -53,4 +53,5 @@ const target = document.documentElement;
 target.appendChild(scriptTag);
 scriptTag.parentNode.removeChild(scriptTag);
 
+chrome.runtime.sendMessage({ type: 'contentReady' });
 chrome.runtime.sendMessage({ type: 'detectFeatures', url });
