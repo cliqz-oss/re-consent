@@ -65,10 +65,6 @@ export default class FacebookDetector extends Detector {
     ];
   }
 
-  getSiteName() {
-    return 'Facebook';
-  }
-
   async detect() {
     return [
       await this.detectFeature(faceRecognitionFeature, detectFaceRecognition),

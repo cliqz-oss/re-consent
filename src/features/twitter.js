@@ -51,10 +51,6 @@ export default class TwitterDetector extends Detector {
     ];
   }
 
-  getSiteName() {
-    return 'Twitter';
-  }
-
   detect() {
     return this.detectFeatures(features, doDetect, doFetch);
   }

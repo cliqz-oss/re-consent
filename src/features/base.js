@@ -7,10 +7,6 @@ export default class Detector {
     return [];
   }
 
-  getSiteName() {
-    return this.url.hostname;
-  }
-
   shouldDetect() {
     const domains = this.getDomains();
     return domains.some(domain => this.url.hostname.indexOf(domain) !== -1);
