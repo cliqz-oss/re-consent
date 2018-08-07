@@ -55,7 +55,7 @@ const Popup = ({
             <PopupListItemButton
               key={feature.key}
               title={feature.title}
-              isActive={feature.suspicious}
+              isActive={feature.suspicious || true} // TODO: Handle `manual-check`
               changeUrl={feature.settingsUrl}
             />
           ))}
@@ -78,7 +78,7 @@ Popup.propTypes = {
   features: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    suspicious: PropTypes.bool.isRequired,
+    suspicious: PropTypes.bool,
     settingsUrl: PropTypes.string.isRequired,
   })),
   siteName: PropTypes.string,
