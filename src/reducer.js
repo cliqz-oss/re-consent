@@ -1,5 +1,14 @@
 import { APPLICATION_STATE } from './constants';
 
+const getApplicationState = ({ scanningConsent, scanningFeatures }) => {
+  if (scanningConsent || scanningFeatures) {
+    return APPLICATION_STATE.SCANNING;
+  }
+
+  // TODO: Extend with EDITED state here.
+  return APPLICATION_STATE.REVIEW;
+};
+
 const detectFeaturesReducer = (state = {}, action) => {
   const { siteName } = action;
   const features = [...(state.features || [])];
@@ -14,18 +23,38 @@ const detectFeaturesReducer = (state = {}, action) => {
     }
   });
 
+  const scanningFeatures = false;
+
   return {
     ...state,
     siteName,
     features,
+    scanningFeatures,
+    applicationState: getApplicationState({ ...state, scanningFeatures }),
   };
 };
 
+
+const detectConsentReducer = (state, action) => {
+  const scanningConsent = false;
+
+  return {
+    ...state,
+    consent: action.consent,
+    scanningConsent,
+    applicationState: getApplicationState({ ...state, scanningConsent }),
+  };
+};
+
+
 const initialState = {
-  applicationState: APPLICATION_STATE.REVIEW,
-  siteName: 'some site name',
+  siteName: null,
   consent: null,
   features: [],
+
+  applicationState: APPLICATION_STATE.SCANNING,
+  scanningFeatures: true,
+  scanningConsent: true,
 };
 
 
@@ -35,7 +64,7 @@ export default (state = initialState, action) => {
   switch (type) {
     case 'stateChanged': return action.state;
     case 'detectFeatures': return detectFeaturesReducer(state, action);
-    case 'detectConsent': return { ...state, consent: action.consent };
+    case 'detectConsent': return detectConsentReducer(state, action);
     case 'changeConsent': return { ...state, consent: action.consent };
     default: return state;
   }
