@@ -81,12 +81,13 @@ Popup.propTypes = {
     suspicious: PropTypes.bool.isRequired,
     settingsUrl: PropTypes.string.isRequired,
   })),
-  siteName: PropTypes.string.isRequired,
+  siteName: PropTypes.string,
 };
 
 Popup.defaultProps = {
   consent: null,
   features: [],
+  siteName: null,
 };
 
 export default Popup;

@@ -20,7 +20,11 @@ const PopupScanning = ({ siteName }) => (
 );
 
 PopupScanning.propTypes = {
-  siteName: PropTypes.string.isRequired,
+  siteName: PropTypes.string,
+};
+
+PopupScanning.defaultProps = {
+  siteName: null,
 };
 
 export default PopupScanning;
