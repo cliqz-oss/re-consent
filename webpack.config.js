@@ -10,7 +10,6 @@ module.exports = {
     'background': './src/background.js',
     'content': './src/content.js',
     'content-page-bridge': './src/content-page-bridge.js',
-    'page': './src/page.jsx',
     'popup': './src/popup.jsx',
   },
   mode,
@@ -24,10 +23,6 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       regeneratorRuntime: 'regenerator-runtime',
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'page.html',
-      chunks: ['page'],
     }),
     new HtmlWebpackPlugin({
       filename: 'popup.html',

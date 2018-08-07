@@ -12,7 +12,11 @@
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "regenerator-runtime": "^0.11.1",
-    "webextension-polyfill": "^0.3.0"
+    "webextension-polyfill": "^0.3.0",
+    "@storybook/addon-actions": "^3.4.7",
+    "@storybook/addon-links": "^3.4.7",
+    "@storybook/addons": "^3.4.7",
+    "@storybook/react": "v4.0.0-alpha.9"
   },
   "scripts": {
     "start": "webpack --watch",
@@ -22,10 +26,6 @@
     "deploy-storybook": "npm run build-storybook && aws s3 sync --delete --acl public-read --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate storybook-static/ s3://cliqz/storybook"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.4.7",
-    "@storybook/addon-links": "^3.4.7",
-    "@storybook/addons": "^3.4.7",
-    "@storybook/react": "v4.0.0-alpha.9",
     "autoprefixer": "^8.6.3",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
