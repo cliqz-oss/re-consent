@@ -9,7 +9,8 @@ $popup-list-toggle-width: 40px;
 $popup-list-toggle-padding: 4px;
 
 .popup-header {
-  padding: $popup-side-padding;
+  margin: $popup-side-padding;
+  margin-bottom: 0;
 
   text-align: center;
 
@@ -106,6 +107,10 @@ $popup-list-toggle-padding: 4px;
 
   &:last-child {
     border-bottom: none;
+  }
+
+  &__title {
+    padding-right: 15px;
   }
 
   &__toggle {

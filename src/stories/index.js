@@ -187,6 +187,15 @@ storiesOf('PopupListItem', module)
       changeUrl="some-url"
     />
   ))
+  .add('PopupListItemButton long title & narrow container', () => (
+    <div style={{ width: '300px' }}>
+      <PopupListItemButton
+        title={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}
+        isActive
+        changeUrl="some-url"
+      />
+    </div>
+  ))
   .add('PopupListItemCheckbox checked', () => (
     <PopupListItemCheckbox
       title="Some title"
