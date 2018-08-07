@@ -6,6 +6,7 @@ import GoogleDetector from './features/google';
 import TwitterDetector from './features/twitter';
 
 import { getStorageClass } from './consent/storages';
+import CONSENT_WHITE_LIST from './consent/whitelist';
 
 async function detectFeatures(url, dispatch) {
   url = new URL(url);
@@ -29,9 +30,12 @@ async function detectFeatures(url, dispatch) {
   dispatch({ type: 'detectFeatures', siteName, features });
 }
 
-async function detectConsent(consent, tab, localStorage, dispatch) {
-  if (consent === false) {
-    dispatch({ type: 'detectConsent', consent });
+async function detectConsent(consent, url, tab, localStorage, dispatch) {
+  url = new URL(url);
+  const isWhiteListed = CONSENT_WHITE_LIST.some(domain => url.hostname.indexOf(domain) !== -1);
+
+  if (consent === false || isWhiteListed) {
+    dispatch({ type: 'detectConsent', consent: null });
     return;
   }
 
@@ -108,7 +112,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);
   } else if (message.type === 'detectConsent') {
-    detectConsent(message.consent, tab, localStorage, dispatch);
+    detectConsent(message.consent, message.url, tab, localStorage, dispatch);
   } else if (message.type === 'changeConsent') {
     changeConsent(message.consent, tab, localStorage, dispatch);
   }
