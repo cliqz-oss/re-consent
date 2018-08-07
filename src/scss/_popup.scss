@@ -28,6 +28,7 @@ $popup-list-toggle-padding: 4px;
 @keyframes blink { 0% { opacity: .05; } 20% { opacity: 1; } 100% { opacity: .05; } }
 
 .popup-scanning {
+  margin: $popup-side-padding;
   text-align: center;
 
   &__icon {
