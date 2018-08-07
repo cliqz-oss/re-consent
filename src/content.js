@@ -4,12 +4,6 @@ import reducer from './reducer';
 
 const url = window.location.href;
 
-const state = {
-  url,
-  consent: null,
-  features: null,
-};
-
 const logger = ({ getState }) => next => (action) => {
   const result = next(action);
   const nextState = getState(result);
@@ -21,7 +15,7 @@ const logger = ({ getState }) => next => (action) => {
   return result;
 };
 
-const store = createStore(reducer, state, applyMiddleware(logger));
+const store = createStore(reducer, applyMiddleware(logger));
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'getState') {

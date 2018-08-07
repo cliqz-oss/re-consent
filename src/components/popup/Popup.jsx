@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { APPLICATION_STATE } from '../../constants';
+import { APPLICATION_STATE, CONSENT_PURPOSE } from '../../constants';
 import PopupScanning from './PopupScanning';
 import PopupHeader from './PopupHeader';
 import PopupFooter from './PopupFooter';
@@ -9,14 +9,7 @@ import PopupList from './PopupList';
 import PopupListItemButton from './PopupListItemButton';
 import PopupListItemCheckbox from './PopupListItemCheckbox';
 import { IconCogWheel, IconEyes } from '../Icons';
-
-const PURPOSES = {
-  1: 'Information storage and access',
-  2: 'Personalisation',
-  3: 'Ad selection, delivery, reporting',
-  4: 'Content selection, delivery, reporting',
-  5: 'Measurement',
-};
+import { getUpdatedConsentData, getConsentPurposeAllowed } from '../../consent/utils';
 
 
 const Popup = ({
@@ -35,11 +28,14 @@ const Popup = ({
       <PopupHeader applicationState={applicationState} siteName={siteName} />
       {consent && (
         <PopupList title="Third Party Consents" icon={<IconEyes />}>
-          {Object.keys(PURPOSES).map((purposeId) => {
-            const purposeTitle = PURPOSES[purposeId];
-            const allowed = consent.vendorConsents.purposeConsents[purposeId];
+          {Object.keys(CONSENT_PURPOSE).map((purposeId) => {
+            const purposeTitle = CONSENT_PURPOSE[purposeId];
+            const allowed = getConsentPurposeAllowed(consent, purposeId);
             const readOnly = !consent.storageName;
-            const onChange = () => changeConsent(consent, [purposeId], !allowed);
+            const onChange = () => {
+              const updatedConsentData = getUpdatedConsentData(consent, [purposeId], !allowed);
+              changeConsent(updatedConsentData);
+            };
 
             return (
               <PopupListItemCheckbox
@@ -53,16 +49,18 @@ const Popup = ({
           })}
         </PopupList>
       )}
-      <PopupList title="Privacy Settings" icon={<IconCogWheel />}>
-        {features.map(feature => (
-          <PopupListItemButton
-            key={feature.key}
-            title={feature.title}
-            isActive={feature.suspicious}
-            changeUrl={feature.settingsUrl}
-          />
-        ))}
-      </PopupList>
+      {features.length > 0 && (
+        <PopupList title="Privacy Settings" icon={<IconCogWheel />}>
+          {features.map(feature => (
+            <PopupListItemButton
+              key={feature.key}
+              title={feature.title}
+              isActive={feature.suspicious}
+              changeUrl={feature.settingsUrl}
+            />
+          ))}
+        </PopupList>
+      )}
       <PopupFooter />
     </div>
   );

@@ -1,3 +1,5 @@
+import { APPLICATION_STATE } from './constants';
+
 const detectFeaturesReducer = (state = {}, action) => {
   const { siteName } = action;
   const features = [...(state.features || [])];
@@ -19,7 +21,15 @@ const detectFeaturesReducer = (state = {}, action) => {
   };
 };
 
-export default (state = {}, action) => {
+const initialState = {
+  applicationState: APPLICATION_STATE.REVIEW,
+  siteName: 'some site name',
+  consent: null,
+  features: [],
+};
+
+
+export default (state = initialState, action) => {
   const { type } = action;
 
   switch (type) {

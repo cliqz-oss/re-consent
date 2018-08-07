@@ -4,8 +4,7 @@ import browser from 'webextension-polyfill';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import ConsentCard from './components/ConsentCard';
-import DetectionCard from './components/DetectionCard';
+import PopupContainer from './components/popup';
 import reducer from './reducer';
 
 import './scss/index.scss';
@@ -21,13 +20,13 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
 
   window.document.body.appendChild(element);
   window.document.body.style.width = '340px';
-  window.document.body.style.height = '400px';
 
   ReactDOM.render(
     <Provider store={store}>
       <React.Fragment>
-        <ConsentCard changeConsent={changeConsent} />
-        <DetectionCard />
+        <PopupContainer
+          changeConsent={changeConsent}
+        />
       </React.Fragment>
     </Provider>,
     element,
