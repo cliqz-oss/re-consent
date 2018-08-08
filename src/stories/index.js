@@ -72,15 +72,22 @@ storiesOf('Badge', module)
 
 
 storiesOf('Tooltip', module)
-  .add('default', () => (
+  .add('placement bottom', () => (
     <Tooltip placement="bottom" content="Some description">
       Trigger Tooltip
     </Tooltip>
   ))
-  .add('with long content', () => (
+  .add('placement bottom with long content', () => (
     <Tooltip placement="bottom" content={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}>
       Trigger
     </Tooltip>
+  ))
+  .add('placement left', () => (
+    <div style={{ 'text-align': 'right', padding: '20px' }}>
+      <Tooltip placement="left" content="Some description">
+        Trigger Tooltip
+      </Tooltip>
+    </div>
   ));
 
 
@@ -190,7 +197,7 @@ storiesOf('PopupList', module)
     </div>
   ));
 
-storiesOf('PopupListItem', module)
+storiesOf('PopupListItemButton', module)
   .add('PopupListItemButton active', () => (
     <PopupListItemButton
       title="Some title"
@@ -226,7 +233,9 @@ storiesOf('PopupListItem', module)
         changeUrl="some-url"
       />
     </div>
-  ))
+  ));
+
+storiesOf('PopupListItemCheckbox', module)
   .add('PopupListItemCheckbox checked', () => (
     <PopupListItemCheckbox
       title="Some title"
@@ -251,6 +260,7 @@ storiesOf('PopupListItem', module)
       description="some description"
       checked
       disabled
+      disabledHelpText="Some help text"
       onChange={action('Checkbox changed')}
     />
   ))

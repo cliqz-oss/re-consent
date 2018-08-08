@@ -22,16 +22,34 @@
 
   &[data-placement*="bottom"] {
     .tooltip__arrow {
-      top: 0px;
-      left: 0px;
+      top: 0;
+      left: 0;
       margin-top: -11px;
       width: 40px;
       height: 12px;
       margin-left: 20px;
 
       &:before {
-        border-width: 0px 20px 12px;
+        border-width: 0 20px 12px;
         border-color: transparent transparent rgb(35, 35, 35);
+      }
+    }
+  }
+
+  &[data-placement*="left"] {
+    margin-top: 10px;
+
+    .tooltip__arrow {
+      top: 0;
+      right: 0;
+      margin-right: -10px;
+      margin-top: 1px;
+      height: 30px;
+      width: 12px;
+
+      &:before {
+        border-width: 15px 0 15px 12px;
+        border-color: transparent transparent transparent rgb(35, 35, 35);
       }
     }
   }
