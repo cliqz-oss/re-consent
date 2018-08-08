@@ -2,11 +2,11 @@ $popup-side-padding: 30px;
 
 $popup-list-border-color: #E7ECEE;
 $popup-list-background-color: #F9F9FA;
-$popup-list-toggle-checked-background-color: $blue;
-$popup-list-toggle-unchecked-background-color: #CCD6DA;
-$popup-list-toggle-height: 24px;
-$popup-list-toggle-width: 40px;
-$popup-list-toggle-padding: 4px;
+$popup-list-toggle-checked-background-color: #FF7C70;
+$popup-list-toggle-unchecked-background-color: #5F7C86;
+$popup-list-toggle-height: 16px;
+$popup-list-toggle-width: 30px;
+$popup-list-toggle-padding: 1px;
 
 .popup-header {
   margin: $popup-side-padding;
@@ -79,14 +79,16 @@ $popup-list-toggle-padding: 4px;
 
 .popup-list {
   margin-top: 30px;
-  font-size: 13px;
 
   &__header {
     padding: 15px $popup-side-padding;
     text-transform: uppercase;
+    font-size: 13px;
+    color: #5F7C86;
   }
 
   &__title {
+    font-weight: bold;
     padding-left: 30px;
   }
 
@@ -109,6 +111,7 @@ $popup-list-toggle-padding: 4px;
 .popup-list-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: relative;
 
   margin: 0 $popup-side-padding;
@@ -147,6 +150,15 @@ $popup-list-toggle-padding: 4px;
     .popup-list-item__description-tooltip {
       visibility: visible;
     }
+  }
+
+  &__toggle-label {
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: $popup-list-toggle-height;
+    float: left;
+    padding-right: 4px;
   }
 
   &__toggle {

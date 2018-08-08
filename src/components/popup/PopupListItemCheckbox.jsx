@@ -16,13 +16,19 @@ const PopupListItemCheckbox = ({
   title,
 }) => {
   const toggle = (
-    <Toggle
-      defaultChecked={checked}
-      disabled={disabled}
-      icons={false}
-      onChange={onChange}
-      className="popup-list-item__toggle"
-    />
+    <span>
+      <span className="popup-list-item__toggle-label">
+        {checked && 'allow'}
+        {!checked && 'deny'}
+      </span>
+      <Toggle
+        defaultChecked={checked}
+        disabled={disabled}
+        icons={false}
+        onChange={onChange}
+        className="popup-list-item__toggle"
+      />
+    </span>
   );
 
   return (
