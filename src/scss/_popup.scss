@@ -113,6 +113,7 @@ $popup-list-toggle-padding: 1px;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  overflow: hidden;
 
   margin: 0 $popup-side-padding;
   padding: 12px 0;
@@ -149,6 +150,41 @@ $popup-list-toggle-padding: 1px;
   &:hover {
     .popup-list-item__description-tooltip {
       visibility: visible;
+    }
+  }
+
+  &__controls {
+    &:hover {
+      .popup-list-item__deactivate-button {
+        opacity: 1;
+        transform: translateX(0);
+        color: white;
+      }
+    }
+  }
+
+  &__deactivate-button {
+    padding: 2px 10px;
+    padding-right: 4px;
+    border-radius: 10px;
+    line-height: 1;
+    background: $blue;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: all 0.2s;
+    opacity: 0;
+    transform: translateX(100%);
+    position: absolute;
+    right: 0;
+
+    &, &:hover {
+      text-decoration: none;
+    }
+
+    svg {
+      fill: white;
+      height: 11px;
     }
   }
 

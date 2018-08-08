@@ -23,6 +23,9 @@ const Popup = ({
     return <PopupScanning siteName={siteName} />;
   }
 
+  const automaticallyDetectedFeatures = features.filter(feature => feature.group === 'automatically-detected');
+  const manualCheckFeatures = features.filter(feature => feature.group === 'manual-check');
+
   return (
     <div className="popup">
       <PopupHeader applicationState={applicationState} siteName={siteName} />
@@ -43,21 +46,37 @@ const Popup = ({
                 title={purposeTitle}
                 checked={allowed}
                 disabled={readOnly}
+                disabledHelpText={`You cannot change these settings here. Please go to ${siteName} directly.`}
                 onChange={onChange}
               />
             );
           })}
         </PopupList>
       )}
-      {features.length > 0 && (
-        <PopupList title="Privacy Settings" icon={<IconCogWheel />}>
-          {features.map(feature => (
+      {automaticallyDetectedFeatures.length > 0 && (
+        <PopupList title={`${siteName} Privacy Settings`} icon={<IconCogWheel />}>
+          {automaticallyDetectedFeatures.map(feature => (
             <PopupListItemButton
               key={feature.key}
               title={feature.title}
               description={feature.description}
-              isActive={feature.suspicious || true} // TODO: Handle `manual-check`
+              isActive={feature.suspicious}
               changeUrl={feature.settingsUrl}
+              labels={{ true: 'active', false: 'inactive' }}
+            />
+          ))}
+        </PopupList>
+      )}
+      {manualCheckFeatures.length > 0 && (
+        <PopupList title={`Data Breaches by ${siteName}`} icon={<IconCogWheel />}>
+          {manualCheckFeatures.map(feature => (
+            <PopupListItemButton
+              key={feature.key}
+              title={feature.title}
+              description={feature.description}
+              isActive={feature.suspicious || false}
+              changeUrl={feature.settingsUrl}
+              labels={{ true: 'breached', false: 'n/a' }}
             />
           ))}
         </PopupList>

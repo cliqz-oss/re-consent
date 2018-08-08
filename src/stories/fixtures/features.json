@@ -3,18 +3,23 @@
         "key": "1",
         "title": "Face Recognition",
         "suspicious": true,
-        "settingsUrl": "some-url"
+        "settingsUrl": "some-url",
+        "description": "Allow Facebook to recognise your face in photos and videos?",
+        "group": "automatically-detected"
     },
     {
         "key": "2",
-        "title": "Cambridge Analytica",
-        "suspicious": false,
-        "settingsUrl": "some-url"
+        "title": "Third Party Data Access",
+        "settingsUrl": "some-url",
+        "description": "Allow third party applications to access your data through Facebook?",
+        "group": "manual-check"
     },
     {
         "key": "3",
         "title": "Location Sharing",
         "suspicious": true,
-        "settingsUrl": "some-url"
+        "settingsUrl": "some-url",
+        "description": "Allow Facebook to build a history of the locations you have been to?",
+        "group": "automatically-detected"
     }
 ]

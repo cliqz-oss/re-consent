@@ -58,15 +58,15 @@ storiesOf('Button', module)
     </button>
   ));
 
-storiesOf('Badge', module)
-  .add('primary', () => (
-    <span className="badge badge-primary">
-      Deactivated
+storiesOf('Label', module)
+  .add('active', () => (
+    <span className="label label--active">
+      Active
     </span>
   ))
-  .add('danger', () => (
-    <span className="badge badge-danger">
-      Active
+  .add('inactive', () => (
+    <span className="label label--inactive">
+      Deactivated
     </span>
   ));
 
