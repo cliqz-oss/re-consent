@@ -161,6 +161,7 @@ storiesOf('PopupList', module)
         description="some description"
         isActive
         changeUrl="some-url"
+        labels={{ true: 'active', false: 'inactive' }}
       />
       <PopupListItemCheckbox
         title="Some title"
@@ -181,6 +182,7 @@ storiesOf('PopupList', module)
           description="some description"
           isActive
           changeUrl="some-url"
+          labels={{ true: 'active', false: 'inactive' }}
         />
       </PopupList>
       <PopupList
@@ -204,6 +206,7 @@ storiesOf('PopupListItemButton', module)
       description="some description"
       isActive
       changeUrl="some-url"
+      labels={{ true: 'active', false: 'inactive' }}
     />
   ))
   .add('PopupListItemButton inactive', () => (
@@ -212,6 +215,7 @@ storiesOf('PopupListItemButton', module)
       description="some description"
       isActive={false}
       changeUrl="some-url"
+      labels={{ true: 'active', false: 'inactive' }}
     />
   ))
   .add('PopupListItemButton long description & narrow container', () => (
@@ -221,6 +225,7 @@ storiesOf('PopupListItemButton', module)
         description={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}
         isActive
         changeUrl="some-url"
+        labels={{ true: 'active', false: 'inactive' }}
       />
     </div>
   ))
@@ -231,6 +236,7 @@ storiesOf('PopupListItemButton', module)
         description="some description"
         isActive
         changeUrl="some-url"
+        labels={{ true: 'active', false: 'inactive' }}
       />
     </div>
   ));

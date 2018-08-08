@@ -1,4 +1,4 @@
-$popup-side-padding: 30px;
+$popup-side-padding: 20px;
 
 $popup-list-border-color: #E7ECEE;
 $popup-list-background-color: #F9F9FA;
@@ -111,9 +111,7 @@ $popup-list-toggle-padding: 1px;
 .popup-list-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
+  align-items: top;
 
   margin: 0 $popup-side-padding;
   padding: 12px 0;
@@ -128,13 +126,14 @@ $popup-list-toggle-padding: 1px;
 
   &__title {
     padding-right: 15px;
+    flex-shrink: 1;
   }
 
   &__description-tooltip {
     cursor: pointer;
     position: relative;
     padding-left: 10px;
-    visibility: hidden;
+    // visibility: hidden;
 
     svg {
       position: absolute;
@@ -154,6 +153,9 @@ $popup-list-toggle-padding: 1px;
   }
 
   &__controls {
+    flex-shrink: 0;
+    position: relative;
+
     &:hover {
       .popup-list-item__deactivate-button {
         opacity: 1;
@@ -177,6 +179,7 @@ $popup-list-toggle-padding: 1px;
     transform: translateX(100%);
     position: absolute;
     right: 0;
+    white-space: nowrap;
 
     &, &:hover {
       text-decoration: none;

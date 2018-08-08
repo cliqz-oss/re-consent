@@ -12,14 +12,6 @@ class Tooltip extends React.Component {
     };
   }
 
-  mouseOut() {
-    this.setState({ isOpen: false });
-  }
-
-  mouseOver() {
-    this.setState({ isOpen: true });
-  }
-
   render() {
     const {
       content,
@@ -30,42 +22,39 @@ class Tooltip extends React.Component {
     const toggle = isOpen => () => this.setState({ isOpen });
 
     return (
-      <Manager>
-        <Reference>
-          {({ ref }) => (
-            <span
-              ref={ref}
-              onMouseOver={toggle(true)}
-              onFocus={toggle(true)}
-              onMouseOut={toggle(false)}
-              onBlur={toggle(false)}
-            >
-              {children}
-            </span>
-          )}
-        </Reference>
-        {this.state.isOpen && (
-          <Popper placement={placement} modifiers={{ keepTogether: { enabled: true } }}>
-            {({
-              ref,
-              style,
-              arrowProps,
-            }) => (
-              <div ref={ref} style={style} data-placement={placement} className="tooltip">
-                {content}
-                <div ref={arrowProps.ref} style={arrowProps.style} className="tooltip__arrow" />
-              </div>
+      <span onMouseLeave={toggle(false)} onMouseEnter={toggle(true)}>
+        <Manager>
+          <Reference>
+            {({ ref }) => (
+              <span ref={ref}>
+                {children}
+              </span>
             )}
-          </Popper>
-        )}
-      </Manager>
+          </Reference>
+          {this.state.isOpen && (
+            <Popper placement={placement}>
+              {({
+                ref,
+                style,
+                placement: currentPlacement,
+                arrowProps,
+              }) => (
+                <div ref={ref} style={style} data-placement={currentPlacement} className="tooltip">
+                  {content}
+                  <div ref={arrowProps.ref} style={arrowProps.style} className="tooltip__arrow" />
+                </div>
+              )}
+            </Popper>
+          )}
+        </Manager>
+      </span>
     );
   }
 }
 
 Tooltip.propTypes = {
   content: PropTypes.string.isRequired,
-  placement: PropTypes.oneOf(['bottom', 'left']).isRequired,
+  placement: PropTypes.oneOf(['bottom', 'left', 'top']).isRequired,
   children: PropTypes.node.isRequired,
 };
 

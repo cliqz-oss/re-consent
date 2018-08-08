@@ -43,12 +43,14 @@ const PopupListItemCheckbox = ({
           </Tooltip>
         )}
       </div>
-      {disabledHelpText && (
-        <Tooltip placement="left" content={disabledHelpText}>
-          {toggle}
-        </Tooltip>
-      )}
-      {!disabledHelpText && toggle}
+      <div className="popup-list-item__controls">
+        {disabledHelpText && (
+          <Tooltip placement="left" content={disabledHelpText}>
+            {toggle}
+          </Tooltip>
+        )}
+        {!disabledHelpText && toggle}
+      </div>
     </div>
   );
 };
