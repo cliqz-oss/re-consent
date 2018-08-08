@@ -1,0 +1,38 @@
+.tooltip {
+  background-color: rgb(35, 35, 35);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 5px;
+  z-index: 1000;
+  padding: 10px;
+  margin: 15px 10px;
+
+  &__arrow {
+    position: absolute;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 0px;
+      height: 0px;
+      margin: auto;
+      border-style: solid;
+    }
+  }
+
+  &[data-placement*="bottom"] {
+    .tooltip__arrow {
+      top: 0px;
+      left: 0px;
+      margin-top: -11px;
+      width: 40px;
+      height: 12px;
+      margin-left: 20px;
+
+      &:before {
+        border-width: 0px 20px 12px;
+        border-color: transparent transparent rgb(35, 35, 35);
+      }
+    }
+  }
+}

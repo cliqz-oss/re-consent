@@ -12,6 +12,7 @@ import PopupListItemCheckbox from '../components/popup/PopupListItemCheckbox';
 import PopupListItemButton from '../components/popup/PopupListItemButton';
 import PopupList from '../components/popup/PopupList';
 import Popup from '../components/popup/Popup';
+import Tooltip from '../components/Tooltip';
 
 import consentFixture from './fixtures/consent.json';
 import featuresFixture from './fixtures/features.json';
@@ -67,6 +68,19 @@ storiesOf('Badge', module)
     <span className="badge badge-danger">
       Active
     </span>
+  ));
+
+
+storiesOf('Tooltip', module)
+  .add('default', () => (
+    <Tooltip placement="bottom" content="Some description">
+      Trigger Tooltip
+    </Tooltip>
+  ))
+  .add('with long content', () => (
+    <Tooltip placement="bottom" content={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}>
+      Trigger
+    </Tooltip>
   ));
 
 
@@ -137,11 +151,13 @@ storiesOf('PopupList', module)
     >
       <PopupListItemButton
         title="Some title"
+        description="some description"
         isActive
         changeUrl="some-url"
       />
       <PopupListItemCheckbox
         title="Some title"
+        description="some description"
         checked
         onChange={action('Checkbox changed')}
       />
@@ -155,6 +171,7 @@ storiesOf('PopupList', module)
       >
         <PopupListItemButton
           title="Some title"
+          description="some description"
           isActive
           changeUrl="some-url"
         />
@@ -165,6 +182,7 @@ storiesOf('PopupList', module)
       >
         <PopupListItemCheckbox
           title="Some title"
+          description="some description"
           checked
           onChange={action('Checkbox changed')}
         />
@@ -176,6 +194,7 @@ storiesOf('PopupListItem', module)
   .add('PopupListItemButton active', () => (
     <PopupListItemButton
       title="Some title"
+      description="some description"
       isActive
       changeUrl="some-url"
     />
@@ -183,14 +202,26 @@ storiesOf('PopupListItem', module)
   .add('PopupListItemButton inactive', () => (
     <PopupListItemButton
       title="Some title"
+      description="some description"
       isActive={false}
       changeUrl="some-url"
     />
+  ))
+  .add('PopupListItemButton long description & narrow container', () => (
+    <div style={{ width: '300px' }}>
+      <PopupListItemButton
+        title="title"
+        description={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}
+        isActive
+        changeUrl="some-url"
+      />
+    </div>
   ))
   .add('PopupListItemButton long title & narrow container', () => (
     <div style={{ width: '300px' }}>
       <PopupListItemButton
         title={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}
+        description="some description"
         isActive
         changeUrl="some-url"
       />
@@ -199,6 +230,7 @@ storiesOf('PopupListItem', module)
   .add('PopupListItemCheckbox checked', () => (
     <PopupListItemCheckbox
       title="Some title"
+      description="some description"
       checked
       disabled={false}
       onChange={action('Checkbox changed')}
@@ -207,6 +239,7 @@ storiesOf('PopupListItem', module)
   .add('PopupListItemCheckbox unchecked', () => (
     <PopupListItemCheckbox
       title="Some title"
+      description="some description"
       checked={false}
       disabled={false}
       onChange={action('Checkbox changed')}
@@ -215,8 +248,16 @@ storiesOf('PopupListItem', module)
   .add('PopupListItemCheckbox disabled', () => (
     <PopupListItemCheckbox
       title="Some title"
+      description="some description"
       checked
       disabled
+      onChange={action('Checkbox changed')}
+    />
+  ))
+  .add('PopupListItemCheckbox without description', () => (
+    <PopupListItemCheckbox
+      title="Some title"
+      checked
       onChange={action('Checkbox changed')}
     />
   ));

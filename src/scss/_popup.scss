@@ -98,6 +98,7 @@ $popup-list-toggle-padding: 4px;
 .popup-list-item {
   display: flex;
   justify-content: space-between;
+  position: relative;
 
   margin: 0 $popup-side-padding;
   padding: 12px 0;
@@ -112,6 +113,29 @@ $popup-list-toggle-padding: 4px;
 
   &__title {
     padding-right: 15px;
+  }
+
+  &__description-tooltip {
+    cursor: pointer;
+    position: relative;
+    padding-left: 10px;
+    visibility: hidden;
+
+    svg {
+      position: absolute;
+      top: 0;
+
+      width: 16px;
+      height: 16px;
+
+      fill: $blue;
+    }
+  }
+
+  &:hover {
+    .popup-list-item__description-tooltip {
+      visibility: visible;
+    }
   }
 
   &__toggle {

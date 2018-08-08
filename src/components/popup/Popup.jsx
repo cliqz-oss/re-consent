@@ -55,6 +55,7 @@ const Popup = ({
             <PopupListItemButton
               key={feature.key}
               title={feature.title}
+              description={feature.description}
               isActive={feature.suspicious || true} // TODO: Handle `manual-check`
               changeUrl={feature.settingsUrl}
             />
