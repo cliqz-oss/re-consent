@@ -15,12 +15,23 @@ $popup-list-toggle-padding: 4px;
   text-align: center;
 
   &__icon {
-    height: 30px;
+    height: 32px;
   }
 
   &__title {
     padding-top: 5px;
     color: black;
+    font-size: 23px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  &__sitename {
+    border-radius: 2px;
+    padding: 10px;
+    line-height: 1;
+    background-color: #F4F5F7;
+    color: #0078CA;
   }
 }
 
