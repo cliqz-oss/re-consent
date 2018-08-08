@@ -5,6 +5,18 @@ import Tooltip from '../Tooltip';
 
 import { IconQuestionmark, IconArrowRight } from '../Icons';
 
+/* eslint-disable arrow-parens */
+const openLink = (url) => (e) => {
+  e.preventDefault();
+  chrome.tabs.query({
+    currentWindow: true,
+    active: true,
+  }, (tab) => {
+    chrome.tabs.update(tab.id, { url });
+    window.close();
+  });
+};
+
 const PopupListItemButton = ({
   changeUrl,
   description,
@@ -28,7 +40,13 @@ const PopupListItemButton = ({
         {labels[isActive]}
       </span>
       {isActive && (
-        <a href={changeUrl} className="popup-list-item__deactivate-button">
+        <a
+          href={changeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={openLink(changeUrl)}
+          className="popup-list-item__deactivate-button"
+        >
           Deactivate <IconArrowRight />
         </a>
       )}
