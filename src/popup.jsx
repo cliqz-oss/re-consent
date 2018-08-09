@@ -4,7 +4,7 @@ import browser from 'webextension-polyfill';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import PopupContainer from './components/popup';
+import PopupContainer from './components/popup/PopupContainer';
 import reducer from './reducer';
 
 import './scss/index.scss';
