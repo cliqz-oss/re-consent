@@ -30,7 +30,7 @@ async function detectFeatures(url, dispatch) {
 }
 
 async function detectConsent(consent, tab, localStorage, dispatch) {
-  if (consent === false) {
+  if (consent === null) {
     dispatch({ type: 'detectConsent', consent });
     return;
   }
