@@ -42,7 +42,7 @@ store.subscribe(() => {
 window.addEventListener('message', (event) => {
   if (event.source === window && event.data && event.data.source === 'content-page-bridge') {
     if (event.data.type === 'receivedConsent') {
-      chrome.runtime.sendMessage({ type: 'detectConsent', consent: event.data.consent, url });
+      chrome.runtime.sendMessage({ type: 'detectConsent', consent: event.data.consent });
     }
   }
 });
