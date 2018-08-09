@@ -1,3 +1,5 @@
+/* eslint-disable no-return-assign */
+
 import browser from 'webextension-polyfill';
 import { ConsentString } from 'consent-string';
 
@@ -8,10 +10,41 @@ import TwitterDetector from './features/twitter';
 import { getStorageClass } from './consent/storages';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
 
-const setBrowserExtensionIcon = (applicationState, tabId) => {
+const setBrowserExtensionIcon = async (applicationState, tabId) => {
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
+
+  const usePngIcons = !!chrome;
+
+  const iconSet = {};
+
+  if (usePngIcons) {
+    [16, 24, 32].forEach(size => (
+      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-chrome.png`
+    ));
+  } else {
+    let themeName;
+
+    if (browser.theme) {
+      // This is currently not working as it is blocked by this bug report:
+      // https://bugzilla.mozilla.org/show_bug.cgi?id=1414512
+      const themeInfo = await browser.theme.getCurrent();
+      themeName = themeInfo.name;
+    }
+
+    let themeSuffix = '';
+
+    if (themeName in ['light', 'dark']) {
+      themeSuffix = `-${themeName}`;
+    }
+
+    [19, 38].forEach(size => (
+      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-cliqz${themeSuffix}.svg`
+    ));
+  }
+
+
   browser.browserAction.setIcon({
-    path: `./icons/png/32x32_consent-${iconName}-chrome.png`,
+    path: iconSet,
     tabId,
   });
 };
