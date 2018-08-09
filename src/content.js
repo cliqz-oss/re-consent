@@ -2,6 +2,7 @@ import browser from 'webextension-polyfill';
 import { createStore, applyMiddleware } from 'redux';
 
 import reducer from './reducer';
+import { getApplicationState } from './selectors';
 
 const url = window.location.href;
 
@@ -28,7 +29,7 @@ const browserExtensionIconMiddleware = store => next => (action) => {
 
   chrome.runtime.sendMessage({
     type: 'setBrowserExtensionIcon',
-    applicationState: nextState.applicationState,
+    applicationState: getApplicationState(nextState),
   });
 };
 
