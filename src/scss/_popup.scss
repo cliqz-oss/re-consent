@@ -1,4 +1,4 @@
-$popup-side-padding: 20px;
+$popup-spacing: 20px;
 
 $popup-list-border-color: #E7ECEE;
 $popup-list-background-color: #F9F9FA;
@@ -9,7 +9,7 @@ $popup-list-toggle-width: 30px;
 $popup-list-toggle-padding: 1px;
 
 .popup-header {
-  margin: $popup-side-padding;
+  margin: $popup-spacing;
   margin-bottom: 0;
 
   text-align: center;
@@ -40,7 +40,7 @@ $popup-list-toggle-padding: 1px;
 @keyframes blink { 0% { opacity: .05; } 20% { opacity: 1; } 100% { opacity: .05; } }
 
 .popup-scanning {
-  margin: $popup-side-padding;
+  margin: $popup-spacing;
   text-align: center;
 
   &__icon {
@@ -82,7 +82,7 @@ $popup-list-toggle-padding: 1px;
   margin-top: 30px;
 
   &__header {
-    padding: 15px $popup-side-padding;
+    padding: 15px $popup-spacing;
     text-transform: uppercase;
     font-size: 13px;
     color: #5F7C86;
@@ -113,7 +113,7 @@ $popup-list-toggle-padding: 1px;
   display: flex;
   justify-content: space-between;
 
-  margin: 0 $popup-side-padding;
+  margin: 0 $popup-spacing;
   padding: 12px 0;
   line-height: $popup-list-toggle-height;
 
@@ -122,11 +122,6 @@ $popup-list-toggle-padding: 1px;
 
   &:last-child {
     border-bottom: none;
-  }
-
-  &__title {
-    padding-right: 15px;
-    flex-shrink: 1;
   }
 
   &__description-tooltip {
@@ -196,11 +191,13 @@ $popup-list-toggle-padding: 1px;
     font-size: 13px;
     font-weight: 600;
     line-height: $popup-list-toggle-height;
-    float: left;
+    vertical-align: top;
     padding-right: 4px;
   }
 
   &__toggle {
+    vertical-align: top;
+
     .react-toggle-track {
       width: $popup-list-toggle-width;
       height: $popup-list-toggle-height;
@@ -231,7 +228,7 @@ $popup-list-toggle-padding: 1px;
 }
 
 .popup-footer {
-  padding: $popup-side-padding;
+  padding: $popup-spacing;
 
   font-weight: 500;
   text-align: center;
