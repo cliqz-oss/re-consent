@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 
 import { APPLICATION_STATE } from '../constants';
 import PopupScanning from '../components/popup/PopupScanning';
-import { IconStamp, IconCogWheel } from '../components/Icons';
+import { IconCogWheel } from '../components/Icons';
 import PopupHeader from '../components/popup/PopupHeader';
 import PopupFooter from '../components/popup/PopupFooter';
 import PopupListItemCheckbox from '../components/popup/PopupListItemCheckbox';
@@ -18,45 +18,6 @@ import consentFixture from './fixtures/consent.json';
 import featuresFixture from './fixtures/features.json';
 
 import '../scss/index.scss';
-
-storiesOf('Button', module)
-  .add('primary', () => (
-    <button className="btn btn-primary">
-      Deactivate
-    </button>
-  ))
-  .add('secondary', () => (
-    <button className="btn btn-secondary">
-      Show Setting
-    </button>
-  ))
-  .add('link', () => (
-    <button className="btn btn-link">
-      What is this?
-    </button>
-  ))
-  .add('info', () => (
-    <button className="btn btn-info">
-      How to deactivate?
-    </button>
-  ))
-  .add('light', () => (
-    <div style={{ background: '#00AEF0', padding: '2em' }}>
-      <button className="btn btn-light">
-        Send a nightmare letter
-      </button>
-      &nbsp;
-      <button className="btn btn-outline-light">
-        What do they collect?
-      </button>
-    </div>
-  ))
-  .add('with-icon', () => (
-    <button className="btn btn-secondary btn-icon">
-      <IconStamp />
-      <span>Print Free Stamp</span>
-    </button>
-  ));
 
 storiesOf('Label', module)
   .add('active', () => (
