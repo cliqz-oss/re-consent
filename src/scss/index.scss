@@ -1,22 +1,9 @@
 @import 'variables';
 
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
-
-@import 'bootstrap/scss/reboot';
-
 @import 'react-toggle/style';
 
 @import 'elements';
 @import 'label';
 @import 'popup';
 @import 'tooltip';
-@import 'misc';
-
-@import 'bootstrap/scss/utilities/clearfix';
-@import 'bootstrap/scss/utilities/flex';
-@import 'bootstrap/scss/utilities/shadows';
-@import 'bootstrap/scss/utilities/sizing';
-@import 'bootstrap/scss/utilities/spacing';
-@import 'bootstrap/scss/utilities/text';
+@import 'link';

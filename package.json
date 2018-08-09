@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.1.1",
     "consent-string": "^1.2.4",
     "moment": "^2.22.2",
     "prop-types": "^15.6.1",
