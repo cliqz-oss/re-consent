@@ -19,6 +19,7 @@ const openLink = (url) => (e) => {
 
 const PopupListItemButton = ({
   changeUrl,
+  deactivateButtonText,
   description,
   isActive,
   labels,
@@ -39,7 +40,7 @@ const PopupListItemButton = ({
       <span className={`label label--${{ true: 'active', false: 'inactive' }[isActive]}`}>
         {labels[isActive]}
       </span>
-      {isActive && (
+      {deactivateButtonText && (
         <a
           href={changeUrl}
           target="_blank"
@@ -47,7 +48,7 @@ const PopupListItemButton = ({
           onClick={openLink(changeUrl)}
           className="popup-list-item__deactivate-button"
         >
-          Deactivate <IconArrowRight />
+          {deactivateButtonText} <IconArrowRight />
         </a>
       )}
     </div>
@@ -56,6 +57,7 @@ const PopupListItemButton = ({
 
 PopupListItemButton.propTypes = {
   changeUrl: PropTypes.string.isRequired,
+  deactivateButtonText: PropTypes.string,
   description: PropTypes.string,
   isActive: PropTypes.bool.isRequired,
   labels: PropTypes.shape({
@@ -67,6 +69,7 @@ PopupListItemButton.propTypes = {
 
 PopupListItemButton.defaultProps = {
   description: null,
+  deactivateButtonText: null,
 };
 
 export default PopupListItemButton;

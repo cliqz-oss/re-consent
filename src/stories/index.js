@@ -160,6 +160,7 @@ storiesOf('PopupList', module)
         title="Some title"
         description="some description"
         isActive
+        deactivateButtonText="Deactivate"
         changeUrl="some-url"
         labels={{ true: 'active', false: 'inactive' }}
       />
@@ -181,6 +182,7 @@ storiesOf('PopupList', module)
           title="Some title"
           description="some description"
           isActive
+          deactivateButtonText="Deactivate"
           changeUrl="some-url"
           labels={{ true: 'active', false: 'inactive' }}
         />
@@ -205,6 +207,7 @@ storiesOf('PopupListItemButton', module)
       title="Some title"
       description="some description"
       isActive
+      deactivateButtonText="Deactivate"
       changeUrl="some-url"
       labels={{ true: 'active', false: 'inactive' }}
     />
@@ -224,6 +227,7 @@ storiesOf('PopupListItemButton', module)
         title="title"
         description={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}
         isActive
+        deactivateButtonText="Deactivate"
         changeUrl="some-url"
         labels={{ true: 'active', false: 'inactive' }}
       />
@@ -235,6 +239,7 @@ storiesOf('PopupListItemButton', module)
         title={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}
         description="some description"
         isActive
+        deactivateButtonText="Deactivate"
         changeUrl="some-url"
         labels={{ true: 'active', false: 'inactive' }}
       />

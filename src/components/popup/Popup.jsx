@@ -61,6 +61,7 @@ const Popup = ({
               title={feature.title}
               description={feature.description}
               isActive={feature.suspicious}
+              deactivateButtonText={feature.suspicious && 'Deactivate'}
               changeUrl={feature.settingsUrl}
               labels={{ true: 'active', false: 'inactive' }}
             />
@@ -75,6 +76,7 @@ const Popup = ({
               title={feature.title}
               description={feature.description}
               isActive={feature.suspicious || false}
+              deactivateButtonText="Check Manually"
               changeUrl={feature.settingsUrl}
               labels={{ true: 'breached', false: 'n/a' }}
             />
