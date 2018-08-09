@@ -28,7 +28,7 @@ const PopupHeader = ({
         {titles[applicationState]}
       </div>
       <span className="popup-header__sitename">
-        {siteName}
+        {siteName || '...'}
       </span>
     </div>
   );
@@ -36,7 +36,11 @@ const PopupHeader = ({
 
 PopupHeader.propTypes = {
   applicationState: PropTypes.string.isRequired,
-  siteName: PropTypes.string.isRequired,
+  siteName: PropTypes.string,
+};
+
+PopupHeader.defaultProps = {
+  siteName: null,
 };
 
 export default PopupHeader;

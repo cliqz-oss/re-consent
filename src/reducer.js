@@ -1,12 +1,34 @@
 import { APPLICATION_STATE } from './constants';
+import { checkAllConsentSettingsSet } from './consent/utils';
+import { checkNoSuspiciousFeaturesExist } from './features/utils';
 
-const getApplicationState = ({ scanningConsent, scanningFeatures }) => {
+const getApplicationState = ({
+  scanningConsent,
+  scanningFeatures,
+  features,
+  consent,
+}) => {
   if (scanningConsent || scanningFeatures) {
     return APPLICATION_STATE.SCANNING;
   }
 
-  // TODO: Extend with EDITED state here.
-  return APPLICATION_STATE.REVIEW;
+  if (consent === null && features.length === 0) {
+    return APPLICATION_STATE.NO_CONCERNS;
+  }
+
+  const allConsentSettingsSet = checkAllConsentSettingsSet(consent);
+  const noSuspiciousFeatures = checkNoSuspiciousFeaturesExist(features);
+
+  if (allConsentSettingsSet && noSuspiciousFeatures) {
+    return APPLICATION_STATE.SETTINGS_WELL_SET;
+  }
+
+  if (consent !== null || features.length > 0) {
+    return APPLICATION_STATE.SETTINGS_DETECTED;
+    // TODO: handle SETTINGS_CHANGED here
+  }
+
+  return null;
 };
 
 const detectFeaturesReducer = (state = {}, action) => {
@@ -22,25 +44,41 @@ const detectFeaturesReducer = (state = {}, action) => {
     }
   });
 
-  const scanningFeatures = false;
-
-  return {
+  const newState = {
     ...state,
     features,
-    scanningFeatures,
-    applicationState: getApplicationState({ ...state, scanningFeatures }),
+    scanningFeatures: false,
+  };
+
+  return {
+    ...newState,
+    applicationState: getApplicationState(newState),
   };
 };
 
 
 const detectConsentReducer = (state, action) => {
-  const scanningConsent = false;
-
-  return {
+  const newState = {
     ...state,
     consent: action.consent,
-    scanningConsent,
-    applicationState: getApplicationState({ ...state, scanningConsent }),
+    scanningConsent: false,
+  };
+
+  return {
+    ...newState,
+    applicationState: getApplicationState(newState),
+  };
+};
+
+const changeConsentReducer = (state, action) => {
+  const newState = {
+    ...state,
+    consent: action.consent,
+  };
+
+  return {
+    ...newState,
+    applicationState: getApplicationState(newState),
   };
 };
 
@@ -64,7 +102,7 @@ export default (state = initialState, action) => {
     case 'stateChanged': return action.state;
     case 'detectFeatures': return detectFeaturesReducer(state, action);
     case 'detectConsent': return detectConsentReducer(state, action);
-    case 'changeConsent': return { ...state, consent: action.consent };
+    case 'changeConsent': return changeConsentReducer(state, action);
     default: return state;
   }
 };

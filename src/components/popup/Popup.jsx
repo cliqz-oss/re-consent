@@ -8,7 +8,7 @@ import PopupList from './PopupList';
 import PopupListItemButton from './PopupListItemButton';
 import PopupListItemCheckbox from './PopupListItemCheckbox';
 import { IconCogWheel, IconEyes } from '../Icons';
-import { getUpdatedConsentData, getConsentPurposeAllowed } from '../../consent/utils';
+import { getUpdatedConsentData, getConsentPurposeAllowed, getConsentReadOnly } from '../../consent/utils';
 
 
 const Popup = ({
@@ -28,8 +28,8 @@ const Popup = ({
         <PopupList title="Third Party Consents" icon={<IconEyes />}>
           {Object.keys(CONSENT_PURPOSE).map((purposeId) => {
             const purposeTitle = CONSENT_PURPOSE[purposeId];
+            const readOnly = getConsentReadOnly(consent);
             const allowed = getConsentPurposeAllowed(consent, purposeId);
-            const readOnly = !consent.storageName;
             const onChange = () => {
               const updatedConsentData = getUpdatedConsentData(consent, [purposeId], !allowed);
               changeConsent(updatedConsentData);
