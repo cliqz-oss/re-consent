@@ -19,6 +19,8 @@ import featuresFixture from './fixtures/features.json';
 
 import '../scss/index.scss';
 
+const longTextFixture = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ');
+
 storiesOf('Label', module)
   .add('active', () => (
     <span className="label label--active">
@@ -39,7 +41,7 @@ storiesOf('Tooltip', module)
     </Tooltip>
   ))
   .add('placement bottom with long content', () => (
-    <Tooltip placement="bottom" content={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}>
+    <Tooltip placement="bottom" content={longTextFixture}>
       Trigger
     </Tooltip>
   ))
@@ -186,7 +188,7 @@ storiesOf('PopupListItemButton', module)
     <div style={{ width: '300px' }}>
       <PopupListItemButton
         title="title"
-        description={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}
+        description={longTextFixture}
         isActive
         deactivateButtonText="Deactivate"
         changeUrl="some-url"
@@ -197,7 +199,7 @@ storiesOf('PopupListItemButton', module)
   .add('PopupListItemButton long title & narrow container', () => (
     <div style={{ width: '300px' }}>
       <PopupListItemButton
-        title={'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').join(' ')}
+        title={longTextFixture}
         description="some description"
         isActive
         deactivateButtonText="Deactivate"
