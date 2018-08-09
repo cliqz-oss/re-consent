@@ -9,7 +9,6 @@ import reducer from './reducer';
 
 import './scss/index.scss';
 
-
 const store = createStore(reducer);
 
 browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => {

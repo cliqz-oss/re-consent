@@ -7,5 +7,6 @@
   "rules": {
     "class-methods-use-this": 0,
     "no-param-reassign": 0,
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["src/stories/**/*.js"]}]
   },
 }

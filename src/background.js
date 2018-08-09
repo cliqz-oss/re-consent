@@ -6,7 +6,6 @@ import GoogleDetector from './features/google';
 import TwitterDetector from './features/twitter';
 
 import { getStorageClass } from './consent/storages';
-import CONSENT_WHITE_LIST from './consent/whitelist';
 
 async function detectFeatures(url, dispatch) {
   url = new URL(url);
@@ -28,12 +27,9 @@ async function detectFeatures(url, dispatch) {
   dispatch({ type: 'detectFeatures', features });
 }
 
-async function detectConsent(consent, url, tab, localStorage, dispatch) {
-  url = new URL(url);
-  const isWhiteListed = CONSENT_WHITE_LIST.some(domain => url.hostname.indexOf(domain) !== -1);
-
-  if (consent === false || isWhiteListed) {
-    dispatch({ type: 'detectConsent', consent: null });
+async function detectConsent(consent, tab, localStorage, dispatch) {
+  if (consent === null) {
+    dispatch({ type: 'detectConsent', consent });
     return;
   }
 
