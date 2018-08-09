@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import CONSENT_WHITE_LIST from './consent/whitelist';
+import checkIsWhiteListed from './consent/whitelist';
 
 function queryCmp(method) {
   return new Promise((resolve) => {
@@ -17,8 +17,7 @@ const sendConsentMessage = (consent) => {
 };
 
 async function cmpCheck(retries) {
-  const url = window.location;
-  const isWhiteListed = CONSENT_WHITE_LIST.some(domain => url.hostname.indexOf(domain) !== -1);
+  const isWhiteListed = checkIsWhiteListed(window.location);
 
   if (isWhiteListed) {
     sendConsentMessage(null);
