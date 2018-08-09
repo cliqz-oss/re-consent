@@ -110,7 +110,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   } else if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);
   } else if (message.type === 'detectConsent') {
-    detectConsent(message.consent, message.url, tab, localStorage, dispatch);
+    detectConsent(message.consent, tab, localStorage, dispatch);
   } else if (message.type === 'changeConsent') {
     changeConsent(message.consent, tab, localStorage, dispatch);
   }
