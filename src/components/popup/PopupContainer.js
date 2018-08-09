@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
 
 import Popup from './Popup';
+import { getApplicationState } from '../../selectors';
 
 
 const mapStateToProps = (state) => {
   const {
-    applicationState,
     consent,
     features,
     siteName,
   } = state;
 
   return {
-    applicationState,
+    applicationState: getApplicationState(state),
     consent,
     features,
     siteName,
