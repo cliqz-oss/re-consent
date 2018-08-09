@@ -22,11 +22,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
 
   ReactDOM.render(
     <Provider store={store}>
-      <React.Fragment>
-        <PopupContainer
-          changeConsent={changeConsent}
-        />
-      </React.Fragment>
+      <PopupContainer changeConsent={changeConsent} />
     </Provider>,
     element,
   );
