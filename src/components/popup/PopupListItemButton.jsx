@@ -28,7 +28,7 @@ const PopupListItemButton = ({
   <div className="popup-list-item">
     <div className="popup-list-item__title">
       {title}
-      {description !== null && (
+      {description && (
         <Tooltip placement="bottom" content={description}>
           <span className="popup-list-item__description-tooltip">
             <IconQuestionmark />
@@ -37,7 +37,7 @@ const PopupListItemButton = ({
       )}
     </div>
     <div className="popup-list-item__controls">
-      <span className={`label label--${{ true: 'active', false: 'inactive' }[isActive]}`}>
+      <span className={`label label--${isActive ? 'active' : 'inactive'}`}>
         {labels[isActive]}
       </span>
       {deactivateButtonText && (
