@@ -6,6 +6,19 @@ import GoogleDetector from './features/google';
 import TwitterDetector from './features/twitter';
 
 import { getStorageClass } from './consent/storages';
+import { APPLICATION_STATE_ICON_NAME } from './constants';
+
+const setBrowserExtensionIcon = (applicationState) => {
+  /*
+  const iconSet = BROWSER_EXTENSION_ICON_SIZES.reduce((result, size) => {
+    result[size] = `icons/${size}x${size}_consent-${applicationState}.png`;
+    return result;
+  }, {});
+  */
+  const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
+  console.log(`./icons/png/32x32_consent-${iconName}-chrome.png`);
+  browser.browserAction.setIcon({ path: `./icons/png/32x32_consent-${iconName}-chrome.png` });
+};
 
 async function detectFeatures(url, dispatch) {
   url = new URL(url);
@@ -113,5 +126,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     detectConsent(message.consent, tab, localStorage, dispatch);
   } else if (message.type === 'changeConsent') {
     changeConsent(message.consent, tab, localStorage, dispatch);
+  } else if (message.type === 'setBrowserExtensionIcon') {
+    setBrowserExtensionIcon(message.applicationState);
   }
 });

@@ -16,7 +16,23 @@ const logger = ({ getState }) => next => (action) => {
   return result;
 };
 
-const store = createStore(reducer, applyMiddleware(logger));
+/* eslint-disable */
+const browserExtensionIconMiddleware = store => next => (action) => {
+  /*
+  Dynamically sets the icon based on the the different states of the application.
+  */
+
+  next(action);
+
+  const nextState = store.getState();
+
+  chrome.runtime.sendMessage({
+    type: 'setBrowserExtensionIcon',
+    applicationState: nextState.applicationState,
+  });
+};
+
+const store = createStore(reducer, applyMiddleware(logger, browserExtensionIconMiddleware));
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'getState') {
