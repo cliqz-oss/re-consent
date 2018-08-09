@@ -6,7 +6,7 @@ import GoogleDetector from './features/google';
 import TwitterDetector from './features/twitter';
 
 import { getStorageClass } from './consent/storages';
-import { APPLICATION_STATE_ICON_NAME } from './constants';
+import { APPLICATION_STATE_ICON_NAME, APPLICATION_STATE } from './constants';
 
 const setBrowserExtensionIcon = (applicationState) => {
   /*
@@ -16,7 +16,6 @@ const setBrowserExtensionIcon = (applicationState) => {
   }, {});
   */
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
-  console.log(`./icons/png/32x32_consent-${iconName}-chrome.png`);
   browser.browserAction.setIcon({ path: `./icons/png/32x32_consent-${iconName}-chrome.png` });
 };
 
@@ -129,4 +128,12 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   } else if (message.type === 'setBrowserExtensionIcon') {
     setBrowserExtensionIcon(message.applicationState);
   }
+});
+
+browser.tabs.onActivated.addListener(async ({ tabId }) => {
+  browser.tabs.sendMessage(tabId, { type: 'onActivated' });
+});
+
+browser.tabs.onHighlighted.addListener(async () => {
+  setBrowserExtensionIcon(APPLICATION_STATE.DEFAULT);
 });
