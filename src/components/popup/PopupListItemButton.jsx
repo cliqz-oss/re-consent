@@ -1,3 +1,4 @@
+import browser from 'webextension-polyfill';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -6,15 +7,15 @@ import Tooltip from '../Tooltip';
 import { IconQuestionmark, IconArrowRight } from '../Icons';
 
 /* eslint-disable arrow-parens */
-const openLink = (url) => (e) => {
+const openLink = (url) => async (e) => {
   e.preventDefault();
-  chrome.tabs.query({
+
+  const currentTab = browser.tabs.query({
     currentWindow: true,
     active: true,
-  }, (tab) => {
-    chrome.tabs.update(tab.id, { url });
-    window.close();
   });
+  browser.tabs.update(currentTab.id, { url });
+  window.close();
 };
 
 const PopupListItemButton = ({
