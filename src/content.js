@@ -43,9 +43,6 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     sendResponse(window.localStorage.getItem(message.key));
   } else if (message.type === 'setLocalStorageItem') {
     sendResponse(window.localStorage.setItem(message.key, message.value));
-  } else if (message.type === 'onActivated') {
-    const applicationState = store.getState().applicationState;
-    browser.runtime.sendMessage({ type: 'setBrowserExtensionIcon', applicationState });
   }
 });
 
