@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { APPLICATION_STATE, CONSENT_PURPOSE } from '../../constants';
-import PopupScanning from './PopupScanning';
+import { CONSENT_PURPOSE } from '../../constants';
 import PopupHeader from './PopupHeader';
 import PopupFooter from './PopupFooter';
 import PopupList from './PopupList';
@@ -19,10 +18,6 @@ const Popup = ({
   features,
   siteName,
 }) => {
-  if (applicationState === APPLICATION_STATE.SCANNING) {
-    return <PopupScanning siteName={siteName} />;
-  }
-
   const automaticallyDetectedFeatures = features.filter(feature => feature.group === 'automatically-detected');
   const manualCheckFeatures = features.filter(feature => feature.group === 'manual-check');
 

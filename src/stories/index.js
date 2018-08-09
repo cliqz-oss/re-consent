@@ -4,7 +4,6 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import { APPLICATION_STATE } from '../constants';
-import PopupScanning from '../components/popup/PopupScanning';
 import { IconCogWheel } from '../components/Icons';
 import PopupHeader from '../components/popup/PopupHeader';
 import PopupFooter from '../components/popup/PopupFooter';
@@ -62,49 +61,84 @@ storiesOf('Popup', module)
       siteName="Facebook.com"
     />
   ))
-  .add('Review with disabled consent', () => (
+  .add('Settings detected with disabled consent', () => (
     <Popup
-      applicationState={APPLICATION_STATE.REVIEW}
+      applicationState={APPLICATION_STATE.SETTINGS_DETECTED}
       features={featuresFixture}
       consent={consentFixture}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
     />
   ))
-  .add('Review with enabled consent', () => (
+  .add('Settings detected with enabled consent', () => (
     <Popup
-      applicationState={APPLICATION_STATE.REVIEW}
+      applicationState={APPLICATION_STATE.SETTINGS_DETECTED}
       features={featuresFixture}
       consent={{ ...consentFixture, storageName: 'some-storage-name' }}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
     />
   ))
-  .add('Review with features only', () => (
+  .add('Settings detected with features only', () => (
     <Popup
-      applicationState={APPLICATION_STATE.REVIEW}
+      applicationState={APPLICATION_STATE.SETTINGS_DETECTED}
       features={featuresFixture}
+      changeConsent={action('Change Consent')}
+      siteName="Facebook.com"
+    />
+  ))
+  .add('Settings changed', () => (
+    <Popup
+      applicationState={APPLICATION_STATE.SETTINGS_CHANGED}
+      features={featuresFixture}
+      consent={{ ...consentFixture, storageName: 'some-storage-name' }}
+      changeConsent={action('Change Consent')}
+      siteName="Facebook.com"
+    />
+  ))
+  .add('Settings well set', () => (
+    <Popup
+      applicationState={APPLICATION_STATE.SETTINGS_WELL_SET}
+      changeConsent={action('Change Consent')}
+      siteName="Facebook.com"
+    />
+  ))
+  .add('No Concerns', () => (
+    <Popup
+      applicationState={APPLICATION_STATE.NO_CONCERNS}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
     />
   ));
 
 storiesOf('PopupHeader', module)
-  .add('Review', () => (
+  .add('Scanning', () => (
     <PopupHeader
-      applicationState={APPLICATION_STATE.REVIEW}
+      applicationState={APPLICATION_STATE.SCANNING}
       siteName="Facebook.com"
     />
   ))
-  .add('Edited', () => (
+  .add('Settings detected', () => (
     <PopupHeader
-      applicationState={APPLICATION_STATE.EDITED}
+      applicationState={APPLICATION_STATE.SETTINGS_DETECTED}
       siteName="Facebook.com"
     />
   ))
-  .add('Readonly', () => (
+  .add('Settings changed', () => (
     <PopupHeader
-      applicationState={APPLICATION_STATE.READONLY}
+      applicationState={APPLICATION_STATE.SETTINGS_CHANGED}
+      siteName="Facebook.com"
+    />
+  ))
+  .add('Settings well set', () => (
+    <PopupHeader
+      applicationState={APPLICATION_STATE.SETTINGS_WELL_SET}
+      siteName="Facebook.com"
+    />
+  ))
+  .add('No Concerns', () => (
+    <PopupHeader
+      applicationState={APPLICATION_STATE.NO_CONCERNS}
       siteName="Facebook.com"
     />
   ));
@@ -114,10 +148,6 @@ storiesOf('PopupFooter', module)
     <PopupFooter detailPageUrl="http://some-link" />
   ));
 
-storiesOf('PopupScanning', module)
-  .add('default', () => (
-    <PopupScanning siteName="Facebook.com" />
-  ));
 
 storiesOf('PopupList', module)
   .add('PopupList', () => (
