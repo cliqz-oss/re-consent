@@ -6,8 +6,7 @@ import Tooltip from '../Tooltip';
 
 import { IconQuestionmark, IconArrowRight } from '../Icons';
 
-/* eslint-disable arrow-parens */
-const openLink = (url) => async (e) => {
+const openLink = url => async (e) => {
   e.preventDefault();
 
   const currentTab = browser.tabs.query({
