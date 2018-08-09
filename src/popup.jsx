@@ -10,10 +10,11 @@ import reducer from './reducer';
 
 import './scss/index.scss';
 
+const PAGE_URL = 'https://cliqz.com/magazine/consentric';
+
 const store = createStore(reducer);
 
 browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => {
-  const pageUrl = `${browser.extension.getURL('page.html')}?tabId=${tab.id}`;
   const element = window.document.createElement('div');
   const changeConsent = (consent) => {
     browser.runtime.sendMessage({ type: 'changeConsent', tabId: tab.id, consent });
@@ -27,7 +28,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     <Provider store={store}>
       <React.Fragment>
         <ConsentCard changeConsent={changeConsent} />
-        <DetectionCard pageUrl={pageUrl} />
+        <DetectionCard pageUrl={PAGE_URL} />
       </React.Fragment>
     </Provider>,
     element,

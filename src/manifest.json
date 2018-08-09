@@ -44,6 +44,5 @@
   },
   "web_accessible_resources": [
     "content-page-bridge.js",
-    "page.html"
   ]
 }
