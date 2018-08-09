@@ -101,6 +101,12 @@ storiesOf('PopupHeader', module)
       applicationState={APPLICATION_STATE.EDITED}
       siteName="Facebook.com"
     />
+  ))
+  .add('Readonly', () => (
+    <PopupHeader
+      applicationState={APPLICATION_STATE.READONLY}
+      siteName="Facebook.com"
+    />
   ));
 
 storiesOf('PopupFooter', module)

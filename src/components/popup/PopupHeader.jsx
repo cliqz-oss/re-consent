@@ -10,7 +10,7 @@ const PopupHeader = ({
   <div className="popup-header">
     <img
       className="popup-header__icon"
-      src={`./icons/png/38x38_consent-${applicationState.toLowerCase()}-cliqz.png`}
+      src={`./icons/png/32x32_consent-${applicationState.toLowerCase()}-chrome.png`}
       alt={applicationState}
     />
     <div className="popup-header__title">
@@ -19,6 +19,9 @@ const PopupHeader = ({
       )}
       {applicationState === APPLICATION_STATE.EDITED && (
         'Your privacy and consent settings have been changed, review them'
+      )}
+      {applicationState === APPLICATION_STATE.READONLY && (
+        'No privacy or consent settings could be detected'
       )}
     </div>
     <span className="popup-header__sitename">
