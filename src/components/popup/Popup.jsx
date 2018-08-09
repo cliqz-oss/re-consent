@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { CONSENT_PURPOSE } from '../../constants';
+import { CONSENT_PURPOSE } from 'constants';
 import PopupHeader from './PopupHeader';
 import PopupFooter from './PopupFooter';
 import PopupList from './PopupList';

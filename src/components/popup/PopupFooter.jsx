@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DETAIL_PAGE_URL } from './../../constants';
+import { DETAIL_PAGE_URL } from 'constants';
 
 
 const PopupFooter = () => (

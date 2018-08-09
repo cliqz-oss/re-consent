@@ -19,6 +19,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      constants: path.resolve(__dirname, './src/constants.js'),
+    }
   },
   plugins: [
     new webpack.ProvidePlugin({
