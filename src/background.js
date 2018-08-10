@@ -16,7 +16,7 @@ const setBrowserExtensionIcon = async (applicationState, tabId) => {
   const iconSet = {};
 
   if (usePngIcons) {
-    [16, 24, 32].forEach(size => {
+    [16, 24, 32].forEach((size) => {
       iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-chrome.png`;
     });
   } else {
