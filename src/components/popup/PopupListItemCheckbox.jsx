@@ -44,12 +44,12 @@ const PopupListItemCheckbox = ({
         )}
       </div>
       <div className="popup-list-item__controls">
-        {disabledHelpText && (
+        {(disabled && disabledHelpText) && (
           <Tooltip title={disabledHelpText} arrow>
             {toggle}
           </Tooltip>
         )}
-        {!disabledHelpText && toggle}
+        {!(disabled && disabledHelpText) && toggle}
       </div>
     </div>
   );
