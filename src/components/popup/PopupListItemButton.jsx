@@ -8,10 +8,11 @@ import { IconQuestionmark, IconArrowRight } from '../Icons';
 const openLink = url => async (e) => {
   e.preventDefault();
 
-  const currentTab = browser.tabs.query({
+  const currentTab = await browser.tabs.query({
     currentWindow: true,
     active: true,
   });
+
   browser.tabs.update(currentTab.id, { url });
   window.close();
 };
