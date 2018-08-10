@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
 
 import Popup from './Popup';
 import { getApplicationState } from '../../selectors';
@@ -20,4 +21,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps)(Popup);
+export default injectIntl(connect(mapStateToProps)(Popup));

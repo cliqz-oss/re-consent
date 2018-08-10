@@ -17,6 +17,7 @@ const Popup = ({
   consent,
   features,
   siteName,
+  intl: { formatMessage },
 }) => {
   const automaticallyDetectedFeatures = features.filter(feature => feature.group === 'automatically-detected');
   const manualCheckFeatures = features.filter(feature => feature.group === 'manual-check');
@@ -25,7 +26,7 @@ const Popup = ({
     <div className="popup">
       <PopupHeader applicationState={applicationState} siteName={siteName} />
       {consent && (
-        <PopupList title="Third Party Consents" icon={<IconEyes />}>
+        <PopupList title={formatMessage({ id: 'popup.list.consent.title' })} icon={<IconEyes />}>
           {Object.keys(CONSENT_PURPOSE).map((purposeId) => {
             const purposeTitle = CONSENT_PURPOSE[purposeId];
             const readOnly = getConsentReadOnly(consent);
@@ -41,7 +42,7 @@ const Popup = ({
                 title={purposeTitle}
                 checked={allowed}
                 disabled={readOnly}
-                disabledHelpText={`You cannot change these settings here. Please go to ${siteName} directly.`}
+                disabledHelpText={formatMessage({ id: 'popup.list.consent.list-item.disabled-help-text', values: { siteName } })}
                 onChange={onChange}
               />
             );
@@ -49,31 +50,37 @@ const Popup = ({
         </PopupList>
       )}
       {automaticallyDetectedFeatures.length > 0 && (
-        <PopupList title={`${siteName} Privacy Settings`} icon={<IconCogWheel />}>
+        <PopupList title={formatMessage({ id: 'popup.list.automatically-detected-features.title', values: { siteName } })} icon={<IconCogWheel />}>
           {automaticallyDetectedFeatures.map(feature => (
             <PopupListItemButton
               key={feature.key}
-              title={feature.title}
-              description={feature.description}
+              title={formatMessage({ id: `features.${feature.key}.title` })}
+              description={formatMessage({ id: `features.${feature.key}.description` })}
               isActive={feature.suspicious}
-              deactivateButtonText={feature.suspicious && 'Deactivate'}
+              deactivateButtonText={feature.suspicious && formatMessage({ id: 'popup.list.automatically-detected-features.list-item.deactivate-button-text' })}
               changeUrl={feature.settingsUrl}
-              labels={{ true: 'active', false: 'inactive' }}
+              labels={{
+                true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.active' }),
+                false: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.inactive' }),
+              }}
             />
           ))}
         </PopupList>
       )}
       {manualCheckFeatures.length > 0 && (
-        <PopupList title={`Data Breaches by ${siteName}`} icon={<IconCogWheel />}>
+        <PopupList title={formatMessage({ id: 'popup.list.manual-check-features.title', values: { siteName } })} icon={<IconCogWheel />}>
           {manualCheckFeatures.map(feature => (
             <PopupListItemButton
               key={feature.key}
-              title={feature.title}
-              description={feature.description}
+              title={formatMessage({ id: `features.${feature.key}.title` })}
+              description={formatMessage({ id: `features.${feature.key}.description` })}
               isActive={feature.suspicious || false}
-              deactivateButtonText="Check Manually"
+              deactivateButtonText={formatMessage({ id: 'popup.list.manual-check-features.list-item.deactivate-button-text' })}
               changeUrl={feature.settingsUrl}
-              labels={{ true: 'breached', false: 'n/a' }}
+              labels={{
+                true: formatMessage({ id: 'popup.list.check-manually-features.list-item.label.active' }),
+                false: formatMessage({ id: 'popup.list.check-manually-features.list-item.label.inactive' }),
+              }}
             />
           ))}
         </PopupList>
@@ -99,6 +106,7 @@ Popup.propTypes = {
     settingsUrl: PropTypes.string.isRequired,
   })),
   siteName: PropTypes.string,
+  intl: PropTypes.object.isRequired,
 };
 
 Popup.defaultProps = {

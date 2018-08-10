@@ -1,0 +1,51 @@
+{
+  "popup.header.title.scanning": "Cconsentric is scanning the website ...",
+  "popup.header.title.settings_detected": "Review your privacy and consent settings.",
+  "popup.header.title.settings_changed": "Your privacy and consent settings have been changed, review them.",
+  "popup.header.title.settings_well_set": "Your privacy settings and cconsents are well set!",
+  "popup.header.title.NO_CONCERNS": "No privacy and cconsent conserns detected.",
+
+  "popup.list.consent.title": "Third Party Consents",
+  "popup.list.consent.list-item.disabled-help-text": "You cannot change these settings here. Please go to {siteName} directly.",
+
+  "popup.list.automatically-detected-features.title": "{siteName} Privacy Settings",
+  "popup.list.automatically-detected-features.list-item.deactivate-button-text": "Deactivate",
+  "popup.list.automatically-detected-features.list-item.label.active": "active",
+  "popup.list.automatically-detected-features.list-item.label.inactive": "inactive",
+
+  "popup.list.manual-check-features.title": "Data Breaches by {siteName}",
+  "popup.list.manual-check-features.list-item.deactivate-button-text": "Check Manually",
+  "popup.list.check-manually-features.list-item.label.active": "breached",
+  "popup.list.check-manually-features.list-item.label.inactive": "n/a",
+
+  "popup.footer.link": "Learn more about {cconsentricLink}",
+
+  "features.facebook-location-sharing.title": "Location Sharing",
+  "features.facebook-location-sharing.description": "Allow Facebook to build a history of the locations you have been to?",
+  "features.facebook-face-recognition.title": "Face Recognition",
+  "features.facebook-face-recognition.description": "Allow Facebook to recognise your face in photos and videos?",
+  "features.facebook-third-party-data-access.title": "Third Party Data Access",
+  "features.facebook-third-party-data-access.description": "Allow third party applications to access your data through Facebook?",
+  "features.facebook-advertisers.title": "Advertisers who uploaded your data to Facebook",
+  "features.facebook-advertisers.description": "Advertisers are running ads using a contact list they uploaded that includes your contact information",
+
+  "features.google-search-history.title": "Search History",
+  "features.google-search-history.description": "Allow Google to track all of your Web & App Activity?",
+  "features.google-location-history.title": "Location History",
+  "features.google-location-history.description": "Allow Google to track your location?",
+  "features.google-device-information.title": "Device Information",
+  "features.google-device-information.description": "Allow Google to track your device?",
+  "features.google-audio-history.title": "Audio History",
+  "features.google-audio-history.description": "Allow Google to record your voice and audio on Google services?",
+  "features.google-youtube-search-history.title": "Youtube Search History",
+  "features.google-youtube-search-history.description": "Allow Google to save your searches on YouTube?",
+  "features.google-youtube-watch-history.title": "Youtube Watch History",
+  "features.google-youtube-watch-history.description": "Allow Google to store all of your Youtube Watch History?",
+
+  "features.twitter-thrid-party-sharing.title": "Twitter Data Sharing with third party services",
+  "features.twitter-thrid-party-sharing.description": "Allow Twitter to share your data with third party services?",
+  "features.twitter-cookie-tracking.title": "Twitter Cookie Tracking",
+  "features.twitter-cookie-tracking.description": "Allow Twitter to track which websites you used?",
+  "features.twitter-location-tracking.title": "Twitter Location Tracking",
+  "features.twitter-location-tracking.description": "Allow Twitter to track which websites you used?"
+}

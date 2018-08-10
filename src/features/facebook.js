@@ -2,42 +2,26 @@ import Detector from './base';
 import { fetchDocument } from './utils';
 
 const faceRecognitionFeature = {
-  title: 'Face Recognition',
-  key: 'facebook-face',
-  icon: 'IconFace',
+  key: 'facebook-face-recognition',
   settingsUrl: 'https://www.facebook.com/settings?tab=facerec',
-  aboutUrl: 'https://cliqz.com',
-  description: 'Allow Facebook to recognise your face in photos and videos?',
   group: 'automatically-detected',
 };
 
 const locationSharingFeature = {
-  title: 'Location Sharing',
-  key: 'facebook-location',
-  icon: 'IconLocation',
+  key: 'facebook-location-sharing',
   settingsUrl: 'https://www.facebook.com/settings?tab=location',
-  aboutUrl: 'https://cliqz.com',
-  description: 'Allow Facebook to build a history of the locations you have been to?',
   group: 'automatically-detected',
 };
 
 const thirdPartyDataAccessFeature = {
-  title: 'Third Party Data Access',
   key: 'facebook-third-party-data-access',
-  icon: 'IconThirdPartyAccess',
   settingsUrl: 'https://www.facebook.com/settings?tab=applications',
-  aboutUrl: 'https://cliqz.com',
-  description: 'Allow third party applications to access your data through Facebook?',
   group: 'manual-check',
 };
 
 const advertisersFeature = {
-  title: 'Advertisers who uploaded your data to Facebook',
   key: 'facebook-advertisers',
-  icon: 'IconAds',
   settingsUrl: 'https://www.facebook.com/ads/preferences/?entry_product=ad_settings_screen',
-  aboutUrl: 'https://cliqz.com',
-  description: 'Advertisers are running ads using a contact list they uploaded that includes your contact information',
   group: 'manual-check',
 };
 

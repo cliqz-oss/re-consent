@@ -8,6 +8,7 @@
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-intl": "^2.4.0",
     "react-redux": "^5.0.7",
     "react-tippy": "^1.2.2",
     "react-toggle": "^4.0.2",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.10",
     "@storybook/react": "v4.0.0-alpha.16",
+    "storybook-addon-intl": "^2.3.0",
     "autoprefixer": "^8.6.3",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

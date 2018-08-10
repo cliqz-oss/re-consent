@@ -4,10 +4,27 @@ import browser from 'webextension-polyfill';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
+import { addLocaleData, IntlProvider } from 'react-intl';
+import enLocaleData from 'react-intl/locale-data/en';
+import deLocaleData from 'react-intl/locale-data/de';
+
 import PopupContainer from './components/popup/PopupContainer';
 import reducer from './reducer';
 
+import translationsDe from './translations/de.json';
+import translationsEn from './translations/en.json';
+
 import './scss/index.scss';
+
+
+addLocaleData(enLocaleData);
+addLocaleData(deLocaleData);
+
+const translations = {
+  en: translationsEn,
+  de: translationsDe,
+};
+
 
 const store = createStore(reducer);
 
@@ -20,9 +37,17 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
   window.document.body.appendChild(element);
   window.document.body.style.width = '340px';
 
+  const locale = navigator.language.split(/[-_]/)[0]; // language without region code
+
   ReactDOM.render(
     <Provider store={store}>
-      <PopupContainer changeConsent={changeConsent} />
+      <IntlProvider
+        locale={locale}
+        messages={translations[locale]}
+        defaultLocale="en"
+      >
+        <PopupContainer changeConsent={changeConsent} />
+      </IntlProvider>
     </Provider>,
     element,
   );
