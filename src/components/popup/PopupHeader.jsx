@@ -16,12 +16,18 @@ const PopupHeader = ({
   titles[APPLICATION_STATE.SETTINGS_WELL_SET] = 'Your privacy settings and concents are well set!';
   titles[APPLICATION_STATE.NO_CONCERNS] = 'No privacy and concent conserns detected.';
 
+  const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
+  let iconAnimatedSuffix = '';
+  if (applicationState === APPLICATION_STATE.SCANNING) {
+    iconAnimatedSuffix = '-animated';
+  }
+  const iconPath = `./icons/png/32x32_consent-${iconName}-chrome${iconAnimatedSuffix}.png`;
 
   return (
     <div className="popup-header">
       <img
         className="popup-header__icon"
-        src={`./icons/png/32x32_consent-${APPLICATION_STATE_ICON_NAME[applicationState]}-chrome.png`}
+        src={iconPath}
         alt={applicationState}
       />
       <div className="popup-header__title">

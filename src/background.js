@@ -6,6 +6,30 @@ import GoogleDetector from './features/google';
 import TwitterDetector from './features/twitter';
 
 import { getStorageClass } from './consent/storages';
+import { APPLICATION_STATE_ICON_NAME } from './constants';
+
+const setBrowserExtensionIcon = async (applicationState, tabId) => {
+  const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
+
+  const usePngIcons = !!global.chrome;
+
+  const iconSet = {};
+
+  if (usePngIcons) {
+    [16, 24, 32].forEach((size) => {
+      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-chrome.png`;
+    });
+  } else {
+    [19, 38].forEach((size) => {
+      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-cliqz.svg`;
+    });
+  }
+
+  browser.browserAction.setIcon({
+    path: iconSet,
+    tabId,
+  });
+};
 
 async function detectFeatures(url, dispatch) {
   url = new URL(url);
@@ -113,5 +137,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     detectConsent(message.consent, tab, localStorage, dispatch);
   } else if (message.type === 'changeConsent') {
     changeConsent(message.consent, tab, localStorage, dispatch);
+  } else if (message.type === 'setBrowserExtensionIcon') {
+    setBrowserExtensionIcon(message.applicationState, tab.id);
   }
 });
