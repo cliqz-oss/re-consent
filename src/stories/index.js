@@ -11,7 +11,6 @@ import PopupListItemCheckbox from '../components/popup/PopupListItemCheckbox';
 import PopupListItemButton from '../components/popup/PopupListItemButton';
 import PopupList from '../components/popup/PopupList';
 import Popup from '../components/popup/Popup';
-import Tooltip from '../components/Tooltip';
 
 import consentFixture from './fixtures/consent.json';
 import featuresFixture from './fixtures/features.json';
@@ -30,26 +29,6 @@ storiesOf('Label', module)
     <span className="label label--inactive">
       Deactivated
     </span>
-  ));
-
-
-storiesOf('Tooltip', module)
-  .add('placement bottom', () => (
-    <Tooltip placement="bottom" content="Some description">
-      Trigger Tooltip
-    </Tooltip>
-  ))
-  .add('placement bottom with long content', () => (
-    <Tooltip placement="bottom" content={longTextFixture}>
-      Trigger
-    </Tooltip>
-  ))
-  .add('placement left', () => (
-    <div style={{ 'text-align': 'right', padding: '20px' }}>
-      <Tooltip placement="left" content="Some description">
-        Trigger Tooltip
-      </Tooltip>
-    </div>
   ));
 
 
@@ -214,7 +193,7 @@ storiesOf('PopupListItemButton', module)
   .add('PopupListItemButton inactive', () => (
     <PopupListItemButton
       title="Some title"
-      description="some description"
+      description={longTextFixture}
       isActive={false}
       changeUrl="some-url"
       labels={{ true: 'active', false: 'inactive' }}

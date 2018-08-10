@@ -1,8 +1,7 @@
 import browser from 'webextension-polyfill';
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import Tooltip from '../Tooltip';
+import { Tooltip } from 'react-tippy';
 
 import { IconQuestionmark, IconArrowRight } from '../Icons';
 
@@ -29,11 +28,11 @@ const PopupListItemButton = ({
     <div className="popup-list-item__title">
       {title}
       {description && (
-        <Tooltip placement="bottom" content={description}>
-          <span className="popup-list-item__description-tooltip">
+        <span className="popup-list-item__description-tooltip">
+          <Tooltip placement="bottom" title={description} arrow>
             <IconQuestionmark />
-          </span>
-        </Tooltip>
+          </Tooltip>
+        </span>
       )}
     </div>
     <div className="popup-list-item__controls">

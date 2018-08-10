@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import Toggle from 'react-toggle';
+import { Tooltip } from 'react-tippy';
 
-import Tooltip from '../Tooltip';
 import { IconQuestionmark } from '../Icons';
 
 
@@ -36,16 +36,16 @@ const PopupListItemCheckbox = ({
       <div className="popup-list-item__title">
         {title}
         {description !== null && (
-          <Tooltip placement="bottom" content={description}>
-            <span className="popup-list-item__description-tooltip">
+          <span className="popup-list-item__description-tooltip">
+            <Tooltip title={description} arrow>
               <IconQuestionmark />
-            </span>
-          </Tooltip>
+            </Tooltip>
+          </span>
         )}
       </div>
       <div className="popup-list-item__controls">
         {disabledHelpText && (
-          <Tooltip placement="left" content={disabledHelpText}>
+          <Tooltip title={disabledHelpText} arrow>
             {toggle}
           </Tooltip>
         )}

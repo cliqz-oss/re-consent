@@ -126,14 +126,12 @@ $popup-list-toggle-padding: 1px;
 
   &__description-tooltip {
     cursor: pointer;
-    position: relative;
     padding-left: 10px;
     visibility: hidden;
+    display: inline-block;
+    vertical-align: middle;
 
     svg {
-      position: absolute;
-      top: 0;
-
       width: 16px;
       height: 16px;
 
