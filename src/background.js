@@ -11,7 +11,7 @@ import { APPLICATION_STATE_ICON_NAME } from './constants';
 const setBrowserExtensionIcon = async (applicationState, tabId) => {
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
 
-  const usePngIcons = !!chrome;
+  const usePngIcons = !!global.chrome;
 
   const iconSet = {};
 
@@ -24,7 +24,6 @@ const setBrowserExtensionIcon = async (applicationState, tabId) => {
       iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-cliqz.svg`;
     });
   }
-
 
   browser.browserAction.setIcon({
     path: iconSet,
