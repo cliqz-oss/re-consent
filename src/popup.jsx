@@ -4,13 +4,10 @@ import browser from 'webextension-polyfill';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import ConsentCard from './components/ConsentCard';
-import DetectionCard from './components/DetectionCard';
+import PopupContainer from './components/popup/PopupContainer';
 import reducer from './reducer';
 
 import './scss/index.scss';
-
-const PAGE_URL = 'https://cliqz.com/magazine/consentric';
 
 const store = createStore(reducer);
 
@@ -22,14 +19,10 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
 
   window.document.body.appendChild(element);
   window.document.body.style.width = '340px';
-  window.document.body.style.height = '400px';
 
   ReactDOM.render(
     <Provider store={store}>
-      <React.Fragment>
-        <ConsentCard changeConsent={changeConsent} />
-        <DetectionCard pageUrl={PAGE_URL} />
-      </React.Fragment>
+      <PopupContainer changeConsent={changeConsent} />
     </Provider>,
     element,
   );

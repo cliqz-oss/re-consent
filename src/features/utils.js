@@ -15,3 +15,10 @@ export async function fetchDocument(url, format = 'html') { // eslint-disable-li
 
   return response.text();
 }
+
+export const checkNoSuspiciousFeaturesExist = (features) => {
+  if (features.length === 0) {
+    return true;
+  }
+  return features.some(feature => feature.suspicious !== true);
+};

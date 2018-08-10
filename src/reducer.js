@@ -1,5 +1,4 @@
 const detectFeaturesReducer = (state = {}, action) => {
-  const { siteName } = action;
   const features = [...(state.features || [])];
 
   action.features.forEach((feature) => {
@@ -14,18 +13,30 @@ const detectFeaturesReducer = (state = {}, action) => {
 
   return {
     ...state,
-    siteName,
     features,
+    scanningFeatures: false,
   };
 };
 
-export default (state = {}, action) => {
+
+const initialState = {
+  siteName: null,
+  consent: null,
+  features: [],
+
+  scanningFeatures: true,
+  scanningConsent: true,
+};
+
+
+export default (state = initialState, action) => {
   const { type } = action;
 
   switch (type) {
+    case 'init': return { ...state, siteName: action.siteName };
     case 'stateChanged': return action.state;
     case 'detectFeatures': return detectFeaturesReducer(state, action);
-    case 'detectConsent': return { ...state, consent: action.consent };
+    case 'detectConsent': return { ...state, consent: action.consent, scanningConsent: false };
     case 'changeConsent': return { ...state, consent: action.consent };
     default: return state;
   }

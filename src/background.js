@@ -18,15 +18,13 @@ async function detectFeatures(url, dispatch) {
 
   const detector = detectors.find(obj => obj.shouldDetect());
 
-  let siteName = url.hostname;
   let features = [];
 
   if (detector) {
-    siteName = detector.getSiteName();
     features = await detector.detect();
   }
 
-  dispatch({ type: 'detectFeatures', siteName, features });
+  dispatch({ type: 'detectFeatures', features });
 }
 
 async function detectConsent(consent, tab, localStorage, dispatch) {
@@ -105,7 +103,11 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     },
   };
 
-  if (message.type === 'detectFeatures') {
+  if (message.type === 'contentReady') {
+    const url = new URL(message.url);
+    const siteName = url.hostname.replace('www.', '');
+    dispatch({ type: 'init', siteName });
+  } else if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);
   } else if (message.type === 'detectConsent') {
     detectConsent(message.consent, tab, localStorage, dispatch);

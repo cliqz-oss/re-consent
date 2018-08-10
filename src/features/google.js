@@ -85,10 +85,6 @@ export default class GoogleDetector extends Detector {
     ];
   }
 
-  getSiteName() {
-    return 'Google';
-  }
-
   detect() {
     return this.detectFeatures(features, doDetect, doFetch);
   }

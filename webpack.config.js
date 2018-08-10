@@ -19,6 +19,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      constants: path.resolve(__dirname, './src/constants.js'),
+    }
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -32,6 +35,10 @@ module.exports = {
       {
         from: 'src/manifest.json',
         to: 'manifest.json',
+      },
+      {
+        from: 'src/assets/icons',
+        to: 'icons',
       },
     ]),
   ],

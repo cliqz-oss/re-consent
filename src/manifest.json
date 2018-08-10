@@ -43,6 +43,6 @@
     ]
   },
   "web_accessible_resources": [
-    "content-page-bridge.js",
+    "content-page-bridge.js"
   ]
 }
