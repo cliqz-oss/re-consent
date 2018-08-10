@@ -8,7 +8,7 @@ const PopupFooter = () => (
     Learn more about
     {' '}
     <a className="link" target="_blank" rel="noopener noreferrer" href={DETAIL_PAGE_URL}>
-      Concentric &gt;
+      Consentric &gt;
     </a>
   </div>
 );
