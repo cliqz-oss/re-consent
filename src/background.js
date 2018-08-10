@@ -20,23 +20,8 @@ const setBrowserExtensionIcon = async (applicationState, tabId) => {
       iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-chrome.png`;
     });
   } else {
-    let themeName;
-
-    if (browser.theme) {
-      // This is currently not working as it is blocked by this bug report:
-      // https://bugzilla.mozilla.org/show_bug.cgi?id=1414512
-      const themeInfo = await browser.theme.getCurrent();
-      themeName = themeInfo.name;
-    }
-
-    let themeSuffix = '';
-
-    if (themeName in ['light', 'dark']) {
-      themeSuffix = `-${themeName}`;
-    }
-
     [19, 38].forEach((size) => {
-      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-cliqz${themeSuffix}.svg`;
+      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-cliqz.svg`;
     });
   }
 

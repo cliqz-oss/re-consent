@@ -8,8 +8,7 @@
     "<all_urls>",
     "cookies",
     "privacy",
-    "tabs",
-    "theme"
+    "tabs"
   ],
   "content_scripts": [
     {
