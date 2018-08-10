@@ -1,5 +1,3 @@
-/* eslint-disable no-return-assign */
-
 import browser from 'webextension-polyfill';
 import { ConsentString } from 'consent-string';
 
@@ -18,9 +16,9 @@ const setBrowserExtensionIcon = async (applicationState, tabId) => {
   const iconSet = {};
 
   if (usePngIcons) {
-    [16, 24, 32].forEach(size => (
-      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-chrome.png`
-    ));
+    [16, 24, 32].forEach(size => {
+      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-chrome.png`;
+    });
   } else {
     let themeName;
 
@@ -37,9 +35,9 @@ const setBrowserExtensionIcon = async (applicationState, tabId) => {
       themeSuffix = `-${themeName}`;
     }
 
-    [19, 38].forEach(size => (
-      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-cliqz${themeSuffix}.svg`
-    ));
+    [19, 38].forEach((size) => {
+      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-cliqz${themeSuffix}.svg`;
+    });
   }
 
 

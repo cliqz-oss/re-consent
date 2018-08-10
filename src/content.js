@@ -17,7 +17,6 @@ const logger = ({ getState }) => next => (action) => {
   return result;
 };
 
-/* eslint-disable */
 const browserExtensionIconMiddleware = store => next => (action) => {
   /*
   Dynamically sets the icon based on the the different states of the application.
