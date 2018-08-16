@@ -1,6 +1,34 @@
-import { getConsentReadOnly } from "./utils";
+import { getConsentReadOnly, getConsentPurposeAllowed } from "./utils";
 
 describe('consent/utils', () => {
+  describe('getConsentPurposeAllowed', () => {
+    it('should return the value of the purposeConsent', () => {
+      const consent = {
+        vendorConsents: {
+          purposeConsent: {
+            someConsent: false,
+          }
+        },
+      };
+
+      const consentAllowed = getConsentPurposeAllowed(consent, 'someConsent');
+      expect(consentAllowed).toBeFalsy();
+    });
+
+    it('should return false if purposeConsent key does not exist', () => {
+      const consent = {
+        vendorConsents: {
+          purposeConsent: {
+            someOtherConsent: true,
+          }
+        },
+      };
+
+      const consentAllowed = getConsentPurposeAllowed(consent, 'someConsent');
+      expect(consentAllowed).toBeFalsy();
+    });
+  });
+
   describe('getConsentReadOnly', () => {
     it('should be readonly if there is not storageName', () => {
       const consent = {
