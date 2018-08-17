@@ -16,11 +16,18 @@ export const getUpdatedConsentData = (consent, purposeIds, allowed) => {
   };
 };
 
-export const getConsentPurposeAllowed = (consent, purposeId) =>
-  consent.vendorConsents.purposeConsents[purposeId];
+export const getConsentPurposeAllowed = (consent, purposeId) => {
+  try {
+    return consent.vendorConsents.purposeConsents[purposeId];
+  } catch (e) {
+    return false;
+  }
+};
 
 
-export const getConsentReadOnly = consent => !consent.storageName;
+export const getConsentReadOnly = (consent) => {
+  return !consent.storageName || !consent.vendorConsents.purposeConsents;
+};
 
 
 export const checkAllConsentSettingsSet = (consent) => {

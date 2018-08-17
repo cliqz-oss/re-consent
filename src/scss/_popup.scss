@@ -205,13 +205,13 @@ $popup-list-toggle-padding: 1px;
     .react-toggle-thumb {
       border: none;
       top: $popup-list-toggle-padding;
-      left: $popup-list-toggle-padding;
+      left: $popup-list-toggle-width - $popup-list-toggle-height + $popup-list-toggle-padding;
       width: $popup-list-toggle-height - 2 * $popup-list-toggle-padding;
       height: $popup-list-toggle-height - 2 * $popup-list-toggle-padding;
     }
 
     &.react-toggle--checked .react-toggle-thumb {
-      left: $popup-list-toggle-width - $popup-list-toggle-height + $popup-list-toggle-padding;
+      left: $popup-list-toggle-padding;
     }
 
     &:not(.react-toggle--checked) .react-toggle-track,
