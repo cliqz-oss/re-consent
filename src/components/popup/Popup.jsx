@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { intlShape } from 'react-intl';
 
 import { CONSENT_PURPOSE } from 'constants';
 import PopupHeader from './PopupHeader';
@@ -106,7 +107,7 @@ Popup.propTypes = {
     group: PropTypes.string.isRequired,
   })),
   siteName: PropTypes.string,
-  intl: PropTypes.object.isRequired,
+  intl: intlShape.isRequired,
 };
 
 Popup.defaultProps = {
