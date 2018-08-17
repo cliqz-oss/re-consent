@@ -33,7 +33,7 @@ const features = [
     selectorName: 'youtubeSearch',
   },
   {
-    key: 'google-youtube-watch',
+    key: 'google-youtube-watch-history',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     group: 'automatically-detected',
     selectorName: 'youtubeWatch',
