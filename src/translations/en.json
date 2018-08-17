@@ -12,11 +12,13 @@
   "popup.list.automatically-detected-features.list-item.deactivate-button-text": "Deactivate",
   "popup.list.automatically-detected-features.list-item.label.active": "active",
   "popup.list.automatically-detected-features.list-item.label.inactive": "inactive",
+  "popup.list.automatically-detected-features.list-item.label.unknown": "unknown",
 
   "popup.list.manual-check-features.title": "Data Breaches by {siteName}",
   "popup.list.manual-check-features.list-item.deactivate-button-text": "Check Manually",
   "popup.list.check-manually-features.list-item.label.active": "breached",
   "popup.list.check-manually-features.list-item.label.inactive": "n/a",
+  "popup.list.check-manually-features.list-item.label.unknown": "unbekannt",
 
   "popup.footer.link": "Learn more about {consentricLink}",
 

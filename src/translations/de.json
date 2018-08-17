@@ -12,11 +12,13 @@
   "popup.list.automatically-detected-features.list-item.deactivate-button-text": "Deaktivieren",
   "popup.list.automatically-detected-features.list-item.label.active": "aktiv",
   "popup.list.automatically-detected-features.list-item.label.inactive": "inaktiv",
+  "popup.list.automatically-detected-features.list-item.label.unknown": "unbekannt",
 
   "popup.list.manual-check-features.title": "Datenverletzungen durch {siteName}",
   "popup.list.manual-check-features.list-item.deactivate-button-text": "Manuell überprüfen",
   "popup.list.check-manually-features.list-item.label.active": "verletzt",
   "popup.list.check-manually-features.list-item.label.inactive": "n/a",
+  "popup.list.check-manually-features.list-item.label.unknown": "unbekannt",
 
   "popup.footer.link": "Erfahre mehr über {consentricLink}",
 

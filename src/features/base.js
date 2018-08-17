@@ -42,9 +42,13 @@ export default class Detector {
         error = e;
       }
 
+      if ([true, false].indexOf(suspicious) === -1) {
+        suspicious = null;
+      }
+
       return {
         ...feature,
-        suspicious: Boolean(suspicious),
+        suspicious,
         error,
       };
     }));

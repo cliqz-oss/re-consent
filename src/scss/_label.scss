@@ -13,7 +13,8 @@
     border-color: #FF7C70;
   }
 
-  &--inactive {
+  &--inactive,
+  &--unknown {
     color: #5F7C86;
     border-color: #5F7C86;
   }
