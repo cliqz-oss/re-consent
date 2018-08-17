@@ -57,7 +57,7 @@ const Popup = ({
               title={formatMessage({ id: `features.${feature.key}.title` })}
               description={formatMessage({ id: `features.${feature.key}.description` })}
               isActive={feature.suspicious}
-              deactivateButtonText={feature.suspicious && formatMessage({ id: 'popup.list.automatically-detected-features.list-item.deactivate-button-text' })}
+              deactivateButtonText={feature.suspicious && formatMessage({ id: 'popup.list.automatically-detected-features.list-item.deactivate-button-text' }) || null}
               changeUrl={feature.settingsUrl}
               labels={{
                 true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.active' }),
@@ -101,9 +101,9 @@ Popup.propTypes = {
   }),
   features: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
     suspicious: PropTypes.bool,
     settingsUrl: PropTypes.string.isRequired,
+    group: PropTypes.string.isRequired,
   })),
   siteName: PropTypes.string,
   intl: PropTypes.object.isRequired,
