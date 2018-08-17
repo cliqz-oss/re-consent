@@ -5,7 +5,7 @@ describe('consent/utils', () => {
     it('should return the value of the purposeConsent', () => {
       const consent = {
         vendorConsents: {
-          purposeConsent: {
+          purposeConsents: {
             someConsent: true,
           }
         },
@@ -18,7 +18,7 @@ describe('consent/utils', () => {
     it('should return false if purposeConsent key does not exist', () => {
       const consent = {
         vendorConsents: {
-          purposeConsent: {
+          purposeConsents: {
             someOtherConsent: true,
           }
         },

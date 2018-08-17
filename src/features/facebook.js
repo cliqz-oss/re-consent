@@ -45,7 +45,7 @@ async function detectLocationSharing() {
 export default class FacebookDetector extends Detector {
   getDomains() {
     return [
-      'www.facebook.com',
+      /facebook\.com/,
     ];
   }
 
