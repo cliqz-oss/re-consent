@@ -82,6 +82,7 @@ export default class GoogleDetector extends Detector {
       'gmail.com',
       'google.com',
       'google.de',
+      'youtube.com',
     ];
   }
 
