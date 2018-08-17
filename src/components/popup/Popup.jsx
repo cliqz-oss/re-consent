@@ -58,7 +58,7 @@ const Popup = ({
               title={formatMessage({ id: `features.${feature.key}.title` })}
               description={formatMessage({ id: `features.${feature.key}.description` })}
               isActive={feature.suspicious}
-              deactivateButtonText={feature.suspicious && formatMessage({ id: 'popup.list.automatically-detected-features.list-item.deactivate-button-text' }) || null}
+              deactivateButtonText={feature.suspicious ? formatMessage({ id: 'popup.list.automatically-detected-features.list-item.deactivate-button-text' }) : null}
               changeUrl={feature.settingsUrl}
               labels={{
                 true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.active' }),
