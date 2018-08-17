@@ -14,7 +14,7 @@ const PopupFooter = () => (
             Consentric &gt;
           </a>
         ),
-    }}
+      }}
     />
   </div>
 );
