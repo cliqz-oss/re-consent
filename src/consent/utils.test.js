@@ -6,13 +6,13 @@ describe('consent/utils', () => {
       const consent = {
         vendorConsents: {
           purposeConsent: {
-            someConsent: false,
+            someConsent: true,
           }
         },
       };
 
       const consentAllowed = getConsentPurposeAllowed(consent, 'someConsent');
-      expect(consentAllowed).toBeFalsy();
+      expect(consentAllowed).toBeTruthy();
     });
 
     it('should return false if purposeConsent key does not exist', () => {
