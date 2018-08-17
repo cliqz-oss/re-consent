@@ -42,7 +42,7 @@ const Popup = ({
                 title={purposeTitle}
                 checked={allowed}
                 disabled={readOnly}
-                disabledHelpText={formatMessage({ id: 'popup.list.consent.list-item.disabled-help-text', values: { siteName } })}
+                disabledHelpText={formatMessage({ id: 'popup.list.consent.list-item.disabled-help-text' }, { siteName })}
                 onChange={onChange}
               />
             );
@@ -50,7 +50,7 @@ const Popup = ({
         </PopupList>
       )}
       {automaticallyDetectedFeatures.length > 0 && (
-        <PopupList title={formatMessage({ id: 'popup.list.automatically-detected-features.title', values: { siteName } })} icon={<IconCogWheel />}>
+        <PopupList title={formatMessage({ id: 'popup.list.automatically-detected-features.title' }, { siteName })} icon={<IconCogWheel />}>
           {automaticallyDetectedFeatures.map(feature => (
             <PopupListItemButton
               key={feature.key}
@@ -68,7 +68,7 @@ const Popup = ({
         </PopupList>
       )}
       {manualCheckFeatures.length > 0 && (
-        <PopupList title={formatMessage({ id: 'popup.list.manual-check-features.title', values: { siteName } })} icon={<IconCogWheel />}>
+        <PopupList title={formatMessage({ id: 'popup.list.manual-check-features.title' }, { siteName })} icon={<IconCogWheel />}>
           {manualCheckFeatures.map(feature => (
             <PopupListItemButton
               key={feature.key}
