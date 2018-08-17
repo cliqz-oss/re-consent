@@ -20,6 +20,8 @@ import './scss/index.scss';
 addLocaleData(enLocaleData);
 addLocaleData(deLocaleData);
 
+const DEFAULT_LOCALE = 'en';
+
 const translations = {
   en: translationsEn,
   de: translationsDe,
@@ -36,14 +38,18 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
   window.document.body.appendChild(element);
   window.document.body.style.width = '340px';
 
-  const locale = browser.i18n.getUILanguage().split(/[-_]/)[0]; // language without region code
+  let locale = browser.i18n.getUILanguage().split(/[-_]/)[0]; // language without region code
+
+  if (!(locale in translations)) {
+    locale = DEFAULT_LOCALE;
+  }
 
   ReactDOM.render(
     <Provider store={store}>
       <IntlProvider
         locale={locale}
         messages={translations[locale]}
-        defaultLocale="en"
+        defaultLocale={DEFAULT_LOCALE}
       >
         <PopupContainer changeConsent={changeConsent} />
       </IntlProvider>
