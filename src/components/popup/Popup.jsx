@@ -55,7 +55,7 @@ const Popup = ({
               key={feature.key}
               title={feature.title}
               description={feature.description}
-              isActive={feature.suspicious === true}
+              isActive={feature.suspicious}
               deactivateButtonText={feature.suspicious && 'Deactivate'}
               changeUrl={feature.settingsUrl}
               labels={{ true: 'active', false: 'inactive' }}

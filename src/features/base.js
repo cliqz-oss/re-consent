@@ -44,7 +44,7 @@ export default class Detector {
 
       return {
         ...feature,
-        suspicious,
+        suspicious: Boolean(suspicious),
         error,
       };
     }));
