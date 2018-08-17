@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { APPLICATION_STATE_ICON_NAME } from 'constants';
+import { APPLICATION_STATE, APPLICATION_STATE_ICON_NAME } from 'constants';
 import { FormattedMessage } from 'react-intl';
 
 
