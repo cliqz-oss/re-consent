@@ -25,7 +25,6 @@ const translations = {
   de: translationsDe,
 };
 
-
 const store = createStore(reducer);
 
 browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => {
@@ -37,7 +36,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
   window.document.body.appendChild(element);
   window.document.body.style.width = '340px';
 
-  const locale = navigator.language.split(/[-_]/)[0]; // language without region code
+  const locale = browser.i18n.getUILanguage().split(/[-_]/)[0]; // language without region code
 
   ReactDOM.render(
     <Provider store={store}>
