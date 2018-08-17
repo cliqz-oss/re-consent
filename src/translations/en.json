@@ -1,9 +1,9 @@
 {
-  "popup.header.title.scanning": "Cconsentric is scanning the website ...",
+  "popup.header.title.scanning": "Consentric is scanning the website ...",
   "popup.header.title.settings_detected": "Review your privacy and consent settings.",
   "popup.header.title.settings_changed": "Your privacy and consent settings have been changed, review them.",
-  "popup.header.title.settings_well_set": "Your privacy settings and cconsents are well set!",
-  "popup.header.title.NO_CONCERNS": "No privacy and consent concerns detected.",
+  "popup.header.title.settings_well_set": "Your privacy settings and consents are well set!",
+  "popup.header.title.no_concerns": "No privacy and consent concerns detected.",
 
   "popup.list.consent.title": "Third Party Consents",
   "popup.list.consent.list-item.disabled-help-text": "You cannot change these settings here. Please go to {siteName} directly.",
@@ -18,7 +18,7 @@
   "popup.list.check-manually-features.list-item.label.active": "breached",
   "popup.list.check-manually-features.list-item.label.inactive": "n/a",
 
-  "popup.footer.link": "Learn more about {cconsentricLink}",
+  "popup.footer.link": "Learn more about {consentricLink}",
 
   "features.facebook-location-sharing.title": "Location Sharing",
   "features.facebook-location-sharing.description": "Allow Facebook to build a history of the locations you have been to?",
