@@ -3,7 +3,7 @@
   "popup.header.title.settings_detected": "Review your privacy and consent settings.",
   "popup.header.title.settings_changed": "Your privacy and consent settings have been changed, review them.",
   "popup.header.title.settings_well_set": "Your privacy settings and cconsents are well set!",
-  "popup.header.title.NO_CONCERNS": "No privacy and cconsent conserns detected.",
+  "popup.header.title.NO_CONCERNS": "No privacy and consent concerns detected.",
 
   "popup.list.consent.title": "Third Party Consents",
   "popup.list.consent.list-item.disabled-help-text": "You cannot change these settings here. Please go to {siteName} directly.",
