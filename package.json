@@ -26,7 +26,6 @@
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.10",
     "@storybook/react": "v4.0.0-alpha.16",
-    "storybook-addon-intl": "^2.3.0",
     "autoprefixer": "^8.6.3",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
@@ -50,6 +49,7 @@
     "postcss": "^6.0.22",
     "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.3",
+    "storybook-addon-intl": "^2.3.0",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.12.0",
