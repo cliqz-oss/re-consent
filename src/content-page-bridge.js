@@ -3,8 +3,24 @@
 import checkIsWhiteListed from './consent/whitelist';
 
 function queryCmp(method) {
-  return new Promise((resolve) => {
+  const cmpPromise = new Promise((resolve) => {
     window.__cmp(method, null, resolve);
+  });
+
+  return new Promise((resolve) => {
+    const timer = setTimeout(() => {
+      resolve(null);
+    }, ms);
+
+    cmpPromise
+      .then((res) => {
+        clearTimeout(timer);
+        resolve(res);
+      })
+      .catch(() => {
+        clearTimeout(timer);
+        resolve(null);
+      });
   });
 }
 
