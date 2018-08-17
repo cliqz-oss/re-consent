@@ -42,8 +42,8 @@
   "features.google-youtube-watch-history.title": "Youtube Watch History",
   "features.google-youtube-watch-history.description": "Allow Google to store all of your Youtube Watch History?",
 
-  "features.twitter-thrid-party-sharing.title": "Twitter Data Sharing with third party services",
-  "features.twitter-thrid-party-sharing.description": "Allow Twitter to share your data with third party services?",
+  "features.twitter-third-party-sharing.title": "Twitter Data Sharing with third party services",
+  "features.twitter-third-party-sharing.description": "Allow Twitter to share your data with third party services?",
   "features.twitter-cookie-tracking.title": "Twitter Cookie Tracking",
   "features.twitter-cookie-tracking.description": "Allow Twitter to track which websites you used?",
   "features.twitter-location-tracking.title": "Twitter Location Tracking",

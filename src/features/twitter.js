@@ -3,12 +3,12 @@ import { fetchDocument } from './utils';
 
 export const features = [
   {
-    key: 'twitter-thrid-party-sharing',
+    key: 'twitter-third-party-sharing',
     settingsUrl: 'https://twitter.com/personalization',
     group: 'automatically-detected',
   },
   {
-    icon: 'IconThirdPartyAccess',
+    key: 'twitter-cookie-tracking',
     settingsUrl: 'https://twitter.com/personalization',
     group: 'automatically-detected',
   },
@@ -25,7 +25,7 @@ async function doFetch() {
 
 function doDetect(feature, doc) {
   switch (feature.key) {
-    case 'twitter-thrid-party-sharing': return doc.share_data_with_third_party;
+    case 'twitter-third-party-sharing': return doc.share_data_with_third_party;
     case 'twitter-cookie-tracking': return doc.use_cookie_personalization;
     case 'twitter-location-tracking': return doc.location_preferences.use_location_for_personalization;
     default: throw Error(`Feature detection not implemented: ${feature.key}`);
