@@ -42,12 +42,5 @@
   "features.google-youtube-search-history.title": "Youtube Suchverlauf",
   "features.google-youtube-search-history.description": "Google erlauben, deine Suchanfragen auf YouTube zu speichern?",
   "features.google-youtube-watch-history.title": "Youtube Verlauf",
-  "features.google-youtube-watch-history.description": "Google erlauben, deine Youtube Verlauf zu speichern?",
-
-  "features.twitter-third-party-sharing.title": "Twitter Datenübertragung an Drittanbieter",
-  "features.twitter-third-party-sharing.description": "Erlaube Twitter, deine Daten mit Drittanbieterdiensten zu teilen?",
-  "features.twitter-cookie-tracking.title": "Twitter Cookie Verfolgung",
-  "features.twitter-cookie-tracking.description": "Erlaube Twitter zu verfolgen, welche Websites du besucht hast?",
-  "features.twitter-location-tracking.title": "Twitter Standortverlauf",
-  "features.twitter-location-tracking.description": "Erlaube Twitter zu verfolgen, an welchen Orten du warst?"
+  "features.google-youtube-watch-history.description": "Google erlauben, deine Youtube Verlauf zu speichern?"
 }

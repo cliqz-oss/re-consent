@@ -1,11 +1,9 @@
 import FacebookDetector from '../features/facebook';
 import GoogleDetector from '../features/google';
-import TwitterDetector from '../features/twitter';
 
 const detectors = [
   FacebookDetector,
   GoogleDetector,
-  TwitterDetector,
 ];
 
 
