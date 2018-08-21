@@ -1,0 +1,51 @@
+{
+  "popup.header.title.scanning": "Consentric scannt die Webseite ...",
+  "popup.header.title.settings_detected": "Überprüfe deine Datenschutz- und Zustimmungseinstellungen.",
+  "popup.header.title.settings_changed": "Deine Datenschutz- und Zustimmungseinstellungen wurden geändert, überprüfen sie.",
+  "popup.header.title.settings_well_set": "Deine Datenschutz- und Zustimmungseinstellungen sind gut eingestellt!",
+  "popup.header.title.no_concerns": "Es wurden keine Datenschutz- und Zustimmungsprobleme festgestellt.",
+
+  "popup.list.consent.title": "Zustimmungen von Drittanbietern",
+  "popup.list.consent.list-item.disabled-help-text": "Du kannst diese Einstellungen hier nicht ändern. Bitte gehe direkt zu {siteName}.",
+
+  "popup.list.automatically-detected-features.title": "{siteName} Datenschutzeinstellungen",
+  "popup.list.automatically-detected-features.list-item.deactivate-button-text": "Deaktivieren",
+  "popup.list.automatically-detected-features.list-item.label.active": "aktiv",
+  "popup.list.automatically-detected-features.list-item.label.inactive": "inaktiv",
+
+  "popup.list.manual-check-features.title": "Datenverletzungen durch {siteName}",
+  "popup.list.manual-check-features.list-item.deactivate-button-text": "Manuell überprüfen",
+  "popup.list.check-manually-features.list-item.label.active": "verletzt",
+  "popup.list.check-manually-features.list-item.label.inactive": "n/a",
+
+  "popup.footer.link": "Erfahre mehr über {consentricLink}",
+
+  "features.facebook-location-sharing.title": "Standortverlauf",
+  "features.facebook-location-sharing.description": "Erlaube Facebook einen Verlauf der Orte zu erstellen, an denen du warst?",
+  "features.facebook-face-recognition.title": "Gesichtserkennung",
+  "features.facebook-face-recognition.description": "Erlaube Facebook dein Gesicht in Fotos und Videos zu erkennen?",
+  "features.facebook-third-party-data-access.title": "Datenzugriff durch Drittanbieter",
+  "features.facebook-third-party-data-access.description": "Dritten Anwendungen erlauben, auf deine Daten über Facebook zuzugreifen?",
+  "features.facebook-advertisers.title": "Werbetreibende, die deine Daten auf Facebook hochgeladen haben.",
+  "features.facebook-advertisers.description": "Werbetreibende schalten Anzeigen mithilfe einer von deinen hochgeladenen Kontaktliste, die deine Kontaktinformationen enthält.",
+
+  "features.google-search-history.title": "Suchverlauf",
+  "features.google-search-history.description": "Google erlauben, alle deine Web- & App-Aktivitäten zu verfolgen?",
+  "features.google-location-history.title": "Standortverlauf",
+  "features.google-location-history.description": "Erlaube Google, deinen Standort zu verfolgen?",
+  "features.google-device-information.title": "Geräteinformationen",
+  "features.google-device-information.description": "Google erlauben, Ihr Gerät zu verfolgen?",
+  "features.google-audio-history.title": "Sprachverlauf",
+  "features.google-audio-history.description": "Google erlauben, deine Stimme und dein Audio auf Google-Diensten aufzuzeichnen?",
+  "features.google-youtube-search-history.title": "Youtube Suchverlauf",
+  "features.google-youtube-search-history.description": "Google erlauben, deine Suchanfragen auf YouTube zu speichern?",
+  "features.google-youtube-watch-history.title": "Youtube Verlauf",
+  "features.google-youtube-watch-history.description": "Google erlauben, deine Youtube Verlauf zu speichern?",
+
+  "features.twitter-third-party-sharing.title": "Twitter Datenübertragung an Drittanbieter",
+  "features.twitter-third-party-sharing.description": "Erlaube Twitter, deine Daten mit Drittanbieterdiensten zu teilen?",
+  "features.twitter-cookie-tracking.title": "Twitter Cookie Verfolgung",
+  "features.twitter-cookie-tracking.description": "Erlaube Twitter zu verfolgen, welche Websites du besucht hast?",
+  "features.twitter-location-tracking.title": "Twitter Standortverlauf",
+  "features.twitter-location-tracking.description": "Erlaube Twitter zu verfolgen, an welchen Orten du warst?"
+}

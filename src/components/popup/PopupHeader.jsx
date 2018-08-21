@@ -2,20 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { APPLICATION_STATE, APPLICATION_STATE_ICON_NAME } from 'constants';
+import { FormattedMessage } from 'react-intl';
 
 
 const PopupHeader = ({
   applicationState,
   siteName,
 }) => {
-  const titles = {};
-
-  titles[APPLICATION_STATE.SCANNING] = 'Consentric is scanning the website ...';
-  titles[APPLICATION_STATE.SETTINGS_DETECTED] = 'Review your privacy and consent settings.';
-  titles[APPLICATION_STATE.SETTINGS_CHANGED] = 'Your privacy and consent settings have been changed, review them.';
-  titles[APPLICATION_STATE.SETTINGS_WELL_SET] = 'Your privacy settings and concents are well set!';
-  titles[APPLICATION_STATE.NO_CONCERNS] = 'No privacy and concent conserns detected.';
-
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
   let iconAnimatedSuffix = '';
   if (applicationState === APPLICATION_STATE.SCANNING) {
@@ -31,7 +24,7 @@ const PopupHeader = ({
         alt={applicationState}
       />
       <div className="popup-header__title">
-        {titles[applicationState]}
+        <FormattedMessage id={`popup.header.title.${applicationState.toLowerCase()}`} />
       </div>
       <span className="popup-header__sitename">
         {siteName || '...'}
