@@ -3,9 +3,7 @@ import browser from 'webextension-polyfill';
 async function isThirdPartyIsolateEnabled() {
   if (browser.privacy && browser.privacy.websites.firstPartyIsolate) {
     const isolateEnabled = await browser.privacy.websites.firstPartyIsolate.get({});
-    if (isolateEnabled.value === true) {
-      return true;
-    }
+    return isolateEnabled.value;
   }
   return false;
 }
