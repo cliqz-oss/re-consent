@@ -8,7 +8,7 @@ describe('features', () => {
       expect(detector.shouldDetect()).toBeTruthy();
     });
 
-    it('should allow google domain without www prefix', () => {
+    it('should allow facebook domain without www prefix', () => {
       const url = `https://facebook.com`;
       const detector = new FacebookDetector(url);
       expect(detector.shouldDetect()).toBeTruthy();

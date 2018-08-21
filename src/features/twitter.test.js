@@ -8,7 +8,7 @@ describe('features', () => {
       expect(detector.shouldDetect()).toBeTruthy();
     });
 
-    it('should allow google domain without www prefix', () => {
+    it('should allow twitter domain without www prefix', () => {
       const url = `https://twitter.com`;
       const detector = new TwitterDetector(url);
       expect(detector.shouldDetect()).toBeTruthy();

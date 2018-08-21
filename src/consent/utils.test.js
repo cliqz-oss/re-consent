@@ -2,7 +2,7 @@ import { getConsentReadOnly, getConsentPurposeAllowed } from "./utils";
 
 describe('consent/utils', () => {
   describe('getConsentPurposeAllowed', () => {
-    it('should return the value of the purposeConsent', () => {
+    it('should return the value of the purposeConsents', () => {
       const consent = {
         vendorConsents: {
           purposeConsents: {
@@ -15,7 +15,7 @@ describe('consent/utils', () => {
       expect(consentAllowed).toBeTruthy();
     });
 
-    it('should return false if purposeConsent key does not exist', () => {
+    it('should return false if purposeConsents key does not exist', () => {
       const consent = {
         vendorConsents: {
           purposeConsents: {
