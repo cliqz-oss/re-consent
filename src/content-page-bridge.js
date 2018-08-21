@@ -7,21 +7,26 @@ function queryCmp(method) {
     window.__cmp(method, null, resolve);
   });
 
-  return new Promise((resolve) => {
-    const timer = setTimeout(() => {
-      resolve(null);
-    }, ms);
+  if (method === 'getVendorList') {
+    // VendorList is allowed to be null. But apparently some pages just don't call the callback
+    // if there is no VendorList available.
+    // To prevent our app of not responding because of that, after a timeout the promise is
+    // automatically resolved with `null`.
 
-    cmpPromise
-      .then((res) => {
-        clearTimeout(timer);
-        resolve(res);
-      })
-      .catch(() => {
-        clearTimeout(timer);
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => {
         resolve(null);
-      });
-  });
+      }, 1000);
+
+      cmpPromise
+        .then((res) => {
+          clearTimeout(timer);
+          resolve(res);
+        });
+    });
+  }
+
+  return cmpPromise;
 }
 
 const sendConsentMessage = (consent) => {
