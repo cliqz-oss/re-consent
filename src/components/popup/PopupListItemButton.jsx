@@ -5,6 +5,12 @@ import { Tooltip } from 'react-tippy';
 
 import { IconQuestionmark, IconArrowRight } from '../Icons';
 
+const CSS_STATUS_MODIFYER = {
+  true: 'active',
+  false: 'inactive',
+  null: 'unknown',
+};
+
 const openLink = url => async (e) => {
   e.preventDefault();
 
@@ -17,12 +23,6 @@ const openLink = url => async (e) => {
   window.close();
 };
 
-
-const CSS_STATUS_MODIFYER = {
-  true: 'active',
-  false: 'inactive',
-  null: 'unknown',
-};
 
 const PopupListItemButton = ({
   changeUrl,
