@@ -3,7 +3,6 @@ import { ConsentString } from 'consent-string';
 
 import FacebookDetector from './features/facebook';
 import GoogleDetector from './features/google';
-import TwitterDetector from './features/twitter';
 
 import { getStorageClass } from './consent/storages';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
@@ -37,7 +36,6 @@ async function detectFeatures(url, dispatch) {
   const detectors = [
     new FacebookDetector(url),
     new GoogleDetector(url),
-    new TwitterDetector(url),
   ];
 
   const detector = detectors.find(obj => obj.shouldDetect());

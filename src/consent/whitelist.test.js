@@ -12,11 +12,6 @@ describe('consent', () => {
       expect(checkIsWhiteListed(url)).toBeTruthy();
     });
 
-    it('should whitelist consent checking for twitter', () => {
-      const url = new URL(`https://www.twitter.com`);
-      expect(checkIsWhiteListed(url)).toBeTruthy();
-    });
-
     it('should not whitelist chip.de', () => {
       const url = new URL(`https://www.chip.de`);
       expect(checkIsWhiteListed(url)).toBeFalsy();
