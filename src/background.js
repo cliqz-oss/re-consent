@@ -9,52 +9,36 @@ import { APPLICATION_STATE_ICON_NAME, APPLICATION_STATE } from './constants';
 
 let setBrowserExtensionIconInterval = null;
 
-const setBrowserExtensionIcon = async (applicationState, tabId) => {
+function doSetBrowserExtensionIcon(tabId, pathTemplate) {
+  const usePngIcons = !!global.chrome;
+  const sizes = usePngIcons ? [16, 24, 32] : [19, 38];
+  const suffix = usePngIcons ? '-chrome.png' : '-cliqz.svg';
+  const iconSet = {};
+
+  sizes.forEach((size) => {
+    iconSet[size] = pathTemplate.replace('{size}', `${size}x${size}`).replace('{suffix}', suffix);
+  });
+
+  browser.pageAction.setIcon({
+    path: iconSet,
+    tabId,
+  });
+}
+
+async function setBrowserExtensionIcon(applicationState, tabId) {
   if (setBrowserExtensionIconInterval) {
     clearInterval(setBrowserExtensionIconInterval);
   }
 
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
 
-  const usePngIcons = !!global.chrome;
-
-  const iconSet = {};
-
-  if (usePngIcons) {
-    [16, 24, 32].forEach((size) => {
-      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-chrome.png`;
-    });
-  } else {
-    [19, 38].forEach((size) => {
-      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-cliqz.svg`;
-    });
-  }
-
-  browser.pageAction.setIcon({
-    path: iconSet,
-    tabId,
-  });
+  doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
 
   if (applicationState === APPLICATION_STATE.SCANNING) {
     let currentScanningState = 1;
 
     setBrowserExtensionIconInterval = setInterval(() => {
-      const scanningIconSet = {};
-
-      if (usePngIcons) {
-        [16, 24, 32].forEach((size) => {
-          scanningIconSet[size] = `icons/png/${size}x${size}_consent-scanning-chrome_${currentScanningState}.png`;
-        });
-      } else {
-        [19, 38].forEach((size) => {
-          scanningIconSet[size] = `icons/png/${size}x${size}_consent-scanning-cliqz.svg`; // TODO: Add different SVGs for Firefox & Cliqz
-        });
-      }
-
-      browser.pageAction.setIcon({
-        path: scanningIconSet,
-        tabId,
-      });
+      doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-scanning-${currentScanningState}{suffix}`);
 
       currentScanningState += 1;
 
@@ -63,7 +47,7 @@ const setBrowserExtensionIcon = async (applicationState, tabId) => {
       }
     }, 50);
   }
-};
+}
 
 async function detectFeatures(url, dispatch) {
   url = new URL(url);
