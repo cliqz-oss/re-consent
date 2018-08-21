@@ -18,7 +18,7 @@
   "popup.list.manual-check-features.list-item.deactivate-button-text": "Check Manually",
   "popup.list.check-manually-features.list-item.label.active": "breached",
   "popup.list.check-manually-features.list-item.label.inactive": "n/a",
-  "popup.list.check-manually-features.list-item.label.unknown": "unbekannt",
+  "popup.list.check-manually-features.list-item.label.unknown": "unknown",
 
   "popup.footer.link": "Learn more about {consentricLink}",
 
