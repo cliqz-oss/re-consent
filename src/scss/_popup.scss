@@ -24,6 +24,7 @@ $popup-list-toggle-padding: 1px;
     font-size: 23px;
     font-weight: 500;
     margin-bottom: 20px;
+    text-align: center; // necessary for Firefox
   }
 
   &__sitename {
