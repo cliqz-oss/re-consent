@@ -20,5 +20,7 @@ export const checkNoSuspiciousFeaturesExist = (features) => {
   if (features.length === 0) {
     return true;
   }
-  return features.some(feature => feature.suspicious !== true);
+
+  const atLeastOneSupiciousFeatureExists = features.some(feature => feature.suspicious);
+  return atLeastOneSupiciousFeatureExists === false;
 };
