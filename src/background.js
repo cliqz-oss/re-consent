@@ -25,7 +25,7 @@ const setBrowserExtensionIcon = async (applicationState, tabId) => {
     });
   }
 
-  browser.browserAction.setIcon({
+  browser.pageAction.setIcon({
     path: iconSet,
     tabId,
   });
@@ -130,6 +130,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   if (message.type === 'contentReady') {
     const url = new URL(message.url);
     const siteName = url.hostname.replace('www.', '');
+    browser.pageAction.show(tab.id);
     dispatch({ type: 'init', siteName });
   } else if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);
