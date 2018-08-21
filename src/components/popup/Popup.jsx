@@ -57,12 +57,13 @@ const Popup = ({
               key={feature.key}
               title={formatMessage({ id: `features.${feature.key}.title` })}
               description={formatMessage({ id: `features.${feature.key}.description` })}
-              isActive={feature.suspicious}
+              status={feature.suspicious}
               deactivateButtonText={feature.suspicious ? formatMessage({ id: 'popup.list.automatically-detected-features.list-item.deactivate-button-text' }) : null}
               changeUrl={feature.settingsUrl}
               labels={{
                 true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.active' }),
                 false: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.inactive' }),
+                null: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.unknown' }),
               }}
             />
           ))}
@@ -75,12 +76,13 @@ const Popup = ({
               key={feature.key}
               title={formatMessage({ id: `features.${feature.key}.title` })}
               description={formatMessage({ id: `features.${feature.key}.description` })}
-              isActive={feature.suspicious || false}
+              status={feature.suspicious}
               deactivateButtonText={formatMessage({ id: 'popup.list.manual-check-features.list-item.deactivate-button-text' })}
               changeUrl={feature.settingsUrl}
               labels={{
                 true: formatMessage({ id: 'popup.list.check-manually-features.list-item.label.active' }),
                 false: formatMessage({ id: 'popup.list.check-manually-features.list-item.label.inactive' }),
+                null: formatMessage({ id: 'popup.list.check-manually-features.list-item.label.unknown' }),
               }}
             />
           ))}

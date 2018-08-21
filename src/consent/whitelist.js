@@ -1,13 +1,19 @@
-// Sites from where we know that they don't have any consent cookies.
-const CONSENT_WHITE_LIST = [
-  'facebook.com',
-  'gmail.com',
-  'google.com',
-  'google.de',
+import FacebookDetector from '../features/facebook';
+import GoogleDetector from '../features/google';
+import TwitterDetector from '../features/twitter';
+
+const detectors = [
+  FacebookDetector,
+  GoogleDetector,
+  TwitterDetector,
 ];
 
-const checkIsWhiteListed = url => (
-  CONSENT_WHITE_LIST.some(domain => url.hostname.indexOf(domain) !== -1)
-);
+
+const checkIsWhiteListed = (url) => {
+  return detectors.some((DetectorClass) => {
+    const detector = new DetectorClass(url);
+    return detector.shouldDetect();
+  });
+};
 
 export default checkIsWhiteListed;

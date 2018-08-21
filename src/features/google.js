@@ -55,10 +55,9 @@ function doDetect(feature, doc) {
 export default class GoogleDetector extends Detector {
   getDomains() {
     return [
-      'gmail.com',
-      'google.com',
-      'google.de',
-      'youtube.com',
+      /gmail\.com/,
+      /google\..*/,
+      /youtube\.com/,
     ];
   }
 

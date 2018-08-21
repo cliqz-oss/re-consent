@@ -9,7 +9,9 @@ export default class Detector {
 
   shouldDetect() {
     const domains = this.getDomains();
-    return domains.some(domain => this.url.hostname.indexOf(domain) !== -1);
+    return domains.some((domain) => {
+      return this.url.hostname.match(domain);
+    });
   }
 
   detect() {
@@ -42,9 +44,13 @@ export default class Detector {
         error = e;
       }
 
+      if ([true, false].indexOf(suspicious) === -1) {
+        suspicious = null;
+      }
+
       return {
         ...feature,
-        suspicious: Boolean(suspicious),
+        suspicious,
         error,
       };
     }));

@@ -35,7 +35,7 @@ function doDetect(feature, doc) {
 export default class TwitterDetector extends Detector {
   getDomains() {
     return [
-      'twitter.com',
+      /twitter\.com/,
     ];
   }
 

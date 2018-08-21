@@ -5,6 +5,12 @@ import { Tooltip } from 'react-tippy';
 
 import { IconQuestionmark, IconArrowRight } from '../Icons';
 
+const CSS_STATUS_MODIFYER = {
+  true: 'active',
+  false: 'inactive',
+  null: 'unknown',
+};
+
 const openLink = url => async (e) => {
   e.preventDefault();
 
@@ -17,11 +23,12 @@ const openLink = url => async (e) => {
   window.close();
 };
 
+
 const PopupListItemButton = ({
   changeUrl,
   deactivateButtonText,
   description,
-  isActive,
+  status,
   labels,
   title,
 }) => (
@@ -37,8 +44,8 @@ const PopupListItemButton = ({
       )}
     </div>
     <div className="popup-list-item__controls">
-      <span className={`label label--${isActive ? 'active' : 'inactive'}`}>
-        {labels[isActive]}
+      <span className={`label label--${CSS_STATUS_MODIFYER[status]}`}>
+        {labels[status]}
       </span>
       {deactivateButtonText && (
         <a
@@ -59,17 +66,19 @@ PopupListItemButton.propTypes = {
   changeUrl: PropTypes.string.isRequired,
   deactivateButtonText: PropTypes.string,
   description: PropTypes.string,
-  isActive: PropTypes.bool.isRequired,
   labels: PropTypes.shape({
     true: PropTypes.string.isRequired,
     false: PropTypes.string.isRequired,
+    null: PropTypes.string.isRequired,
   }).isRequired,
+  status: PropTypes.bool,
   title: PropTypes.string.isRequired,
 };
 
 PopupListItemButton.defaultProps = {
   description: null,
   deactivateButtonText: null,
+  status: null,
 };
 
 export default PopupListItemButton;
