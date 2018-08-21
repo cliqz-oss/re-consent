@@ -5,9 +5,15 @@ import FacebookDetector from './features/facebook';
 import GoogleDetector from './features/google';
 
 import { getStorageClass } from './consent/storages';
-import { APPLICATION_STATE_ICON_NAME } from './constants';
+import { APPLICATION_STATE_ICON_NAME, APPLICATION_STATE } from './constants';
+
+let setBrowserExtensionIconInterval = null;
 
 const setBrowserExtensionIcon = async (applicationState, tabId) => {
+  if (setBrowserExtensionIconInterval) {
+    clearInterval(setBrowserExtensionIconInterval);
+  }
+
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
 
   const usePngIcons = !!global.chrome;
@@ -28,6 +34,35 @@ const setBrowserExtensionIcon = async (applicationState, tabId) => {
     path: iconSet,
     tabId,
   });
+
+  if (applicationState === APPLICATION_STATE.SCANNING) {
+    let currentScanningState = 1;
+
+    setBrowserExtensionIconInterval = setInterval(() => {
+      const scanningIconSet = {};
+
+      if (usePngIcons) {
+        [16, 24, 32].forEach((size) => {
+          scanningIconSet[size] = `icons/png/${size}x${size}_consent-scanning-chrome_${currentScanningState}.png`;
+        });
+      } else {
+        [19, 38].forEach((size) => {
+          scanningIconSet[size] = `icons/png/${size}x${size}_consent-scanning-cliqz.svg`; // TODO: Add different SVGs for Firefox & Cliqz
+        });
+      }
+
+      browser.pageAction.setIcon({
+        path: scanningIconSet,
+        tabId,
+      });
+
+      currentScanningState += 1;
+
+      if (currentScanningState > 8) {
+        currentScanningState = 1;
+      }
+    }, 50);
+  }
 };
 
 async function detectFeatures(url, dispatch) {
