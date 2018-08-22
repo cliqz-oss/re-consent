@@ -26,6 +26,8 @@ const initialState = {
 
   scanningFeatures: true,
   scanningConsent: true,
+
+  changingConsent: false,
 };
 
 
@@ -37,7 +39,8 @@ export default (state = initialState, action) => {
     case 'stateChanged': return action.state;
     case 'detectFeatures': return detectFeaturesReducer(state, action);
     case 'detectConsent': return { ...state, consent: action.consent, scanningConsent: false };
-    case 'changeConsent': return { ...state, consent: action.consent };
+    case 'changingConsent': return { ...state, changingConsent: true };
+    case 'changeConsent': return { ...state, consent: action.consent, changingConsent: false };
     default: return state;
   }
 };

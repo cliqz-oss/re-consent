@@ -15,6 +15,7 @@ import { getUpdatedConsentData, getConsentPurposeAllowed, getConsentReadOnly } f
 const Popup = ({
   applicationState,
   changeConsent,
+  changingConsent,
   consent,
   features,
   siteName,
@@ -30,20 +31,27 @@ const Popup = ({
         <PopupList title={formatMessage({ id: 'popup.list.consent.title' })} icon={<IconEyes />}>
           {Object.keys(CONSENT_PURPOSE).map((purposeId) => {
             const purposeTitle = CONSENT_PURPOSE[purposeId];
-            const readOnly = getConsentReadOnly(consent);
             const allowed = getConsentPurposeAllowed(consent, purposeId);
             const onChange = () => {
               const updatedConsentData = getUpdatedConsentData(consent, [purposeId], !allowed);
               changeConsent(updatedConsentData);
             };
 
+            let disabled = getConsentReadOnly(consent);
+            let disabledHelpText = formatMessage({ id: 'popup.list.consent.list-item.disabled-help-text' }, { siteName });
+
+            if (changingConsent) {
+              disabled = true;
+              disabledHelpText = formatMessage({ id: 'popup.list.consent.list-item.temporary-readonly-help-text' });
+            }
+
             return (
               <PopupListItemCheckbox
                 key={purposeId}
                 title={purposeTitle}
                 checked={allowed}
-                disabled={readOnly}
-                disabledHelpText={formatMessage({ id: 'popup.list.consent.list-item.disabled-help-text' }, { siteName })}
+                disabled={disabled}
+                disabledHelpText={disabledHelpText}
                 onChange={onChange}
               />
             );
@@ -96,6 +104,7 @@ const Popup = ({
 Popup.propTypes = {
   applicationState: PropTypes.string.isRequired,
   changeConsent: PropTypes.func.isRequired,
+  changingConsent: PropTypes.bool.isRequired,
   consent: PropTypes.shape({
     consentData: PropTypes.object.isRequired,
     vendorConsents: PropTypes.object.isRequired,
