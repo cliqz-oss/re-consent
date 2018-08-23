@@ -37,13 +37,17 @@ TELEMETRY_ACTION_DATA[TELEMETRY_ACTION.CONSENT_CHANGED] = {
 };
 
 TELEMETRY_ACTION_DATA[TELEMETRY_ACTION.LINK_CLICKED] = {
-  actionName: 'Link_clicked',
+  actionName: 'Link clicked',
   actionDataPropTypes: {
     type: PropTypes.oneOf(['facebook', 'google']).isRequired,
   },
 };
 
 const telemetry = (actionKey, actionData) => {
+  if (!TELEMETRY_ACTION[actionKey]) {
+    throw new Error(`Telemetry action key '${actionKey}' does not exist.`);
+  }
+
   const {
     actionName,
     actionDataPropTypes,
