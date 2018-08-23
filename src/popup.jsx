@@ -10,6 +10,7 @@ import deLocaleData from 'react-intl/locale-data/de';
 
 import PopupContainer from './components/popup/PopupContainer';
 import reducer from './reducer';
+import { TELEMETRY_ACTION } from './telemetry';
 
 import translationsDe from './translations/de.json';
 import translationsEn from './translations/en.json';
@@ -35,6 +36,27 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     browser.runtime.sendMessage({ type: 'changeConsent', tabId: tab.id, consent });
   };
 
+  const featureOnClick = (url, featureType) => async (e) => {
+    e.preventDefault();
+
+    browser.runtime.sendMessage({
+      tabId: tab.id,
+      type: 'telemetry',
+      actionKey: TELEMETRY_ACTION.LINK_CLICKED,
+      actionData: {
+        type: featureType,
+      },
+    });
+
+    const currentTab = await browser.tabs.query({
+      currentWindow: true,
+      active: true,
+    });
+
+    browser.tabs.update(currentTab.id, { url });
+    window.close();
+  };
+
   window.document.body.appendChild(element);
   window.document.body.style.width = '340px';
 
@@ -51,7 +73,10 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
         messages={translations[locale]}
         defaultLocale={DEFAULT_LOCALE}
       >
-        <PopupContainer changeConsent={changeConsent} />
+        <PopupContainer
+          changeConsent={changeConsent}
+          featureOnClick={featureOnClick}
+        />
       </IntlProvider>
     </Provider>,
     element,
@@ -69,4 +94,5 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
   });
 
   browser.tabs.sendMessage(tab.id, { type: 'getState' });
+  browser.tabs.sendMessage(tab.id, { type: 'dispatchAction', action: { type: 'initPopup' } });
 });

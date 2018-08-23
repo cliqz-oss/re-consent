@@ -8,24 +8,24 @@
  *  - Anonymous telemetry: Sent via Cliqz's proxy network. The sender is anonymised and data
  * is not linkable.
  */
+import browser from 'webextension-polyfill';
 import Spanan from 'spanan';
 
 class ExtMessenger {
   addListener(fn) {
-    chrome.runtime.onMessageExternal.addListener(fn);
+    browser.runtime.onMessageExternal.addListener(fn);
   }
 
   removeListener(fn) {
-    chrome.runtime.onMessageExternal.removeListener(fn);
+    browser.runtime.onMessageExternal.removeListener(fn);
   }
 
   sendMessage(extensionId, message) {
-    chrome.runtime.sendMessage(extensionId, message, () => {
-      /* eslint-disable no-unused-expressions */
-      // accessing this value consumes and supresses the error
-      chrome.runtime.lastError;
-      /* eslint-enable no-unused-expressions */
-    });
+    const sending = browser.runtime.sendMessage(extensionId, message);
+    sending.then( // Do nothing in case recipient extension does not exist.
+      () => {},
+      () => {},
+    );
   }
 }
 
@@ -72,16 +72,24 @@ class KordInjector {
   }
 }
 
-const cliqz = new KordInjector();
-cliqz.init();
-const cliqzCore = cliqz.module('core');
-const cliqzHpn = cliqz.module('hpn');
+let cliqz = null;
+
+const getCliqzModule = (moduleName) => {
+  if (!cliqz) {
+    cliqz = new KordInjector();
+    cliqz.init();
+  }
+
+  return cliqz.module(moduleName);
+};
 
 function sendTelemetry(message, schema) {
+  const cliqzCore = getCliqzModule('core');
   return cliqzCore.sendTelemetry(message, false, schema, {});
 }
 
 function sendAnonymousTelemetry(message) {
+  const cliqzHpn = getCliqzModule('hpn');
   return cliqzHpn.telemetry(message);
 }
 

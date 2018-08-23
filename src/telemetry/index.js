@@ -1,3 +1,4 @@
-import telemetry, { TELEMETRY_ACTION } from './telemetry';
+import telemetry from './telemetry';
+import { TELEMETRY_ACTION } from './constants';
 
-export default { telemetry, TELEMETRY_ACTION };
+export { telemetry, TELEMETRY_ACTION };

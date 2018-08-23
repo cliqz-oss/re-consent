@@ -1,8 +1,11 @@
 import browser from 'webextension-polyfill';
 import { createStore, applyMiddleware } from 'redux';
 
+import { APPLICATION_STATE } from 'constants';
 import reducer from './reducer';
 import { getApplicationState } from './selectors';
+import { TELEMETRY_ACTION } from './telemetry';
+import { getConsentReadOnly, getNumberOfAllowedConsents } from './consent/utils';
 
 const url = window.location.href;
 
@@ -32,7 +35,79 @@ const browserExtensionIconMiddleware = store => next => (action) => {
   });
 };
 
-const store = createStore(reducer, applyMiddleware(logger, browserExtensionIconMiddleware));
+const telemetryMiddleware = store => next => (action) => {
+  const prevState = store.getState();
+  const prevApplicationState = getApplicationState(prevState);
+  const {
+    consent: prevConsent,
+    popupOpened: prevPopupOpened,
+  } = prevState;
+
+  next(action);
+
+  const nextState = store.getState();
+
+  const {
+    siteName,
+    features,
+    consent,
+    popupOpened,
+  } = nextState;
+
+  const applicationState = getApplicationState(nextState);
+
+  if (prevApplicationState === APPLICATION_STATE.SCANNING) {
+    if (prevApplicationState !== applicationState) {
+      chrome.runtime.sendMessage({
+        type: 'telemetry',
+        actionKey: TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED,
+        actionData: {
+          type: features.length ? features[0].site : 'iab',
+          site: siteName,
+        },
+      });
+    }
+  }
+
+  if (prevConsent) {
+    const allowedConsents = getNumberOfAllowedConsents(consent);
+    const prevAllowedConsents = getNumberOfAllowedConsents(prevConsent);
+
+    if (allowedConsents !== prevAllowedConsents) {
+      chrome.runtime.sendMessage({
+        type: 'telemetry',
+        actionKey: TELEMETRY_ACTION.CONSENT_CHANGED,
+        actionData: {
+          site: siteName,
+          allowed: allowedConsents,
+        },
+      });
+    }
+  }
+
+  if (consent) {
+    if (applicationState !== APPLICATION_STATE.SCANNING) {
+      if (prevPopupOpened !== popupOpened) {
+        browser.runtime.sendMessage({
+          type: 'telemetry',
+          actionKey: TELEMETRY_ACTION.POPUP_OPENED,
+          actionData: {
+            type: features.length ? features[0].site : 'iab',
+            writeable: !getConsentReadOnly(consent),
+            allowed: getNumberOfAllowedConsents(consent),
+            site: siteName,
+          },
+        });
+      }
+    }
+  }
+};
+
+const store = createStore(reducer, applyMiddleware(
+  logger,
+  browserExtensionIconMiddleware,
+  telemetryMiddleware,
+));
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'getState') {

@@ -6,7 +6,7 @@ import GoogleDetector from './features/google';
 
 import { getStorageClass } from './consent/storages';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
-import { telemetry, TELEMETRY_ACTION } from './telemetry/telemetry';
+import { telemetry } from './telemetry';
 
 const setBrowserExtensionIcon = async (applicationState, tabId) => {
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
@@ -132,9 +132,6 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     const url = new URL(message.url);
     const siteName = url.hostname.replace('www.', '');
     browser.pageAction.show(tab.id);
-    telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
-      site: siteName,
-    });
     dispatch({ type: 'init', siteName });
   } else if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);
@@ -144,5 +141,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     changeConsent(message.consent, tab, localStorage, dispatch);
   } else if (message.type === 'setBrowserExtensionIcon') {
     setBrowserExtensionIcon(message.applicationState, tab.id);
+  } else if (message.type === 'telemetry') {
+    telemetry(message.actionKey, message.actionData);
   }
 });
