@@ -6,6 +6,7 @@ import { getApplicationState } from '../../selectors';
 
 const mapStateToProps = (state) => {
   const {
+    changingConsent,
     consent,
     features,
     siteName,
@@ -13,6 +14,7 @@ const mapStateToProps = (state) => {
 
   return {
     applicationState: getApplicationState(state),
+    changingConsent,
     consent,
     features,
     siteName,

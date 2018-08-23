@@ -72,6 +72,7 @@ async function detectConsent(consent, tab, localStorage, dispatch) {
 }
 
 async function changeConsent(consent, tab, localStorage, dispatch) {
+  dispatch({ type: 'changingConsent' });
   const { consentData, vendorConsents, storageName } = consent;
   const { purposeConsents } = vendorConsents;
   const consentString = new ConsentString(consentData.consentData);
@@ -116,6 +117,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   const dispatch = (action) => {
     browser.tabs.sendMessage(tab.id, { type: 'dispatchAction', action });
   };
+
   const localStorage = {
     getItem(key) {
       return browser.tabs.sendMessage(tab.id, { type: 'getLocalStorageItem', key });

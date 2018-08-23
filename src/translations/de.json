@@ -7,6 +7,7 @@
 
   "popup.list.consent.title": "Zustimmungen von Drittanbietern",
   "popup.list.consent.list-item.disabled-help-text": "Du kannst diese Einstellungen hier nicht ändern. Bitte gehe direkt zu {siteName}.",
+  "popup.list.consent.list-item.temporary-readonly-help-text": "Diese Einstellung kann momentan nicht geändert werden. Bitte versuche es gleich noch einmal.",
 
   "popup.list.automatically-detected-features.title": "{siteName} Datenschutzeinstellungen",
   "popup.list.automatically-detected-features.list-item.deactivate-button-text": "Deaktivieren",
