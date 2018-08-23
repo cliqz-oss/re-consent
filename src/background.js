@@ -6,7 +6,7 @@ import GoogleDetector from './features/google';
 
 import { getStorageClass } from './consent/storages';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
-import telemetry, { TELEMETRY_ACTION } from './telemetry';
+import { telemetry, TELEMETRY_ACTION } from './telemetry/telemetry';
 
 const setBrowserExtensionIcon = async (applicationState, tabId) => {
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { sendTelemetry } from './cliqzTelemetryBridge';
 
 export const TELEMETRY_ACTION = {
   PAGE_ACTION_DISPLAYED: 'PAGE_ACTION DISPLAYED',
@@ -55,7 +56,11 @@ const telemetry = (actionKey, actionData) => {
 
   PropTypes.checkPropTypes(actionDataPropTypes, actionData, 'action', 'Telemetry');
 
-  console.log('telemetry', actionName, actionData); // eslint-disable-line no-console
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('telemetry', actionName, actionData); // eslint-disable-line no-console
+  }
+
+  sendTelemetry(actionName, actionData);
 };
 
 export default telemetry;

@@ -11,7 +11,7 @@ import PopupListItemButton from './PopupListItemButton';
 import PopupListItemCheckbox from './PopupListItemCheckbox';
 import { IconCogWheel, IconEyes } from '../Icons';
 import { getUpdatedConsentData, getConsentPurposeAllowed, getConsentReadOnly, getNumberOfAllowedConsents } from '../../consent/utils';
-import telemetry, { TELEMETRY_ACTION } from '../../telemetry';
+import { telemetry, TELEMETRY_ACTION } from '../../telemetry';
 
 let popupOpenTelemetryTracked = false;
 
