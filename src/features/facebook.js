@@ -5,24 +5,28 @@ const faceRecognitionFeature = {
   key: 'facebook-face-recognition',
   settingsUrl: 'https://www.facebook.com/settings?tab=facerec',
   group: 'automatically-detected',
+  site: 'facebook',
 };
 
 const locationSharingFeature = {
   key: 'facebook-location-sharing',
   settingsUrl: 'https://www.facebook.com/settings?tab=location',
   group: 'automatically-detected',
+  site: 'facebook',
 };
 
 const thirdPartyDataAccessFeature = {
   key: 'facebook-third-party-data-access',
   settingsUrl: 'https://www.facebook.com/settings?tab=applications',
   group: 'manual-check',
+  site: 'facebook',
 };
 
 const advertisersFeature = {
   key: 'facebook-advertisers',
   settingsUrl: 'https://www.facebook.com/ads/preferences/?entry_product=ad_settings_screen',
   group: 'manual-check',
+  site: 'facebook',
 };
 
 async function detectFaceRecognition() {

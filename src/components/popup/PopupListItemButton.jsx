@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Tooltip } from 'react-tippy';
@@ -11,20 +10,9 @@ const CSS_STATUS_MODIFYER = {
   null: 'unknown',
 };
 
-const openLink = url => async (e) => {
-  e.preventDefault();
-
-  const currentTab = await browser.tabs.query({
-    currentWindow: true,
-    active: true,
-  });
-
-  browser.tabs.update(currentTab.id, { url });
-  window.close();
-};
-
 
 const PopupListItemButton = ({
+  onClick,
   changeUrl,
   deactivateButtonText,
   description,
@@ -52,7 +40,7 @@ const PopupListItemButton = ({
           href={changeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={openLink(changeUrl)}
+          onClick={onClick}
           className="popup-list-item__deactivate-button"
         >
           {deactivateButtonText} <IconArrowRight />
@@ -63,6 +51,7 @@ const PopupListItemButton = ({
 );
 
 PopupListItemButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
   changeUrl: PropTypes.string.isRequired,
   deactivateButtonText: PropTypes.string,
   description: PropTypes.string,
