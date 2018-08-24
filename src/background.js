@@ -7,12 +7,16 @@ import GoogleDetector from './features/google';
 import { getStorageClass } from './consent/storages';
 import { APPLICATION_STATE_ICON_NAME, APPLICATION_STATE } from './constants';
 
+const checkIsChrome = () => {
+  return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+};
+
 let setBrowserExtensionIconInterval = null;
 
 function doSetBrowserExtensionIcon(tabId, pathTemplate) {
-  const usePngIcons = !!global.chrome;
-  const sizes = usePngIcons ? [16, 24, 32] : [19, 38];
-  const suffix = usePngIcons ? '-chrome.png' : '-cliqz.svg';
+  const isChrome = checkIsChrome();
+  const sizes = isChrome ? [16, 24, 32] : [19, 38];
+  const suffix = isChrome ? '-chrome.png' : '-cliqz.png';
   const iconSet = {};
 
   sizes.forEach((size) => {
