@@ -9,7 +9,7 @@ import PopupList from './PopupList';
 import PopupListItemButton from './PopupListItemButton';
 import PopupListItemCheckbox from './PopupListItemCheckbox';
 import { IconCogWheel, IconEyes } from '../Icons';
-import { getUpdatedConsentData, getConsentPurposeAllowed, getConsentReadOnly } from '../../consent/utils';
+import { getUpdatedConsentData, getConsentPurposeAllowed, getConsentReadOnly, checkAllConsentSettingsSet } from '../../consent/utils';
 
 
 const Popup = ({
@@ -24,6 +24,17 @@ const Popup = ({
   const automaticallyDetectedFeatures = features.filter(feature => feature.group === 'automatically-detected');
   const manualCheckFeatures = features.filter(feature => feature.group === 'manual-check');
 
+  const allConsentSettingsSet = checkAllConsentSettingsSet(consent);
+  let consentControlLabel = null;
+
+  if (consent && !getConsentReadOnly(consent)) {
+    if (allConsentSettingsSet) {
+      consentControlLabel = formatMessage({ id: 'popup.list.consent.list-item.control.allow-all' });
+    } else {
+      consentControlLabel = formatMessage({ id: 'popup.list.consent.list-item.control.deny-all' });
+    }
+  }
+
   return (
     <div className="popup">
       <PopupHeader applicationState={applicationState} siteName={siteName} />
@@ -31,9 +42,9 @@ const Popup = ({
         <PopupList
           title={formatMessage({ id: 'popup.list.consent.title' })}
           icon={<IconEyes />}
-          controlLabel={formatMessage({ id: 'popup.list.consent.list-item.deny-all' })}
+          controlLabel={consentControlLabel}
           controlOnClick={() => {
-            const allowed = false;
+            const allowed = allConsentSettingsSet;
             const purposeIds = Object.keys(CONSENT_PURPOSE);
             const updatedConsentData = getUpdatedConsentData(consent, purposeIds, allowed);
             changeConsent(updatedConsentData);
