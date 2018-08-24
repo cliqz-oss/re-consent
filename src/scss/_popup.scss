@@ -90,11 +90,14 @@ $popup-list-toggle-padding: 1px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
   }
 
   &__title {
     font-weight: bold;
     padding-left: 5px;
+    flex-grow: 1;
   }
 
   &__icon {
@@ -105,6 +108,20 @@ $popup-list-toggle-padding: 1px;
       height: 16px;
       fill: currentColor;
       vertical-align: middle;
+    }
+  }
+
+  &__control {
+    appearance: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    color: $blue;
+    text-transform: uppercase;
+
+    &:hover {
+      color: #0078CA;
     }
   }
 
@@ -191,7 +208,7 @@ $popup-list-toggle-padding: 1px;
 
   &__toggle-label {
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
     line-height: $popup-list-toggle-height;
     vertical-align: top;

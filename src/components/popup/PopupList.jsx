@@ -5,6 +5,8 @@ const PopupList = ({
   title,
   icon,
   children,
+  controlLabel,
+  controlOnClick,
 }) => (
   <div className="popup-list">
     <div className="popup-list__header" title={title}>
@@ -14,6 +16,11 @@ const PopupList = ({
       <span className="popup-list__title">
         {title}
       </span>
+      {controlLabel && (
+        <button className="popup-list__control" onClick={controlOnClick}>
+          {controlLabel}
+        </button>
+      )}
     </div>
     <div className="popup-list__items">
       {children}
@@ -26,6 +33,14 @@ PopupList.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.node.isRequired,
   children: PropTypes.arrayOf(PropTypes.node).isRequired,
+  controlLabel: PropTypes.string,
+  controlOnClick: PropTypes.func,
+};
+
+
+PopupList.defaultProps = {
+  controlLabel: null,
+  controlOnClick: null,
 };
 
 export default PopupList;

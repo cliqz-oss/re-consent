@@ -177,6 +177,37 @@ storiesOf('PopupList', module)
         />
       </PopupList>
     </div>
+  ))
+  .add('PopupList with control in header', () => (
+    <div>
+      <PopupList
+        title="List one"
+        icon={<IconCogWheel />}
+        controlLabel="Deny all"
+        controlOnClick={action('`Deny all` clicked.')}
+      >
+        <PopupListItemButton
+          title="Some title"
+          description="some description"
+          isActive
+          deactivateButtonText="Deactivate"
+          changeUrl="some-url"
+          labels={{ true: 'active', false: 'inactive' }}
+        />
+        <PopupListItemCheckbox
+          title="Some title"
+          description="some description"
+          checked
+          onChange={action('Checkbox changed')}
+        />
+        <PopupListItemCheckbox
+          title="Some title"
+          description="some description"
+          checked
+          onChange={action('Checkbox changed')}
+        />
+      </PopupList>
+    </div>
   ));
 
 storiesOf('PopupListItemButton', module)

@@ -28,7 +28,17 @@ const Popup = ({
     <div className="popup">
       <PopupHeader applicationState={applicationState} siteName={siteName} />
       {consent && (
-        <PopupList title={formatMessage({ id: 'popup.list.consent.title' })} icon={<IconEyes />}>
+        <PopupList
+          title={formatMessage({ id: 'popup.list.consent.title' })}
+          icon={<IconEyes />}
+          controlLabel={formatMessage({ id: 'popup.list.consent.list-item.deny-all' })}
+          controlOnClick={() => {
+            const allowed = false;
+            const purposeIds = Object.keys(CONSENT_PURPOSE);
+            const updatedConsentData = getUpdatedConsentData(consent, purposeIds, allowed);
+            changeConsent(updatedConsentData);
+          }}
+        >
           {Object.keys(CONSENT_PURPOSE).map((purposeId) => {
             const purposeTitle = CONSENT_PURPOSE[purposeId];
             const allowed = getConsentPurposeAllowed(consent, purposeId);
