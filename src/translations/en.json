@@ -10,13 +10,20 @@
   "popup.list.consent.list-item.temporary-readonly-help-text": "This setting cannot be changed right now. Please try again in a moment.",
 
   "popup.list.automatically-detected-features.title": "{siteName} Privacy Settings",
-  "popup.list.automatically-detected-features.list-item.deactivate-button-text": "Deactivate",
+
+  "popup.list.automatically-detected-features.list-item.link-label.inactive": "Deactivate",
+  "popup.list.automatically-detected-features.list-item.link-label.active": "Activate",
+  "popup.list.automatically-detected-features.list-item.link-label.unknown": "Check manually",
+
+  "popup.list.manual-detected-features.list-item.link-label.inactive": "Deactivate",
+  "popup.list.manual-detected-features.list-item.link-label.active": "Activate",
+  "popup.list.manual-detected-features.list-item.link-label.unknown": "Check manually",
+
   "popup.list.automatically-detected-features.list-item.label.active": "active",
   "popup.list.automatically-detected-features.list-item.label.inactive": "inactive",
   "popup.list.automatically-detected-features.list-item.label.unknown": "unknown",
 
   "popup.list.manual-check-features.title": "Data Breaches by {siteName}",
-  "popup.list.manual-check-features.list-item.deactivate-button-text": "Check Manually",
   "popup.list.check-manually-features.list-item.label.active": "breached",
   "popup.list.check-manually-features.list-item.label.inactive": "n/a",
   "popup.list.check-manually-features.list-item.label.unknown": "unknown",

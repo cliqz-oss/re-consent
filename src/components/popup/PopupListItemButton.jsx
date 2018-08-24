@@ -26,7 +26,7 @@ const openLink = url => async (e) => {
 
 const PopupListItemButton = ({
   changeUrl,
-  deactivateButtonText,
+  linkLabels,
   description,
   status,
   labels,
@@ -47,24 +47,26 @@ const PopupListItemButton = ({
       <span className={`label label--${CSS_STATUS_MODIFYER[status]}`}>
         {labels[status]}
       </span>
-      {deactivateButtonText && (
-        <a
-          href={changeUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={openLink(changeUrl)}
-          className="popup-list-item__deactivate-button"
-        >
-          {deactivateButtonText} <IconArrowRight />
-        </a>
-      )}
+      <a
+        href={changeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={openLink(changeUrl)}
+        className="popup-list-item__deactivate-button"
+      >
+        {linkLabels[status]} <IconArrowRight />
+      </a>
     </div>
   </div>
 );
 
 PopupListItemButton.propTypes = {
   changeUrl: PropTypes.string.isRequired,
-  deactivateButtonText: PropTypes.string,
+  linkLabels: PropTypes.shape({
+    true: PropTypes.string.isRequired,
+    false: PropTypes.string.isRequired,
+    null: PropTypes.string.isRequired,
+  }).isRequired,
   description: PropTypes.string,
   labels: PropTypes.shape({
     true: PropTypes.string.isRequired,
@@ -77,7 +79,6 @@ PopupListItemButton.propTypes = {
 
 PopupListItemButton.defaultProps = {
   description: null,
-  deactivateButtonText: null,
   status: null,
 };
 
