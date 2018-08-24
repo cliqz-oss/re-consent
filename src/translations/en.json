@@ -8,6 +8,8 @@
   "popup.list.consent.title": "Third Party Consents",
   "popup.list.consent.list-item.disabled-help-text": "You cannot change these settings here. Please go to {siteName} directly.",
   "popup.list.consent.list-item.temporary-readonly-help-text": "This setting cannot be changed right now. Please try again in a moment.",
+  "popup.list.consent.list-item.checkbox-label.active": "Allow",
+  "popup.list.consent.list-item.checkbox-label.inactive": "Deny",
 
   "popup.list.automatically-detected-features.title": "{siteName} Privacy Settings",
   "popup.list.automatically-detected-features.list-item.deactivate-button-text": "Deactivate",
