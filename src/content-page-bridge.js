@@ -3,9 +3,30 @@
 import checkIsWhiteListed from './consent/whitelist';
 
 function queryCmp(method) {
-  return new Promise((resolve) => {
+  const cmpPromise = new Promise((resolve) => {
     window.__cmp(method, null, resolve);
   });
+
+  if (method === 'getVendorList') {
+    // VendorList is allowed to be null. But apparently some pages just don't call the callback
+    // if there is no VendorList available.
+    // To prevent our app of not responding because of that, after a timeout the promise is
+    // automatically resolved with `null`.
+
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => {
+        resolve(null);
+      }, 1000);
+
+      cmpPromise
+        .then((res) => {
+          clearTimeout(timer);
+          resolve(res);
+        });
+    });
+  }
+
+  return cmpPromise;
 }
 
 const sendConsentMessage = (consent) => {
