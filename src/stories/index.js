@@ -147,6 +147,10 @@ storiesOf('PopupList', module)
         description="some description"
         checked
         onChange={action('Checkbox changed')}
+        checkboxLabels={{
+          true: 'allowed',
+          false: 'denied',
+        }}
       />
     </PopupList>
   ))
@@ -174,6 +178,10 @@ storiesOf('PopupList', module)
           description="some description"
           checked
           onChange={action('Checkbox changed')}
+          checkboxLabels={{
+            true: 'allowed',
+            false: 'denied',
+          }}
         />
       </PopupList>
     </div>
@@ -263,6 +271,10 @@ storiesOf('PopupListItemCheckbox', module)
       checked
       disabled={false}
       onChange={action('Checkbox changed')}
+      checkboxLabels={{
+        true: 'allowed',
+        false: 'denied',
+      }}
     />
   ))
   .add('PopupListItemCheckbox unchecked', () => (
@@ -272,6 +284,10 @@ storiesOf('PopupListItemCheckbox', module)
       checked={false}
       disabled={false}
       onChange={action('Checkbox changed')}
+      checkboxLabels={{
+        true: 'allowed',
+        false: 'denied',
+      }}
     />
   ))
   .add('PopupListItemCheckbox disabled', () => (
@@ -282,6 +298,10 @@ storiesOf('PopupListItemCheckbox', module)
       disabled
       disabledHelpText="Some help text"
       onChange={action('Checkbox changed')}
+      checkboxLabels={{
+        true: 'allowed',
+        false: 'denied',
+      }}
     />
   ))
   .add('PopupListItemCheckbox without description', () => (
@@ -289,5 +309,9 @@ storiesOf('PopupListItemCheckbox', module)
       title="Some title"
       checked
       onChange={action('Checkbox changed')}
+      checkboxLabels={{
+        true: 'allowed',
+        false: 'denied',
+      }}
     />
   ));

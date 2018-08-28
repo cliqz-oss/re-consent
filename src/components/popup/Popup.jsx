@@ -73,6 +73,10 @@ const Popup = ({
                 checked={allowed}
                 disabled={disabled}
                 disabledHelpText={disabledHelpText}
+                checkboxLabels={{
+                  true: formatMessage({ id: 'popup.list.consent.list-item.checkbox-label.active' }),
+                  false: formatMessage({ id: 'popup.list.consent.list-item.checkbox-label.inactive' }),
+                }}
                 onChange={onChange}
               />
             );

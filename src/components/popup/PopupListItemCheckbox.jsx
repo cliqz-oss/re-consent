@@ -9,6 +9,7 @@ import { IconQuestionmark } from '../Icons';
 
 const PopupListItemCheckbox = ({
   checked,
+  checkboxLabels,
   description,
   disabled,
   disabledHelpText,
@@ -18,8 +19,8 @@ const PopupListItemCheckbox = ({
   const toggle = (
     <span>
       <span className="popup-list-item__toggle-label">
-        {checked && 'allow'}
-        {!checked && 'deny'}
+        {checked && checkboxLabels[checked]}
+        {!checked && checkboxLabels[checked]}
       </span>
       <Toggle
         defaultChecked={checked}
@@ -62,6 +63,10 @@ PopupListItemCheckbox.propTypes = {
   disabledHelpText: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  checkboxLabels: PropTypes.shape({
+    true: PropTypes.string.isRequired,
+    false: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 PopupListItemCheckbox.defaultProps = {
