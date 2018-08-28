@@ -143,7 +143,7 @@ storiesOf('PopupList', module)
         labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
         linkLabels={{
           true: 'deactivate',
-          false: 'actiate',
+          false: 'activate',
           null: 'check manually',
         }}
       />
@@ -170,7 +170,7 @@ storiesOf('PopupList', module)
           labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
           linkLabels={{
             true: 'deactivate',
-            false: 'actiate',
+            false: 'activate',
             null: 'check manually',
           }}
         />
@@ -205,7 +205,7 @@ storiesOf('PopupList', module)
           labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
           linkLabels={{
             true: 'deactivate',
-            false: 'actiate',
+            false: 'activate',
             null: 'check manually',
           }}
         />
@@ -236,7 +236,7 @@ storiesOf('PopupListItemButton', module)
       labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
       linkLabels={{
         true: 'deactivate',
-        false: 'actiate',
+        false: 'activate',
         null: 'check manually',
       }}
     />
@@ -250,7 +250,7 @@ storiesOf('PopupListItemButton', module)
       labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
       linkLabels={{
         true: 'deactivate',
-        false: 'actiate',
+        false: 'activate',
         null: 'check manually',
       }}
     />
@@ -266,7 +266,7 @@ storiesOf('PopupListItemButton', module)
         labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
         linkLabels={{
           true: 'deactivate',
-          false: 'actiate',
+          false: 'activate',
           null: 'check manually',
         }}
       />
@@ -283,7 +283,7 @@ storiesOf('PopupListItemButton', module)
         labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
         linkLabels={{
           true: 'deactivate',
-          false: 'actiate',
+          false: 'activate',
           null: 'check manually',
         }}
       />
