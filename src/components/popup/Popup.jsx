@@ -9,7 +9,7 @@ import PopupList from './PopupList';
 import PopupListItemButton from './PopupListItemButton';
 import PopupListItemCheckbox from './PopupListItemCheckbox';
 import { IconCogWheel, IconEyes } from '../Icons';
-import { getUpdatedConsentData, getConsentPurposeAllowed, getConsentReadOnly, checkAllConsentSettingsSet } from '../../consent/utils';
+import { getUpdatedConsentData, getConsentPurposeAllowed, getConsentReadOnly, checkAllConsentSettingsDenied } from '../../consent/utils';
 
 
 const Popup = ({
@@ -24,7 +24,7 @@ const Popup = ({
   const automaticallyDetectedFeatures = features.filter(feature => feature.group === 'automatically-detected');
   const manualCheckFeatures = features.filter(feature => feature.group === 'manual-check');
 
-  const allConsentSettingsSet = checkAllConsentSettingsSet(consent);
+  const allConsentSettingsSet = checkAllConsentSettingsDenied(consent);
   let consentControlLabel = null;
 
   if (!getConsentReadOnly(consent)) {

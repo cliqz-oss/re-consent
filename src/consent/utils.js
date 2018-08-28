@@ -34,7 +34,7 @@ export const getConsentReadOnly = (consent) => {
 };
 
 
-export const checkAllConsentSettingsSet = (consent) => {
+export const checkAllConsentSettingsDenied = (consent) => {
   if (consent === null) {
     return true;
   }
