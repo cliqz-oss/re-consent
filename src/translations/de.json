@@ -27,7 +27,7 @@
   "popup.list.manual-check-features.title": "Weitergabe deiner Daten",
   "popup.list.check-manually-features.list-item.label.active": "aktiviert",
   "popup.list.check-manually-features.list-item.label.inactive": "n/a",
-  "popup.list.check-manually-features.list-item.label.unknown": "unbekannt",
+  "popup.list.check-manually-features.list-item.label.unknown": "prüfen",
 
   "popup.footer.link": "Erfahre mehr über {consentricLink}",
 
