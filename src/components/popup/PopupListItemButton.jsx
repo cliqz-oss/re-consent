@@ -54,7 +54,7 @@ PopupListItemButton.propTypes = {
   linkLabels: PropTypes.shape({
     true: PropTypes.string.isRequired,
     false: PropTypes.string.isRequired,
-    null: PropTypes.string.isRequired,
+    null: PropTypes.string,
   }).isRequired,
   description: PropTypes.string,
   labels: PropTypes.shape({
