@@ -140,7 +140,7 @@ storiesOf('PopupList', module)
         isActive
         deactivateButtonText="Deactivate"
         changeUrl="some-url"
-        labels={{ true: 'active', false: 'inactive' }}
+        labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
       />
       <PopupListItemCheckbox
         title="Some title"
@@ -162,7 +162,7 @@ storiesOf('PopupList', module)
           isActive
           deactivateButtonText="Deactivate"
           changeUrl="some-url"
-          labels={{ true: 'active', false: 'inactive' }}
+          labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
         />
       </PopupList>
       <PopupList
@@ -192,7 +192,7 @@ storiesOf('PopupList', module)
           isActive
           deactivateButtonText="Deactivate"
           changeUrl="some-url"
-          labels={{ true: 'active', false: 'inactive' }}
+          labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
         />
         <PopupListItemCheckbox
           title="Some title"
@@ -218,7 +218,7 @@ storiesOf('PopupListItemButton', module)
       isActive
       deactivateButtonText="Deactivate"
       changeUrl="some-url"
-      labels={{ true: 'active', false: 'inactive' }}
+      labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
     />
   ))
   .add('PopupListItemButton inactive', () => (
@@ -227,7 +227,7 @@ storiesOf('PopupListItemButton', module)
       description={longTextFixture}
       isActive={false}
       changeUrl="some-url"
-      labels={{ true: 'active', false: 'inactive' }}
+      labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
     />
   ))
   .add('PopupListItemButton long description & narrow container', () => (
@@ -238,7 +238,7 @@ storiesOf('PopupListItemButton', module)
         isActive
         deactivateButtonText="Deactivate"
         changeUrl="some-url"
-        labels={{ true: 'active', false: 'inactive' }}
+        labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
       />
     </div>
   ))
@@ -250,7 +250,7 @@ storiesOf('PopupListItemButton', module)
         isActive
         deactivateButtonText="Deactivate"
         changeUrl="some-url"
-        labels={{ true: 'active', false: 'inactive' }}
+        labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
       />
     </div>
   ));
