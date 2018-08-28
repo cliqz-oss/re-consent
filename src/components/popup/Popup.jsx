@@ -24,11 +24,11 @@ const Popup = ({
   const automaticallyDetectedFeatures = features.filter(feature => feature.group === 'automatically-detected');
   const manualCheckFeatures = features.filter(feature => feature.group === 'manual-check');
 
-  const allConsentSettingsSet = checkAllConsentSettingsDenied(consent);
+  const allConsentSettingsDenied = checkAllConsentSettingsDenied(consent);
   let consentControlLabel = null;
 
   if (!getConsentReadOnly(consent)) {
-    if (allConsentSettingsSet) {
+    if (allConsentSettingsDenied) {
       consentControlLabel = formatMessage({ id: 'popup.list.consent.list-item.control.allow-all' });
     } else {
       consentControlLabel = formatMessage({ id: 'popup.list.consent.list-item.control.deny-all' });
@@ -44,7 +44,7 @@ const Popup = ({
           icon={<IconEyes />}
           controlLabel={consentControlLabel}
           controlOnClick={() => {
-            const allowed = allConsentSettingsSet;
+            const allowed = allConsentSettingsDenied;
             const purposeIds = Object.keys(CONSENT_PURPOSE);
             const updatedConsentData = getUpdatedConsentData(consent, purposeIds, allowed);
             changeConsent(updatedConsentData);
