@@ -137,10 +137,15 @@ storiesOf('PopupList', module)
       <PopupListItemButton
         title="Some title"
         description="some description"
-        isActive
+        status
         deactivateButtonText="Deactivate"
         changeUrl="some-url"
         labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
+        linkLabels={{
+          true: 'deactivate',
+          false: 'activate',
+          null: 'check manually',
+        }}
       />
       <PopupListItemCheckbox
         title="Some title"
@@ -163,10 +168,15 @@ storiesOf('PopupList', module)
         <PopupListItemButton
           title="Some title"
           description="some description"
-          isActive
+          status
           deactivateButtonText="Deactivate"
           changeUrl="some-url"
           labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
+          linkLabels={{
+            true: 'deactivate',
+            false: 'activate',
+            null: 'check manually',
+          }}
         />
       </PopupList>
       <PopupList
@@ -197,10 +207,15 @@ storiesOf('PopupList', module)
         <PopupListItemButton
           title="Some title"
           description="some description"
-          isActive
+          status
           deactivateButtonText="Deactivate"
           changeUrl="some-url"
           labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
+          linkLabels={{
+            true: 'deactivate',
+            false: 'activate',
+            null: 'check manually',
+          }}
         />
         <PopupListItemCheckbox
           title="Some title"
@@ -223,19 +238,29 @@ storiesOf('PopupListItemButton', module)
     <PopupListItemButton
       title="Some title"
       description="some description"
-      isActive
+      status
       deactivateButtonText="Deactivate"
       changeUrl="some-url"
       labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
+      linkLabels={{
+        true: 'deactivate',
+        false: 'activate',
+        null: 'check manually',
+      }}
     />
   ))
   .add('PopupListItemButton inactive', () => (
     <PopupListItemButton
       title="Some title"
       description={longTextFixture}
-      isActive={false}
+      status={false}
       changeUrl="some-url"
       labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
+      linkLabels={{
+        true: 'deactivate',
+        false: 'activate',
+        null: 'check manually',
+      }}
     />
   ))
   .add('PopupListItemButton long description & narrow container', () => (
@@ -243,10 +268,15 @@ storiesOf('PopupListItemButton', module)
       <PopupListItemButton
         title="title"
         description={longTextFixture}
-        isActive
+        status
         deactivateButtonText="Deactivate"
         changeUrl="some-url"
         labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
+        linkLabels={{
+          true: 'deactivate',
+          false: 'activate',
+          null: 'check manually',
+        }}
       />
     </div>
   ))
@@ -255,10 +285,15 @@ storiesOf('PopupListItemButton', module)
       <PopupListItemButton
         title={longTextFixture}
         description="some description"
-        isActive
+        status
         deactivateButtonText="Deactivate"
         changeUrl="some-url"
         labels={{ true: 'active', false: 'inactive', null: 'unknown' }}
+        linkLabels={{
+          true: 'deactivate',
+          false: 'activate',
+          null: 'check manually',
+        }}
       />
     </div>
   ));
