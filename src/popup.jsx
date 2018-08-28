@@ -36,7 +36,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     browser.runtime.sendMessage({ type: 'changeConsent', tabId: tab.id, consent });
   };
 
-  const featureOnClick = (feature) => async (e) => {
+  const featureOnClick = feature => async (e) => {
     e.preventDefault();
 
     browser.runtime.sendMessage({
