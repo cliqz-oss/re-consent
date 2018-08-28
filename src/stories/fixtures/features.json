@@ -1,25 +1,19 @@
 [
     {
-        "key": "1",
-        "title": "Face Recognition",
+        "key": "facebook-face-recognition",
         "suspicious": true,
         "settingsUrl": "some-url",
-        "description": "Allow Facebook to recognise your face in photos and videos?",
         "group": "automatically-detected"
     },
     {
-        "key": "2",
-        "title": "Third Party Data Access",
+        "key": "facebook-third-party-data-access",
         "settingsUrl": "some-url",
-        "description": "Allow third party applications to access your data through Facebook?",
         "group": "manual-check"
     },
     {
-        "key": "3",
-        "title": "Location Sharing",
+        "key": "facebook-location-sharing",
         "suspicious": true,
         "settingsUrl": "some-url",
-        "description": "Allow Facebook to build a history of the locations you have been to?",
         "group": "automatically-detected"
     }
 ]

@@ -9,7 +9,7 @@ import PopupList from './PopupList';
 import PopupListItemButton from './PopupListItemButton';
 import PopupListItemCheckbox from './PopupListItemCheckbox';
 import { IconCogWheel, IconEyes } from '../Icons';
-import { getUpdatedConsentData, getConsentPurposeAllowed, getConsentReadOnly } from '../../consent/utils';
+import { getUpdatedConsentData, getConsentPurposeAllowed, getConsentReadOnly, checkAllConsentSettingsDenied } from '../../consent/utils';
 
 
 const Popup = ({
@@ -24,11 +24,32 @@ const Popup = ({
   const automaticallyDetectedFeatures = features.filter(feature => feature.group === 'automatically-detected');
   const manualCheckFeatures = features.filter(feature => feature.group === 'manual-check');
 
+  const allConsentSettingsSet = checkAllConsentSettingsDenied(consent);
+  let consentControlLabel = null;
+
+  if (!getConsentReadOnly(consent)) {
+    if (allConsentSettingsSet) {
+      consentControlLabel = formatMessage({ id: 'popup.list.consent.list-item.control.allow-all' });
+    } else {
+      consentControlLabel = formatMessage({ id: 'popup.list.consent.list-item.control.deny-all' });
+    }
+  }
+
   return (
     <div className="popup">
       <PopupHeader applicationState={applicationState} siteName={siteName} />
       {consent && (
-        <PopupList title={formatMessage({ id: 'popup.list.consent.title' })} icon={<IconEyes />}>
+        <PopupList
+          title={formatMessage({ id: 'popup.list.consent.title' })}
+          icon={<IconEyes />}
+          controlLabel={consentControlLabel}
+          controlOnClick={() => {
+            const allowed = allConsentSettingsSet;
+            const purposeIds = Object.keys(CONSENT_PURPOSE);
+            const updatedConsentData = getUpdatedConsentData(consent, purposeIds, allowed);
+            changeConsent(updatedConsentData);
+          }}
+        >
           {Object.keys(CONSENT_PURPOSE).map((purposeId) => {
             const purposeTitle = CONSENT_PURPOSE[purposeId];
             const allowed = getConsentPurposeAllowed(consent, purposeId);
