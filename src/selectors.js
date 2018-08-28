@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import { APPLICATION_STATE } from './constants';
-import { checkAllConsentSettingsSet } from './consent/utils';
+import { checkAllConsentSettingsDenied } from './consent/utils';
 import { checkNoSuspiciousFeaturesExist } from './features/utils';
 
 
@@ -19,10 +19,10 @@ export const getApplicationState = ({
     return APPLICATION_STATE.NO_CONCERNS;
   }
 
-  const allConsentSettingsSet = checkAllConsentSettingsSet(consent);
+  const allConsentSettingsDenied = checkAllConsentSettingsDenied(consent);
   const noSuspiciousFeatures = checkNoSuspiciousFeaturesExist(features);
 
-  if (allConsentSettingsSet && noSuspiciousFeatures) {
+  if (allConsentSettingsDenied && noSuspiciousFeatures) {
     return APPLICATION_STATE.SETTINGS_WELL_SET;
   }
 

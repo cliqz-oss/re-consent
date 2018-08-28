@@ -26,11 +26,15 @@ export const getConsentPurposeAllowed = (consent, purposeId) => {
 
 
 export const getConsentReadOnly = (consent) => {
+  if (consent === null) {
+    return true;
+  }
+
   return !consent.storageName || !consent.vendorConsents.purposeConsents;
 };
 
 
-export const checkAllConsentSettingsSet = (consent) => {
+export const checkAllConsentSettingsDenied = (consent) => {
   if (consent === null) {
     return true;
   }
