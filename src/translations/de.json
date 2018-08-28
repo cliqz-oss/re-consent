@@ -6,7 +6,7 @@
   "popup.header.title.settings_well_set.features": "Du hast die Datenerhebung für alle Funktionen deaktiviert.",
   "popup.header.title.no_concerns": "Consentric kann auf dieser Seite nicht auf die Datenschutzeinstellungen zugreifen.",
 
-  "popup.list.consent.title": "Datenschutzeinstellungen",
+  "popup.list.consent.title": "Einstellungen",
   "popup.list.consent.list-item.control.deny-all": "Alle verbieten",
   "popup.list.consent.list-item.control.allow-all": "Alle erlauben",
   "popup.list.consent.list-item.disabled-help-text": "Deine Datenschutzeinstellungen können gerade nur direkt auf der Website geändert werden.",
