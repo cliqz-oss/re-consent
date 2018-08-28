@@ -1,32 +1,32 @@
 {
   "popup.header.title.scanning": "Consentric is scanning the website ...",
-  "popup.header.title.settings_detected": "Review your privacy and consent settings.",
-  "popup.header.title.settings_changed": "Your privacy and consent settings have been changed, review them.",
+  "popup.header.title.settings_detected": "Your privacy and consent settings at a glance.",
+  "popup.header.title.settings_changed": "Your privacy and consent settings have been changed, please review.",
   "popup.header.title.settings_well_set.iab": "You are denying third-party data use for all purposes.",
   "popup.header.title.settings_well_set.features": "You have deactivated all data collection options.",
-  "popup.header.title.no_concerns": "No privacy and consent concerns detected.",
+  "popup.header.title.no_concerns": "Consentric cannot access the consent controls on this website.",
 
-  "popup.list.consent.title": "Third Party Consents",
+  "popup.list.consent.title": "Privacy Settings",
   "popup.list.consent.list-item.control.deny-all": "Deny all",
   "popup.list.consent.list-item.control.allow-all": "Allow all",
-  "popup.list.consent.list-item.disabled-help-text": "You cannot change these settings here. Please go to {siteName} directly.",
+  "popup.list.consent.list-item.disabled-help-text": "Your consent settings can currently only be changed on the website directly.",
   "popup.list.consent.list-item.temporary-readonly-help-text": "This setting cannot be changed right now. Please try again in a moment.",
-  "popup.list.consent.list-item.checkbox-label.active": "Allow",
-  "popup.list.consent.list-item.checkbox-label.inactive": "Deny",
+  "popup.list.consent.list-item.checkbox-label.active": "allowed",
+  "popup.list.consent.list-item.checkbox-label.inactive": "denied",
 
-  "popup.list.automatically-detected-features.title": "{siteName} Privacy Settings",
+  "popup.list.automatically-detected-features.title": "Privacy Settings",
 
   "popup.list.automatically-detected-features.list-item.link-label.inactive": "Deactivate",
   "popup.list.automatically-detected-features.list-item.link-label.active": "Activate",
 
-  "popup.list.manual-detected-features.list-item.link-label.check-manually": "Check manually",
+  "popup.list.manual-detected-features.list-item.link-label.check-manually": "Check the website",
 
   "popup.list.automatically-detected-features.list-item.label.active": "active",
   "popup.list.automatically-detected-features.list-item.label.inactive": "inactive",
   "popup.list.automatically-detected-features.list-item.label.unknown": "unknown",
 
-  "popup.list.manual-check-features.title": "Data Breaches by {siteName}",
-  "popup.list.check-manually-features.list-item.label.active": "breached",
+  "popup.list.manual-check-features.title": "Data disclosure to third parties",
+  "popup.list.check-manually-features.list-item.label.active": "enabled",
   "popup.list.check-manually-features.list-item.label.inactive": "n/a",
   "popup.list.check-manually-features.list-item.label.unknown": "unknown",
 
