@@ -36,7 +36,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     browser.runtime.sendMessage({ type: 'changeConsent', tabId: tab.id, consent });
   };
 
-  const featureOnClick = (url, featureType) => async (e) => {
+  const featureOnClick = (feature) => async (e) => {
     e.preventDefault();
 
     browser.runtime.sendMessage({
@@ -44,7 +44,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
       type: 'telemetry',
       actionKey: TELEMETRY_ACTION.LINK_CLICKED,
       actionData: {
-        type: featureType,
+        type: feature.site,
       },
     });
 
@@ -53,7 +53,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
       active: true,
     });
 
-    browser.tabs.update(currentTab.id, { url });
+    browser.tabs.update(currentTab.id, { url: feature.settingsUrl });
     window.close();
   };
 

@@ -69,7 +69,7 @@ const Popup = ({
               status={feature.suspicious}
               deactivateButtonText={feature.suspicious ? formatMessage({ id: 'popup.list.automatically-detected-features.list-item.deactivate-button-text' }) : null}
               changeUrl={feature.settingsUrl}
-              onClick={featureOnClick(feature.settingsUrl, feature.site)}
+              onClick={featureOnClick(feature)}
               labels={{
                 true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.active' }),
                 false: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.inactive' }),
@@ -89,7 +89,7 @@ const Popup = ({
               status={feature.suspicious}
               deactivateButtonText={formatMessage({ id: 'popup.list.manual-check-features.list-item.deactivate-button-text' })}
               changeUrl={feature.settingsUrl}
-              onClick={featureOnClick(feature.settingsUrl, feature.site)}
+              onClick={featureOnClick(feature)}
               labels={{
                 true: formatMessage({ id: 'popup.list.check-manually-features.list-item.label.active' }),
                 false: formatMessage({ id: 'popup.list.check-manually-features.list-item.label.inactive' }),
