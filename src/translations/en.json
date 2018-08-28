@@ -52,5 +52,11 @@
   "features.google-youtube-search-history.title": "Youtube Search History",
   "features.google-youtube-search-history.description": "Allow Google to save your searches on YouTube?",
   "features.google-youtube-watch-history.title": "Youtube Watch History",
-  "features.google-youtube-watch-history.description": "Allow Google to store all of your Youtube Watch History?"
+  "features.google-youtube-watch-history.description": "Allow Google to store all of your Youtube Watch History?",
+
+  "consent-purpose.information-storage-and-access": "Information storage and access",
+  "consent-purpose.personalisatzion": "Personalisation",
+  "consent-purpose.ad-selection-delivery-reporting": "Ad selection, delivery, reporting",
+  "consent-purpose.content-selection-delivery-reporting": "Content selection, delivery, reporting",
+  "consent-purpose.measurement": "Measurement"
 }

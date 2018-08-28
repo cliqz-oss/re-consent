@@ -51,5 +51,11 @@
   "features.google-youtube-search-history.title": "Youtube Suchverlauf",
   "features.google-youtube-search-history.description": "Google erlauben, deine Suchanfragen auf YouTube zu speichern?",
   "features.google-youtube-watch-history.title": "Youtube Verlauf",
-  "features.google-youtube-watch-history.description": "Google erlauben, deine Youtube Verlauf zu speichern?"
+  "features.google-youtube-watch-history.description": "Google erlauben, deine Youtube Verlauf zu speichern?",
+
+  "consent-purpose.information-storage-and-access": "Informationsspeicherung und -zugang",
+  "consent-purpose.personalisatzion": "Personalisierung",
+  "consent-purpose.ad-selection-delivery-reporting": "Werbung: Auswahl, Darstellung und Analyse",
+  "consent-purpose.content-selection-delivery-reporting": "Inhalte: Auswahl, Darstellung und Analyse",
+  "consent-purpose.measurement": "Auswertung"
 }

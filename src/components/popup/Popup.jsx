@@ -51,7 +51,7 @@ const Popup = ({
           }}
         >
           {Object.keys(CONSENT_PURPOSE).map((purposeId) => {
-            const purposeTitle = CONSENT_PURPOSE[purposeId];
+            const purposeTitle = formatMessage({ id: CONSENT_PURPOSE[purposeId] });
             const allowed = getConsentPurposeAllowed(consent, purposeId);
             const onChange = () => {
               const updatedConsentData = getUpdatedConsentData(consent, [purposeId], !allowed);
