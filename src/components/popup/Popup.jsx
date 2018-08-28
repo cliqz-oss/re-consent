@@ -27,7 +27,7 @@ const Popup = ({
   const allConsentSettingsSet = checkAllConsentSettingsSet(consent);
   let consentControlLabel = null;
 
-  if (consent && !getConsentReadOnly(consent)) {
+  if (!getConsentReadOnly(consent)) {
     if (allConsentSettingsSet) {
       consentControlLabel = formatMessage({ id: 'popup.list.consent.list-item.control.allow-all' });
     } else {
