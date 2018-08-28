@@ -13,11 +13,11 @@ const telemetry = (actionKey, actionData) => {
     actionDataPropTypes,
   } = TELEMETRY_ACTION_DATA[actionKey];
 
-  PropTypes.checkPropTypes(actionDataPropTypes, actionData, 'action', 'Telemetry');
-
   if (process.env.NODE_ENV !== 'production') {
-    console.log('telemetry', actionName, actionData); // eslint-disable-line no-console
+    console.log('telemetry', actionName, actionKey, actionData); // eslint-disable-line no-console
   }
+
+  PropTypes.checkPropTypes(actionDataPropTypes, actionData, 'action', 'Telemetry');
 
   try {
     sendTelemetry(actionName, actionData);
