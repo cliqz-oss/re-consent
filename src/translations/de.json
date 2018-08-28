@@ -2,7 +2,8 @@
   "popup.header.title.scanning": "Consentric scannt die Webseite ...",
   "popup.header.title.settings_detected": "Überprüfe deine Datenschutz- und Zustimmungseinstellungen.",
   "popup.header.title.settings_changed": "Deine Datenschutz- und Zustimmungseinstellungen wurden geändert, überprüfen sie.",
-  "popup.header.title.settings_well_set": "Deine Datenschutz- und Zustimmungseinstellungen sind gut eingestellt!",
+  "popup.header.title.settings_well_set.iab": "Du hast auf dieser Seite die Datenerhebung für alle Zwecke abgelehnt.",
+  "popup.header.title.settings_well_set.features": "Du hast die Datenerhebung für alle Funktionen deaktiviert.",
   "popup.header.title.no_concerns": "Es wurden keine Datenschutz- und Zustimmungsprobleme festgestellt.",
 
   "popup.list.consent.title": "Zustimmungen von Drittanbietern",

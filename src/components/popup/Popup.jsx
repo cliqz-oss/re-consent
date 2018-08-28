@@ -37,7 +37,7 @@ const Popup = ({
 
   return (
     <div className="popup">
-      <PopupHeader applicationState={applicationState} siteName={siteName} />
+      <PopupHeader applicationState={applicationState} siteName={siteName} consent={consent} />
       {consent && (
         <PopupList
           title={formatMessage({ id: 'popup.list.consent.title' })}

@@ -2,7 +2,8 @@
   "popup.header.title.scanning": "Consentric is scanning the website ...",
   "popup.header.title.settings_detected": "Review your privacy and consent settings.",
   "popup.header.title.settings_changed": "Your privacy and consent settings have been changed, review them.",
-  "popup.header.title.settings_well_set": "Your privacy settings and consents are well set!",
+  "popup.header.title.settings_well_set.iab": "You are denying third-party data use for all purposes.",
+  "popup.header.title.settings_well_set.features": "You have deactivated all data collection options.",
   "popup.header.title.no_concerns": "No privacy and consent concerns detected.",
 
   "popup.list.consent.title": "Third Party Consents",
