@@ -77,7 +77,7 @@ async function detectFeatures(url, dispatch) {
     telemetry(TELEMETRY_ACTION.FEATURES_DETECTED, {
       type: features[0].site,
       suspiciousCount: features.filter(feature => feature.suspicious).length,
-      site: url,
+      site: url.href,
     });
   }
 }
