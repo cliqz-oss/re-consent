@@ -18,11 +18,8 @@
 
   "popup.list.automatically-detected-features.list-item.link-label.inactive": "Deaktivieren",
   "popup.list.automatically-detected-features.list-item.link-label.active": "Aktivieren",
-  "popup.list.automatically-detected-features.list-item.link-label.unknown": "Manuell überprüfen",
 
-  "popup.list.manual-detected-features.list-item.link-label.inactive": "Deaktivieren",
-  "popup.list.manual-detected-features.list-item.link-label.active": "Aktivieren",
-  "popup.list.manual-detected-features.list-item.link-label.unknown": "Manuell überprüfen",
+  "popup.list.manual-detected-features.list-item.link-label.check-manually": "Manuell überprüfen",
 
   "popup.list.manual-check-features.title": "Datenverletzungen durch {siteName}",
   "popup.list.check-manually-features.list-item.label.active": "verletzt",

@@ -71,7 +71,7 @@ PopupListItemButton.propTypes = {
   labels: PropTypes.shape({
     true: PropTypes.string.isRequired,
     false: PropTypes.string.isRequired,
-    null: PropTypes.string.isRequired,
+    null: PropTypes.string,
   }).isRequired,
   status: PropTypes.bool,
   title: PropTypes.string.isRequired,

@@ -88,15 +88,13 @@ const Popup = ({
               description={formatMessage({ id: `features.${feature.key}.description` })}
               status={feature.suspicious}
               linkLabels={{
-                true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.link-label.active' }),
-                false: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.link-label.inactive' }),
-                null: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.link-label.unknown' }),
+                true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.link-label.inactive' }),
+                false: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.link-label.active' }),
               }}
               changeUrl={feature.settingsUrl}
               labels={{
                 true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.active' }),
                 false: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.inactive' }),
-                null: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.unknown' }),
               }}
             />
           ))}
@@ -111,9 +109,9 @@ const Popup = ({
               description={formatMessage({ id: `features.${feature.key}.description` })}
               status={feature.suspicious}
               linkLabels={{
-                true: formatMessage({ id: 'popup.list.manual-detected-features.list-item.link-label.active' }),
-                false: formatMessage({ id: 'popup.list.manual-detected-features.list-item.link-label.inactive' }),
-                null: formatMessage({ id: 'popup.list.manual-detected-features.list-item.link-label.unknown' }),
+                true: formatMessage({ id: 'popup.list.manual-detected-features.list-item.link-label.check-manually' }),
+                false: formatMessage({ id: 'popup.list.manual-detected-features.list-item.link-label.check-manually' }),
+                null: formatMessage({ id: 'popup.list.manual-detected-features.list-item.link-label.check-manually' }),
               }}
               changeUrl={feature.settingsUrl}
               labels={{
