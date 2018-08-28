@@ -6,8 +6,12 @@
   "popup.header.title.no_concerns": "Es wurden keine Datenschutz- und Zustimmungsprobleme festgestellt.",
 
   "popup.list.consent.title": "Zustimmungen von Drittanbietern",
+  "popup.list.consent.list-item.control.deny-all": "Alle verbieten",
+  "popup.list.consent.list-item.control.allow-all": "Alle erlauben",
   "popup.list.consent.list-item.disabled-help-text": "Du kannst diese Einstellungen hier nicht ändern. Bitte gehe direkt zu {siteName}.",
   "popup.list.consent.list-item.temporary-readonly-help-text": "Diese Einstellung kann momentan nicht geändert werden. Bitte versuche es gleich noch einmal.",
+  "popup.list.consent.list-item.checkbox-label.active": "Erlauben",
+  "popup.list.consent.list-item.checkbox-label.inactive": "Verbieten",
 
   "popup.list.automatically-detected-features.title": "{siteName} Datenschutzeinstellungen",
   "popup.list.automatically-detected-features.list-item.deactivate-button-text": "Deaktivieren",
