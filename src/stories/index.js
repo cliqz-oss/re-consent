@@ -109,7 +109,14 @@ storiesOf('PopupHeader', module)
       siteName="Facebook.com"
     />
   ))
-  .add('Settings well set', () => (
+  .add('Settings well set IAB', () => (
+    <PopupHeader
+      applicationState={APPLICATION_STATE.SETTINGS_WELL_SET}
+      siteName="chip.de"
+      consent={consentFixture}
+    />
+  ))
+  .add('Settings well set features', () => (
     <PopupHeader
       applicationState={APPLICATION_STATE.SETTINGS_WELL_SET}
       siteName="Facebook.com"
