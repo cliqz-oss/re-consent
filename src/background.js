@@ -5,32 +5,55 @@ import FacebookDetector from './features/facebook';
 import GoogleDetector from './features/google';
 
 import { getStorageClass } from './consent/storages';
-import { APPLICATION_STATE_ICON_NAME } from './constants';
 import { telemetry, TELEMETRY_ACTION } from './telemetry';
 import { getConsentReadOnly, getNumberOfAllowedConsents } from './consent/utils';
+import { APPLICATION_STATE_ICON_NAME, APPLICATION_STATE } from './constants';
 
-const setBrowserExtensionIcon = async (applicationState, tabId) => {
-  const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
+const checkIsChrome = () => {
+  return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+};
 
-  const usePngIcons = !!global.chrome;
+let setBrowserExtensionIconInterval = null;
 
+function doSetBrowserExtensionIcon(tabId, pathTemplate) {
+  const isChrome = checkIsChrome();
+  const sizes = isChrome ? [16, 24, 32] : [19, 38];
+  const suffix = isChrome ? '-chrome.png' : '-cliqz.png';
   const iconSet = {};
 
-  if (usePngIcons) {
-    [16, 24, 32].forEach((size) => {
-      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-chrome.png`;
-    });
-  } else {
-    [19, 38].forEach((size) => {
-      iconSet[size] = `icons/png/${size}x${size}_consent-${iconName}-cliqz.svg`;
-    });
-  }
+  sizes.forEach((size) => {
+    iconSet[size] = pathTemplate.replace('{size}', `${size}x${size}`).replace('{suffix}', suffix);
+  });
 
   browser.pageAction.setIcon({
     path: iconSet,
     tabId,
   });
-};
+}
+
+async function setBrowserExtensionIcon(applicationState, tabId) {
+  if (setBrowserExtensionIconInterval) {
+    clearInterval(setBrowserExtensionIconInterval);
+  }
+
+  const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
+
+  doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
+
+  if (applicationState === APPLICATION_STATE.SCANNING) {
+    let currentScanningState = 1;
+
+    setBrowserExtensionIconInterval = setInterval(() => {
+      doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-scanning-${currentScanningState}{suffix}`);
+
+      currentScanningState += 1;
+
+      if (currentScanningState > 8) {
+        currentScanningState = 1;
+      }
+    }, 50);
+  }
+}
 
 async function detectFeatures(url, dispatch) {
   url = new URL(url);
