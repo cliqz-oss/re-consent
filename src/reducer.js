@@ -28,8 +28,6 @@ const initialState = {
   scanningConsent: true,
 
   changingConsent: false,
-
-  popupOpened: false,
 };
 
 
@@ -43,7 +41,6 @@ export default (state = initialState, action) => {
     case 'detectConsent': return { ...state, consent: action.consent, scanningConsent: false };
     case 'changingConsent': return { ...state, changingConsent: true };
     case 'changeConsent': return { ...state, consent: action.consent, changingConsent: false };
-    case 'initPopup': return { ...state, popupOpened: true };
     default: return state;
   }
 };

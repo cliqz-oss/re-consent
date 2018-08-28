@@ -6,7 +6,8 @@ import GoogleDetector from './features/google';
 
 import { getStorageClass } from './consent/storages';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
-import { telemetry } from './telemetry';
+import { telemetry, TELEMETRY_ACTION } from './telemetry';
+import { getConsentReadOnly, getNumberOfAllowedConsents } from './consent/utils';
 
 const setBrowserExtensionIcon = async (applicationState, tabId) => {
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
@@ -48,6 +49,17 @@ async function detectFeatures(url, dispatch) {
   }
 
   dispatch({ type: 'detectFeatures', features });
+
+  if (features.length) {
+    telemetry(
+      TELEMETRY_ACTION.FEATURES_DETECTED,
+      {
+        type: features[0].site,
+        suspiciousCount: features.filter(feature => feature.suspicious).length,
+        site: url,
+      },
+    );
+  }
 }
 
 async function detectConsent(consent, tab, localStorage, dispatch) {
@@ -55,6 +67,15 @@ async function detectConsent(consent, tab, localStorage, dispatch) {
     dispatch({ type: 'detectConsent', consent });
     return;
   }
+
+  telemetry(
+    TELEMETRY_ACTION.CONSENT_DETECTED,
+    {
+      writeable: !getConsentReadOnly(consent),
+      allowed: getNumberOfAllowedConsents(consent),
+      site: tab.url,
+    },
+  );
 
   const storageArgs = { consent, tab, localStorage };
   const storages = await Promise.all((
@@ -104,6 +125,14 @@ async function changeConsent(consent, tab, localStorage, dispatch) {
   consent.consentData.consentData = consentString.getConsentString();
   consent.vendorConsents.metadata = consentString.getMetadataString();
 
+  telemetry(
+    TELEMETRY_ACTION.CONSENT_CHANGED,
+    {
+      allowed: getNumberOfAllowedConsents(consent),
+      site: tab.url,
+    },
+  );
+
   dispatch({ type: 'changeConsent', consent });
 }
 
@@ -132,6 +161,14 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     const url = new URL(message.url);
     const siteName = url.hostname.replace('www.', '');
     browser.pageAction.show(tab.id);
+
+    telemetry(
+      TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED,
+      {
+        site: tab.url,
+      },
+    );
+
     dispatch({ type: 'init', siteName });
   } else if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);

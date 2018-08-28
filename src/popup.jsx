@@ -94,5 +94,12 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
   });
 
   browser.tabs.sendMessage(tab.id, { type: 'getState' });
-  browser.tabs.sendMessage(tab.id, { type: 'dispatchAction', action: { type: 'initPopup' } });
+
+  browser.runtime.sendMessage({
+    type: 'telemetry',
+    actionKey: TELEMETRY_ACTION.POPUP_OPENED,
+    actionData: {
+      site: tab.url,
+    },
+  });
 });
