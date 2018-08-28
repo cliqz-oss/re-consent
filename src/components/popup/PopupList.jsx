@@ -37,7 +37,6 @@ PopupList.propTypes = {
   controlOnClick: PropTypes.func,
 };
 
-
 PopupList.defaultProps = {
   controlLabel: null,
   controlOnClick: null,
