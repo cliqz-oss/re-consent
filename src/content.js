@@ -29,7 +29,7 @@ const browserExtensionIconMiddleware = store => next => (action) => {
 
   const nextState = store.getState();
 
-  chrome.runtime.sendMessage({
+  browser.runtime.sendMessage({
     type: 'setBrowserExtensionIcon',
     applicationState: getApplicationState(nextState),
   });
@@ -58,7 +58,7 @@ const telemetryMiddleware = store => next => (action) => {
 
   if (prevApplicationState === APPLICATION_STATE.SCANNING) {
     if (prevApplicationState !== applicationState) {
-      chrome.runtime.sendMessage({
+      browser.runtime.sendMessage({
         type: 'telemetry',
         actionKey: TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED,
         actionData: {
@@ -74,7 +74,7 @@ const telemetryMiddleware = store => next => (action) => {
     const prevAllowedConsents = getNumberOfAllowedConsents(prevConsent);
 
     if (allowedConsents !== prevAllowedConsents) {
-      chrome.runtime.sendMessage({
+      browser.runtime.sendMessage({
         type: 'telemetry',
         actionKey: TELEMETRY_ACTION.CONSENT_CHANGED,
         actionData: {
