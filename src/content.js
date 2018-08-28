@@ -32,10 +32,7 @@ const browserExtensionIconMiddleware = store => next => (action) => {
   });
 };
 
-const store = createStore(reducer, applyMiddleware(
-  logger,
-  browserExtensionIconMiddleware,
-));
+const store = createStore(reducer, applyMiddleware(logger, browserExtensionIconMiddleware));
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'getState') {

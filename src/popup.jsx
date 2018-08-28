@@ -48,12 +48,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
       },
     });
 
-    const currentTab = await browser.tabs.query({
-      currentWindow: true,
-      active: true,
-    });
-
-    browser.tabs.update(currentTab.id, { url: feature.settingsUrl });
+    browser.tabs.update(tab.id, { url: feature.settingsUrl });
     window.close();
   };
 
@@ -97,6 +92,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
 
   browser.runtime.sendMessage({
     type: 'telemetry',
+    tabId: tab.id,
     actionKey: TELEMETRY_ACTION.POPUP_OPENED,
     actionData: {
       site: tab.url,

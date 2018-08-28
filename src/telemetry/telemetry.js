@@ -19,7 +19,13 @@ const telemetry = (actionKey, actionData) => {
     console.log('telemetry', actionName, actionData); // eslint-disable-line no-console
   }
 
-  sendTelemetry(actionName, actionData);
+  try {
+    sendTelemetry(actionName, actionData);
+  } catch (e) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('Sending telemetry failed:', e); // eslint-disable-line no-console
+    }
+  }
 };
 
 export default telemetry;
