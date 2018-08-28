@@ -7,36 +7,42 @@ const features = [
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     group: 'automatically-detected',
     selectorName: 'search',
+    site: 'google',
   },
   {
     key: 'google-location-history',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     group: 'automatically-detected',
     selectorName: 'location',
+    site: 'google',
   },
   {
     key: 'google-device-information',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     group: 'automatically-detected',
     selectorName: 'device',
+    site: 'google',
   },
   {
     key: 'google-audio-history',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     group: 'automatically-detected',
     selectorName: 'audio',
+    site: 'google',
   },
   {
     key: 'google-youtube-search-history',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     group: 'automatically-detected',
     selectorName: 'youtubeSearch',
+    site: 'google',
   },
   {
     key: 'google-youtube-watch-history',
     settingsUrl: 'https://myaccount.google.com/activitycontrols',
     group: 'automatically-detected',
     selectorName: 'youtubeWatch',
+    site: 'google',
   },
 ];
 

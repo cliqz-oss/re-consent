@@ -17,6 +17,7 @@ const Popup = ({
   changeConsent,
   changingConsent,
   consent,
+  featureOnClick,
   features,
   siteName,
   intl: { formatMessage },
@@ -96,6 +97,7 @@ const Popup = ({
                 false: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.link-label.active' }),
               }}
               changeUrl={feature.settingsUrl}
+              onClick={featureOnClick(feature)}
               labels={{
                 true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.active' }),
                 false: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.inactive' }),
@@ -118,6 +120,7 @@ const Popup = ({
                 null: formatMessage({ id: 'popup.list.manual-detected-features.list-item.link-label.check-manually' }),
               }}
               changeUrl={feature.settingsUrl}
+              onClick={featureOnClick(feature)}
               labels={{
                 true: formatMessage({ id: 'popup.list.check-manually-features.list-item.label.active' }),
                 false: formatMessage({ id: 'popup.list.check-manually-features.list-item.label.inactive' }),
@@ -135,6 +138,7 @@ const Popup = ({
 Popup.propTypes = {
   applicationState: PropTypes.string.isRequired,
   changeConsent: PropTypes.func.isRequired,
+  featureOnClick: PropTypes.func.isRequired,
   changingConsent: PropTypes.bool.isRequired,
   consent: PropTypes.shape({
     consentData: PropTypes.object.isRequired,
@@ -147,6 +151,7 @@ Popup.propTypes = {
     suspicious: PropTypes.bool,
     settingsUrl: PropTypes.string.isRequired,
     group: PropTypes.string.isRequired,
+    site: PropTypes.string.isRequired,
   })),
   siteName: PropTypes.string,
   intl: intlShape.isRequired,

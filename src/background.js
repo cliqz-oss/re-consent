@@ -5,6 +5,8 @@ import FacebookDetector from './features/facebook';
 import GoogleDetector from './features/google';
 
 import { getStorageClass } from './consent/storages';
+import { telemetry, TELEMETRY_ACTION } from './telemetry';
+import { getConsentReadOnly, getNumberOfAllowedConsents } from './consent/utils';
 import { APPLICATION_STATE_ICON_NAME, APPLICATION_STATE } from './constants';
 
 const checkIsChrome = () => {
@@ -70,6 +72,14 @@ async function detectFeatures(url, dispatch) {
   }
 
   dispatch({ type: 'detectFeatures', features });
+
+  if (features.length) {
+    telemetry(TELEMETRY_ACTION.FEATURES_DETECTED, {
+      type: features[0].site,
+      suspiciousCount: features.filter(feature => feature.suspicious).length,
+      site: url.href,
+    });
+  }
 }
 
 async function detectConsent(consent, tab, localStorage, dispatch) {
@@ -91,7 +101,15 @@ async function detectConsent(consent, tab, localStorage, dispatch) {
 
   const [storageName] = storages.find(([,, exists]) => exists) || [null];
 
-  dispatch({ type: 'detectConsent', consent: { ...consent, storageName } });
+  const newConsent = { ...consent, storageName };
+
+  dispatch({ type: 'detectConsent', consent: newConsent });
+
+  telemetry(TELEMETRY_ACTION.CONSENT_DETECTED, {
+    writeable: !getConsentReadOnly(newConsent),
+    allowed: getNumberOfAllowedConsents(newConsent),
+    site: tab.url,
+  });
 }
 
 async function changeConsent(consent, tab, localStorage, dispatch) {
@@ -126,6 +144,11 @@ async function changeConsent(consent, tab, localStorage, dispatch) {
   consent.consentData.consentData = consentString.getConsentString();
   consent.vendorConsents.metadata = consentString.getMetadataString();
 
+  telemetry(TELEMETRY_ACTION.CONSENT_CHANGED, {
+    allowed: getNumberOfAllowedConsents(consent),
+    site: tab.url,
+  });
+
   dispatch({ type: 'changeConsent', consent });
 }
 
@@ -154,6 +177,11 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     const url = new URL(message.url);
     const siteName = url.hostname.replace('www.', '');
     browser.pageAction.show(tab.id);
+
+    telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
+      site: tab.url,
+    });
+
     dispatch({ type: 'init', siteName });
   } else if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);
@@ -163,5 +191,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     changeConsent(message.consent, tab, localStorage, dispatch);
   } else if (message.type === 'setBrowserExtensionIcon') {
     setBrowserExtensionIcon(message.applicationState, tab.id);
+  } else if (message.type === 'telemetry') {
+    telemetry(message.actionKey, message.actionData);
   }
 });

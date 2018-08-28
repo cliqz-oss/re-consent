@@ -26,7 +26,7 @@ const browserExtensionIconMiddleware = store => next => (action) => {
 
   const nextState = store.getState();
 
-  chrome.runtime.sendMessage({
+  browser.runtime.sendMessage({
     type: 'setBrowserExtensionIcon',
     applicationState: getApplicationState(nextState),
   });
