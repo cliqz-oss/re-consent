@@ -251,23 +251,29 @@ $popup-list-toggle-padding: 1px;
   margin-top: $popup-spacing;
   background: $blue;
   color: white;
-  padding: 8px $popup-spacing;
+  padding: 8px;
   display: flex;
   justify-content: space-between;
+  white-space: nowrap;
 
   font-size: 12px;
   font-weight: 500;
 
-  a {
-    color: white;
+  &__link-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-    &:hover {
+    a {
       color: white;
-      text-decoration: underline;
+
+      &:hover {
+        color: white;
+        text-decoration: underline;
+      }
     }
   }
 
-  &__powered_by {
+  &__powered-by {
     color: rgba(255, 255, 255, 0.75);
 
     svg {
