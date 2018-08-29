@@ -41,7 +41,7 @@ const browserExtensionIconMiddleware = store => next => (action) => {
     let showScanningBefore = false;
 
     if (getApplicationState(prevState) === APPLICATION_STATE.SCANNING) {
-      browser.runtime.sendMessage({ type: 'enableExtension' });
+      browser.runtime.sendMessage({ type: 'enableExtension', state: nextState });
       showScanningBefore = true;
     }
 

@@ -6,9 +6,9 @@ import GoogleDetector from './features/google';
 
 import { getStorageClass } from './consent/storages';
 import { telemetry, TELEMETRY_ACTION } from './telemetry';
-import { getConsentReadOnly, getNumberOfAllowedConsents } from './consent/utils';
+import { getNumberOfAllowedConsents } from './consent/utils';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
-import { checkIsChrome } from './utils';
+import { checkIsChrome, getConsentricType } from './utils';
 
 let setBrowserExtensionIconInterval = null;
 
@@ -79,14 +79,6 @@ async function detectFeatures(url, dispatch) {
   }
 
   dispatch({ type: 'detectFeatures', features });
-
-  if (features.length) {
-    telemetry(TELEMETRY_ACTION.FEATURES_DETECTED, {
-      type: features[0].site,
-      suspiciousCount: features.filter(feature => feature.suspicious).length,
-      site: url.href,
-    });
-  }
 }
 
 async function detectConsent(consent, tab, localStorage, dispatch) {
@@ -111,12 +103,6 @@ async function detectConsent(consent, tab, localStorage, dispatch) {
   const newConsent = { ...consent, storageName };
 
   dispatch({ type: 'detectConsent', consent: newConsent });
-
-  telemetry(TELEMETRY_ACTION.CONSENT_DETECTED, {
-    writeable: !getConsentReadOnly(newConsent),
-    allowed: getNumberOfAllowedConsents(newConsent),
-    site: tab.url,
-  });
 }
 
 async function changeConsent(consent, tab, localStorage, dispatch) {
@@ -183,11 +169,6 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   if (message.type === 'contentReady') {
     const url = new URL(message.url);
     const siteName = url.hostname.replace('www.', '');
-
-    telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
-      site: tab.url,
-    });
-
     dispatch({ type: 'init', siteName });
   } else if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);
@@ -201,5 +182,10 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     telemetry(message.actionKey, message.actionData);
   } else if (message.type === 'enableExtension') {
     browser.pageAction.show(tab.id);
+
+    telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
+      site: tab.url,
+      type: getConsentricType(message.state),
+    });
   }
 });
