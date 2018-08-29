@@ -3,6 +3,8 @@ import { createStore, applyMiddleware } from 'redux';
 
 import reducer from './reducer';
 import { getApplicationState } from './selectors';
+import { APPLICATION_STATE } from './constants';
+import { checkIsChrome } from './utils';
 
 const url = window.location.href;
 
@@ -22,14 +24,33 @@ const browserExtensionIconMiddleware = store => next => (action) => {
   Dynamically sets the icon based on the the different states of the application.
   */
 
+  const prevState = store.getState();
+
   next(action);
 
   const nextState = store.getState();
+  const nextApplicationState = getApplicationState(nextState);
 
-  browser.runtime.sendMessage({
-    type: 'setBrowserExtensionIcon',
-    applicationState: getApplicationState(nextState),
-  });
+  const hasSettings = [
+    APPLICATION_STATE.SETTINGS_DETECTED,
+    APPLICATION_STATE.SETTINGS_WELL_SET,
+  ].some(applicationState => applicationState === nextApplicationState);
+  const isChrome = checkIsChrome(navigator);
+
+  if (hasSettings || (isChrome && nextApplicationState !== APPLICATION_STATE.SCANNING)) {
+    let showScanningBefore = false;
+
+    if (getApplicationState(prevState) === APPLICATION_STATE.SCANNING) {
+      browser.runtime.sendMessage({ type: 'enableExtension' });
+      showScanningBefore = true;
+    }
+
+    browser.runtime.sendMessage({
+      type: 'setBrowserExtensionIcon',
+      applicationState: nextApplicationState,
+      showScanningBefore,
+    });
+  }
 };
 
 const store = createStore(reducer, applyMiddleware(logger, browserExtensionIconMiddleware));

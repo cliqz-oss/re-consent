@@ -7,16 +7,13 @@ import GoogleDetector from './features/google';
 import { getStorageClass } from './consent/storages';
 import { telemetry, TELEMETRY_ACTION } from './telemetry';
 import { getConsentReadOnly, getNumberOfAllowedConsents } from './consent/utils';
-import { APPLICATION_STATE_ICON_NAME, APPLICATION_STATE } from './constants';
-
-const checkIsChrome = () => {
-  return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-};
+import { APPLICATION_STATE_ICON_NAME } from './constants';
+import { checkIsChrome } from './utils';
 
 let setBrowserExtensionIconInterval = null;
 
 function doSetBrowserExtensionIcon(tabId, pathTemplate) {
-  const isChrome = checkIsChrome();
+  const isChrome = checkIsChrome(navigator);
   const sizes = isChrome ? [16, 24, 32] : [19, 38];
   const suffix = isChrome ? '-chrome.png' : '-cliqz.png';
   const iconSet = {};
@@ -31,16 +28,17 @@ function doSetBrowserExtensionIcon(tabId, pathTemplate) {
   });
 }
 
-async function setBrowserExtensionIcon(applicationState, tabId) {
+async function setBrowserExtensionIcon(applicationState, tabId, showScanningBefore) {
   if (setBrowserExtensionIconInterval) {
     clearInterval(setBrowserExtensionIconInterval);
   }
 
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
 
-  doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
-
-  if (applicationState === APPLICATION_STATE.SCANNING) {
+  if (showScanningBefore) {
+    let scanningDuration = 0;
+    const SCANNING_DELAY = 50;
+    const MAX_SCANNING_DURATION = 2 * 1000;
     let currentScanningState = 1;
 
     setBrowserExtensionIconInterval = setInterval(() => {
@@ -51,7 +49,16 @@ async function setBrowserExtensionIcon(applicationState, tabId) {
       if (currentScanningState > 8) {
         currentScanningState = 1;
       }
-    }, 50);
+
+      scanningDuration += SCANNING_DELAY;
+
+      if (scanningDuration > MAX_SCANNING_DURATION) {
+        clearInterval(setBrowserExtensionIconInterval);
+        doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
+      }
+    }, SCANNING_DELAY);
+  } else {
+    doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
   }
 }
 
@@ -176,7 +183,6 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   if (message.type === 'contentReady') {
     const url = new URL(message.url);
     const siteName = url.hostname.replace('www.', '');
-    browser.pageAction.show(tab.id);
 
     telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
       site: tab.url,
@@ -190,8 +196,10 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   } else if (message.type === 'changeConsent') {
     changeConsent(message.consent, tab, localStorage, dispatch);
   } else if (message.type === 'setBrowserExtensionIcon') {
-    setBrowserExtensionIcon(message.applicationState, tab.id);
+    setBrowserExtensionIcon(message.applicationState, tab.id, message.showScanningBefore);
   } else if (message.type === 'telemetry') {
     telemetry(message.actionKey, message.actionData);
+  } else if (message.type === 'enableExtension') {
+    browser.pageAction.show(tab.id);
   }
 });

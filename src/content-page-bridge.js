@@ -47,7 +47,7 @@ async function cmpCheck(retries) {
 
   if (window.__cmp === undefined) {
     if (retries > 0) {
-      setTimeout(() => cmpCheck(retries - 1), 5000);
+      setTimeout(() => cmpCheck(retries - 1), 1000);
     } else {
       sendConsentMessage(null);
     }
