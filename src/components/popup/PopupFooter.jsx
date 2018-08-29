@@ -2,6 +2,7 @@ import React from 'react';
 
 import { DETAIL_PAGE_URL } from 'constants';
 import { FormattedMessage } from 'react-intl';
+import { IconCliqzLogo } from '../Icons';
 
 
 const PopupFooter = () => (
@@ -16,6 +17,9 @@ const PopupFooter = () => (
         ),
       }}
     />
+    <div className="popup-footer__powered_by">
+      Powered by <IconCliqzLogo />
+    </div>
   </div>
 );
 
