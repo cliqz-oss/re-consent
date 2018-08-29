@@ -256,9 +256,8 @@ $popup-list-toggle-padding: 1px;
   font-size: 12px;
   font-weight: 500;
   color: #607c85;
-  background: #F4F5F7;
-
-  border-top: 1px solid #607c852e;
+  background-color: $popup-list-background-color;
+  border-top: 1px solid $popup-list-border-color;
 
   &__link-text {
     overflow: hidden;
@@ -290,6 +289,7 @@ $popup-list-toggle-padding: 1px;
   &:hover {
     background: $blue;
     color: white;
+    border-top-color: $blue;
 
     .popup-footer__powered-by {
       opacity: 1;
