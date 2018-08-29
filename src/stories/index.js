@@ -229,12 +229,18 @@ storiesOf('PopupList', module)
           description="some description"
           checked
           onChange={action('Checkbox changed')}
+          checkboxLabels={{
+            true: 'allowed',
+          }}
         />
         <PopupListItemCheckbox
           title="Some title"
           description="some description"
           checked
           onChange={action('Checkbox changed')}
+          checkboxLabels={{
+            true: 'allowed',
+          }}
         />
       </PopupList>
     </div>
