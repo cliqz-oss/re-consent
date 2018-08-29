@@ -13,14 +13,15 @@ const PopupFooter = () => (
         values={{
           consentricLink: (
             <a className="link" target="_blank" rel="noopener noreferrer" href={DETAIL_PAGE_URL}>
-              Consentric &gt;
+              Consentric ›
             </a>
           ),
         }}
       />
     </div>
     <div className="popup-footer__powered-by">
-      Powered by <IconCliqzLogo />
+      <FormattedMessage id="popup.footer.by" />
+      <IconCliqzLogo />
     </div>
   </div>
 );

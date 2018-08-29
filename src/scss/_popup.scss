@@ -249,38 +249,53 @@ $popup-list-toggle-padding: 1px;
 
 .popup-footer {
   margin-top: $popup-spacing;
-  background: $blue;
-  color: white;
   padding: 8px;
   display: flex;
   justify-content: space-between;
   white-space: nowrap;
-
   font-size: 12px;
   font-weight: 500;
+  color: #607c85;
+  background: #F4F5F7;
+
+  border-top: 1px solid #607c852e;
 
   &__link-text {
     overflow: hidden;
     text-overflow: ellipsis;
 
     a {
-      color: white;
+      color: inherit;
 
       &:hover {
-        color: white;
+        color: inherit;
         text-decoration: underline;
       }
     }
   }
 
   &__powered-by {
-    color: rgba(255, 255, 255, 0.75);
+    opacity: 0.6;
+    text-transform: uppercase;
 
     svg {
-      fill: white;
+      fill: #607c85;
       height: 16px;
       margin: -4px 0;
+      margin-left: 4px;
       width: auto;
+    }
+  }
+
+  &:hover {
+    background: $blue;
+    color: white;
+
+    .popup-footer__powered-by {
+      opacity: 1;
+      svg {
+        fill: white;
+      }
     }
   }
 }
