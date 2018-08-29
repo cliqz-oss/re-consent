@@ -1,7 +1,13 @@
 {
-  "name": "Cliqz Privacy Warning",
-  "version": "0.2",
-  "description": "Cliqz Privacy Warning",
+  "name": "Consentric",
+  "version": "1.0",
+  "author": "Cliqz GmbH",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "de",
+  "developer": {
+    "name": "Cliqz",
+    "url": "https://cliqz.com/magazine/consentric"
+  },
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "permissions": [

@@ -1,4 +1,6 @@
 {
+  "extensionDescription": "Consentric - mehr Datenschutz-Kontrolle für dich",
+
   "popup.header.title.scanning": "Consentric scannt die Webseite ...",
   "popup.header.title.settings_detected": "Deine Zustimmungen zur Datenerhebung auf einen Blick.",
   "popup.header.title.settings_changed": "Deine Zustimmungseinstellungen wurden geändert, bitte überprüfe sie.,",
