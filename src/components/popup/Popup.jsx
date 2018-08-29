@@ -4,6 +4,7 @@ import { injectIntl, intlShape } from 'react-intl';
 
 import { CONSENT_PURPOSE } from 'constants';
 import PopupHeader from './PopupHeader';
+import PopupOnboarding from './PopupOnboarding';
 import PopupFooter from './PopupFooter';
 import PopupList from './PopupList';
 import PopupListItemButton from './PopupListItemButton';
@@ -20,6 +21,8 @@ const Popup = ({
   featureOnClick,
   features,
   siteName,
+  showOnboarding,
+  hideOnboarding,
   intl: { formatMessage },
 }) => {
   const automaticallyDetectedFeatures = features.filter(feature => feature.group === 'automatically-detected');
@@ -34,6 +37,15 @@ const Popup = ({
     } else {
       consentControlLabel = formatMessage({ id: 'popup.list.consent.list-item.control.deny-all' });
     }
+  }
+
+  if (showOnboarding) {
+    return (
+      <div className="popup">
+        <PopupOnboarding hideOnboarding={hideOnboarding} />
+        <PopupFooter />
+      </div>
+    );
   }
 
   return (
@@ -155,6 +167,8 @@ Popup.propTypes = {
   })),
   siteName: PropTypes.string,
   intl: intlShape.isRequired,
+  showOnboarding: PropTypes.bool.isRequired,
+  hideOnboarding: PropTypes.func.isRequired,
 };
 
 Popup.defaultProps = {

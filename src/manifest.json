@@ -10,6 +10,7 @@
     "<all_urls>",
     "cookies",
     "privacy",
+    "storage",
     "tabs"
   ],
   "content_scripts": [

@@ -182,7 +182,8 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
       site: tab.url,
     });
 
-    dispatch({ type: 'init', siteName });
+    const { onboardingShown } = await browser.storage.local.get('onboardingShown');
+    dispatch({ type: 'init', siteName, showOnboarding: !onboardingShown });
   } else if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);
   } else if (message.type === 'detectConsent') {
@@ -193,5 +194,10 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     setBrowserExtensionIcon(message.applicationState, tab.id);
   } else if (message.type === 'telemetry') {
     telemetry(message.actionKey, message.actionData);
+  } else if (message.type === 'hideOnboarding') {
+    browser.storage.local.set({
+      onboardingShown: +new Date(),
+    });
+    dispatch({ type: 'hideOnboarding' });
   }
 });

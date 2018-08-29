@@ -7,6 +7,7 @@ import { APPLICATION_STATE } from '../constants';
 import { IconCogWheel } from '../components/Icons';
 import PopupHeader from '../components/popup/PopupHeader';
 import PopupFooter from '../components/popup/PopupFooter';
+import PopupOnboarding from '../components/popup/PopupOnboarding';
 import PopupListItemCheckbox from '../components/popup/PopupListItemCheckbox';
 import PopupListItemButton from '../components/popup/PopupListItemButton';
 import PopupList from '../components/popup/PopupList';
@@ -33,12 +34,24 @@ storiesOf('Label', module)
 
 
 storiesOf('Popup', module)
+  .add('Onboarding', () => (
+    <Popup
+      applicationState={APPLICATION_STATE.SCANNING}
+      changeConsent={action('Change Consent')}
+      siteName="Facebook.com"
+      featureOnClick={action('Feature clicked')}
+      showOnboarding
+      hideOnboarding={action('Hide Onboarding clicked')}
+    />
+  ))
   .add('Scanning', () => (
     <Popup
       applicationState={APPLICATION_STATE.SCANNING}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
       featureOnClick={action('Feature clicked')}
+      showOnboarding={false}
+      hideOnboarding={action('Hide Onboarding clicked')}
     />
   ))
   .add('Settings detected with disabled consent', () => (
@@ -49,6 +62,8 @@ storiesOf('Popup', module)
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
       featureOnClick={action('Feature clicked')}
+      showOnboarding={false}
+      hideOnboarding={action('Hide Onboarding clicked')}
     />
   ))
   .add('Settings detected with enabled consent', () => (
@@ -59,6 +74,8 @@ storiesOf('Popup', module)
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
       featureOnClick={action('Feature clicked')}
+      showOnboarding={false}
+      hideOnboarding={action('Hide Onboarding clicked')}
     />
   ))
   .add('Settings detected with features only', () => (
@@ -68,6 +85,8 @@ storiesOf('Popup', module)
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
       featureOnClick={action('Feature clicked')}
+      showOnboarding={false}
+      hideOnboarding={action('Hide Onboarding clicked')}
     />
   ))
   .add('Settings changed', () => (
@@ -78,6 +97,7 @@ storiesOf('Popup', module)
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
       featureOnClick={action('Feature clicked')}
+      showOnboarding={false}
     />
   ))
   .add('Settings well set', () => (
@@ -86,6 +106,8 @@ storiesOf('Popup', module)
       changeConsent={action('Change Consent')}
       featureOnClick={action('Feature clicked')}
       siteName="Facebook.com"
+      showOnboarding={false}
+      hideOnboarding={action('Hide Onboarding clicked')}
     />
   ))
   .add('No Concerns', () => (
@@ -94,6 +116,8 @@ storiesOf('Popup', module)
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
       featureOnClick={action('Feature clicked')}
+      showOnboarding={false}
+      hideOnboarding={action('Hide Onboarding clicked')}
     />
   ));
 
@@ -134,6 +158,11 @@ storiesOf('PopupHeader', module)
       applicationState={APPLICATION_STATE.NO_CONCERNS}
       siteName="Facebook.com"
     />
+  ));
+
+storiesOf('PopupOnboarding', module)
+  .add('PopupOnboarding', () => (
+    <PopupOnboarding onClose={action('Onboarding on close')} />
   ));
 
 storiesOf('PopupFooter', module)
