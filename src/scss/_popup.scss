@@ -302,7 +302,7 @@ $popup-list-toggle-padding: 1px;
 
 
 .popup-onboarding {
-  padding: $popup-spacing;
+  padding: $popup-spacing 0;
   text-align: center;
 
   &__icon {
@@ -311,15 +311,18 @@ $popup-list-toggle-padding: 1px;
   }
 
   &__title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
-    margin-bottom: $popup-spacing;
     line-height: 1.4;
+    text-align: center;
+    white-space: nowrap;
   }
 
 
   &__description {
+    padding: $popup-spacing;
     line-height: 1.3;
+    text-align: center;
 
     a {
       color: $blue;
@@ -334,7 +337,6 @@ $popup-list-toggle-padding: 1px;
 
 
   &__dismiss-button {
-    margin-top: $popup-spacing;
     background: $blue;
     line-height: 1;
     border-radius: 12px;
