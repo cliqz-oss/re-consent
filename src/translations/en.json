@@ -1,6 +1,4 @@
 {
-  "extensionDescription": "Consentric - enhanced privacy control for you",
-
   "popup.header.title.scanning": "Consentric is scanning the website ...",
   "popup.header.title.settings_detected": "Your privacy and consent settings at a glance.",
   "popup.header.title.settings_changed": "Your privacy and consent settings have been changed, please review.",
