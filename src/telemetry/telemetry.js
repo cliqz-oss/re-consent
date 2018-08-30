@@ -20,7 +20,7 @@ const telemetry = (actionKey, actionData) => {
   PropTypes.checkPropTypes(actionDataPropTypes, actionData, 'action', 'Telemetry');
 
   try {
-    sendTelemetry(actionName, actionData);
+    sendTelemetry(actionData, actionName);
   } catch (e) {
     if (process.env.NODE_ENV !== 'production') {
       console.log('Sending telemetry failed:', e); // eslint-disable-line no-console
