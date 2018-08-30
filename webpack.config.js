@@ -33,6 +33,10 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
+        from: 'src/_locales',
+        to: '_locales',
+      },
+      {
         from: 'src/manifest.json',
         to: 'manifest.json',
       },
