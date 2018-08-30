@@ -16,12 +16,13 @@
     "regenerator-runtime": "^0.11.1",
     "reset-css": "^4.0.1",
     "spanan": "^2.1.0",
+    "web-ext": "^2.9.0",
     "webextension-polyfill": "^0.3.0"
   },
   "scripts": {
     "start": "webpack --watch",
-    "build": "rm -rf build && NODE_ENV=production webpack",
-    "storybook": "start-storybook -p 9009 -s ./build",
+    "build": "rm -rf build && NODE_ENV=production webpack && web-ext build --source-dir build/src --artifacts-dir build",
+    "storybook": "start-storybook -p 9009 -s ./build/src",
     "test": "jest"
   },
   "devDependencies": {
