@@ -38,6 +38,7 @@ storiesOf('Popup', module)
       applicationState={APPLICATION_STATE.SCANNING}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
+      featureOnClick={action('Feature clicked')}
     />
   ))
   .add('Settings detected with disabled consent', () => (
@@ -47,6 +48,7 @@ storiesOf('Popup', module)
       consent={consentFixture}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
+      featureOnClick={action('Feature clicked')}
     />
   ))
   .add('Settings detected with enabled consent', () => (
@@ -56,6 +58,7 @@ storiesOf('Popup', module)
       consent={{ ...consentFixture, storageName: 'some-storage-name' }}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
+      featureOnClick={action('Feature clicked')}
     />
   ))
   .add('Settings detected with features only', () => (
@@ -64,6 +67,7 @@ storiesOf('Popup', module)
       features={featuresFixture}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
+      featureOnClick={action('Feature clicked')}
     />
   ))
   .add('Settings changed', () => (
@@ -73,12 +77,14 @@ storiesOf('Popup', module)
       consent={{ ...consentFixture, storageName: 'some-storage-name' }}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
+      featureOnClick={action('Feature clicked')}
     />
   ))
   .add('Settings well set', () => (
     <Popup
       applicationState={APPLICATION_STATE.SETTINGS_WELL_SET}
       changeConsent={action('Change Consent')}
+      featureOnClick={action('Feature clicked')}
       siteName="Facebook.com"
     />
   ))
@@ -87,6 +93,7 @@ storiesOf('Popup', module)
       applicationState={APPLICATION_STATE.NO_CONCERNS}
       changeConsent={action('Change Consent')}
       siteName="Facebook.com"
+      featureOnClick={action('Feature clicked')}
     />
   ));
 

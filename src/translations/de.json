@@ -30,6 +30,7 @@
   "popup.list.check-manually-features.list-item.label.unknown": "prüfen",
 
   "popup.footer.link": "Erfahre mehr über {consentricLink}",
+  "popup.footer.by": "von",
 
   "features.facebook-location-sharing.title": "Standortverlauf",
   "features.facebook-location-sharing.description": "Erlaube Facebook einen Verlauf der Orte zu erstellen, an denen du warst?",
