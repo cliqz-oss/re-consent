@@ -180,7 +180,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     setBrowserExtensionIcon(message.applicationState, tab.id, message.showScanningBefore);
   } else if (message.type === 'telemetry') {
     telemetry(message.actionKey, message.actionData);
-  } else if (message.type === 'enableExtension') {
+  } else if (message.type === 'showPageAction') {
     browser.pageAction.show(tab.id);
 
     telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
