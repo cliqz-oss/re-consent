@@ -13,7 +13,7 @@ import { checkIsChrome, getConsentricType } from './utils';
 let setBrowserExtensionIconInterval = null;
 
 function doSetBrowserExtensionIcon(tabId, pathTemplate) {
-  const isChrome = checkIsChrome(navigator);
+  const isChrome = checkIsChrome();
   const sizes = isChrome ? [16, 24, 32] : [19, 38];
   const suffix = isChrome ? '-chrome.png' : '-cliqz.png';
   const iconSet = {};
