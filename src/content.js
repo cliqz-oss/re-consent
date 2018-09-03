@@ -34,7 +34,8 @@ const browserExtensionIconMiddleware = store => next => (action) => {
   const hasSettings = [
     APPLICATION_STATE.SETTINGS_DETECTED,
     APPLICATION_STATE.SETTINGS_WELL_SET,
-  ].some(applicationState => applicationState === nextApplicationState);
+  ].contains(nextApplicationState);
+
   const isChrome = checkIsChrome();
 
   if (hasSettings || (isChrome && nextApplicationState !== APPLICATION_STATE.SCANNING)) {
