@@ -12,6 +12,5 @@ services:
       - NODE_ENV=development
     command: >-
       sh -c "
-        npm install --silent &&
-        npm start
+        npm run storybook > /var/log/storybook.log 2>&1 & npm start
       "
