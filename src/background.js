@@ -108,7 +108,7 @@ async function changeConsent(consent, tab, localStorage, dispatch) {
 
   telemetry(TELEMETRY_ACTION.CONSENT_CHANGED, {
     allowed: getNumberOfAllowedConsents(consent),
-    site: tab.url,
+    site: new URL(tab.url).hostname,
   });
 
   dispatch({ type: 'changeConsent', consent });
@@ -153,7 +153,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     browser.pageAction.show(tab.id);
 
     telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
-      site: tab.url,
+      site: new URL(tab.url).hostname,
       type: getConsentricType(message.state),
     });
   }

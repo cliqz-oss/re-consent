@@ -96,7 +96,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
           tabId: tab.id,
           actionKey: TELEMETRY_ACTION.POPUP_OPENED,
           actionData: {
-            site: tab.url,
+            site: new URL(tab.url).hostname,
             type: getConsentricType(message.state),
             writeable: !getConsentReadOnly(message.state.consent),
             allowed: getNumberOfAllowedConsents(message.state.consent),
