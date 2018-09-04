@@ -10,8 +10,6 @@ import { getNumberOfAllowedConsents } from './consent/utils';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
 import { checkIsChrome, getConsentricType } from './utils';
 
-let setBrowserExtensionIconInterval = null;
-
 function doSetBrowserExtensionIcon(tabId, pathTemplate) {
   const isChrome = checkIsChrome();
   const sizes = isChrome ? [16, 24, 32] : [19, 38];
@@ -28,38 +26,9 @@ function doSetBrowserExtensionIcon(tabId, pathTemplate) {
   });
 }
 
-async function setBrowserExtensionIcon(applicationState, tabId, showScanningBefore) {
-  if (setBrowserExtensionIconInterval) {
-    clearInterval(setBrowserExtensionIconInterval);
-  }
-
+async function setBrowserExtensionIcon(applicationState, tabId) {
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
-
-  if (showScanningBefore) {
-    let scanningDuration = 0;
-    const SCANNING_DELAY = 50;
-    const MAX_SCANNING_DURATION = 2 * 1000;
-    let currentScanningState = 1;
-
-    setBrowserExtensionIconInterval = setInterval(() => {
-      doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-scanning-${currentScanningState}{suffix}`);
-
-      currentScanningState += 1;
-
-      if (currentScanningState > 8) {
-        currentScanningState = 1;
-      }
-
-      scanningDuration += SCANNING_DELAY;
-
-      if (scanningDuration > MAX_SCANNING_DURATION) {
-        clearInterval(setBrowserExtensionIconInterval);
-        doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
-      }
-    }, SCANNING_DELAY);
-  } else {
-    doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
-  }
+  doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
 }
 
 async function detectFeatures(url, dispatch) {
@@ -177,7 +146,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   } else if (message.type === 'changeConsent') {
     changeConsent(message.consent, tab, localStorage, dispatch);
   } else if (message.type === 'setBrowserExtensionIcon') {
-    setBrowserExtensionIcon(message.applicationState, tab.id, message.showScanningBefore);
+    setBrowserExtensionIcon(message.applicationState, tab.id);
   } else if (message.type === 'telemetry') {
     telemetry(message.actionKey, message.actionData);
   } else if (message.type === 'showPageAction') {

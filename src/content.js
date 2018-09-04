@@ -39,17 +39,13 @@ const browserExtensionIconMiddleware = store => next => (action) => {
   const isNotScanning = nextApplicationState !== APPLICATION_STATE.SCANNING;
 
   if (hasSettings || (isChrome && isNotScanning)) {
-    let showScanningBefore = false;
-
     if (getApplicationState(prevState) === APPLICATION_STATE.SCANNING) {
       browser.runtime.sendMessage({ type: 'showPageAction', state: nextState });
-      showScanningBefore = true;
     }
 
     browser.runtime.sendMessage({
       type: 'setBrowserExtensionIcon',
       applicationState: nextApplicationState,
-      showScanningBefore,
     });
   }
 };
