@@ -173,6 +173,7 @@ $popup-list-toggle-padding: 1px;
 
     &:hover {
       .popup-list-item__deactivate-button {
+        visibility: visible;
         opacity: 1;
         transform: translateX(0);
         color: white;
@@ -195,6 +196,7 @@ $popup-list-toggle-padding: 1px;
     position: absolute;
     right: 0;
     white-space: nowrap;
+    visibility: hidden;
 
     &, &:hover {
       text-decoration: none;
