@@ -6,6 +6,10 @@
   "popup.header.title.settings_well_set.features": "You have deactivated all data collection options.",
   "popup.header.title.no_concerns": "Consentric cannot access the consent controls on this website.",
 
+  "popup.onboarding.title": "Welcome to more privacy control",
+  "popup.onboarding.description": "Consentric allows you to view and change the consent you have given to websites for data processing. It works for websites that adhere to the <a target=\"_blank\" href=\"https://iabtechlab.com/standards/gdpr-transparency-and-consent-framework/\">IAB's Transparency & Consent Framework</a>, as well as for Google and Facebook. Consentric offers more control over your direct interaction with websites making it a smart addition to third-party tracking protection powered by Cliqz. <a target=\"_blank\" href=\"https://cliqz.com/magazine/consentric\">Learn more</a>",
+  "popup.onboarding.button": "Got it",
+
   "popup.list.consent.title": "Privacy Settings",
   "popup.list.consent.list-item.control.deny-all": "Deny all",
   "popup.list.consent.list-item.control.allow-all": "Allow all",

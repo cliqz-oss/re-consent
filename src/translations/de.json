@@ -6,6 +6,10 @@
   "popup.header.title.settings_well_set.features": "Du hast die Datenerhebung für alle Funktionen deaktiviert.",
   "popup.header.title.no_concerns": "Consentric kann auf dieser Seite nicht auf die Datenschutzeinstellungen zugreifen.",
 
+  "popup.onboarding.title": "Mehr Datenschutz-Kontrolle im Web",
+  "popup.onboarding.description": "Mit Consentric kannst du schnell und einfach deine Zustimmung zur Datenerhebung auf Websites sehen und ändern. Funktioniert für Seiten, die am <a target=\"_blank\" href=\"https://iabtechlab.com/standards/gdpr-transparency-and-consent-framework/\">\"Transparency & Consent Framework\" des IAB</a> teilnehmen, sowie für Google und Facebook. Weil Consentric dir mehr Datenschutz-Kontrolle im direkten Umgang mit Websites gibt, ist es eine sinnvolle Ergänzung zum Trackingschutz von Cliqz. <a target=\"_blank\" href=\"https://cliqz.com/magazine/consentric\">Mehr erfahren</a>",
+  "popup.onboarding.button": "Los Gehts",
+
   "popup.list.consent.title": "Einstellungen",
   "popup.list.consent.list-item.control.deny-all": "Alle ablehnen",
   "popup.list.consent.list-item.control.allow-all": "Alle erlauben",

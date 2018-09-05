@@ -54,6 +54,10 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     window.close();
   };
 
+  const hideOnboarding = () => {
+    browser.runtime.sendMessage({ tabId: tab.id, type: 'hideOnboarding' });
+  };
+
   window.document.body.appendChild(element);
   window.document.body.style.width = '340px';
 
@@ -73,6 +77,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
         <PopupContainer
           changeConsent={changeConsent}
           featureOnClick={featureOnClick}
+          hideOnboarding={hideOnboarding}
         />
       </IntlProvider>
     </Provider>,

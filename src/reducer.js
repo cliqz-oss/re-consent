@@ -28,6 +28,8 @@ const initialState = {
   scanningConsent: true,
 
   changingConsent: false,
+
+  showOnboarding: true,
 };
 
 
@@ -35,12 +37,13 @@ export default (state = initialState, action) => {
   const { type } = action;
 
   switch (type) {
-    case 'init': return { ...state, siteName: action.siteName };
+    case 'init': return { ...state, siteName: action.siteName, showOnboarding: action.showOnboarding };
     case 'stateChanged': return action.state;
     case 'detectFeatures': return detectFeaturesReducer(state, action);
     case 'detectConsent': return { ...state, consent: action.consent, scanningConsent: false };
     case 'changingConsent': return { ...state, changingConsent: true };
     case 'changeConsent': return { ...state, consent: action.consent, changingConsent: false };
+    case 'hideOnboarding': return { ...state, showOnboarding: false };
     default: return state;
   }
 };

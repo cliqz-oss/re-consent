@@ -7,6 +7,7 @@ import { getApplicationState } from '../../selectors';
 const mapStateToProps = (state) => {
   const {
     changingConsent,
+    showOnboarding,
     consent,
     features,
     siteName,
@@ -15,6 +16,7 @@ const mapStateToProps = (state) => {
   return {
     applicationState: getApplicationState(state),
     changingConsent,
+    showOnboarding,
     consent,
     features,
     siteName,
