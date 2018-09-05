@@ -52,12 +52,12 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     window.close();
   };
 
-  window.document.body.appendChild(element);
-  window.document.body.style.width = '340px';
-
   const hideOnboarding = () => {
     browser.runtime.sendMessage({ tabId: tab.id, type: 'hideOnboarding' });
   };
+
+  window.document.body.appendChild(element);
+  window.document.body.style.width = '340px';
 
   let locale = browser.i18n.getUILanguage().split(/[-_]/)[0]; // language without region code
 
