@@ -53,7 +53,8 @@ async function cmpCheck(retries) {
   const vendorConsents = await queryCmp('getVendorConsents');
   const vendorList = await queryCmp('getVendorList');
 
-  if (consentData) {
+  // Only `vendorList` is save to be null.
+  if (consentData && vendorConsents) {
     sendConsentMessage({
       consentData,
       vendorConsents,
@@ -62,7 +63,6 @@ async function cmpCheck(retries) {
   } else {
     sendConsentMessage(null);
   }
-
 }
 
 cmpCheck(3);
