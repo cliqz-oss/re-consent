@@ -36,7 +36,7 @@ export const TELEMETRY_ACTION_DATA = {
   },
 
   [TELEMETRY_ACTION.LINK_CLICKED]: {
-    actionName: 'metric.consentric.clicked',
+    actionName: 'metrics.consentric.clicked',
     actionDataPropTypes: {
       type: PropTypes.oneOf(['facebook', 'google']).isRequired,
     },
