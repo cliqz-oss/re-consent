@@ -38,6 +38,7 @@ storiesOf('Popup', module)
     <Popup
       applicationState={APPLICATION_STATE.SCANNING}
       changeConsent={action('Change Consent')}
+      changingConsent={false}
       siteName="Facebook.com"
       featureOnClick={action('Feature clicked')}
       showOnboarding
@@ -115,6 +116,7 @@ storiesOf('Popup', module)
       changingConsent={false}
       siteName="Facebook.com"
       showOnboarding={false}
+      hideOnboarding={action('Hide Onboarding clicked')}
       featureOnClick={feature => action(`Feature '${feature}' clicked.`)}
     />
   ))
@@ -182,7 +184,10 @@ storiesOf('PopupHeader', module)
 
 storiesOf('PopupOnboarding', module)
   .add('PopupOnboarding', () => (
-    <PopupOnboarding onClose={action('Onboarding on close')} />
+    <PopupOnboarding
+      onClose={action('Onboarding on close')}
+      hideOnboarding={action('Hide Onboarding clicked')}
+    />
   ));
 
 storiesOf('PopupFooter', module)
