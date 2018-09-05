@@ -35,15 +35,17 @@ const PopupListItemButton = ({
       <span className={`label label--${CSS_STATUS_MODIFYER[status]}`}>
         {labels[status]}
       </span>
-      <a
-        href={changeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={onClick}
-        className="popup-list-item__deactivate-button"
-      >
-        {linkLabels[status]} <IconArrowRight />
-      </a>
+      {linkLabels[status] && (
+        <a
+          href={changeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClick}
+          className="popup-list-item__deactivate-button"
+        >
+          {linkLabels[status]} <IconArrowRight />
+        </a>
+      )}
     </div>
   </div>
 );
