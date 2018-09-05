@@ -20,8 +20,8 @@
   },
   "scripts": {
     "start": "webpack --watch",
-    "build": "rm -rf build && NODE_ENV=production webpack",
-    "storybook": "start-storybook -p 9009 -s ./build",
+    "build": "rm -rf build && NODE_ENV=production webpack && web-ext build --source-dir build/src --artifacts-dir build",
+    "storybook": "start-storybook -p 9009 -s ./build/src",
     "test": "jest"
   },
   "devDependencies": {
@@ -53,6 +53,7 @@
     "storybook-addon-intl": "^2.3.0",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
+    "web-ext": "^2.9.0",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"

@@ -48,8 +48,9 @@ storiesOf('Popup', module)
     <Popup
       applicationState={APPLICATION_STATE.SCANNING}
       changeConsent={action('Change Consent')}
+      changingConsent={false}
       siteName="Facebook.com"
-      featureOnClick={action('Feature clicked')}
+      featureOnClick={feature => action(`Feature '${feature}' clicked.`)}
       showOnboarding={false}
       hideOnboarding={action('Hide Onboarding clicked')}
     />
@@ -60,8 +61,9 @@ storiesOf('Popup', module)
       features={featuresFixture}
       consent={consentFixture}
       changeConsent={action('Change Consent')}
+      changingConsent={false}
       siteName="Facebook.com"
-      featureOnClick={action('Feature clicked')}
+      featureOnClick={feature => action(`Feature '${feature}' clicked.`)}
       showOnboarding={false}
       hideOnboarding={action('Hide Onboarding clicked')}
     />
@@ -72,8 +74,22 @@ storiesOf('Popup', module)
       features={featuresFixture}
       consent={{ ...consentFixture, storageName: 'some-storage-name' }}
       changeConsent={action('Change Consent')}
+      changingConsent={false}
       siteName="Facebook.com"
-      featureOnClick={action('Feature clicked')}
+      showOnboarding={false}
+      hideOnboarding={action('Hide Onboarding clicked')}
+      featureOnClick={feature => action(`Feature '${feature}' clicked.`)}
+    />
+  ))
+  .add('Settings detected with enabled consent & ongoing consent change', () => (
+    <Popup
+      applicationState={APPLICATION_STATE.SETTINGS_DETECTED}
+      features={featuresFixture}
+      consent={{ ...consentFixture, storageName: 'some-storage-name' }}
+      changeConsent={action('Change Consent')}
+      changingConsent
+      siteName="Facebook.com"
+      featureOnClick={feature => action(`Feature '${feature}' clicked.`)}
       showOnboarding={false}
       hideOnboarding={action('Hide Onboarding clicked')}
     />
@@ -83,10 +99,11 @@ storiesOf('Popup', module)
       applicationState={APPLICATION_STATE.SETTINGS_DETECTED}
       features={featuresFixture}
       changeConsent={action('Change Consent')}
+      changingConsent={false}
       siteName="Facebook.com"
-      featureOnClick={action('Feature clicked')}
       showOnboarding={false}
       hideOnboarding={action('Hide Onboarding clicked')}
+      featureOnClick={feature => action(`Feature '${feature}' clicked.`)}
     />
   ))
   .add('Settings changed', () => (
@@ -95,16 +112,18 @@ storiesOf('Popup', module)
       features={featuresFixture}
       consent={{ ...consentFixture, storageName: 'some-storage-name' }}
       changeConsent={action('Change Consent')}
+      changingConsent={false}
       siteName="Facebook.com"
-      featureOnClick={action('Feature clicked')}
       showOnboarding={false}
+      featureOnClick={feature => action(`Feature '${feature}' clicked.`)}
     />
   ))
   .add('Settings well set', () => (
     <Popup
       applicationState={APPLICATION_STATE.SETTINGS_WELL_SET}
       changeConsent={action('Change Consent')}
-      featureOnClick={action('Feature clicked')}
+      changingConsent={false}
+      featureOnClick={feature => action(`Feature '${feature}' clicked.`)}
       siteName="Facebook.com"
       showOnboarding={false}
       hideOnboarding={action('Hide Onboarding clicked')}
@@ -114,8 +133,9 @@ storiesOf('Popup', module)
     <Popup
       applicationState={APPLICATION_STATE.NO_CONCERNS}
       changeConsent={action('Change Consent')}
+      changingConsent={false}
       siteName="Facebook.com"
-      featureOnClick={action('Feature clicked')}
+      featureOnClick={feature => action(`Feature '${feature}' clicked.`)}
       showOnboarding={false}
       hideOnboarding={action('Hide Onboarding clicked')}
     />
@@ -179,6 +199,7 @@ storiesOf('PopupList', module)
     >
       <PopupListItemButton
         title="Some title"
+        onClick={action('PopupListItemButton clicked.')}
         description="some description"
         status
         deactivateButtonText="Deactivate"
@@ -211,6 +232,7 @@ storiesOf('PopupList', module)
         <PopupListItemButton
           title="Some title"
           description="some description"
+          onClick={action('PopupListItemButton clicked.')}
           status
           deactivateButtonText="Deactivate"
           changeUrl="some-url"
@@ -250,6 +272,7 @@ storiesOf('PopupList', module)
         <PopupListItemButton
           title="Some title"
           description="some description"
+          onClick={action('PopupListItemButton clicked.')}
           status
           deactivateButtonText="Deactivate"
           changeUrl="some-url"
@@ -267,6 +290,7 @@ storiesOf('PopupList', module)
           onChange={action('Checkbox changed')}
           checkboxLabels={{
             true: 'allowed',
+            false: 'denied',
           }}
         />
         <PopupListItemCheckbox
@@ -276,6 +300,7 @@ storiesOf('PopupList', module)
           onChange={action('Checkbox changed')}
           checkboxLabels={{
             true: 'allowed',
+            false: 'denied',
           }}
         />
       </PopupList>
@@ -286,6 +311,7 @@ storiesOf('PopupListItemButton', module)
   .add('PopupListItemButton active', () => (
     <PopupListItemButton
       title="Some title"
+      onClick={action('PopupListItemButton clicked.')}
       description="some description"
       status
       deactivateButtonText="Deactivate"
@@ -301,6 +327,7 @@ storiesOf('PopupListItemButton', module)
   .add('PopupListItemButton inactive', () => (
     <PopupListItemButton
       title="Some title"
+      onClick={action('PopupListItemButton clicked.')}
       description={longTextFixture}
       status={false}
       changeUrl="some-url"
@@ -316,6 +343,7 @@ storiesOf('PopupListItemButton', module)
     <div style={{ width: '300px' }}>
       <PopupListItemButton
         title="title"
+        onClick={action('PopupListItemButton clicked.')}
         description={longTextFixture}
         status
         deactivateButtonText="Deactivate"
@@ -333,6 +361,7 @@ storiesOf('PopupListItemButton', module)
     <div style={{ width: '300px' }}>
       <PopupListItemButton
         title={longTextFixture}
+        onClick={action('PopupListItemButton clicked.')}
         description="some description"
         status
         deactivateButtonText="Deactivate"
