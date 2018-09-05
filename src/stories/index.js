@@ -185,7 +185,6 @@ storiesOf('PopupHeader', module)
 storiesOf('PopupOnboarding', module)
   .add('PopupOnboarding', () => (
     <PopupOnboarding
-      onClose={action('Onboarding on close')}
       hideOnboarding={action('Hide Onboarding clicked')}
     />
   ));
