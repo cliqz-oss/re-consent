@@ -330,6 +330,7 @@ storiesOf('PopupListItemButton', module)
     <div style={{ width: '300px' }}>
       <PopupListItemButton
         title={longTextFixture}
+        onClick={action('PopupListItemButton clicked.')}
         description="some description"
         status
         deactivateButtonText="Deactivate"
