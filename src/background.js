@@ -6,14 +6,9 @@ import GoogleDetector from './features/google';
 
 import { getStorageClass } from './consent/storages';
 import { telemetry, TELEMETRY_ACTION } from './telemetry';
-import { getConsentReadOnly, getNumberOfAllowedConsents } from './consent/utils';
-import { APPLICATION_STATE_ICON_NAME, APPLICATION_STATE } from './constants';
-
-const checkIsChrome = () => {
-  return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-};
-
-let setBrowserExtensionIconInterval = null;
+import { getNumberOfAllowedConsents } from './consent/utils';
+import { APPLICATION_STATE_ICON_NAME } from './constants';
+import { checkIsChrome, getConsentricType } from './utils';
 
 function doSetBrowserExtensionIcon(tabId, pathTemplate) {
   const isChrome = checkIsChrome();
@@ -32,27 +27,8 @@ function doSetBrowserExtensionIcon(tabId, pathTemplate) {
 }
 
 async function setBrowserExtensionIcon(applicationState, tabId) {
-  if (setBrowserExtensionIconInterval) {
-    clearInterval(setBrowserExtensionIconInterval);
-  }
-
   const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
-
   doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
-
-  if (applicationState === APPLICATION_STATE.SCANNING) {
-    let currentScanningState = 1;
-
-    setBrowserExtensionIconInterval = setInterval(() => {
-      doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-scanning-${currentScanningState}{suffix}`);
-
-      currentScanningState += 1;
-
-      if (currentScanningState > 8) {
-        currentScanningState = 1;
-      }
-    }, 50);
-  }
 }
 
 async function detectFeatures(url, dispatch) {
@@ -72,14 +48,6 @@ async function detectFeatures(url, dispatch) {
   }
 
   dispatch({ type: 'detectFeatures', features });
-
-  if (features.length) {
-    telemetry(TELEMETRY_ACTION.FEATURES_DETECTED, {
-      type: features[0].site,
-      suspiciousCount: features.filter(feature => feature.suspicious).length,
-      site: url.href,
-    });
-  }
 }
 
 async function detectConsent(consent, tab, localStorage, dispatch) {
@@ -104,12 +72,6 @@ async function detectConsent(consent, tab, localStorage, dispatch) {
   const newConsent = { ...consent, storageName };
 
   dispatch({ type: 'detectConsent', consent: newConsent });
-
-  telemetry(TELEMETRY_ACTION.CONSENT_DETECTED, {
-    writeable: !getConsentReadOnly(newConsent),
-    allowed: getNumberOfAllowedConsents(newConsent),
-    site: tab.url,
-  });
 }
 
 async function changeConsent(consent, tab, localStorage, dispatch) {
@@ -146,7 +108,7 @@ async function changeConsent(consent, tab, localStorage, dispatch) {
 
   telemetry(TELEMETRY_ACTION.CONSENT_CHANGED, {
     allowed: getNumberOfAllowedConsents(consent),
-    site: tab.url,
+    site: new URL(tab.url).hostname,
   });
 
   dispatch({ type: 'changeConsent', consent });
@@ -176,12 +138,6 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
   if (message.type === 'contentReady') {
     const url = new URL(message.url);
     const siteName = url.hostname.replace('www.', '');
-    browser.pageAction.show(tab.id);
-
-    telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
-      site: tab.url,
-    });
-
     dispatch({ type: 'init', siteName });
   } else if (message.type === 'detectFeatures') {
     detectFeatures(message.url, dispatch);
@@ -193,5 +149,12 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     setBrowserExtensionIcon(message.applicationState, tab.id);
   } else if (message.type === 'telemetry') {
     telemetry(message.actionKey, message.actionData);
+  } else if (message.type === 'showPageAction') {
+    browser.pageAction.show(tab.id);
+
+    telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
+      site: new URL(tab.url).hostname,
+      type: getConsentricType(message.state),
+    });
   }
 });

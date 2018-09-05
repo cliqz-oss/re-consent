@@ -35,6 +35,10 @@ export const getConsentReadOnly = (consent) => {
 
 
 export const getNumberOfAllowedConsents = (consent) => {
+  if (consent === null) {
+    return 0;
+  }
+
   return Object.keys(CONSENT_PURPOSE).reduce(
     (total, purposeId) => total + Number(getConsentPurposeAllowed(consent, purposeId)),
     0,

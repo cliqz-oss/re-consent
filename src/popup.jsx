@@ -11,6 +11,8 @@ import deLocaleData from 'react-intl/locale-data/de';
 import PopupContainer from './components/popup/PopupContainer';
 import reducer from './reducer';
 import { TELEMETRY_ACTION } from './telemetry';
+import { getConsentricType } from './utils';
+import { getNumberOfAllowedConsents, getConsentReadOnly } from './consent/utils';
 
 import translationsDe from './translations/de.json';
 import translationsEn from './translations/en.json';
@@ -77,6 +79,8 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     element,
   );
 
+  let popupTelemetryTriggered = false;
+
   browser.runtime.onMessage.addListener((message, sender) => {
     if (!sender.tab || sender.tab.id !== tab.id) {
       return;
@@ -85,17 +89,24 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
       browser.tabs.sendMessage(tab.id, { type: 'getState' });
     } else if (message.type === 'stateChanged') {
       store.dispatch({ type: 'stateChanged', state: message.state });
+
+      if (popupTelemetryTriggered === false) {
+        browser.runtime.sendMessage({
+          type: 'telemetry',
+          tabId: tab.id,
+          actionKey: TELEMETRY_ACTION.POPUP_OPENED,
+          actionData: {
+            site: new URL(tab.url).hostname,
+            type: getConsentricType(message.state),
+            writeable: !getConsentReadOnly(message.state.consent),
+            allowed: getNumberOfAllowedConsents(message.state.consent),
+          },
+        });
+
+        popupTelemetryTriggered = true;
+      }
     }
   });
 
   browser.tabs.sendMessage(tab.id, { type: 'getState' });
-
-  browser.runtime.sendMessage({
-    type: 'telemetry',
-    tabId: tab.id,
-    actionKey: TELEMETRY_ACTION.POPUP_OPENED,
-    actionData: {
-      site: tab.url,
-    },
-  });
 });
