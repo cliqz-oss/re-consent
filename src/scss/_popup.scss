@@ -146,6 +146,10 @@ $popup-list-toggle-padding: 1px;
     border-bottom: none;
   }
 
+  &__title {
+    padding-right: 10px;
+  }
+
   &__description-tooltip {
     cursor: pointer;
     padding-left: 10px;
