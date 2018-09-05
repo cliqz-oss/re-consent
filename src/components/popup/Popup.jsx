@@ -113,6 +113,7 @@ const Popup = ({
               labels={{
                 true: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.active' }),
                 false: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.inactive' }),
+                null: formatMessage({ id: 'popup.list.automatically-detected-features.list-item.label.unknown' }),
               }}
             />
           ))}
