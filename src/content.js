@@ -52,16 +52,17 @@ const browserExtensionIconMiddleware = store => next => (action) => {
 
 const store = createStore(reducer, applyMiddleware(logger, browserExtensionIconMiddleware));
 
-browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((message) => {
   if (message.type === 'getState') {
     browser.runtime.sendMessage({ type: 'stateChanged', state: store.getState() });
   } else if (message.type === 'dispatchAction') {
     store.dispatch(message.action);
   } else if (message.type === 'getLocalStorageItem') {
-    sendResponse(window.localStorage.getItem(message.key));
+    return Promise.resolve(window.localStorage.getItem(message.key));
   } else if (message.type === 'setLocalStorageItem') {
-    sendResponse(window.localStorage.setItem(message.key, message.value));
+    return Promise.resolve(window.localStorage.setItem(message.key, message.value));
   }
+  return false;
 });
 
 store.subscribe(() => {
