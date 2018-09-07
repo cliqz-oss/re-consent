@@ -14,7 +14,7 @@ const PopupOnboarding = ({
       alt=""
     />
     <div className="popup-onboarding__title">
-      Concentric
+      Consentric
       <br />
       <FormattedMessage id="popup.onboarding.title" />
     </div>
