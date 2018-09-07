@@ -29,7 +29,7 @@ const initialState = {
 
   changingConsent: false,
 
-  showOnboarding: true,
+  showOnboarding: false,
 };
 
 
