@@ -13,6 +13,9 @@ module.exports = {
     'popup': './src/popup.jsx',
   },
   mode,
+  node: {
+    global: false,
+  },
   output: {
     path: path.resolve(__dirname, 'build/src'),
     filename: '[name].js',
@@ -25,6 +28,7 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({
+      global: path.resolve(__dirname, './src/global.js'),
       regeneratorRuntime: 'regenerator-runtime',
     }),
     new HtmlWebpackPlugin({
