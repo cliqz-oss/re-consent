@@ -8,7 +8,7 @@ import { getStorageClass } from './consent/storages';
 import { telemetry, TELEMETRY_ACTION } from './telemetry';
 import { getNumberOfAllowedConsents } from './consent/utils';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
-import { checkIsChrome, getConsentricType } from './utils';
+import { checkIsChrome, getConsentrickType } from './utils';
 
 function doSetBrowserExtensionIcon(tabId, pathTemplate) {
   const isChrome = checkIsChrome();
@@ -160,7 +160,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
 
     telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
       site: new URL(tab.url).hostname,
-      type: getConsentricType(message.state),
+      type: getConsentrickType(message.state),
     });
   }
 });

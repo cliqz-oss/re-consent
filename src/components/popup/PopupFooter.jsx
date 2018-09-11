@@ -11,9 +11,9 @@ const PopupFooter = () => (
       <FormattedMessage
         id="popup.footer.link"
         values={{
-          consentricLink: (
+          consentrickLink: (
             <a className="link" target="_blank" rel="noopener noreferrer" href={DETAIL_PAGE_URL}>
-              Consentric ›
+              Consentrick ›
             </a>
           ),
         }}

@@ -1,13 +1,13 @@
 {
-  "popup.header.title.scanning": "Consentric is scanning the website ...",
+  "popup.header.title.scanning": "Consentrick is scanning the website ...",
   "popup.header.title.settings_detected": "Your privacy and consent settings at a glance.",
   "popup.header.title.settings_changed": "Your privacy and consent settings have been changed, please review.",
   "popup.header.title.settings_well_set.iab": "You are denying third-party data use for all purposes.",
   "popup.header.title.settings_well_set.features": "You have deactivated all data collection options.",
-  "popup.header.title.no_concerns": "Consentric cannot access the consent controls on this website.",
+  "popup.header.title.no_concerns": "Consentrick cannot access the consent controls on this website.",
 
   "popup.onboarding.title": "Welcome to more privacy control",
-  "popup.onboarding.description": "Consentric allows you to view and change the consent you have given to websites for data processing. It works for websites that adhere to the <a target=\"_blank\" href=\"https://iabtechlab.com/standards/gdpr-transparency-and-consent-framework/\">IAB's Transparency & Consent Framework</a>, as well as for Google and Facebook. Consentric offers more control over your direct interaction with websites making it a smart addition to third-party tracking protection powered by Cliqz. <a target=\"_blank\" href=\"https://cliqz.com/magazine/consentric\">Learn more</a>",
+  "popup.onboarding.description": "Consentrick allows you to view and change the consent you have given to websites for data processing. It works for websites that adhere to the <a target=\"_blank\" href=\"https://iabtechlab.com/standards/gdpr-transparency-and-consent-framework/\">IAB's Transparency & Consent Framework</a>, as well as for Google and Facebook. Consentrick offers more control over your direct interaction with websites making it a smart addition to third-party tracking protection powered by Cliqz. <a target=\"_blank\" href=\"https://cliqz.com/magazine/consentrick\">Learn more</a>",
   "popup.onboarding.button": "Got it",
 
   "popup.list.consent.title": "Privacy Settings",
@@ -34,7 +34,7 @@
   "popup.list.check-manually-features.list-item.label.inactive": "n/a",
   "popup.list.check-manually-features.list-item.label.unknown": "check",
 
-  "popup.footer.link": "Learn more about {consentricLink}",
+  "popup.footer.link": "Learn more about {consentrickLink}",
   "popup.footer.by": "by",
 
   "features.facebook-location-sharing.title": "Location Sharing",

@@ -10,7 +10,7 @@ export const TELEMETRY_ACTION = {
 
 export const TELEMETRY_ACTION_DATA = {
   [TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED]: {
-    actionName: 'metrics.consentric.pageAction',
+    actionName: 'metrics.consentrick.pageAction',
     actionDataPropTypes: {
       type: PropTypes.oneOf(['iab', 'facebook', 'google']),
       site: PropTypes.string.isRequired,
@@ -18,7 +18,7 @@ export const TELEMETRY_ACTION_DATA = {
   },
 
   [TELEMETRY_ACTION.POPUP_OPENED]: {
-    actionName: 'metrics.consentric.popupOpened',
+    actionName: 'metrics.consentrick.popupOpened',
     actionDataPropTypes: {
       type: PropTypes.oneOf(['iab', 'facebook', 'google']),
       writeable: PropTypes.bool.isRequired, // If we are able to change this consent.
@@ -28,7 +28,7 @@ export const TELEMETRY_ACTION_DATA = {
   },
 
   [TELEMETRY_ACTION.CONSENT_CHANGED]: {
-    actionName: 'metrics.consentric.consentChanged',
+    actionName: 'metrics.consentrick.consentChanged',
     actionDataPropTypes: {
       allowed: PropTypes.number.isRequired,
       site: PropTypes.string.isRequired,
@@ -36,7 +36,7 @@ export const TELEMETRY_ACTION_DATA = {
   },
 
   [TELEMETRY_ACTION.LINK_CLICKED]: {
-    actionName: 'metrics.consentric.clicked',
+    actionName: 'metrics.consentrick.clicked',
     actionDataPropTypes: {
       type: PropTypes.oneOf(['facebook', 'google']).isRequired,
     },
