@@ -1,0 +1,66 @@
+{
+  "popup.header.title.scanning": "re:consent scannt die Webseite ...",
+  "popup.header.title.settings_detected": "Deine Zustimmungen zur Datenerhebung auf einen Blick.",
+  "popup.header.title.settings_changed": "Deine Zustimmungseinstellungen wurden geändert, bitte überprüfe sie.,",
+  "popup.header.title.settings_well_set.iab": "Du hast auf dieser Seite die Datenerhebung für alle Zwecke abgelehnt.",
+  "popup.header.title.settings_well_set.features": "Du hast die Datenerhebung für alle Funktionen deaktiviert.",
+  "popup.header.title.no_concerns": "re:consent kann auf dieser Seite nicht auf die Datenschutzeinstellungen zugreifen.",
+
+  "popup.onboarding.title": "Mehr Datenschutz-Kontrolle im Web",
+  "popup.onboarding.description": "Mit re:consent kannst du schnell und einfach deine Zustimmung zur Datenerhebung auf Websites sehen und ändern. Funktioniert für Seiten, die am <a target=\"_blank\" href=\"https://iabtechlab.com/standards/gdpr-transparency-and-consent-framework/\">\"Transparency & Consent Framework\" des IAB</a> teilnehmen, sowie für Google und Facebook. Weil re:consent dir mehr Datenschutz-Kontrolle im direkten Umgang mit Websites gibt, ist es eine sinnvolle Ergänzung zum Trackingschutz von Cliqz. <a target=\"_blank\" href=\"https://cliqz.com/magazine/re-consent\">Mehr erfahren</a>",
+  "popup.onboarding.button": "Los Gehts",
+
+  "popup.list.consent.title": "Einstellungen",
+  "popup.list.consent.list-item.control.deny-all": "Alle ablehnen",
+  "popup.list.consent.list-item.control.allow-all": "Alle erlauben",
+  "popup.list.consent.list-item.disabled-help-text": "Deine Datenschutzeinstellungen können gerade nur direkt auf der Website geändert werden.",
+  "popup.list.consent.list-item.temporary-readonly-help-text": "Diese Einstellung kann momentan nicht geändert werden. Bitte versuche es gleich noch einmal.",
+  "popup.list.consent.list-item.checkbox-label.active": "erlaubt",
+  "popup.list.consent.list-item.checkbox-label.inactive": "nicht erlaubt",
+
+  "popup.list.automatically-detected-features.title": "Datenschutzeinstellungen",
+  "popup.list.automatically-detected-features.list-item.label.active": "aktiv",
+  "popup.list.automatically-detected-features.list-item.label.inactive": "inaktiv",
+  "popup.list.automatically-detected-features.list-item.label.unknown": "unbekannt",
+
+  "popup.list.automatically-detected-features.list-item.link-label.inactive": "Deaktivieren",
+  "popup.list.automatically-detected-features.list-item.link-label.active": "Aktivieren",
+
+  "popup.list.manual-detected-features.list-item.link-label.check-manually": "Auf der Website überprüfen",
+
+  "popup.list.manual-check-features.title": "Weitergabe deiner Daten",
+  "popup.list.check-manually-features.list-item.label.active": "aktiviert",
+  "popup.list.check-manually-features.list-item.label.inactive": "n/a",
+  "popup.list.check-manually-features.list-item.label.unknown": "prüfen",
+
+  "popup.footer.link": "Erfahre mehr über {detailsLink}",
+  "popup.footer.by": "von",
+
+  "features.facebook-location-sharing.title": "Standortverlauf",
+  "features.facebook-location-sharing.description": "Erlaube Facebook einen Verlauf der Orte zu erstellen, an denen du warst?",
+  "features.facebook-face-recognition.title": "Gesichtserkennung",
+  "features.facebook-face-recognition.description": "Erlaube Facebook dein Gesicht in Fotos und Videos zu erkennen?",
+  "features.facebook-third-party-data-access.title": "Datenzugriff durch Drittanbieter",
+  "features.facebook-third-party-data-access.description": "Dritten Anwendungen erlauben, auf deine Daten über Facebook zuzugreifen?",
+  "features.facebook-advertisers.title": "Werbetreibende, die deine Daten auf Facebook hochgeladen haben.",
+  "features.facebook-advertisers.description": "Werbetreibende schalten Anzeigen mithilfe einer von deinen hochgeladenen Kontaktliste, die deine Kontaktinformationen enthält.",
+
+  "features.google-search-history.title": "Web- und App-Aktivitäten",
+  "features.google-search-history.description": "Google erlauben, alle deine Web- & App-Aktivitäten zu verfolgen?",
+  "features.google-location-history.title": "Standortverlauf",
+  "features.google-location-history.description": "Google erlauben deinen Standort zu verfolgen?",
+  "features.google-device-information.title": "Geräteinformationen",
+  "features.google-device-information.description": "Google erlauben, dein Gerät zu verfolgen?",
+  "features.google-audio-history.title": "Sprach- und Audioaktivitäten",
+  "features.google-audio-history.description": "Google erlauben, deine Stimme und dein Audio auf Google-Diensten aufzuzeichnen?",
+  "features.google-youtube-search-history.title": "Youtube-Suchverlauf",
+  "features.google-youtube-search-history.description": "Google erlauben, deinen YouTube-Suchverlauf zu speichern?",
+  "features.google-youtube-watch-history.title": "Youtube-Wiedergabeverlauf",
+  "features.google-youtube-watch-history.description": "Google erlauben, deinen Youtube-Wiedergabeverlauf zu speichern?",
+
+  "consent-purpose.information-storage-and-access": "Informationsspeicherung und -zugang",
+  "consent-purpose.personalisatzion": "Personalisierung",
+  "consent-purpose.ad-selection-delivery-reporting": "Werbung: Auswahl, Darstellung und Analyse",
+  "consent-purpose.content-selection-delivery-reporting": "Inhalte: Auswahl, Darstellung und Analyse",
+  "consent-purpose.measurement": "Auswertung"
+}

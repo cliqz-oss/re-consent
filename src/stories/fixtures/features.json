@@ -1,0 +1,22 @@
+[
+    {
+        "key": "facebook-face-recognition",
+        "suspicious": true,
+        "settingsUrl": "some-url",
+        "group": "automatically-detected",
+        "site": "facebook"
+    },
+    {
+        "key": "facebook-third-party-data-access",
+        "settingsUrl": "some-url",
+        "group": "manual-check",
+        "site": "facebook"
+    },
+    {
+        "key": "facebook-location-sharing",
+        "suspicious": true,
+        "settingsUrl": "some-url",
+        "group": "automatically-detected",
+        "site": "facebook"
+    }
+]

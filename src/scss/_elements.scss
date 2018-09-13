@@ -1,0 +1,11 @@
+* {
+  outline: none;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-size: $font-size;
+  font-family: $font-family;
+  color: $font-color;
+  overflow-x: hidden;
+}

@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  re-consent:
+    container_name: re-consent
+    build: .
+    ports:
+      - '9009:9009'
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    environment:
+      - NODE_ENV=development
+    command: >-
+      sh -c "
+        npm run storybook > /var/log/storybook.log 2>&1 & npm start
+      "
