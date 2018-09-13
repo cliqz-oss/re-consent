@@ -1,40 +1,44 @@
-# Cliqz Privacy Chrome Extension
+# Consentrick
 
-This project was implemented with [Create React App](https://github.com/facebookincubator/create-react-app) and
-[Storybook](https://github.com/storybooks/storybook).
+Welcome to more privacy control
 
-
-## S3 deployment
-
-[Website](http://cliqz.s3-website.eu-central-1.amazonaws.com/website/)
-[Storybook](http://cliqz.s3-website.eu-central-1.amazonaws.com/storybook/)
-
-## How to deploy
-
-- Deploy Website command
-`npm run deploy`
-
-- Deploy Storybook command
-`npm run deploy-storybook`
-
-## Storybook
-
-We use `@storybook/react@v4.0.0-alpha.9` to be able to use webpack 4.
-These dependencies are required just for the storybook:
-- babel-plugin-transform-decorators-legacy
-- babel-preset-es2015
+Consentrick allows you to view and change the consent you have given to websites for data processing. It works for websites that adhere to the IAB's Transparency & Consent Framework, as well as for Google and Facebook. Consentrick offers more control over your direct interaction with websites making it a smart addition to third-party tracking protection powered by Cliqz.
+Learn more on https://cliqz.com/magazine/consentrick
 
 
-## Docker
-Use the following commands to run everything in an isolated docker container.
+## Supported Consent Management Platforms
 
-- Run the development server: `docker-compose up`
-- Run the tests: `docker-compose exec app npm run test`
+The extension works by looking for third-party consent management platforms in visited pages. Currently the extension supports the following platforms:
 
-*Note*: On MacOS High Sierra the file watchers don't always work reliable, that's why it is recommended to use docker instead.
+ * [IAB Consent Framework](https://iabtechlab.com/standards/gdpr-transparency-and-consent-framework/).
 
 
-## Browser Extension
-To install & test the browser extension, follow this tutorial: https://developer.chrome.com/extensions/getstarted
+## Additionally Supported Services
 
-*Note*: You need to reload the extension in the extensions tab after a code update.
+ * Google
+ * Facebook
+
+
+## Building
+
+The extension is implemented as a [WebExtension](https://developer.mozilla.org/en-US/Add-ons/WebExtensions).
+It is dockerized and can be built with the following command:
+
+```bash
+docker-compose run --rm consentrick npm run build
+```
+
+It creates a new folder called `build` which contains the zipped extension.
+The extension can then be loaded via the `about:debugging` page in Firefox and via the `chrome://extensions` page in Chrome.
+For more information on how to install the extension follow this tutorial: https://developer.chrome.com/extensions/getstarted
+
+
+## Development
+We recommend using Docker also during development. You can start the build watcher (webpack) as well as the storybook
+(for documenting UI components) by the following command:
+
+```bash
+docker-compose up
+```
+
+Point the extension directory in Firefox/ Chrome to the `build/src` folder. The styleguide is available on [localhost:9009](http://localhost:9009)

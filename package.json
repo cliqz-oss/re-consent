@@ -1,7 +1,9 @@
 {
-  "name": "cliqz-privacy",
-  "version": "0.1.0",
-  "private": true,
+  "name": "Consentric",
+  "description": "Consentric - enhanced privacy control for you",
+  "version": "1.0.0",
+  "author": "Cliqz GmbH",
+  "license": "MPL-2.0",
   "dependencies": {
     "consent-string": "^1.2.4",
     "moment": "^2.22.2",

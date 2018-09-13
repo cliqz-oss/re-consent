@@ -1,7 +1,7 @@
 version: '3.5'
 services:
-  app:
-    container_name: cliqz-privacy-warning
+  consentrick:
+    container_name: consentrick
     build: .
     ports:
       - '9009:9009'
