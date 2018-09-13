@@ -1,0 +1,52 @@
+{
+  "name": "re-consent",
+  "version": "1.0.3",
+  "author": "Cliqz GmbH",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "de",
+  "applications": {
+    "gecko": {
+        "id": "gdprtool@cliqz.com"
+    }
+  },
+  "manifest_version": 2,
+  "permissions": [
+    "<all_urls>",
+    "cookies",
+    "privacy",
+    "storage",
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "icons": {
+    "16": "icons/png/16x16_consent-readonly-chrome.png",
+    "24": "icons/png/24x24_consent-readonly-chrome.png",
+    "32": "icons/png/32x32_consent-readonly-chrome.png",
+    "128": "icons/png/128x128_logo-chrome.png",
+    "19": "icons/svg/19x19_consent-readonly-cliqz.svg",
+    "38": "icons/svg/38x38_consent-readonly-cliqz.svg"
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "browser_style": true,
+    "default_icon": {
+      "16": "icons/png/16x16_consent-readonly-chrome.png",
+      "24": "icons/png/24x24_consent-readonly-chrome.png",
+      "32": "icons/png/32x32_consent-readonly-chrome.png",
+      "128": "icons/png/128x128_logo-chrome.png",
+      "19": "icons/svg/19x19_consent-readonly-cliqz.svg",
+      "38": "icons/svg/38x38_consent-readonly-cliqz.svg"
+    }
+  },
+  "web_accessible_resources": [
+    "content-page-bridge.js"
+  ]
+}
