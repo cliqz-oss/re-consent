@@ -14,7 +14,7 @@ const PopupOnboarding = ({
       alt=""
     />
     <div className="popup-onboarding__title">
-      Consentrick
+      re:consent
       <br />
       <FormattedMessage id="popup.onboarding.title" />
     </div>

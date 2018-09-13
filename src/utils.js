@@ -2,7 +2,7 @@ export const checkIsChrome = () => {
   return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 };
 
-export const getConsentrickType = ({ features, consent }) => {
+export const getConsentType = ({ features, consent }) => {
   if (features.length) {
     return features[0].site;
   }

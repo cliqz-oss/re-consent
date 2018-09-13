@@ -1,7 +1,7 @@
 {
-  "name": "Consentric",
-  "description": "Consentric - enhanced privacy control for you",
-  "version": "1.0.0",
+  "name": "re-consent",
+  "description": "re:consent - enhanced privacy control for you",
+  "version": "1.0.3",
   "author": "Cliqz GmbH",
   "license": "MPL-2.0",
   "dependencies": {

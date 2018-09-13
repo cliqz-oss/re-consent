@@ -15,7 +15,7 @@ APPLICATION_STATE_ICON_NAME[APPLICATION_STATE.SETTINGS_WELL_SET] = 'edited';
 APPLICATION_STATE_ICON_NAME[APPLICATION_STATE.NO_CONCERNS] = 'readonly';
 APPLICATION_STATE_ICON_NAME[APPLICATION_STATE.DEFAULT] = 'readonly';
 
-export const DETAIL_PAGE_URL = 'https://cliqz.com/magazine/consentrick';
+export const DETAIL_PAGE_URL = 'https://cliqz.com/magazine/re-consent';
 
 
 export const CONSENT_PURPOSE = {

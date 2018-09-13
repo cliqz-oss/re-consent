@@ -11,7 +11,7 @@ import deLocaleData from 'react-intl/locale-data/de';
 import PopupContainer from './components/popup/PopupContainer';
 import reducer from './reducer';
 import { TELEMETRY_ACTION } from './telemetry';
-import { getConsentrickType } from './utils';
+import { getConsentType } from './utils';
 import { getNumberOfAllowedConsents, getConsentReadOnly } from './consent/utils';
 
 import translationsDe from './translations/de.json';
@@ -102,7 +102,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
           actionKey: TELEMETRY_ACTION.POPUP_OPENED,
           actionData: {
             site: new URL(tab.url).hostname,
-            type: getConsentrickType(message.state),
+            type: getConsentType(message.state),
             writeable: !getConsentReadOnly(message.state.consent),
             allowed: getNumberOfAllowedConsents(message.state.consent),
           },

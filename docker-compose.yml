@@ -1,7 +1,7 @@
 version: '3.5'
 services:
-  consentrick:
-    container_name: consentrick
+  re-consent:
+    container_name: re-consent
     build: .
     ports:
       - '9009:9009'

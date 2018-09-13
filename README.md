@@ -1,9 +1,9 @@
-# Consentrick
+# re:consent
 
 Welcome to more privacy control
 
-Consentrick allows you to view and change the consent you have given to websites for data processing. It works for websites that adhere to the IAB's Transparency & Consent Framework, as well as for Google and Facebook. Consentrick offers more control over your direct interaction with websites making it a smart addition to third-party tracking protection powered by Cliqz.
-Learn more on https://cliqz.com/magazine/consentrick
+re:consent allows you to view and change the consent you have given to websites for data processing. It works for websites that adhere to the IAB's Transparency & Consent Framework, as well as for Google and Facebook. re:consent offers more control over your direct interaction with websites making it a smart addition to third-party tracking protection powered by Cliqz.
+Learn more on https://cliqz.com/magazine/re-consent
 
 
 ## Supported Consent Management Platforms
@@ -25,7 +25,7 @@ The extension is implemented as a [WebExtension](https://developer.mozilla.org/e
 It is dockerized and can be built with the following command:
 
 ```bash
-docker-compose run --rm consentrick npm run build
+docker-compose run --rm re-consent npm run build
 ```
 
 It creates a new folder called `build` which contains the zipped extension.
