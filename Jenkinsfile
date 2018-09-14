@@ -5,6 +5,7 @@ node('docker') {
     def version
     def commit
     def artifactName
+    def extName = "re_consent"
     def s3BasePath = "cdncliqz/update/re-consent"
 
     stage ('Checkout') {
@@ -26,10 +27,10 @@ node('docker') {
 
     stage('Upload Artifact') {
         // tag artifact with commit id
-        artifactName = "re-consent-${version}-${commit.substring(0, 7)}.zip"
+        artifactName = "${extName}-${version}-${commit.substring(0, 7)}.zip"
         def uploadLocation = "s3://${s3BasePath}/${env.BRANCH_NAME}/${artifactName}"
         currentBuild.description = uploadLocation
-        sh "mv build/re-consent-${version}.zip build/${artifactName}"
+        sh "mv build/${extName}-${version}.zip build/${artifactName}"
         withS3Credentials {
             sh "aws s3 cp build/${artifactName} ${uploadLocation} --acl public-read"
         }
