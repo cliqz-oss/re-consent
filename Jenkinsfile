@@ -4,11 +4,12 @@ node('docker') {
     def img
     def version
     def commit
+    def artifactName
+    def s3BasePath = "cdncliqz/update/re-consent"
 
     stage ('Checkout') {
         def checkoutInfo = checkout scm
         commit = checkoutInfo.GIT_COMMIT
-        print commit
     }
 
     stage('Build Docker Image') {
@@ -23,15 +24,26 @@ node('docker') {
         }
     }
 
-    stage('Upload artifact') {
+    stage('Upload Artifact') {
         // tag artifact with commit id
-        def artifactName = "re-consent-${version}-${commit.substring(0, 7)}.zip"
-        def uploadLocation = "s3://cdncliqz/update/re-consent/${env.BRANCH_NAME}/${artifactName}"
+        artifactName = "re-consent-${version}-${commit.substring(0, 7)}.zip"
+        def uploadLocation = "s3://${s3BasePath}/${env.BRANCH_NAME}/${artifactName}"
+        currentBuild.description = uploadLocation
         sh "mv build/re-consent-${version}.zip build/${artifactName}"
-        print artifactName
-        sh 'ls -la build/'
         withS3Credentials {
             sh "aws s3 cp build/${artifactName} ${uploadLocation} --acl public-read"
+        }
+    }
+
+    if (env.BRANCH_NAME == 'master') {
+        stage('Sign Extension') {
+            def artifactUrl = "https://s3.amazonaws.com/${s3BasePath}/${env.BRANCH_NAME}/${artifactName}"
+            build job: 'addon-repack', parameters: [
+                string(name: 'XPI_URL', value: artifactUrl),
+                string(name: 'XPI_SIGN_CREDENTIALS', value: '41572f9c-06aa-46f0-9c3b-b7f4f78e9caa'),
+                string(name: 'XPI_SIGN_REPO_URL', value: 'git@github.com:cliqz/xpi-sign.git'),
+                string(name: 'CHANNEL', value: 'browser')
+            ]
         }
     }
 }
