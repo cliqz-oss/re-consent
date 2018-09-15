@@ -3,7 +3,7 @@
 Welcome to more privacy control
 
 re:consent allows you to view and change the consent you have given to websites for data processing. It works for websites that adhere to the IAB's Transparency & Consent Framework, as well as for Google and Facebook. re:consent offers more control over your direct interaction with websites making it a smart addition to third-party tracking protection powered by Cliqz.
-Learn more on https://cliqz.com/magazine/re-consent
+Learn more on https://cliqz.com/en/magazine/re-consent
 
 re:consent is available in the [Cliqz Browser](https://cliqz.com/download), and for [Firefox](https://addons.mozilla.org/en-US/firefox/addon/re-consent/) and [Chrome](https://chrome.google.com/webstore/detail/reconsent/djcdlbbfldmndgenehaifaiiahhhagfa)
 
