@@ -31,8 +31,8 @@
     "24": "icons/png/24x24_consent-readonly-chrome.png",
     "32": "icons/png/32x32_consent-readonly-chrome.png",
     "128": "icons/png/128x128_logo-chrome.png",
-    "19": "icons/svg/19x19_consent-readonly-cliqz.svg",
-    "38": "icons/svg/38x38_consent-readonly-cliqz.svg"
+    "19": "icons/png/19x19_consent-readonly-cliqz-light.png",
+    "38": "icons/png/38x38_consent-readonly-cliqz-light.png"
   },
   "page_action": {
     "default_popup": "popup.html",
@@ -42,8 +42,8 @@
       "24": "icons/png/24x24_consent-readonly-chrome.png",
       "32": "icons/png/32x32_consent-readonly-chrome.png",
       "128": "icons/png/128x128_logo-chrome.png",
-      "19": "icons/svg/19x19_consent-readonly-cliqz.svg",
-      "38": "icons/svg/38x38_consent-readonly-cliqz.svg"
+      "19": "icons/png/19x19_consent-readonly-cliqz-light.png",
+      "38": "icons/png/38x38_consent-readonly-cliqz-light.png"
     }
   },
   "web_accessible_resources": [
