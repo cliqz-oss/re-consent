@@ -21,6 +21,11 @@
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"]
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["clicker-content.js"],
+      "all_frames": true
     }
   ],
   "background": {

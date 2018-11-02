@@ -11,6 +11,7 @@ module.exports = {
     'content': './src/content.js',
     'content-page-bridge': './src/content-page-bridge.js',
     'popup': './src/popup.jsx',
+    'clicker-content': './src/clicker-content.js',
   },
   mode,
   node: {
