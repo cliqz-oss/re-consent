@@ -53,6 +53,7 @@ const browserExtensionIconMiddleware = store => next => (action) => {
 const store = createStore(reducer, applyMiddleware(logger, browserExtensionIconMiddleware));
 
 browser.runtime.onMessage.addListener((message) => {
+  console.log('msg', message);
   if (message.type === 'getState') {
     browser.runtime.sendMessage({ type: 'stateChanged', state: store.getState() });
   } else if (message.type === 'dispatchAction') {
@@ -61,6 +62,23 @@ browser.runtime.onMessage.addListener((message) => {
     return Promise.resolve(window.localStorage.getItem(message.key));
   } else if (message.type === 'setLocalStorageItem') {
     return Promise.resolve(window.localStorage.setItem(message.key, message.value));
+  } else if (message.type === 'click') {
+    console.log('do a click', message.selector);
+    const elem = document.querySelectorAll(message.selector);
+    if (elem.length > 0) {
+      if (message.all === true) {
+        elem.forEach(e => {
+          e.click();
+        });
+      } else {
+        elem[0].click();
+      }
+    } else {
+      console.warn('element not found', message.selector);
+    }
+    return Promise.resolve(elem.length > 0);
+  } else if (message.type === 'elemExists') {
+    return Promise.resolve(document.querySelector(message.selector) !== null);
   }
   return false;
 });

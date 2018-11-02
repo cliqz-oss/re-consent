@@ -10,6 +10,8 @@ import { getNumberOfAllowedConsents } from './consent/utils';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
 import { checkIsChrome, getConsentType } from './utils';
 
+import './autoclicker';
+
 function doSetBrowserExtensionIcon(tabId, pathTemplate) {
   const isChrome = checkIsChrome();
   const sizes = isChrome ? [16, 24, 32] : [19, 38];
