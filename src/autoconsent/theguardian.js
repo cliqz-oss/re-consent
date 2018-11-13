@@ -1,11 +1,12 @@
 import AutoConsentBase from './base';
 
-export default class Cookiebot extends AutoConsentBase {
+export default class TheGuardian extends AutoConsentBase {
   constructor() {
     super('theguardian');
   }
 
   detectCmp(tab) {
+    console.log('check', tab.url);
     return new URL(tab.url).hostname.endsWith('theguardian.com');
   }
 

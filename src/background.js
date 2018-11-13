@@ -10,7 +10,9 @@ import { getNumberOfAllowedConsents } from './consent/utils';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
 import { checkIsChrome, getConsentType } from './utils';
 
-import './autoclicker';
+import cmp from './autoclicker';
+
+window.cmp = cmp;
 
 function doSetBrowserExtensionIcon(tabId, pathTemplate) {
   const isChrome = checkIsChrome();
@@ -158,7 +160,7 @@ browser.runtime.onMessage.addListener(async (message, sender) => {
     });
     dispatch({ type: 'hideOnboarding' });
   } else if (message.type === 'showPageAction') {
-    browser.pageAction.show(tab.id);
+    // browser.pageAction.show(tab.id);
 
     telemetry(TELEMETRY_ACTION.PAGE_ACTION_DISPLAYED, {
       site: new URL(tab.url).hostname,

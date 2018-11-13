@@ -34,7 +34,7 @@ export default class Optanon extends AutoConsentBase {
   }
 
   async openCmp(tab) {
-    if (!tab.elementsAreVisible('.optanon-alert-box-wrapper', 'all')) {
+    if (!await tab.elementsAreVisible('.optanon-alert-box-wrapper', 'all')) {
       await tab.eval('Optanon.ToggleInfoDisplay();');
     }
     return true;

@@ -49,6 +49,10 @@ module.exports = {
         from: 'src/assets/icons',
         to: 'icons',
       },
+      {
+        from: 'src/popupTemp',
+        to: 'popupTemp',
+      },
     ]),
   ],
   devtool: mode !== 'production' ? 'inline-source-map' : false,
