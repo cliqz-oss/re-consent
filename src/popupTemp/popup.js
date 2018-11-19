@@ -7,15 +7,21 @@ browser.runtime.getBackgroundPage().then(async ({ cmp }) => {
   document.getElementById('site').innerText = new URL(tab.url).hostname;
   if (cmp.tabs.has(tab.id)) {
     const currentCmp = cmp.tabs.get(tab.id);
-    const tabActions = cmp.getTab(tab.id);
+    let tabActions = cmp.getTab(tab.id);
     document.getElementById('cmp').innerText = currentCmp.name;
     document.getElementById('openCmp').onclick = () => currentCmp.openCmp(tabActions);
     document.getElementById('optIn').onclick = async () => {
-      await currentCmp.openCmp(tabActions);
+      if (!(await currentCmp.detectPopup(tabActions))) {
+        await currentCmp.openCmp(tabActions);
+        tabActions = cmp.getTab(tab.id);
+      }
       return currentCmp.optIn(tabActions);
     };
     document.getElementById('optOut').onclick = async () => {
-      await currentCmp.openCmp(tabActions);
+      if (!(await currentCmp.detectPopup(tabActions))) {
+        await currentCmp.openCmp(tabActions);
+        tabActions = cmp.getTab(tab.id);
+      }
       return currentCmp.optOut(tabActions);
     };
   }

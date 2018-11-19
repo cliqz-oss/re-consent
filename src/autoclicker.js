@@ -4,8 +4,8 @@ import Quantcast from './autoconsent/quantcast';
 import Cookiebot from './autoconsent/cookiebot';
 import Optanon from './autoconsent/optanon';
 import TheGuardian from './autoconsent/theguardian';
+import TagCommander from './autoconsent/tagcommander';
 
-const inProgress = new Set();
 const consentFrames = new Map();
 
 const rules = [
@@ -13,6 +13,7 @@ const rules = [
   new Cookiebot(),
   new Optanon(),
   new TheGuardian(),
+  new TagCommander(),
 ];
 
 const tabCmps = new Map();
@@ -55,20 +56,28 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
 
 browser.runtime.onMessage.addListener((msg, sender) => {
   if (msg.type === 'frame') {
-    console.log(msg);
-    const frameMatch = autoRules.findIndex((r) => r.detectFrame && r.detectFrame(sender.tab, msg));
+    try {
+    const frame = {
+      id: sender.frameId,
+      url: msg.url,
+    };
+    const tab = new TabActions(sender.tab.id, sender.tab.url, consentFrames.get(sender.tab.id));
+    const frameMatch = rules.findIndex((r) => r.detectFrame(tab, frame));
     if (frameMatch > -1) {
       consentFrames.set(sender.tab.id, {
-        type: autoRules[frameMatch].name,
+        type: rules[frameMatch].name,
         url: msg.url,
-        frameId: sender.frameId,
+        id: sender.frameId,
       });
     }
+  } catch (e) {
+    console.error(e);
+  }
   }
 });
 
 export default {
   rules,
   tabs: tabCmps,
-  getTab: (id) => new TabActions(id),
+  getTab: (id) => new TabActions(id, undefined, consentFrames.get(id)),
 };

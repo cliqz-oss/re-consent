@@ -13,9 +13,10 @@ async function waitFor(predicate, maxTimes, interval) {
 }
 
 export class TabActions {
-  constructor(tabId, url) {
+  constructor(tabId, url, frame) {
     this.id = tabId;
     this.url = url;
+    this.frame = frame;
   }
 
   async elementExists(selector, frameId = 0) {
@@ -75,10 +76,10 @@ export class TabActions {
     }, { frameId });
   }
 
-  async waitForElement(selector, timeout) {
+  async waitForElement(selector, timeout, frameId = 0) {
     const interval = 200;
     const times = Math.ceil(timeout / interval);
-    return waitFor(() => this.elementExists(selector), times, interval);
+    return waitFor(() => this.elementExists(selector, frameId), times, interval);
   }
 }
 
@@ -96,6 +97,10 @@ export default class AutoConsentBase {
     if (this.config.popupSelector) {
       return tab.elementExists(this.config.popupSelector);
     }
+  }
+
+  detectFrame(tab, frame) {
+    return false;
   }
 
   optOut(tab) {
