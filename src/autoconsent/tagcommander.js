@@ -6,15 +6,14 @@ export default class TagCommander extends AutoConsentBase {
   }
 
   detectCmp(tab) {
-    return tab.eval('window.tC.privacyCenter !== undefined');
+    return tab.eval('window.tC && window.tC.privacyCenter !== undefined');
   }
 
   async detectPopup(tab) {
-    return await tab.elementExists('#dnt-banner') || await tab.elementExists('#privacy-iframe');
+    return tab.elementExists('#dnt-banner') || await tab.elementExists('#privacy-iframe');
   }
 
   detectFrame(tab, frame) {
-    console.log('xxx', frame.url);
     return frame.url.startsWith('https://cdn.tagcommander.com/privacy/template/index.htm');
   }
 

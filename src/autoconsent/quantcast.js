@@ -14,7 +14,7 @@ export default class QuantCast extends AutoConsentBase {
   }
 
   async ensureOpened(tab) {
-    return await tab.elementExists('#qcCmpUi') || await this.openCmp(tab);
+    return tab.elementExists('#qcCmpUi') || await this.openCmp(tab);
   }
 
   async optOut(tab) {
@@ -43,10 +43,11 @@ export default class QuantCast extends AutoConsentBase {
     }
 
     if (await tab.elementExists('.qc-cmp-button:nth-of-type(2)')) {
-      await tab.clickElement('.qc-cmp-button:nth-of-type(2)')
+      await tab.clickElement('.qc-cmp-button:nth-of-type(2)');
     } else {
       await tab.clickElement('.qc-cmp-button');
     }
+    return true;
   }
 
   async openCmp(tab) {

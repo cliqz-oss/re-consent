@@ -5,6 +5,7 @@ import Cookiebot from './autoconsent/cookiebot';
 import Optanon from './autoconsent/optanon';
 import TheGuardian from './autoconsent/theguardian';
 import TagCommander from './autoconsent/tagcommander';
+import TechRadar from './autoconsent/techradar';
 
 const consentFrames = new Map();
 
@@ -14,6 +15,7 @@ const rules = [
   new Optanon(),
   new TheGuardian(),
   new TagCommander(),
+  new TechRadar(),
 ];
 
 const tabCmps = new Map();
@@ -25,6 +27,7 @@ async function detectDialog(tab, retries) {
   if (found === -1 && retries > 0) {
     return new Promise((resolve) => {
       setTimeout(async () => {
+        tab.frame = consentFrames.get(tab.id);
         const result = detectDialog(tab, retries - 1);
         resolve(result);
       }, 1000);
@@ -36,43 +39,47 @@ async function detectDialog(tab, retries) {
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
   if (changeInfo.status === 'complete') {
     console.log('tab complete', tabId, tabInfo.url);
-    try {
-    const tab = new TabActions(tabId, tabInfo.url);
+    const tab = new TabActions(tabId, tabInfo.url, consentFrames.get(tabId));
     const rule = await detectDialog(tab, 5);
     console.log('xxx', rule);
-    if (rule) {
-      tabCmps.set(tabId, rule);
-      await browser.pageAction.setPopup({
-        tabId,
-        popup: 'popupTemp/popup.html',
-      });
-      await browser.pageAction.show(tabId);
+    try {
+      if (rule) {
+        tabCmps.set(tabId, rule);
+        await browser.pageAction.setPopup({
+          tabId,
+          popup: 'popupTemp/popup.html',
+        });
+        await browser.pageAction.show(tabId);
+        tab.frame = consentFrames.get(tab.id);
+        if (await rule.detectPopup(tab)) {
+          await rule.optOut(tab);
+        }
+      }
+    } catch (e) {
+      console.error('cmp error', e);
     }
-  } catch (e) {
-    console.error('cmp error', e);
-  }
   }
 });
 
 browser.runtime.onMessage.addListener((msg, sender) => {
   if (msg.type === 'frame') {
     try {
-    const frame = {
-      id: sender.frameId,
-      url: msg.url,
-    };
-    const tab = new TabActions(sender.tab.id, sender.tab.url, consentFrames.get(sender.tab.id));
-    const frameMatch = rules.findIndex((r) => r.detectFrame(tab, frame));
-    if (frameMatch > -1) {
-      consentFrames.set(sender.tab.id, {
-        type: rules[frameMatch].name,
-        url: msg.url,
+      const frame = {
         id: sender.frameId,
-      });
+        url: msg.url,
+      };
+      const tab = new TabActions(sender.tab.id, sender.tab.url, consentFrames.get(sender.tab.id));
+      const frameMatch = rules.findIndex((r) => r.detectFrame(tab, frame));
+      if (frameMatch > -1) {
+        consentFrames.set(sender.tab.id, {
+          type: rules[frameMatch].name,
+          url: msg.url,
+          id: sender.frameId,
+        });
+      }
+    } catch (e) {
+      console.error(e);
     }
-  } catch (e) {
-    console.error(e);
-  }
   }
 });
 

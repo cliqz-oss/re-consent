@@ -1,7 +1,12 @@
 import browser from 'webextension-polyfill';
 
 async function waitFor(predicate, maxTimes, interval) {
-  const result = await predicate();
+  let result = false;
+  try {
+    result = await predicate();
+  } catch (e) {
+    console.warn('error in waitFor predicate', e);
+  }
   if (!result && maxTimes > 0) {
     return new Promise((resolve) => {
       setTimeout(async () => {
@@ -64,7 +69,7 @@ export class TabActions {
     return browser.tabs.sendMessage(this.id, {
       type: 'getAttribute',
       selector,
-      attribute
+      attribute,
     }, { frameId });
   }
 
@@ -89,29 +94,30 @@ export default class AutoConsentBase {
     this.config = config || {};
   }
 
-  detectCmp(tab) {
+  detectCmp() {
     throw new Error('Not Implemented');
   }
 
-  detectPopup(tab) {
+  async detectPopup(tab) {
     if (this.config.popupSelector) {
       return tab.elementExists(this.config.popupSelector);
     }
-  }
-
-  detectFrame(tab, frame) {
     return false;
   }
 
-  optOut(tab) {
+  detectFrame() {
+    return false;
+  }
+
+  optOut() {
     throw new Error('Not Implemented');
   }
 
-  optIn(tab) {
+  optIn() {
     throw new Error('Not Implemented');
   }
 
-  openCmp(tab) {
+  openCmp() {
     throw new Error('Not Implemented');
   }
 }

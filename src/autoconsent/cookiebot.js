@@ -15,14 +15,14 @@ export default class Cookiebot extends AutoConsentBase {
 
   async optOut(tab) {
     await tab.clickElements('.CybotCookiebotDialogBodyLevelButton:checked:enabled');
-    await tab.clickElement('#CybotCookiebotDialogBodyLevelButtonAccept')
+    await tab.clickElement('#CybotCookiebotDialogBodyLevelButtonAccept');
     await tab.clickElement('#CybotCookiebotDialogBodyButtonAccept');
     return true;
   }
 
   async optIn(tab) {
     await tab.clickElements('.CybotCookiebotDialogBodyLevelButton:not(:checked):enabled');
-    await tab.clickElement('#CybotCookiebotDialogBodyLevelButtonAccept')
+    await tab.clickElement('#CybotCookiebotDialogBodyLevelButtonAccept');
     await tab.clickElement('#CybotCookiebotDialogBodyButtonAccept');
     return true;
   }

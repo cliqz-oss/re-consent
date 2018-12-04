@@ -5,9 +5,7 @@ browser.runtime.onMessage.addListener((message) => {
     const elem = document.querySelectorAll(message.selector);
     if (elem.length > 0) {
       if (message.all === true) {
-        elem.forEach(e => {
-          e.click();
-        });
+        elem.forEach(e => e.click());
       } else {
         elem[0].click();
       }
@@ -29,10 +27,9 @@ browser.runtime.onMessage.addListener((message) => {
       return Promise.resolve(results.some(r => r));
     } else if (message.check === 'none') {
       return Promise.resolve(results.every(r => !r));
-    } else {
-      // all
-      return Promise.resolve(results.every(r => r));
     }
+    // all
+    return Promise.resolve(results.every(r => r));
   } else if (message.type === 'getAttribute') {
     const elem = document.querySelector(message.selector);
     if (!elem) {

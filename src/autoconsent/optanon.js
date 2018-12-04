@@ -17,11 +17,11 @@ export default class Optanon extends AutoConsentBase {
     await tab.clickElement('.optanon-toggle-display');
     await ['necessary', 'performance', 'functional', 'advertising', 'social'].reduce((queue, panel) => {
       return queue.then(async () => {
-        const panelClass = `.menu-item-${panel}`
+        const panelClass = `.menu-item-${panel}`;
         if (await tab.elementExists(panelClass)) {
           await tab.clickElement(panelClass);
           await tab.clickElement('.optanon-status-on input');
-          await new Promise((resolve) => setTimeout(resolve, 500));
+          await new Promise(resolve => setTimeout(resolve, 500));
         }
       });
     }, Promise.resolve());

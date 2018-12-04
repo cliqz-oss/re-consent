@@ -6,7 +6,6 @@ export default class TheGuardian extends AutoConsentBase {
   }
 
   detectCmp(tab) {
-    console.log('check', tab.url);
     return new URL(tab.url).hostname.endsWith('theguardian.com');
   }
 
@@ -16,22 +15,22 @@ export default class TheGuardian extends AutoConsentBase {
 
   async optOut(tab) {
     const originalUrl = tab.url;
-    await clickElement(tab.id, '.site-message--first-pv-consent__link');
-    await waitFor(() => checkElementExists(tab.id, '#gu-ad-prefs-false-GU_TK'), 10, 2000);
-    await clickElement(tab.id, '#gu-ad-prefs-false-GU_TK');
-    await clickElement(tab.id, '.manage-account__button');
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await tab.clickElement('.site-message--first-pv-consent__link');
+    await tab.waitForElement('#gu-ad-prefs-false-GU_TK', 10000);
+    await tab.clickElement('#gu-ad-prefs-false-GU_TK');
+    await tab.clickElement('.manage-account__button');
+    await new Promise(resolve => setTimeout(resolve, 200));
     await browser.tabs.update(tab.id, { url: originalUrl });
     return true;
   }
 
   async optIn(tab) {
     const originalUrl = tab.url;
-    await clickElement(tab.id, '.site-message--first-pv-consent__link');
-    await waitFor(() => checkElementExists(tab.id, '#gu-ad-prefs-true-GU_TK'), 10, 2000);
-    await clickElement(tab.id, '#gu-ad-prefs-true-GU_TK');
-    await clickElement(tab.id, '.manage-account__button');
-    await new Promise((resolve) => setTimeout(resolve, 200));
+    await tab.clickElement('.site-message--first-pv-consent__link');
+    await tab.waitForElement('#gu-ad-prefs-true-GU_TK', 10000);
+    await tab.clickElement('#gu-ad-prefs-true-GU_TK');
+    await tab.clickElement('.manage-account__button');
+    await new Promise(resolve => setTimeout(resolve, 200));
     await browser.tabs.update(tab.id, { url: originalUrl });
     return true;
   }
