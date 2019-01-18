@@ -14,7 +14,9 @@ browser.runtime.onMessage.addListener((message) => {
     }
     return Promise.resolve(elem.length > 0);
   } else if (message.type === 'elemExists') {
-    return Promise.resolve(document.querySelector(message.selector) !== null);
+    const exists = document.querySelector(message.selector) !== null
+    console.log('exists?', message.selector, exists);
+    return Promise.resolve(exists);
   } else if (message.type === 'elemVisible') {
     const elem = document.querySelectorAll(message.selector);
     const results = new Array(elem.length);
@@ -37,7 +39,9 @@ browser.runtime.onMessage.addListener((message) => {
     }
     return Promise.resolve(elem.getAttribute(message.attribute));
   } else if (message.type === 'eval') {
-    return Promise.resolve(window.eval(message.script));
+    const result = window.eval(message.script);
+    console.log('eval result', result);
+    return Promise.resolve(result);
   }
   return;
 });

@@ -1,22 +1,25 @@
 import browser from 'webextension-polyfill';
-import { TabActions } from './autoconsent/base';
+import { TabActions, AutoConsent } from './autoconsent/base';
 import Quantcast from './autoconsent/quantcast';
 import Cookiebot from './autoconsent/cookiebot';
 import Optanon from './autoconsent/optanon';
 import TheGuardian from './autoconsent/theguardian';
 import TagCommander from './autoconsent/tagcommander';
 import TechRadar from './autoconsent/techradar';
+import genericRules from './autoconsent/rules';
 
 const consentFrames = new Map();
+const tabGuards = new Set();
 
 const rules = [
   new Quantcast(),
-  new Cookiebot(),
   new Optanon(),
   new TheGuardian(),
   new TagCommander(),
-  new TechRadar(),
 ];
+genericRules.forEach((rule) => {
+  rules.push(new AutoConsent(rule));
+});
 
 const tabCmps = new Map();
 
@@ -37,7 +40,7 @@ async function detectDialog(tab, retries) {
 }
 
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
-  if (changeInfo.status === 'complete') {
+  if (changeInfo.status === 'complete' && !tabGuards.has(tabId)) {
     console.log('tab complete', tabId, tabInfo.url);
     const tab = new TabActions(tabId, tabInfo.url, consentFrames.get(tabId));
     const rule = await detectDialog(tab, 5);
@@ -52,7 +55,12 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
         await browser.pageAction.show(tabId);
         tab.frame = consentFrames.get(tab.id);
         if (await rule.detectPopup(tab)) {
-          await rule.optOut(tab);
+          try {
+            tabGuards.add(tabId);
+            await rule.optOut(tab);
+          } finally {
+            tabGuards.delete(tabId);
+          }
         }
       }
     } catch (e) {
