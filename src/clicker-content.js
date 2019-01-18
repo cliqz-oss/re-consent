@@ -14,7 +14,7 @@ browser.runtime.onMessage.addListener((message) => {
     }
     return Promise.resolve(elem.length > 0);
   } else if (message.type === 'elemExists') {
-    const exists = document.querySelector(message.selector) !== null
+    const exists = document.querySelector(message.selector) !== null;
     console.log('exists?', message.selector, exists);
     return Promise.resolve(exists);
   } else if (message.type === 'elemVisible') {
@@ -39,11 +39,11 @@ browser.runtime.onMessage.addListener((message) => {
     }
     return Promise.resolve(elem.getAttribute(message.attribute));
   } else if (message.type === 'eval') {
-    const result = window.eval(message.script);
+    const result = window.eval(message.script); // eslint-disable-line no-eval
     console.log('eval result', result);
     return Promise.resolve(result);
   }
-  return;
+  return Promise.resolve(null);
 });
 
 browser.runtime.sendMessage({

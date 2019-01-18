@@ -1,3 +1,4 @@
+/* eslint-disable quote-props,quotes,comma-dangle,object-curly-spacing */
 export default [{
   "name": "Cybotcookiebot",
   "detectCmp": [{ "eval": "window.CookieConsent !== undefined" }],
@@ -35,7 +36,7 @@ export default [{
     { "waitFor": "#privacy-iframe" },
     { "wait": 500 }
   ]
-},{
+}, {
   "name": "Oath",
   "detectCmp": [{ "url": "https://techcrunch.com" }, { "url": "https://yahoo.com" }, { "url": "https://guce.oath.com/collectConsent"}],
   "detectPopup": [{ "url": "https://guce.oath.com/collectConsent"}],
@@ -55,7 +56,7 @@ export default [{
     { "waitForThenClick": ".agree" }
   ],
   "openCmp": [{ "goto": "https://guce.oath.com/collectConsent" }]
-},{
+}, {
   "name": "Ebay",
   "detectCmp": [{ "exists": "#gdpr-banner" }, { "url": "https://www.ebay.de" }],
   "detectPopup": [{ "exists": "#gdpr-banner" }],
@@ -69,4 +70,4 @@ export default [{
     { "click": "#w0-w1-w897.selected", "optional": true }
   ],
   "openCmp": [{ "goto": "https://www.ebay.de/gdpr"}]
-}]
+}];

@@ -6,7 +6,7 @@ export default class QuantCast extends AutoConsentBase {
   }
 
   async detectCmp(tab) {
-    return await tab.elementExists('.qc-cmp-persistent-link') || await this.detectPopup(tab);
+    return (await tab.elementExists('.qc-cmp-persistent-link')) || this.detectPopup(tab);
   }
 
   detectPopup(tab) {
@@ -14,7 +14,7 @@ export default class QuantCast extends AutoConsentBase {
   }
 
   async ensureOpened(tab) {
-    return tab.elementExists('#qcCmpUi') || await this.openCmp(tab);
+    return (await tab.elementExists('#qcCmpUi')) || this.openCmp(tab);
   }
 
   async optOut(tab) {

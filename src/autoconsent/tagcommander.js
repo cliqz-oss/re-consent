@@ -10,7 +10,7 @@ export default class TagCommander extends AutoConsentBase {
   }
 
   async detectPopup(tab) {
-    return await tab.elementExists('#dnt-banner') || await tab.elementExists('#privacy-iframe');
+    return (await tab.elementExists('#dnt-banner')) || tab.elementExists('#privacy-iframe');
   }
 
   detectFrame(tab, frame) {

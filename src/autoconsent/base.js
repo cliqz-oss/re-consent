@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax,no-await-in-loop,no-underscore-dangle */
 import browser from 'webextension-polyfill';
 
 async function waitFor(predicate, maxTimes, interval) {
@@ -132,13 +133,13 @@ async function evaluateRule(rule, tab) {
     results.push(tab.eval(rule.eval, frameId));
   }
   if (rule.waitFor) {
-    results.push(tab.waitForElement(rule.waitFor, rule.timeout || 10000,frameId));
+    results.push(tab.waitForElement(rule.waitFor, rule.timeout || 10000, frameId));
   }
   if (rule.click) {
     results.push(tab.clickElement(rule.click, frameId));
   }
   if (rule.waitForThenClick) {
-    results.push(tab.waitForElement(rule.waitForThenClick, rule.timeout || 10000,frameId)
+    results.push(tab.waitForElement(rule.waitForThenClick, rule.timeout || 10000, frameId)
       .then(() => tab.clickElement(rule.waitForThenClick, frameId)));
   }
   if (rule.wait) {
@@ -186,6 +187,7 @@ export class AutoConsent extends AutoConsentBase {
     if (this.config.detectPopup) {
       return this._runRulesParallel(tab, this.config.detectPopup);
     }
+    return false;
   }
 
   async detectFrame(tab) {
@@ -197,23 +199,22 @@ export class AutoConsent extends AutoConsentBase {
 
   async optOut(tab) {
     if (this.config.optOut) {
-      return this._runRulesSequentially(tab, this.config.optOut)
+      return this._runRulesSequentially(tab, this.config.optOut);
     }
     return false;
   }
 
   async optIn(tab) {
     if (this.config.optIn) {
-      return this._runRulesSequentially(tab, this.config.optIn)
+      return this._runRulesSequentially(tab, this.config.optIn);
     }
     return false;
   }
 
   async openCmp(tab) {
     if (this.config.openCmp) {
-      return this._runRulesSequentially(tab, this.config.openCmp)
+      return this._runRulesSequentially(tab, this.config.openCmp);
     }
     return false;
   }
-
 }

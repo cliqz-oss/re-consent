@@ -1,11 +1,9 @@
 import browser from 'webextension-polyfill';
 import { TabActions, AutoConsent } from './autoconsent/base';
 import Quantcast from './autoconsent/quantcast';
-import Cookiebot from './autoconsent/cookiebot';
 import Optanon from './autoconsent/optanon';
 import TheGuardian from './autoconsent/theguardian';
 import TagCommander from './autoconsent/tagcommander';
-import TechRadar from './autoconsent/techradar';
 import genericRules from './autoconsent/rules';
 
 const consentFrames = new Map();
@@ -77,7 +75,7 @@ browser.runtime.onMessage.addListener((msg, sender) => {
         url: msg.url,
       };
       const tab = new TabActions(sender.tab.id, sender.tab.url, consentFrames.get(sender.tab.id));
-      const frameMatch = rules.findIndex((r) => r.detectFrame(tab, frame));
+      const frameMatch = rules.findIndex(r => r.detectFrame(tab, frame));
       if (frameMatch > -1) {
         consentFrames.set(sender.tab.id, {
           type: rules[frameMatch].name,
@@ -94,5 +92,5 @@ browser.runtime.onMessage.addListener((msg, sender) => {
 export default {
   rules,
   tabs: tabCmps,
-  getTab: (id) => new TabActions(id, undefined, consentFrames.get(id)),
+  getTab: id => new TabActions(id, undefined, consentFrames.get(id)),
 };

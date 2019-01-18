@@ -37,7 +37,7 @@ export default class TheGuardian extends AutoConsentBase {
 
   async openCmp(tab) {
     await browser.tabs.update(tab.id, {
-      url: 'https://profile.theguardian.com/privacy-settings'
+      url: 'https://profile.theguardian.com/privacy-settings',
     });
     return true;
   }
