@@ -1,7 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 
-import checkIsWhiteListed from './consent/whitelist';
-
 function queryCmp(method) {
   const cmpPromise = new Promise((resolve) => {
     window.__cmp(method, null, resolve);
@@ -33,13 +31,6 @@ const sendConsentMessage = (consent) => {
 };
 
 async function cmpCheck(retries) {
-  const isWhiteListed = checkIsWhiteListed(window.location);
-
-  if (isWhiteListed) {
-    sendConsentMessage(null);
-    return;
-  }
-
   if (window.__cmp === undefined) {
     if (retries > 0) {
       setTimeout(() => cmpCheck(retries - 1), 1000);
