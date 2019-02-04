@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax,no-await-in-loop,no-underscore-dangle */
 import browser from 'webextension-polyfill';
 
-async function waitFor(predicate, maxTimes, interval) {
+export async function waitFor(predicate, maxTimes, interval) {
   let result = false;
   try {
     result = await predicate();
@@ -26,7 +26,7 @@ export class TabActions {
   }
 
   async elementExists(selector, frameId = 0) {
-    console.log(`check for  ${selector} in tab ${this.id}`);
+    console.log(`check for  ${selector} in tab ${this.id}, frame ${frameId}`);
     return browser.tabs.sendMessage(this.id, {
       type: 'elemExists',
       selector,
@@ -136,7 +136,11 @@ async function evaluateRule(rule, tab) {
     results.push(tab.waitForElement(rule.waitFor, rule.timeout || 10000, frameId));
   }
   if (rule.click) {
-    results.push(tab.clickElement(rule.click, frameId));
+    if (rule.all === true) {
+      results.push(tab.clickElements(rule.click, frameId));
+    } else {
+      results.push(tab.clickElement(rule.click, frameId));
+    }
   }
   if (rule.waitForThenClick) {
     results.push(tab.waitForElement(rule.waitForThenClick, rule.timeout || 10000, frameId)
@@ -162,7 +166,6 @@ export class AutoConsent extends AutoConsentBase {
 
   async _runRulesParallel(tab, rules) {
     const detections = await Promise.all(rules.map(rule => evaluateRule(rule, tab)));
-    console.log('xxx', this.name, detections);
     return detections.some(r => !!r);
   }
 
@@ -190,9 +193,9 @@ export class AutoConsent extends AutoConsentBase {
     return false;
   }
 
-  async detectFrame(tab) {
+  detectFrame(tab, frame) {
     if (this.config.frame) {
-      return this._runRulesParallel(tab, this.config.frame);
+      return frame.url.startsWith(this.config.frame);
     }
     return false;
   }

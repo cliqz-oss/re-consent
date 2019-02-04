@@ -21,7 +21,7 @@ export default [{
   "name": "TechRadar",
   "detectCmp": [{ "url": "https://www.techradar.com"}],
   "detectPopup": [{ "exists": "#cmp-container-id"}],
-  "frame": [{ "url": "https://consent.cmp.techradar.com" }],
+  "frame": "https://consent.cmp.techradar.com",
   "optOut": [
     { "click": "#mainMoreInfo", "frame": true },
     { "click": ".cmp-btn-rejectall", "frame": true },
@@ -70,4 +70,19 @@ export default [{
     { "click": "#w0-w1-w897.selected", "optional": true }
   ],
   "openCmp": [{ "goto": "https://www.ebay.de/gdpr"}]
+}, {
+  "name": "Didomi",
+  "detectCmp": [{ "exists": "#didomi-host" }],
+  "detectPopup": [{ "exists": "#didomi-popup" }],
+  "optOut": [
+    { "click": ".didomi-learn-more-button", optional: true },
+    { "click": ".didomi-components-radio button:first-child", "all": true},
+    { "click": ".didomi-consent-popup-actions button" }
+  ],
+  "optIn": [
+    { "click": ".didomi-learn-more-button", optional: true },
+    { "click": ".didomi-components-radio button:nth-child(2)", "all": true},
+    { "click": ".didomi-consent-popup-actions button" }
+  ],
+  "openCmp": [{ "eval": "Didomi.preferences.show()" }]
 }];

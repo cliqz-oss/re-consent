@@ -4,6 +4,7 @@ import Quantcast from './autoconsent/quantcast';
 import Optanon from './autoconsent/optanon';
 import TheGuardian from './autoconsent/theguardian';
 import TagCommander from './autoconsent/tagcommander';
+import TrustArc from './autoconsent/trustarc';
 import genericRules from './autoconsent/rules';
 
 const consentFrames = new Map();
@@ -14,6 +15,7 @@ const rules = [
   new Optanon(),
   new TheGuardian(),
   new TagCommander(),
+  new TrustArc(),
 ];
 genericRules.forEach((rule) => {
   rules.push(new AutoConsent(rule));
@@ -82,6 +84,7 @@ browser.runtime.onMessage.addListener((msg, sender) => {
           url: msg.url,
           id: sender.frameId,
         });
+        console.log('consent frames', consentFrames.get(sender.tab.id))
       }
     } catch (e) {
       console.error(e);

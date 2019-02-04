@@ -23,6 +23,7 @@ browser.runtime.onMessage.addListener((message) => {
     elem.forEach((e, i) => {
       results[i] = e.offsetParent !== null;
     });
+    console.log('visible?', message.selector, elem, results);
     if (results.length === 0) {
       return Promise.resolve(false);
     } else if (message.check === 'any') {
