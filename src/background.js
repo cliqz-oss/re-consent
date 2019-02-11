@@ -7,33 +7,12 @@ import GoogleDetector from './features/google';
 import { getStorageClass } from './consent/storages';
 import { telemetry, TELEMETRY_ACTION } from './telemetry';
 import { getNumberOfAllowedConsents } from './consent/utils';
-import { APPLICATION_STATE_ICON_NAME } from './constants';
-import { checkIsChrome, getConsentType } from './utils';
+import { getConsentType } from './utils';
+import setBrowserExtensionIcon from './icons';
 
 import cmp from './autoclicker';
 
 window.cmp = cmp;
-
-function doSetBrowserExtensionIcon(tabId, pathTemplate) {
-  const isChrome = checkIsChrome();
-  const sizes = isChrome ? [16, 24, 32] : [19, 38];
-  const suffix = isChrome ? '-chrome.png' : '-cliqz.png';
-  const iconSet = {};
-
-  sizes.forEach((size) => {
-    iconSet[size] = pathTemplate.replace('{size}', `${size}x${size}`).replace('{suffix}', suffix);
-  });
-
-  browser.pageAction.setIcon({
-    path: iconSet,
-    tabId,
-  });
-}
-
-async function setBrowserExtensionIcon(applicationState, tabId) {
-  const iconName = APPLICATION_STATE_ICON_NAME[applicationState];
-  doSetBrowserExtensionIcon(tabId, `icons/png/{size}_consent-${iconName}{suffix}`);
-}
 
 async function detectFeatures(url, dispatch) {
   url = new URL(url);

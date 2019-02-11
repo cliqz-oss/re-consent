@@ -53,6 +53,10 @@ module.exports = {
         from: 'src/popupTemp',
         to: 'popupTemp',
       },
+      {
+        from: 'node_modules/bulma/css/bulma.css',
+        to: 'css',
+      }
     ]),
   ],
   devtool: mode !== 'production' ? 'inline-source-map' : false,

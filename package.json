@@ -5,6 +5,7 @@
   "author": "Cliqz GmbH",
   "license": "MPL-2.0",
   "dependencies": {
+    "bulma": "^0.7.4",
     "consent-string": "^1.2.4",
     "moment": "^2.22.2",
     "prop-types": "^15.6.1",

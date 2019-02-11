@@ -1,6 +1,138 @@
-import browser from 'webextension-polyfill';
 
-browser.runtime.onMessage.addListener((message) => {
+function createOverlay() {
+  const root = document.createElement('span');
+  const shadow = root.attachShadow({ mode: 'open' });
+  const html = `
+    <style type="text/css">
+    .hidden {
+      display: none;
+    }
+    .ui {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2147483646;
+    }
+    </style>
+    <div class="ui hidden" id="wrapper">
+      <div class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="box">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image">
+                  <img src="${chrome.runtime.getURL('icons/png/128x128_logo-chrome.png')}" alt="Re:consent Logo"/>
+                </figure>
+              </div>
+              <div class="media-content hidden" id="modal">
+                <p>Re:consent can automatically manage your consent on this site.</p>
+                <div class="field is-grouped">
+                  <div class="control" id="button-deny">
+                    <button class="button is-success is-large">Deny all</button>
+                  </div>
+                  <div class="control" id="button-allow">
+                    <button class="button is-danger is-large">Allow all</button>
+                  </div>
+                  <div class="control" id="button-custom">
+                    <button class="button is-large is-text">Custom</buttom>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="select is-medium">
+                    <select id="option-settings">
+                      <option>Always chose this option for all sites</option>
+                      <option>Chose this option for this site only</option>
+                      <option>Just once</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="media-content hidden" id="overlay">
+                <p id="waiting-text"></p>
+                <p class="subtitle">You can always review your settings from the re:consent icon in the url bar.</p>
+                <div class="control" id="button-cancel">
+                  <button class="button is-large is-text">Close</button>
+                </div>
+              </div>
+            </article>
+        </div>
+        <button class="modal-close is-large" aria-label="close" id="close-button"></button>
+      </div>
+    </div>
+  `;
+  shadow.innerHTML = html;
+
+  const firstElement = document.querySelector('body > :first-child');
+  if (firstElement) {
+    document.body.insertBefore(root, firstElement);
+  } else {
+    document.body.appendChild(root);
+  }
+
+  // root.style = 'display: none!important';
+
+  function showModel() {
+    shadow.getElementById('wrapper').className = "ui";
+    shadow.getElementById('overlay').className = "media-content hidden";
+    shadow.getElementById('modal').className = "media-content";
+  };
+  function showOverlay(msg) {
+    shadow.getElementById('wrapper').className = "ui";
+    shadow.getElementById('modal').className = "media-content hidden";
+    shadow.getElementById('waiting-text').innerText = msg;
+    shadow.getElementById('overlay').className = "media-content"
+  };
+  function hideOverlay() {
+    shadow.getElementById('wrapper').className = "ui hidden";
+  };
+
+  const link = document.createElement('link');
+  link.setAttribute('rel', 'stylesheet');
+  link.href = chrome.runtime.getURL('css/bulma.css');
+  shadow.appendChild(link);
+
+  shadow.getElementById('close-button').addEventListener('click', () => {
+    hideOverlay();
+  });
+  shadow.getElementById('button-cancel').addEventListener('click', () => {
+    hideOverlay();
+  });
+
+  shadow.getElementById('button-allow').addEventListener('click', () => {
+    chrome.runtime.sendMessage({
+      type: 'user-consent',
+      action: 'allow',
+    });
+    showOverlay('Allowing all consents for this site, please wait...');
+  });
+  shadow.getElementById('button-deny').addEventListener('click', () => {
+    chrome.runtime.sendMessage({
+      type: 'user-consent',
+      action: 'deny',
+    });
+    showOverlay('Denying all consents for this site, please wait...');
+  });
+  shadow.getElementById('button-custom').addEventListener('click', () => {
+    chrome.runtime.sendMessage({
+      type: 'user-consent',
+      action: 'custom',
+    });
+    hideOverlay();
+  });
+
+  return {
+    showModel,
+    showOverlay,
+    hide: hideOverlay,
+  };
+}
+
+let overlay = null;
+
+chrome.runtime.onMessage.addListener((message) => {
   if (message.type === 'click') {
     const elem = document.querySelectorAll(message.selector);
     if (elem.length > 0) {
@@ -40,14 +172,25 @@ browser.runtime.onMessage.addListener((message) => {
     }
     return Promise.resolve(elem.getAttribute(message.attribute));
   } else if (message.type === 'eval') {
+    // TODO: chrome support
     const result = window.eval(message.script); // eslint-disable-line no-eval
     console.log('eval result', result);
     return Promise.resolve(result);
+  } else if (message.type === 'prompt') {
+    if (!overlay) {
+      overlay = createOverlay();
+    }
+    if (message.action === 'show') {
+      overlay.showModel();
+    } else {
+      overlay.hide();
+    }
+    return Promise.resolve(true);
   }
   return Promise.resolve(null);
 });
 
-browser.runtime.sendMessage({
+chrome.runtime.sendMessage({
   type: 'frame',
   url: window.location.href,
 });

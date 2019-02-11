@@ -15,7 +15,8 @@
     "cookies",
     "privacy",
     "storage",
-    "tabs"
+    "tabs",
+    "notifications"
   ],
   "content_scripts": [
     {
@@ -52,6 +53,8 @@
     }
   },
   "web_accessible_resources": [
-    "content-page-bridge.js"
+    "content-page-bridge.js",
+    "css/bulma.css",
+    "icons/png/128x128_logo-chrome.png"
   ]
 }
