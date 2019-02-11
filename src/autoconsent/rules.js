@@ -4,17 +4,17 @@ export default [{
   "detectCmp": [{ "eval": "window.CookieConsent !== undefined" }],
   "detectPopup": [{ "exists": "#CybotCookiebotDialog" }],
   "optOut": [
-    { "click": ".CybotCookiebotDialogBodyLevelButton:checked:enabled" },
+    { "click": ".CybotCookiebotDialogBodyLevelButton:checked:enabled", "all": true, "optional": true },
     { "click": "#CybotCookiebotDialogBodyLevelButtonAccept" },
     { "click": "#CybotCookiebotDialogBodyButtonAccept" }
   ],
   "optIn": [
-    { "click": ".CybotCookiebotDialogBodyLevelButton:not(:checked):enabled'" },
+    { "click": ".CybotCookiebotDialogBodyLevelButton:not(:checked):enabled", "all": true, "optional": true },
     { "click": "#CybotCookiebotDialogBodyLevelButtonAccept"},
     { "click": "#CybotCookiebotDialogBodyButtonAccept"}
   ],
   "openCmp": [
-    { "eval": "CookieConsent.renew()" },
+    { "eval": "CookieConsent.renew() || true" },
     { "waitFor": "#CybotCookiebotDialog" }
   ]
 }, {
