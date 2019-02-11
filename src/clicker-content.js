@@ -1,9 +1,14 @@
 
 function createOverlay() {
   const root = document.createElement('span');
-  const shadow = root.attachShadow({ mode: 'open' });
+  const shadow = root.attachShadow({ mode: 'closed' });
+  // TODO: remove CSS framework - all styles here should be custom and inline to
+  // prevent interference from page
   const html = `
     <style type="text/css">
+    :host {
+      all: initial
+    }
     .hidden {
       display: none;
     }
@@ -43,9 +48,9 @@ function createOverlay() {
                 <div class="field">
                   <div class="select is-medium">
                     <select id="option-settings">
-                      <option>Always chose this option for all sites</option>
-                      <option>Chose this option for this site only</option>
-                      <option>Just once</option>
+                      <option value="always">Always chose this option for all sites</option>
+                      <option value="site">Chose this option for this site only</option>
+                      <option value="once">Just once</option>
                     </select>
                   </div>
                 </div>
@@ -75,15 +80,15 @@ function createOverlay() {
   // root.style = 'display: none!important';
 
   function showModel() {
-    shadow.getElementById('wrapper').className = "ui";
     shadow.getElementById('overlay').className = "media-content hidden";
     shadow.getElementById('modal').className = "media-content";
+    shadow.getElementById('wrapper').className = "ui";
   };
   function showOverlay(msg) {
-    shadow.getElementById('wrapper').className = "ui";
     shadow.getElementById('modal').className = "media-content hidden";
     shadow.getElementById('waiting-text').innerText = msg;
     shadow.getElementById('overlay').className = "media-content"
+    shadow.getElementById('wrapper').className = "ui";
   };
   function hideOverlay() {
     shadow.getElementById('wrapper').className = "ui hidden";
@@ -105,6 +110,7 @@ function createOverlay() {
     chrome.runtime.sendMessage({
       type: 'user-consent',
       action: 'allow',
+      when: shadow.getElementById('option-settings').value,
     });
     showOverlay('Allowing all consents for this site, please wait...');
   });
@@ -112,6 +118,7 @@ function createOverlay() {
     chrome.runtime.sendMessage({
       type: 'user-consent',
       action: 'deny',
+      when: shadow.getElementById('option-settings').value,
     });
     showOverlay('Denying all consents for this site, please wait...');
   });
@@ -119,6 +126,7 @@ function createOverlay() {
     chrome.runtime.sendMessage({
       type: 'user-consent',
       action: 'custom',
+      when: shadow.getElementById('option-settings').value,
     });
     hideOverlay();
   });
@@ -180,8 +188,10 @@ chrome.runtime.onMessage.addListener((message) => {
     if (!overlay) {
       overlay = createOverlay();
     }
-    if (message.action === 'show') {
+    if (message.action === 'showModal') {
       overlay.showModel();
+    } else if (message.action === 'showOverlay') {
+      overlay.showOverlay(message.message);
     } else {
       overlay.hide();
     }

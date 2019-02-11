@@ -7,9 +7,7 @@ import TheGuardian from './autoconsent/theguardian';
 import TagCommander from './autoconsent/tagcommander';
 import TrustArc from './autoconsent/trustarc';
 import genericRules from './autoconsent/rules';
-
-const consentFrames = new Map();
-const tabGuards = new Set();
+import { showOverlay, showConsentModal, hideOverlay } from './autoconsent/overlay';
 
 const rules = [
   new Quantcast(),
@@ -22,11 +20,102 @@ genericRules.forEach((rule) => {
   rules.push(new AutoConsent(rule));
 });
 
-const userSettings = {
-  mode: 'ask',
+const consentFrames = new Map();
+// guards to prevent concurrent actions on the same tab
+const tabGuards = new Set();
+// tabs with an active CMP
+const tabCmps = new Map();
+
+const POPUP_ACTIONS = {
+  ASK: 'ask',
+  ALLOW: 'allow',
+  DENY: 'deny',
 }
 
-const tabCmps = new Map();
+const CONSENT_STATES = {
+  NOT_SET: 'not set',
+  ALL_ALLOWED: 'all allowed',
+  ALL_DENIED: 'all denied',
+  CUSTOM: 'custom',
+}
+
+const STORAGE_KEY_DEFAULT = 'consent/default'
+
+class TabConsent {
+  constructor(url, rule, tab) {
+    this.url = url;
+    this.rule = rule;
+    this.tab = tab;
+  }
+
+  get consentStorageKey() {
+    return `consent/${this.url.hostname}`;
+  }
+
+  async actionOnPopup() {
+    // check settings for this site and global settings
+    const storageKey = this.consentStorageKey;
+    const results = await browser.storage.local.get([storageKey, STORAGE_KEY_DEFAULT]);
+    if (results[storageKey]) {
+      return results[storageKey];
+    }
+    return results[STORAGE_KEY_DEFAULT] || POPUP_ACTIONS.ASK;
+  }
+
+  async getConsentStatus() {
+    const key = `${this.consentStorageKey}/status`
+    const result = await browser.storage.local.get([key]);
+    if (result) {
+      return result[key];
+    }
+    return CONSENT_STATES.NOT_SET;
+  }
+
+  setConsentStatus(state) {
+    const key = `${this.consentStorageKey}/status`
+    browser.storage.local.set({
+      [key]: state,
+    });
+  }
+
+  _saveActionPreference(when, action) {
+    if (when === 'always') {
+      browser.storage.local.set({
+        [STORAGE_KEY_DEFAULT]: action,
+      });
+    } else if(when === 'site') {
+      browser.storage.local.set({
+        [this.consentStorageKey]: action,
+      });
+    }
+  }
+
+  openPopup() {
+    return this.rule.openCmp();
+  }
+
+  async allow(when) {
+    try {
+      tabGuards.add(this.tab.id);
+      await this.rule.optIn(this.tab);
+      this.setConsentStatus(CONSENT_STATES.ALL_ALLOWED);
+    } finally {
+      tabGuards.delete(this.tab.id);
+    }
+    this._saveActionPreference(when, POPUP_ACTIONS.ALLOW);
+  }
+
+  async deny(when) {
+    try {
+      tabGuards.add(this.tab.id);
+      await this.rule.optOut(this.tab);
+      this.setConsentStatus(CONSENT_STATES.ALL_DENIED);
+    } finally {
+      tabGuards.delete(this.tab.id);
+    }
+    this._saveActionPreference(when, POPUP_ACTIONS.DENY);
+  }
+}
 
 async function detectDialog(tab, retries) {
   const detect = await Promise.all(rules.map(r => r.detectCmp(tab)));
@@ -55,70 +144,43 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
       if (rule) {
         setBrowserExtensionIcon('SETTINGS_DETECTED', tabId);
         browser.pageAction.show(tabId);
-        const tabStatus = {
-          host,
-          cmp: rule.name,
-          state: 'unknown',
-          open: false,
-          openPopup: () => {
-            return rule.openCmp(tab);
-          },
-          allow: async () => {
-            try {
-              tabGuards.add(tabId);
-              await rule.optOut(tab);
-            } finally {
-              tabGuards.delete(tabId);
-            }
-          },
-          deny: async () => {
-            try {
-              tabGuards.add(tabId);
-              await rule.optOut(tab);
-            } finally {
-              tabGuards.delete(tabId);
-            }
-          },
-        }
+        const tabStatus = new TabConsent(url, rule, tab);
         tabCmps.set(tabId, tabStatus);
-
-        // check if settings have previously been set
-        const storageKey = `consent/${url.hostname}`;
-        const result = await browser.storage.local.get(storageKey);
-        if (result[storageKey]) {
-          tabStatus.state = result[storageKey];
-          setBrowserExtensionIcon('SETTINGS_WELL_SET', tabId);
-          return;
-        }
-        console.log('check popup');
 
         if (await rule.detectPopup(tab)) {
           console.log('popup open');
-          // cmp popup is open
-          tabStatus.open = true;
-          return browser.tabs.sendMessage(tabId, {
-            type: 'prompt',
-            action: 'show',
-          });
+          switch (await tabStatus.actionOnPopup()) {
+            case POPUP_ACTIONS.ALLOW:
+              showOverlay(tabId, 'Allowing all consents for this site, please wait...');
+              await tabStatus.allow();
+              hideOverlay(tabId);
+              setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
+              break;
+            case POPUP_ACTIONS.DENY:
+              showOverlay(tabId, 'Denying all consents for this site, please wait...');
+              await tabStatus.deny();
+              hideOverlay(tabId);
+              setBrowserExtensionIcon('SETTINGS_WELL_SET', tabId);
+              break;
+            case POPUP_ACTIONS.ASK:
+            default:
+              showConsentModal(tabId);
+          }
+          return;
         }
-
-        if (userSettings.mode === 'ask') {
-          // open popup and ask
+        const status = await tabStatus.getConsentStatus();
+        switch (status) {
+          case CONSENT_STATES.ALL_DENIED:
+            setBrowserExtensionIcon('SETTINGS_WELL_SET', tabId);
+            break;
+          case CONSENT_STATES.CUSTOM:
+            setBrowserExtensionIcon('SETTINGS_DETECTED', tabId);
+            break;
+          case CONSENT_STATES.ALL_ALLOWED:
+          case CONSENT_STATES.NOT_SET:
+          default:
+            setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
         }
-        // await browser.pageAction.setPopup({
-        //   tabId,
-        //   popup: 'popupTemp/popup.html',
-        // });
-        // await browser.pageAction.show(tabId);
-        // tab.frame = consentFrames.get(tab.id);
-        // if (await rule.detectPopup(tab)) {
-        //   try {
-        //     tabGuards.add(tabId);
-        //     await rule.optOut(tab);
-        //   } finally {
-        //     tabGuards.delete(tabId);
-        //   }
-        // }
       } else {
         browser.pageAction.hide(tabId);
         setBrowserExtensionIcon('DEFAULT', tabId);
@@ -154,15 +216,23 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
   } else if (msg.type === 'user-consent') {
     const tab = sender.tab;
     const cmp = tabCmps.get(tab.id);
-    if (msg.action === 'allow') {
-      await cmp.allow();
-    } else if (msg.action === 'deny') {
-      await cmp.deny();
+    console.log('xxx', cmp);
+    try {
+      if (msg.action === 'allow') {
+        await cmp.allow(msg.when);
+      } else if (msg.action === 'deny') {
+        await cmp.deny(msg.when);
+      } else if (msg.action === 'custom') {
+        cmp.setConsentStatus(CONSENT_STATES.CUSTOM);
+      }
+    } catch (e) {
+      console.error('problem with consent', e);
+    } finally {
+      browser.tabs.sendMessage(tab.id, {
+        type: 'prompt',
+        action: 'hide',
+      });
     }
-    browser.tabs.sendMessage(tab.id, {
-      type: 'prompt',
-      action: 'hide',
-    });
   }
 });
 
