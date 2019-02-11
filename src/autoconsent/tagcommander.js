@@ -1,4 +1,4 @@
-import AutoConsentBase from './base';
+import AutoConsentBase , { waitFor } from './base';
 
 export default class TagCommander extends AutoConsentBase {
   constructor() {
@@ -10,16 +10,25 @@ export default class TagCommander extends AutoConsentBase {
   }
 
   async detectPopup(tab) {
-    return (await tab.elementExists('#dnt-banner')) || tab.elementExists('#privacy-iframe');
+    return (await tab.elementExists('#dnt-banner')) ||
+      await tab.elementExists('#privacy-iframe') ||
+      tab.elementExists('#footer_tc_privacy');
   }
 
   detectFrame(tab, frame) {
     return frame.url.startsWith('https://cdn.tagcommander.com/privacy/template/index.htm');
   }
 
+  async openFrame(tab) {
+    if (await tab.elementExists('#footer_tc_privacy')) {
+      await this.openCmp(tab);
+    }
+  }
+
   async optOut(tab) {
     if (!tab.frame) {
-      return false;
+      await this.openFrame(tab);
+      await waitFor(() => tab.frame, 10, 200);
     }
     await new Promise(resolve => setTimeout(resolve, 500));
     await tab.clickElements('.btn-yes', tab.frame.id);
@@ -29,7 +38,8 @@ export default class TagCommander extends AutoConsentBase {
 
   async optIn(tab) {
     if (!tab.frame) {
-      return false;
+      await this.openFrame(tab);
+      await waitFor(() => tab.frame, 10, 200);
     }
     await new Promise(resolve => setTimeout(resolve, 500));
     await tab.clickElements('.btn-no', tab.frame.id);
