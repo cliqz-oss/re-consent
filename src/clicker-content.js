@@ -18,7 +18,7 @@ function createOverlay() {
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 2147483646;
+      z-index: 2147483647 !important;
     }
     </style>
     <div class="ui hidden" id="wrapper">
@@ -69,6 +69,14 @@ function createOverlay() {
     </div>
   `;
   shadow.innerHTML = html;
+
+  // reduce z-index of any other popup
+  document.querySelectorAll('body > div').forEach((e) => {
+    if (window.getComputedStyle(e).zIndex === '2147483647') {
+      console.log('reduce zindex of ', e);
+      e.style = 'z-index: 2147483646 !important'
+    }
+  });
 
   const firstElement = document.querySelector('body > :first-child');
   if (firstElement) {
