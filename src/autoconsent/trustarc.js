@@ -10,11 +10,23 @@ export default class TrustArc extends AutoConsentBase {
   }
 
   async detectCmp(tab) {
-    return tab.frame && tab.frame.url.startsWith('https://consent-pref.trustarc.com/?');
+    if (tab.frame && tab.frame.url.startsWith('https://consent-pref.trustarc.com/?')) {
+      return true;
+    }
+    return tab.elementExists('#truste-show-consent');
   }
 
   async detectPopup(tab) {
-    return tab.waitForElement('#defaultpreferencemanager', 5000, tab.frame.id);
+    if (tab.frame) {
+      return tab.waitForElement('#defaultpreferencemanager', 5000, tab.frame.id);
+    }
+    return tab.elementExists('#truste-show-consent');
+  }
+
+  async openFrame(tab) {
+    if (await tab.elementExists('#truste-show-consent')) {
+      await tab.clickElement('#truste-show-consent');
+    }
   }
 
   async navigateToSettings(tab, frameId) {
@@ -40,6 +52,10 @@ export default class TrustArc extends AutoConsentBase {
   }
 
   async optOut(tab) {
+    if (!tab.frame) {
+      await this.openFrame(tab);
+      await waitFor(() => tab.frame, 10, 200);
+    }
     const frameId = tab.frame.id;
     await this.navigateToSettings(tab, frameId);
     // select and submit
@@ -50,6 +66,10 @@ export default class TrustArc extends AutoConsentBase {
   }
 
   async optIn(tab) {
+    if (!tab.frame) {
+      await this.openFrame(tab);
+      await waitFor(() => tab.frame, 10, 200);
+    }
     const frameId = tab.frame.id;
     await this.navigateToSettings(tab, frameId);
     await tab.clickElements('.switch span:nth-child(2)', frameId);
