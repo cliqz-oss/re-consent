@@ -143,6 +143,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
     const rule = await detectDialog(tab, 5);
     try {
       if (rule) {
+        console.log('Detected CMP', rule.name, tabId);
         setBrowserExtensionIcon('SETTINGS_DETECTED', tabId);
         browser.pageAction.show(tabId);
         const tabStatus = new TabConsent(url, rule, tab);
@@ -189,7 +190,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
     } catch (e) {
       console.error('cmp error', e);
     }
-  } else if (tabCmps.has(tabId) && tabCmps.get(tabId).host !== host) {
+  } else if (tabCmps.has(tabId) && tabCmps.get(tabId).url.hostname !== host) {
     tabCmps.delete(tabId);
   }
 });
@@ -220,7 +221,6 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
   } else if (msg.type === 'user-consent') {
     const tab = sender.tab;
     const cmp = tabCmps.get(tab.id);
-    console.log('xxx', cmp);
     try {
       if (msg.action === 'allow') {
         await cmp.allow(msg.when);
