@@ -21,19 +21,20 @@ export default [{
   "name": "TechRadar",
   "detectCmp": [{ "url": "https://www.techradar.com"}],
   "detectPopup": [{ "exists": "#cmp-container-id"}],
-  "frame": "https://consent.cmp.techradar.com",
+  "frame": "https://consent.cmp.techradar.com/",
   "optOut": [
-    { "click": "#mainMoreInfo", "frame": true },
+    { "click": "#mainMoreInfo", "frame": true, "optional": true },
     { "click": ".cmp-btn-rejectall", "frame": true },
     { "click": "#confirmLeave", "frame": true }
   ],
   "optIn": [
-    { "click": "#mainMoreInfo", "frame": true },
+    { "click": "#mainMoreInfo", "frame": true, "optional": true },
+    { "click": ".cmp-btn-acceptall", "frame": true },
     { "click": ".cmp-btn-acceptall", "frame": true }
   ],
   "openCmp": [
-    { "eval": "window.__cmp(\"renderConsents\") " },
-    { "waitFor": "#privacy-iframe" },
+    { "eval": "window.__cmp(\"renderConsents\") || true" },
+    { "waitFor": "#cmp-ui-iframe" },
     { "wait": 500 }
   ]
 }, {

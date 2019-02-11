@@ -210,6 +210,9 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
           id: sender.frameId,
         });
         console.log('consent frames', consentFrames.get(sender.tab.id))
+        if (tabCmps.has(sender.tab.id)) {
+          tabCmps.get(sender.tab.id).tab.frame = consentFrames.get(sender.tab.id);
+        }
       }
     } catch (e) {
       console.error(e);
