@@ -32,7 +32,7 @@ const POPUP_ACTIONS = {
   DENY: 'deny',
 }
 
-const CONSENT_STATES = {
+export const CONSENT_STATES = {
   NOT_SET: 'not set',
   ALL_ALLOWED: 'all allowed',
   ALL_DENIED: 'all denied',
@@ -91,7 +91,8 @@ class TabConsent {
   }
 
   openPopup() {
-    return this.rule.openCmp();
+    this.setConsentStatus(CONSENT_STATES.CUSTOM);
+    return this.rule.openCmp(this.tab);
   }
 
   async allow(when) {

@@ -9,6 +9,7 @@ import enLocaleData from 'react-intl/locale-data/en';
 import deLocaleData from 'react-intl/locale-data/de';
 
 import PopupContainer from './components/popup/PopupContainer';
+import AutoConsentPopup from './components/popup/AutoConsentPopup';
 import reducer from './reducer';
 import { TELEMETRY_ACTION } from './telemetry';
 import { getConsentType } from './utils';
@@ -34,6 +35,41 @@ const store = createStore(reducer);
 
 browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => {
   const element = window.document.createElement('div');
+  const { cmp } = await browser.runtime.getBackgroundPage();
+
+  window.document.body.appendChild(element);
+  window.document.body.style.width = '340px';
+
+  let locale = browser.i18n.getUILanguage().split(/[-_]/)[0]; // language without region code
+
+  if (!(locale in translations)) {
+    locale = DEFAULT_LOCALE;
+  }
+
+  if (cmp.tabs.has(tab.id)) {
+    // auto-consent triggered
+    const cmpStatus = cmp.tabs.get(tab.id)
+    const siteName = new URL(tab.url).hostname;
+    const status = await cmpStatus.getConsentStatus();
+    ReactDOM.render(
+      <IntlProvider
+        locale={locale}
+        messages={translations[locale]}
+        defaultLocale={DEFAULT_LOCALE}
+      >
+        <AutoConsentPopup
+          applicationState={'SETTINGS_DETECTED'}
+          siteName={siteName}
+          consent={{}}
+          cmp={cmpStatus}
+          consentStatus={status}
+          tab={cmp.getTab(tab.id)} />
+      </IntlProvider>,
+      element,
+    );
+    return;
+  }
+
   const changeConsent = (consent) => {
     browser.runtime.sendMessage({ type: 'changeConsent', tabId: tab.id, consent });
   };
@@ -57,15 +93,6 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
   const hideOnboarding = () => {
     browser.runtime.sendMessage({ tabId: tab.id, type: 'hideOnboarding' });
   };
-
-  window.document.body.appendChild(element);
-  window.document.body.style.width = '340px';
-
-  let locale = browser.i18n.getUILanguage().split(/[-_]/)[0]; // language without region code
-
-  if (!(locale in translations)) {
-    locale = DEFAULT_LOCALE;
-  }
 
   ReactDOM.render(
     <Provider store={store}>
