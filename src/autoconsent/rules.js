@@ -92,4 +92,18 @@ export default [{
     { "click": ".didomi-consent-popup-actions button" }
   ],
   "openCmp": [{ "eval": "Didomi.preferences.show()" }]
+},{
+  "name": "conversant",
+  "detectCmp": [{ "eval": "window.cmpConfig && window.cmpConfig.methods && typeof window.cmpConfig.methods.summon === 'function'"}],
+  "detectPopup": [{ "exists": "#gdpr-modal-landing-body"}],
+  "optOut": [
+    { "click": "#gdpr-modal-learn-more" },
+    { "click": "#gdpr-modal-all-purpose-opt-out"},
+    { "click": "#gdpr-modal-collapse-vendor .gdpr-modal-shrink" },
+    { "click": ".gdpr-modal-button-continue" }
+  ],
+  "optIn": [
+    { "click": ".gdpr-modal-button-continue" }
+  ],
+  "openCmp": [{ "eval": "cmpConfig.methods.summon()" }],
 }];

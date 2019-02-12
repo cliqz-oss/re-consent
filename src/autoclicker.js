@@ -151,7 +151,10 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
         const tabStatus = new TabConsent(url, rule, tab);
         tabCmps.set(tabId, tabStatus);
 
-        if (await rule.detectPopup(tab)) {
+        const popupOpen = await rule.detectPopup(tab) || await new Promise(resolve => {
+          setTimeout(async () => resolve(await rule.detectPopup(tab)), 1000)
+        });
+        if (popupOpen) {
           console.log('popup open');
           switch (await tabStatus.actionOnPopup()) {
             case POPUP_ACTIONS.ALLOW:

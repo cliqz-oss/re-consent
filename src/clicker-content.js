@@ -71,12 +71,13 @@ function createOverlay() {
   shadow.innerHTML = html;
 
   // reduce z-index of any other popup
-  document.querySelectorAll('body > div').forEach((e) => {
+  function reduceZIndex(e) {
     if (window.getComputedStyle(e).zIndex === '2147483647') {
-      console.log('reduce zindex of ', e);
       e.style = 'z-index: 2147483646 !important'
     }
-  });
+  }
+  document.querySelectorAll('body > div').forEach(reduceZIndex);
+  document.querySelectorAll('#gdpr-modal-html').forEach(reduceZIndex);
 
   const firstElement = document.querySelector('body > :first-child');
   if (firstElement) {
