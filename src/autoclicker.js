@@ -6,6 +6,7 @@ import Optanon from './autoconsent/optanon';
 import TheGuardian from './autoconsent/theguardian';
 import TagCommander from './autoconsent/tagcommander';
 import TrustArc from './autoconsent/trustarc';
+import CookieBot from './autoconsent/cookiebot';
 import genericRules from './autoconsent/rules';
 import { showOverlay, showConsentModal, hideOverlay } from './autoconsent/overlay';
 
@@ -15,6 +16,7 @@ const rules = [
   new TheGuardian(),
   new TagCommander(),
   new TrustArc(),
+  new CookieBot(),
 ];
 genericRules.forEach((rule) => {
   rules.push(new AutoConsent(rule));

@@ -1,23 +1,5 @@
 /* eslint-disable quote-props,quotes,comma-dangle,object-curly-spacing */
 export default [{
-  "name": "Cybotcookiebot",
-  "detectCmp": [{ "eval": "window.CookieConsent !== undefined" }],
-  "detectPopup": [{ "exists": "#CybotCookiebotDialog" }],
-  "optOut": [
-    { "click": ".CybotCookiebotDialogBodyLevelButton:checked:enabled", "all": true, "optional": true },
-    { "click": "#CybotCookiebotDialogBodyLevelButtonAccept" },
-    { "click": "#CybotCookiebotDialogBodyButtonAccept" }
-  ],
-  "optIn": [
-    { "click": ".CybotCookiebotDialogBodyLevelButton:not(:checked):enabled", "all": true, "optional": true },
-    { "click": "#CybotCookiebotDialogBodyLevelButtonAccept"},
-    { "click": "#CybotCookiebotDialogBodyButtonAccept"}
-  ],
-  "openCmp": [
-    { "eval": "CookieConsent.renew() || true" },
-    { "waitFor": "#CybotCookiebotDialog" }
-  ]
-}, {
   "name": "TechRadar",
   "detectCmp": [{ "url": "https://www.techradar.com"}],
   "detectPopup": [{ "exists": "#cmp-container-id"}],
