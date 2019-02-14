@@ -53,7 +53,6 @@ const browserExtensionIconMiddleware = store => next => (action) => {
 const store = createStore(reducer, applyMiddleware(logger, browserExtensionIconMiddleware));
 
 browser.runtime.onMessage.addListener((message) => {
-  console.log('msg', message);
   if (message.type === 'getState') {
     browser.runtime.sendMessage({ type: 'stateChanged', state: store.getState() });
   } else if (message.type === 'dispatchAction') {

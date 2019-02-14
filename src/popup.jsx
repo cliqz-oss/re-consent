@@ -48,7 +48,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
 
   if (cmp.tabs.has(tab.id)) {
     // auto-consent triggered
-    const cmpStatus = cmp.tabs.get(tab.id)
+    const cmpStatus = cmp.tabs.get(tab.id);
     const siteName = new URL(tab.url).hostname;
     const status = await cmpStatus.getConsentStatus();
     ReactDOM.render(
@@ -58,12 +58,13 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
         defaultLocale={DEFAULT_LOCALE}
       >
         <AutoConsentPopup
-          applicationState={'SETTINGS_DETECTED'}
+          applicationState="SETTINGS_DETECTED"
           siteName={siteName}
           consent={{}}
           cmp={cmpStatus}
           consentStatus={status}
-          tab={cmp.getTab(tab.id)} />
+          tab={cmp.getTab(tab.id)}
+        />
       </IntlProvider>,
       element,
     );

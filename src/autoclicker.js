@@ -32,16 +32,16 @@ const POPUP_ACTIONS = {
   ASK: 'ask',
   ALLOW: 'allow',
   DENY: 'deny',
-}
+};
 
 export const CONSENT_STATES = {
   NOT_SET: 'not set',
   ALL_ALLOWED: 'all allowed',
   ALL_DENIED: 'all denied',
   CUSTOM: 'custom',
-}
+};
 
-const STORAGE_KEY_DEFAULT = 'consent/default'
+const STORAGE_KEY_DEFAULT = 'consent/default';
 
 class TabConsent {
   constructor(url, rule, tab) {
@@ -65,7 +65,7 @@ class TabConsent {
   }
 
   async getConsentStatus() {
-    const key = `${this.consentStorageKey}/status`
+    const key = `${this.consentStorageKey}/status`;
     const result = await browser.storage.local.get([key]);
     if (result) {
       return result[key];
@@ -74,18 +74,18 @@ class TabConsent {
   }
 
   setConsentStatus(state) {
-    const key = `${this.consentStorageKey}/status`
+    const key = `${this.consentStorageKey}/status`;
     browser.storage.local.set({
       [key]: state,
     });
   }
 
-  _saveActionPreference(when, action) {
+  saveActionPreference(when, action) {
     if (when === 'always') {
       browser.storage.local.set({
         [STORAGE_KEY_DEFAULT]: action,
       });
-    } else if(when === 'site') {
+    } else if (when === 'site') {
       browser.storage.local.set({
         [this.consentStorageKey]: action,
       });
@@ -105,7 +105,7 @@ class TabConsent {
     } finally {
       tabGuards.delete(this.tab.id);
     }
-    this._saveActionPreference(when, POPUP_ACTIONS.ALLOW);
+    this.saveActionPreference(when, POPUP_ACTIONS.ALLOW);
   }
 
   async deny(when) {
@@ -116,7 +116,7 @@ class TabConsent {
     } finally {
       tabGuards.delete(this.tab.id);
     }
-    this._saveActionPreference(when, POPUP_ACTIONS.DENY);
+    this.saveActionPreference(when, POPUP_ACTIONS.DENY);
   }
 }
 
@@ -138,9 +138,8 @@ async function detectDialog(tab, retries) {
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
   const url = new URL(tabInfo.url);
   const host = url.hostname;
+
   if (changeInfo.status === 'complete' && !tabGuards.has(tabId)) {
-    console.log('tab complete', tabId, tabInfo.url);
-    const url = new URL(tabInfo.url);
     const tab = new TabActions(tabId, tabInfo.url, consentFrames.get(tabId));
     const rule = await detectDialog(tab, 5);
     try {
@@ -151,11 +150,11 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
         const tabStatus = new TabConsent(url, rule, tab);
         tabCmps.set(tabId, tabStatus);
 
-        const popupOpen = await rule.detectPopup(tab) || await new Promise(resolve => {
-          setTimeout(async () => resolve(await rule.detectPopup(tab)), 1000)
+        const popupOpen = await rule.detectPopup(tab) || await new Promise((resolve) => {
+          setTimeout(async () => resolve(await rule.detectPopup(tab)), 1000);
         });
         if (popupOpen) {
-          console.log('popup open');
+          console.log('Popup is open', rule.name, tabId, host);
           switch (await tabStatus.actionOnPopup()) {
             case POPUP_ACTIONS.ALLOW:
               showOverlay(tabId, 'Allowing all consents for this site, please wait...');
@@ -215,7 +214,6 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
           url: msg.url,
           id: sender.frameId,
         });
-        console.log('consent frames', consentFrames.get(sender.tab.id))
         if (tabCmps.has(sender.tab.id)) {
           tabCmps.get(sender.tab.id).tab.frame = consentFrames.get(sender.tab.id);
         }
@@ -224,7 +222,7 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
       console.error(e);
     }
   } else if (msg.type === 'user-consent') {
-    const tab = sender.tab;
+    const { tab } = sender;
     const cmp = tabCmps.get(tab.id);
     try {
       if (msg.action === 'allow') {

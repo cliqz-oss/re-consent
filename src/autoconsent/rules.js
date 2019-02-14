@@ -25,7 +25,7 @@ export default [{
     "url": "https://techcrunch.com"
   }, {
     "url": "https://yahoo.com"
-  },{
+  }, {
     "url": "https://guce.oath.com/collectConsent"
   }, {
     "url": "https://www.huffingtonpost.co.uk"
@@ -92,7 +92,7 @@ export default [{
     { "click": ".didomi-consent-popup-actions button" }
   ],
   "openCmp": [{ "eval": "Didomi.preferences.show()" }]
-},{
+}, {
   "name": "conversant",
   "detectCmp": [{ "eval": "window.cmpConfig && window.cmpConfig.methods && typeof window.cmpConfig.methods.summon === 'function'"}],
   "detectPopup": [{ "exists": "#gdpr-modal-landing-body"}],

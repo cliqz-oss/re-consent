@@ -73,7 +73,7 @@ function createOverlay() {
   // reduce z-index of any other popup
   function reduceZIndex(e) {
     if (window.getComputedStyle(e).zIndex === '2147483647') {
-      e.style = 'z-index: 2147483646 !important'
+      e.style = 'z-index: 2147483646 !important';
     }
   }
   document.querySelectorAll('body > div').forEach(reduceZIndex);
@@ -86,22 +86,20 @@ function createOverlay() {
     document.body.appendChild(root);
   }
 
-  // root.style = 'display: none!important';
-
   function showModel() {
-    shadow.getElementById('overlay').className = "media-content hidden";
-    shadow.getElementById('modal').className = "media-content";
-    shadow.getElementById('wrapper').className = "ui";
-  };
+    shadow.getElementById('overlay').className = 'media-content hidden';
+    shadow.getElementById('modal').className = 'media-content';
+    shadow.getElementById('wrapper').className = 'ui';
+  }
   function showOverlay(msg) {
-    shadow.getElementById('modal').className = "media-content hidden";
+    shadow.getElementById('modal').className = 'media-content hidden';
     shadow.getElementById('waiting-text').innerText = msg;
-    shadow.getElementById('overlay').className = "media-content"
-    shadow.getElementById('wrapper').className = "ui";
-  };
+    shadow.getElementById('overlay').className = 'media-content';
+    shadow.getElementById('wrapper').className = 'ui';
+  }
   function hideOverlay() {
-    shadow.getElementById('wrapper').className = "ui hidden";
-  };
+    shadow.getElementById('wrapper').className = 'ui hidden';
+  }
 
   const link = document.createElement('link');
   link.setAttribute('rel', 'stylesheet');
@@ -158,13 +156,10 @@ chrome.runtime.onMessage.addListener((message) => {
       } else {
         elem[0].click();
       }
-    } else {
-      console.warn('element not found', message.selector);
     }
     return Promise.resolve(elem.length > 0);
   } else if (message.type === 'elemExists') {
     const exists = document.querySelector(message.selector) !== null;
-    console.log('exists?', message.selector, exists);
     return Promise.resolve(exists);
   } else if (message.type === 'elemVisible') {
     const elem = document.querySelectorAll(message.selector);
@@ -172,7 +167,6 @@ chrome.runtime.onMessage.addListener((message) => {
     elem.forEach((e, i) => {
       results[i] = e.offsetParent !== null;
     });
-    console.log('visible?', message.selector, elem, results);
     if (results.length === 0) {
       return Promise.resolve(false);
     } else if (message.check === 'any') {
@@ -191,7 +185,6 @@ chrome.runtime.onMessage.addListener((message) => {
   } else if (message.type === 'eval') {
     // TODO: chrome support
     const result = window.eval(message.script); // eslint-disable-line no-eval
-    console.log('eval result', result);
     return Promise.resolve(result);
   } else if (message.type === 'prompt') {
     if (!overlay) {

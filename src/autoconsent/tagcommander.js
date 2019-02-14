@@ -1,4 +1,4 @@
-import AutoConsentBase , { waitFor } from './base';
+import AutoConsentBase, { waitFor } from './base';
 
 export default class TagCommander extends AutoConsentBase {
   constructor() {
