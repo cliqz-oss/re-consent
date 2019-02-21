@@ -7,6 +7,7 @@ import TheGuardian from './autoconsent/theguardian';
 import TagCommander from './autoconsent/tagcommander';
 import TrustArc from './autoconsent/trustarc';
 import CookieBot from './autoconsent/cookiebot';
+import Evidon from './autoconsent/evidon';
 import genericRules from './autoconsent/rules';
 import { showOverlay, showConsentModal, hideOverlay, showNotification } from './autoconsent/overlay';
 
@@ -17,6 +18,7 @@ const rules = [
   new TagCommander(),
   new TrustArc(),
   new CookieBot(),
+  new Evidon(),
 ];
 genericRules.forEach((rule) => {
   rules.push(new AutoConsent(rule));
