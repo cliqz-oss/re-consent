@@ -20,51 +20,73 @@ function createOverlay() {
       height: 100%;
       z-index: 2147483647 !important;
     }
+    .notification {
+      position: absolute !important;
+      width: 350px;
+      right: 30px;
+      margin: 25px;
+    }
     </style>
-    <div class="ui hidden" id="wrapper">
-      <div class="modal is-active">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-          <div class="box">
-            <article class="media">
-              <div class="media-left">
-                <figure class="image">
-                  <img src="${chrome.runtime.getURL('icons/png/128x128_logo-chrome.png')}" alt="Re:consent Logo"/>
-                </figure>
-              </div>
-              <div class="media-content hidden" id="modal">
-                <p>Re:consent can automatically manage your consent on this site.</p>
-                <div class="field is-grouped">
-                  <div class="control" id="button-deny">
-                    <button class="button is-success is-large">Deny all</button>
+    <div class="ui hidden" id="mask">
+      <div id="wrapper">
+        <div class="modal is-active">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="box">
+              <article class="media">
+                <div class="media-left">
+                  <figure class="image">
+                    <img src="${chrome.runtime.getURL('icons/png/128x128_logo-chrome.png')}" alt="Re:consent Logo"/>
+                  </figure>
+                </div>
+                <div class="media-content hidden" id="modal">
+                  <p>Re:consent can automatically manage your consent on this site.</p>
+                  <div class="field is-grouped">
+                    <div class="control" id="button-deny">
+                      <button class="button is-success is-large">Deny all</button>
+                    </div>
+                    <div class="control" id="button-allow">
+                      <button class="button is-danger is-large">Allow all</button>
+                    </div>
+                    <div class="control" id="button-custom">
+                      <button class="button is-large is-text">Custom</buttom>
+                    </div>
                   </div>
-                  <div class="control" id="button-allow">
-                    <button class="button is-danger is-large">Allow all</button>
-                  </div>
-                  <div class="control" id="button-custom">
-                    <button class="button is-large is-text">Custom</buttom>
+                  <div class="field">
+                    <div class="select is-medium">
+                      <select id="option-settings">
+                        <option value="always">Always chose this option for all sites</option>
+                        <option value="site">Chose this option for this site only</option>
+                        <option value="once">Just once</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="select is-medium">
-                    <select id="option-settings">
-                      <option value="always">Always chose this option for all sites</option>
-                      <option value="site">Chose this option for this site only</option>
-                      <option value="once">Just once</option>
-                    </select>
+                <div class="media-content hidden" id="overlay">
+                  <p id="waiting-text"></p>
+                  <p class="subtitle">You can always review your settings from the re:consent icon in the url bar.</p>
+                  <div class="control" id="button-cancel">
+                    <button class="button is-large is-text">Close</button>
                   </div>
                 </div>
-              </div>
-              <div class="media-content hidden" id="overlay">
-                <p id="waiting-text"></p>
-                <p class="subtitle">You can always review your settings from the re:consent icon in the url bar.</p>
-                <div class="control" id="button-cancel">
-                  <button class="button is-large is-text">Close</button>
-                </div>
-              </div>
-            </article>
+              </article>
+            </div>
+          </div>
+          <button class="modal-close is-large" aria-label="close" id="close-button"></button>
         </div>
-        <button class="modal-close is-large" aria-label="close" id="close-button"></button>
+      </div>
+      <div class="notification hidden" id="notification">
+        <button class="delete" id="notification-hide"></button>
+        <article class="media">
+          <figure class="media-left">
+            <p class="image">
+              <img src="${chrome.runtime.getURL('icons/png/128x128_logo-chrome.png')}" alt="Re:consent Logo"/>
+            </p>
+          </figure>
+          <div class="media-content">
+            <p class="content" id="notification-text">Re:consent notification</p>
+          </div>
+        </article>
       </div>
     </div>
   `;
@@ -89,16 +111,26 @@ function createOverlay() {
   function showModel() {
     shadow.getElementById('overlay').className = 'media-content hidden';
     shadow.getElementById('modal').className = 'media-content';
-    shadow.getElementById('wrapper').className = 'ui';
+    shadow.getElementById('mask').className = 'ui';
   }
   function showOverlay(msg) {
     shadow.getElementById('modal').className = 'media-content hidden';
     shadow.getElementById('waiting-text').innerText = msg;
     shadow.getElementById('overlay').className = 'media-content';
-    shadow.getElementById('wrapper').className = 'ui';
+    shadow.getElementById('mask').className = 'ui';
   }
   function hideOverlay() {
-    shadow.getElementById('wrapper').className = 'ui hidden';
+    shadow.getElementById('mask').className = 'ui hidden';
+  }
+  function hideNotification() {
+    shadow.getElementById('mask').className = 'ui hidden';
+    shadow.getElementById('notification').className = 'notification hidden';
+  }
+  function showNotification(msg, timeout = 10000) {
+    shadow.getElementById('notification-text').innerText = msg;
+    shadow.getElementById('notification').className = 'notification';
+    shadow.getElementById('mask').className = 'ui';
+    setTimeout(hideNotification, timeout);
   }
 
   const link = document.createElement('link');
@@ -137,11 +169,15 @@ function createOverlay() {
     });
     hideOverlay();
   });
+  shadow.getElementById('notification-hide').addEventListener('click', () => {
+    hideNotification();
+  });
 
   return {
     showModel,
     showOverlay,
     hide: hideOverlay,
+    showNotification,
   };
 }
 
@@ -194,6 +230,8 @@ chrome.runtime.onMessage.addListener((message) => {
       overlay.showModel();
     } else if (message.action === 'showOverlay') {
       overlay.showOverlay(message.message);
+    } else if (message.action === 'showNotification') {
+      overlay.showNotification(message.message, message.timeout);
     } else {
       overlay.hide();
     }

@@ -20,3 +20,12 @@ export function showConsentModal(tabId) {
     action: 'showModal',
   }, { frameId: 0 });
 }
+
+export function showNotification(tabId, message, timeout = 10000) {
+  return browser.tabs.sendMessage(tabId, {
+    type: 'prompt',
+    action: 'showNotification',
+    message,
+    timeout,
+  }, { frameId: 0 });
+}

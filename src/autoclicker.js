@@ -8,7 +8,7 @@ import TagCommander from './autoconsent/tagcommander';
 import TrustArc from './autoconsent/trustarc';
 import CookieBot from './autoconsent/cookiebot';
 import genericRules from './autoconsent/rules';
-import { showOverlay, showConsentModal, hideOverlay } from './autoconsent/overlay';
+import { showOverlay, showConsentModal, hideOverlay, showNotification } from './autoconsent/overlay';
 
 const rules = [
   new Quantcast(),
@@ -160,12 +160,14 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
               showOverlay(tabId, 'Allowing all consents for this site, please wait...');
               await tabStatus.allow();
               hideOverlay(tabId);
+              showNotification(tabId, 'Re:consent Automatically Gave Consent for you.');
               setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
               break;
             case POPUP_ACTIONS.DENY:
               showOverlay(tabId, 'Denying all consents for this site, please wait...');
               await tabStatus.deny();
               hideOverlay(tabId);
+              showNotification(tabId, 'Re:consent Automatically Denied Consent for you.');
               setBrowserExtensionIcon('SETTINGS_WELL_SET', tabId);
               break;
             case POPUP_ACTIONS.ASK:
@@ -227,8 +229,10 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
     try {
       if (msg.action === 'allow') {
         await cmp.allow(msg.when);
+        showNotification(tab.id, 'Re:consent Automatically Gave Consent for you.');
       } else if (msg.action === 'deny') {
         await cmp.deny(msg.when);
+        showNotification(tab.id, 'Re:consent Automatically Denied Consent for you.');
       } else if (msg.action === 'custom') {
         cmp.setConsentStatus(CONSENT_STATES.CUSTOM);
       }
