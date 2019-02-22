@@ -10,7 +10,7 @@ export default class Evidon extends AutoConsentBase {
   }
 
   async detectCmp(tab) {
-    return await tab.elementExists('#_evh-button') ||  tab.elementExists('#_evidon-barrier-wrapper');
+    return await tab.elementExists('#_evh-button') || tab.elementExists('#_evidon-barrier-wrapper');
   }
 
   async detectPopup(tab) {
@@ -32,10 +32,7 @@ export default class Evidon extends AutoConsentBase {
   async optIn(tab) {
     if (!tab.frame) {
       await tab.clickElement('#_evidon-banner-cookiebuttontext');
-      await waitFor(() => {
-        console.log('xxx', tab.frame);
-        return !!tab.frame
-      }, 10, 200);
+      await waitFor(() => tab.frame, 10, 200);
     }
     const frameId = tab.frame.id;
     await tab.waitForElement('#apply-button', 500, frameId);
