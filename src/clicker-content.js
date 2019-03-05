@@ -112,15 +112,20 @@ function createOverlay() {
     shadow.getElementById('overlay').className = 'media-content hidden';
     shadow.getElementById('modal').className = 'media-content';
     shadow.getElementById('mask').className = 'ui';
+    shadow.getElementById('wrapper').className = '';
   }
   function showOverlay(msg) {
     shadow.getElementById('modal').className = 'media-content hidden';
     shadow.getElementById('waiting-text').innerText = msg;
     shadow.getElementById('overlay').className = 'media-content';
     shadow.getElementById('mask').className = 'ui';
+    shadow.getElementById('wrapper').className = '';
   }
   function hideOverlay() {
     shadow.getElementById('mask').className = 'ui hidden';
+    shadow.getElementById('overlay').className = 'media-content hidden';
+    shadow.getElementById('modal').className = 'media-content hidden';
+    shadow.getElementById('wrapper').className = 'hidden';
   }
   function hideNotification() {
     shadow.getElementById('mask').className = 'ui hidden';
