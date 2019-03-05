@@ -1,28 +1,8 @@
 import browser from 'webextension-polyfill';
 import setBrowserExtensionIcon from './icons';
-import { TabActions, AutoConsent } from './autoconsent/base';
-import Quantcast from './autoconsent/quantcast';
-import Optanon from './autoconsent/optanon';
-import TheGuardian from './autoconsent/theguardian';
-import TagCommander from './autoconsent/tagcommander';
-import TrustArc from './autoconsent/trustarc';
-import CookieBot from './autoconsent/cookiebot';
-import Evidon from './autoconsent/evidon';
-import genericRules from './autoconsent/rules';
+import { TabActions } from './autoconsent/tabs';
+import rules from './autoconsent/all';
 import { showOverlay, showConsentModal, hideOverlay, showNotification } from './autoconsent/overlay';
-
-const rules = [
-  new Quantcast(),
-  new Optanon(),
-  new TheGuardian(),
-  new TagCommander(),
-  new TrustArc(),
-  new CookieBot(),
-  new Evidon(),
-];
-genericRules.forEach((rule) => {
-  rules.push(new AutoConsent(rule));
-});
 
 const consentFrames = new Map();
 // guards to prevent concurrent actions on the same tab
