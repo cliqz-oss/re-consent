@@ -205,7 +205,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
         }
       } else {
         // look for hides
-        const hidden = await tab.hideElements(cosmetics)
+        const hidden = await tab.hideElements(cosmetics);
         if (hidden && hidden.length > 0) {
           browser.pageAction.show(tabId);
           setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
