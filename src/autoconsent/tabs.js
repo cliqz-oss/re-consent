@@ -9,7 +9,7 @@ export class TabActions {
   }
 
   async elementExists(selector, frameId = 0) {
-    console.log(`check for  ${selector} in tab ${this.id}, frame ${frameId}`);
+    // console.log(`check for  ${selector} in tab ${this.id}, frame ${frameId}`);
     return browser.tabs.sendMessage(this.id, {
       type: 'elemExists',
       selector,
@@ -19,7 +19,7 @@ export class TabActions {
   }
 
   async clickElement(selector, frameId = 0) {
-    console.log(`click element ${selector} in tab ${this.id}`);
+    // console.log(`click element ${selector} in tab ${this.id}`);
     return browser.tabs.sendMessage(this.id, {
       type: 'click',
       selector,
