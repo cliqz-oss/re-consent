@@ -154,6 +154,16 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
 
   if (changeInfo.status === 'complete' && !tabGuards.has(tabId)) {
     const tab = new TabActions(tabId, tabInfo.url, consentFrames.get(tabId));
+    // look for elements to hide. Async to CMP detection
+    let elementsHidden = false;
+    setTimeout(() => {
+      tab.hideElements(cosmetics).then((hidden) => {
+        console.log('element(s) hidden', hidden);
+        elementsHidden = hidden && hidden.length > 0;
+      });
+    }, 1000);
+
+    // start CMP detection.
     const rule = await detectDialog(tab, 5);
     try {
       if (rule) {
@@ -203,16 +213,12 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
           default:
             setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
         }
+      } else if (elementsHidden) {
+        browser.pageAction.show(tabId);
+        setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
       } else {
-        // look for hides
-        const hidden = await tab.hideElements(cosmetics);
-        if (hidden && hidden.length > 0) {
-          browser.pageAction.show(tabId);
-          setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
-        } else {
-          browser.pageAction.hide(tabId);
-          setBrowserExtensionIcon('DEFAULT', tabId);
-        }
+        browser.pageAction.hide(tabId);
+        setBrowserExtensionIcon('DEFAULT', tabId);
       }
     } catch (e) {
       console.error('cmp error', e);
@@ -251,9 +257,11 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
       if (msg.action === 'allow') {
         await cmp.allow(msg.when);
         showNotification(tab.id, 'Re:consent Automatically Gave Consent for you.');
+        setBrowserExtensionIcon('SETTINGS_CHANGED', tab.id);
       } else if (msg.action === 'deny') {
         await cmp.deny(msg.when);
         showNotification(tab.id, 'Re:consent Automatically Denied Consent for you.');
+        setBrowserExtensionIcon('SETTINGS_WELL_SET', tab.id);
       } else if (msg.action === 'custom') {
         cmp.setConsentStatus(CONSENT_STATES.CUSTOM);
       }

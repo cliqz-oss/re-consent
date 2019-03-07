@@ -6,4 +6,5 @@ export default [
   '#_evidon-barrier-wrapper',
   '#_evidon_banner',
   '#cookie-consent',
+  '.as-oil-content-overlay',
 ];
