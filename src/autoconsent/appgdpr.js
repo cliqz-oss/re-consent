@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import AutoConsentBase from './base';
 
 export default class AppGdpr extends AutoConsentBase {
@@ -18,7 +19,7 @@ export default class AppGdpr extends AutoConsentBase {
       await tab.clickElement('a[class^="banner_learnMore-"]');
     } else {
       // link to open options has no class or id, so this might be flaky
-      await tab.clickElement('div[class^="banner_message-"] > span:first-child > a')
+      await tab.clickElement('div[class^="banner_message-"] > span:first-child > a');
     }
     if (await tab.elementExists('span[class*="switch_isSelected-"]')) {
       // streamlined UI with categories
@@ -41,8 +42,5 @@ export default class AppGdpr extends AutoConsentBase {
       await tab.clickElement('span[class^="banner_consent-"');
     }
     return true;
-  }
-
-  async openCmp(tab) {
   }
 }

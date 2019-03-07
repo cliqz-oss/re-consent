@@ -73,6 +73,7 @@ class TabConsent {
         [this.consentStorageKey]: action,
       });
     }
+    return Promise.resolve();
   }
 
   openPopup() {
@@ -123,7 +124,7 @@ class TabConsent {
         firstPartyDomain: '',
         name: cki.name,
         url: url.href,
-      })
+      });
     });
     await Promise.all(deletions);
     await this.saveActionPreference('site', POPUP_ACTIONS.ASK);

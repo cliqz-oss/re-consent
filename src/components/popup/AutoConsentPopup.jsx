@@ -40,10 +40,7 @@ const Popup = ({
           </div>
           <div className="popup-list-item">
             <div className="popup-list-item__title">
-              <button onClick={async () => {
-                cmp.reset()
-              }}
-              >
+              <button onClick={() => cmp.reset()}>
                 Reset Site settings
               </button>
               <small>(Warning, this may log you out)</small>

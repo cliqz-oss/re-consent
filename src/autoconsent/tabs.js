@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import { waitFor } from './base';
 
-export class TabActions {
+export default class TabActions {
   constructor(tabId, url, frame) {
     this.id = tabId;
     this.url = url;
