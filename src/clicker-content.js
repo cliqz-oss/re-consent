@@ -241,6 +241,19 @@ chrome.runtime.onMessage.addListener((message) => {
       overlay.hide();
     }
     return Promise.resolve(true);
+  } else if (message.type === 'hide') {
+    const parent = document.head || document.getElementsByTagName('head')[0] || document.documentElement;
+    const hidden = message.selectors.filter((selector) => {
+      const matching = document.querySelectorAll(selector);
+      return matching.length > 0;
+    }, []);
+    const rule = `${hidden.join(',')} { display: none !important; }`
+    const css = document.createElement('style');
+    css.type = 'text/css';
+    css.id = 're-consent-css-rules';
+    css.appendChild(document.createTextNode(rule));
+    parent.appendChild(css);
+    return Promise.resolve(hidden);
   }
   return Promise.resolve(null);
 });

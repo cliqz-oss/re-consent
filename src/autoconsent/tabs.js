@@ -70,4 +70,11 @@ export default class TabActions {
     const times = Math.ceil(timeout / interval);
     return waitFor(() => this.elementExists(selector, frameId), times, interval);
   }
+
+  async hideElements(selectors, frameId = 0) {
+    return browser.tabs.sendMessage(this.id, {
+      type: 'hide',
+      selectors,
+    }, { frameId });
+  }
 }

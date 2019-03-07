@@ -1,7 +1,8 @@
 import browser from 'webextension-polyfill';
 import setBrowserExtensionIcon from './icons';
-import { TabActions } from './autoconsent/tabs';
+import TabActions from './autoconsent/tabs';
 import rules from './autoconsent/all';
+import cosmetics from './autoconsent/cosmetics';
 import { showOverlay, showConsentModal, hideOverlay, showNotification } from './autoconsent/overlay';
 
 const consentFrames = new Map();
@@ -203,8 +204,15 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
             setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
         }
       } else {
-        browser.pageAction.hide(tabId);
-        setBrowserExtensionIcon('DEFAULT', tabId);
+        // look for hides
+        const hidden = await tab.hideElements(cosmetics)
+        if (hidden && hidden.length > 0) {
+          browser.pageAction.show(tabId);
+          setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
+        } else {
+          browser.pageAction.hide(tabId);
+          setBrowserExtensionIcon('DEFAULT', tabId);
+        }
       }
     } catch (e) {
       console.error('cmp error', e);
