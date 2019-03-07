@@ -113,20 +113,19 @@ class TabConsent {
       await browser.browsingData.removeLocalStorage({
         hostnames: [url.hostname],
       });
-    } else {
-      const cookies = await browser.cookies.getAll({
-        url: url.href,
-        firstPartyDomain: '',
-      });
-      const deletions = cookies.map((cki) => {
-        return browser.cookies.remove({
-          firstPartyDomain: '',
-          name: cki.name,
-          url: url.href,
-        })
-      });
-      await Promise.all(deletions);
     }
+    const cookies = await browser.cookies.getAll({
+      url: url.href,
+      firstPartyDomain: '',
+    });
+    const deletions = cookies.map((cki) => {
+      return browser.cookies.remove({
+        firstPartyDomain: '',
+        name: cki.name,
+        url: url.href,
+      })
+    });
+    await Promise.all(deletions);
     await this.saveActionPreference('site', POPUP_ACTIONS.ASK);
     browser.tabs.reload(this.tab.id);
   }
