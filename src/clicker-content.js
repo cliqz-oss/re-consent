@@ -247,7 +247,7 @@ chrome.runtime.onMessage.addListener((message) => {
       const matching = document.querySelectorAll(selector);
       return matching.length > 0;
     }, []);
-    const rule = `${hidden.join(',')} { display: none !important; }`
+    const rule = `${hidden.join(',')} { display: none !important; }`;
     const css = document.createElement('style');
     css.type = 'text/css';
     css.id = 're-consent-css-rules';
