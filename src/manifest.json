@@ -16,7 +16,8 @@
     "privacy",
     "storage",
     "tabs",
-    "notifications"
+    "notifications",
+    "browsingData"
   ],
   "content_scripts": [
     {

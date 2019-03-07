@@ -18,6 +18,8 @@ const Popup = ({
     statusText = 'Consent denied';
   } else if (consentStatus === CONSENT_STATES.CUSTOM) {
     statusText = 'Custom consent';
+  } else if (consentStatus === CONSENT_STATES.CUSTOM) {
+    statusText = 'Consent hidden';
   } else {
     statusText = 'Consent not set yet';
   }
@@ -39,20 +41,12 @@ const Popup = ({
           <div className="popup-list-item">
             <div className="popup-list-item__title">
               <button onClick={async () => {
-                await cmp.openPopup();
-                await cmp.allow();
+                cmp.reset()
               }}
               >
-                Allow all
+                Reset Site settings
               </button>
-              <button onClick={async () => {
-                await cmp.openPopup();
-                await cmp.deny();
-              }}
-              >
-                Deny all
-              </button>
-              <button onClick={() => cmp.openPopup()}>Review options</button>
+              <small>(Warning, this may log you out)</small>
             </div>
           </div>
         </div>

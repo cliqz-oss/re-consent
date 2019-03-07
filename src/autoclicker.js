@@ -21,6 +21,7 @@ export const CONSENT_STATES = {
   ALL_ALLOWED: 'all allowed',
   ALL_DENIED: 'all denied',
   CUSTOM: 'custom',
+  HIDDEN: 'hidden',
 };
 
 const STORAGE_KEY_DEFAULT = 'consent/default';
@@ -64,11 +65,11 @@ class TabConsent {
 
   saveActionPreference(when, action) {
     if (when === 'always') {
-      browser.storage.local.set({
+      return browser.storage.local.set({
         [STORAGE_KEY_DEFAULT]: action,
       });
     } else if (when === 'site') {
-      browser.storage.local.set({
+      return browser.storage.local.set({
         [this.consentStorageKey]: action,
       });
     }
@@ -99,6 +100,35 @@ class TabConsent {
       tabGuards.delete(this.tab.id);
     }
     this.saveActionPreference(when, POPUP_ACTIONS.DENY);
+  }
+
+  async reset() {
+    const url = new URL(this.tab.url);
+
+    // TODO: This only works on Firefox
+    if (browser.browsingData) {
+      await browser.browsingData.removeCookies({
+        hostnames: [url.hostname],
+      });
+      await browser.browsingData.removeLocalStorage({
+        hostnames: [url.hostname],
+      });
+    } else {
+      const cookies = await browser.cookies.getAll({
+        url: url.href,
+        firstPartyDomain: '',
+      });
+      const deletions = cookies.map((cki) => {
+        return browser.cookies.remove({
+          firstPartyDomain: '',
+          name: cki.name,
+          url: url.href,
+        })
+      });
+      await Promise.all(deletions);
+    }
+    await this.saveActionPreference('site', POPUP_ACTIONS.ASK);
+    browser.tabs.reload(this.tab.id);
   }
 }
 
@@ -148,6 +178,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
             case POPUP_ACTIONS.DENY:
               showOverlay(tabId, 'Denying all consents for this site, please wait...');
               await tabStatus.deny();
+              console.log('hide overlay');
               hideOverlay(tabId);
               showNotification(tabId, 'Re:consent Automatically Denied Consent for you.');
               setBrowserExtensionIcon('SETTINGS_WELL_SET', tabId);
@@ -221,6 +252,7 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
     } catch (e) {
       console.error('problem with consent', e);
     } finally {
+      console.log('hide prompt');
       browser.tabs.sendMessage(tab.id, {
         type: 'prompt',
         action: 'hide',
