@@ -89,7 +89,7 @@ function sendTelemetry(message, schema) {
 }
 
 function sendAnonymousTelemetry(message) {
-  const cliqzHpn = getCliqzModule('hpn');
+  const cliqzHpn = getCliqzModule('hpnv2');
   return cliqzHpn.telemetry(message);
 }
 
