@@ -51,7 +51,11 @@
       "128": "icons/png/128x128_logo-chrome.png",
       "19": "icons/png/19x19_consent-readonly-cliqz-light.png",
       "38": "icons/png/38x38_consent-readonly-cliqz-light.png"
-    }
+    },
+    "show_matches": [
+      "http://*/*",
+      "https://*/*"
+    ]
   },
   "web_accessible_resources": [
     "content-page-bridge.js",
