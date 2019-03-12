@@ -217,7 +217,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
         browser.pageAction.show(tabId);
         setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
       } else {
-        browser.pageAction.hide(tabId);
+        // browser.pageAction.hide(tabId);
         setBrowserExtensionIcon('DEFAULT', tabId);
       }
     } catch (e) {
