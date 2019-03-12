@@ -31,7 +31,8 @@ export default [{
     { "click": "#pl-1 > label > div.knob.selected", "optional": true },
     { "click": "#pl-3 > label > div.knob.selected", "optional": true },
     { "click": "#pl-2 > label > div.knob.selected", "optional": true },
-    { "click": "#w0-w0" }
+    { "wait": 500 },
+    { "click": "#w0-w0 > button" },
   ],
   "optIn": [
     { "click": ".gdpr-banner__text > a:nth-child(2)", "optional": true },
@@ -41,7 +42,8 @@ export default [{
     { "click": "#pl-1 > label > div.knob:not(.selected)", "optional": true },
     { "click": "#pl-3 > label > div.knob:not(.selected)", "optional": true },
     { "click": "#pl-2 > label > div.knob:not(.selected)", "optional": true },
-    { "click": "#w0-w0" }
+    { "wait": 500 },
+    { "click": "#w0-w0 > button" }
   ],
   "openCmp": [{
     "goto": "https://www.ebay.de/gdpr"
