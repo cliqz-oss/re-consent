@@ -20,35 +20,6 @@ export default [{
     { "wait": 500 }
   ]
 }, {
-  "name": "Oath",
-  "detectCmp": [{
-    "url": "https://techcrunch.com"
-  }, {
-    "url": "https://yahoo.com"
-  }, {
-    "url": "https://guce.oath.com/collectConsent"
-  }, {
-    "url": "https://www.huffingtonpost.co.uk"
-  }],
-  "detectPopup": [{ "url": "https://guce.oath.com/collectConsent"}],
-  "optOut": [
-    { "click": ".moreOptions", "optional": true },
-    { "click": "button.link", "optional": true },
-    { "waitForThenClick": ".consent-form .float-r a" },
-    { "waitForThenClick": "p.our-partners-text:nth-child(4) a" },
-    { "waitForThenClick": "p.our-partners-text:nth-child(4) a" },
-    { "waitForThenClick": ".hide-link" },
-    { "wait": 500 },
-    { "waitForThenClick": ".btn" },
-    { "wait": 500 },
-    { "waitForThenClick": ".agree" }
-  ],
-  "optIn": [
-    { "click": ".moreOptions" },
-    { "waitForThenClick": ".agree" }
-  ],
-  "openCmp": [{ "goto": "https://guce.oath.com/collectConsent" }]
-}, {
   "name": "Ebay",
   "detectCmp": [{ "url": "https://www.ebay.de" }],
   "detectPopup": [{ "waitFor": "#gdpr-banner", "timeout": 5000 }],

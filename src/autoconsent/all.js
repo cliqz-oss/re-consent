@@ -6,6 +6,7 @@ import TagCommander from './tagcommander';
 import TrustArc from './trustarc';
 import CookieBot from './cookiebot';
 import AppGdpr from './appgdpr';
+import Oath from './oath';
 import genericRules from './rules';
 
 const rules = [
@@ -16,6 +17,7 @@ const rules = [
   new TrustArc(),
   new CookieBot(),
   new AppGdpr(),
+  new Oath(),
 ];
 genericRules.forEach((rule) => {
   rules.push(new AutoConsent(rule));
