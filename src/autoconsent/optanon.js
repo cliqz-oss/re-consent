@@ -25,7 +25,11 @@ export default class Optanon extends AutoConsentBase {
         }
       });
     }, Promise.resolve());
-    await tab.clickElement('.optanon-save-settings-button a');
+    if (await tab.elementExists('.optanon-save-settings-button button')) {
+      await tab.clickElement('.optanon-save-settings-button button');
+    } else {
+      await tab.clickElement('.optanon-save-settings-button a');
+    }
     return true;
   }
 
