@@ -7,4 +7,5 @@ export default [
   '#_evidon_banner',
   '#cookie-consent',
   '.cookie-modal',
+  '.butterBar--privacy',
 ];
