@@ -46,6 +46,6 @@ export default class Oath extends AutoConsentBase {
   }
 
   async optIn(tab) {
-    return tab.clickElement('.agree');
+    return tab.clickElement('.agree,.primary');
   }
 }
