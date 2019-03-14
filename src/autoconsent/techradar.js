@@ -19,7 +19,7 @@ export default class TechRadar extends AutoConsentBase {
 
   async optOut(tab) {
     if (!tab.frame) {
-      return false;
+      await waitFor(() => tab.frame, 10, 200);
     }
     await tab.clickElement('#mainMoreInfo', tab.frame.id);
     await tab.clickElement('.cmp-btn-rejectall', tab.frame.id);
@@ -29,7 +29,7 @@ export default class TechRadar extends AutoConsentBase {
 
   async optIn(tab) {
     if (!tab.frame) {
-      return false;
+      await waitFor(() => tab.frame, 10, 200);
     }
     await tab.clickElement('#mainMoreInfo', tab.frame.id);
     await tab.clickElement('.cmp-btn-acceptall', tab.frame.id);

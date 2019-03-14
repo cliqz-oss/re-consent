@@ -20,13 +20,13 @@ export default class TagCommander extends AutoConsentBase {
   }
 
   async openFrame(tab) {
-    if (await tab.elementExists('#footer_tc_privacy')) {
+    if (await tab.elementExists('#footer_tc_privacy') || await tab.elementExists('#footer_tc_privacy_privacy_center')) {
       await this.openCmp(tab);
     }
   }
 
   async optOut(tab) {
-    if (!tab.frame) {
+    if (!await tab.elementExists('#privacy-iframe')) {
       await this.openFrame(tab);
       await waitFor(() => tab.frame, 10, 200);
     }
@@ -37,7 +37,7 @@ export default class TagCommander extends AutoConsentBase {
   }
 
   async optIn(tab) {
-    if (!tab.frame) {
+    if (!await tab.elementExists('#privacy-iframe')) {
       await this.openFrame(tab);
       await waitFor(() => tab.frame, 10, 200);
     }
