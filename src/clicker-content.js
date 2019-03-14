@@ -25,6 +25,7 @@ function createOverlay() {
       width: 350px;
       right: 30px;
       margin: 25px;
+      z-index: 2147483647 !important;
     }
     </style>
     <div class="ui hidden" id="mask">
@@ -75,19 +76,19 @@ function createOverlay() {
           <button class="modal-close is-large" aria-label="close" id="close-button"></button>
         </div>
       </div>
-      <div class="notification hidden" id="notification">
-        <button class="delete" id="notification-hide"></button>
-        <article class="media">
-          <figure class="media-left">
-            <p class="image">
-              <img src="${chrome.runtime.getURL('icons/png/128x128_logo-chrome.png')}" alt="Re:consent Logo"/>
-            </p>
-          </figure>
-          <div class="media-content">
-            <p class="content" id="notification-text">Re:consent notification</p>
-          </div>
-        </article>
-      </div>
+    </div>
+    <div class="notification hidden" id="notification">
+      <button class="delete" id="notification-hide"></button>
+      <article class="media">
+        <figure class="media-left">
+          <p class="image">
+            <img src="${chrome.runtime.getURL('icons/png/128x128_logo-chrome.png')}" alt="Re:consent Logo"/>
+          </p>
+        </figure>
+        <div class="media-content">
+          <p class="content" id="notification-text">Re:consent notification</p>
+        </div>
+      </article>
     </div>
   `;
   shadow.innerHTML = html;
@@ -132,9 +133,9 @@ function createOverlay() {
     shadow.getElementById('notification').className = 'notification hidden';
   }
   function showNotification(msg, timeout = 10000) {
+    hideOverlay();
     shadow.getElementById('notification-text').innerText = msg;
     shadow.getElementById('notification').className = 'notification';
-    shadow.getElementById('mask').className = 'ui';
     setTimeout(hideNotification, timeout);
   }
 
