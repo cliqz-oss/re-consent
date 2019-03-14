@@ -7,6 +7,7 @@ import TrustArc from './trustarc';
 import CookieBot from './cookiebot';
 import AppGdpr from './appgdpr';
 import Oath from './oath';
+import Oil from './oil';
 import genericRules from './rules';
 
 const rules = [
@@ -18,6 +19,7 @@ const rules = [
   new CookieBot(),
   new AppGdpr(),
   new Oath(),
+  new Oil(),
 ];
 genericRules.forEach((rule) => {
   rules.push(new AutoConsent(rule));
