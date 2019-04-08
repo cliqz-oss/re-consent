@@ -27,11 +27,12 @@ async function consentCensus() {
   });
 }
 
-(async function checkCensus() {
+async function checkCensus() {
   const CENSUS_KEY = 'censusCompleted';
   const sto = await browser.storage.local.get(CENSUS_KEY);
-  if (!sto[CENSUS_KEY]) {
+  if (sto[CENSUS_KEY] !== 1) {
     await consentCensus();
-    await browser.storage.local.set({ [CENSUS_KEY]: true });
+    await browser.storage.local.set({ [CENSUS_KEY]: 1 });
   }
-}());
+}
+setTimeout(checkCensus, 30000);
