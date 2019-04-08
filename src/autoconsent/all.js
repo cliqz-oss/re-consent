@@ -6,6 +6,7 @@ import TagCommander from './tagcommander';
 import TrustArc from './trustarc';
 import CookieBot from './cookiebot';
 import AppGdpr from './appgdpr';
+import AppGdpr2 from './appgdpr2';
 import Oath from './oath';
 import Oil from './oil';
 import genericRules from './rules';
@@ -20,6 +21,7 @@ const rules = [
   new AppGdpr(),
   new Oath(),
   new Oil(),
+  new AppGdpr2(),
 ];
 genericRules.forEach((rule) => {
   rules.push(new AutoConsent(rule));
