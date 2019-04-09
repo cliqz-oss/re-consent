@@ -1,8 +1,7 @@
 import browser from 'webextension-polyfill';
+import { rules, getCosmeticsForSite } from '@cliqz/autoconsent';
 import setBrowserExtensionIcon from './icons';
 import TabActions from './autoconsent/tabs';
-import rules from './autoconsent/all';
-import cosmetics from './autoconsent/cosmetics';
 import { showOverlay, showConsentModal, hideOverlay, showNotification } from './autoconsent/overlay';
 
 const consentFrames = new Map();
@@ -156,7 +155,8 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
     const tab = new TabActions(tabId, tabInfo.url, consentFrames.get(tabId));
     // look for elements to hide. Async to CMP detection
     let elementsHidden = false;
-    setTimeout(() => {
+    setTimeout(async () => {
+      const cosmetics = await getCosmeticsForSite(url.hostname);
       tab.hideElements(cosmetics).then((hidden) => {
         console.log('element(s) hidden', hidden);
         elementsHidden = hidden && hidden.length > 0;
@@ -166,6 +166,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
     // start CMP detection.
     const rule = await detectDialog(tab, 5);
     try {
+      console.log('xxx update', tabInfo.url, rule);
       if (rule) {
         console.log('Detected CMP', rule.name, tabId);
         setBrowserExtensionIcon('SETTINGS_DETECTED', tabId);
@@ -218,7 +219,7 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
         setBrowserExtensionIcon('SETTINGS_CHANGED', tabId);
       } else {
         // browser.pageAction.hide(tabId);
-        setBrowserExtensionIcon('DEFAULT', tabId);
+        // setBrowserExtensionIcon('DEFAULT', tabId);
       }
     } catch (e) {
       console.error('cmp error', e);

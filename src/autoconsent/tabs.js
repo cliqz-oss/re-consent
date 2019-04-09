@@ -1,5 +1,5 @@
 import browser from 'webextension-polyfill';
-import { waitFor } from './base';
+import { waitFor } from '@cliqz/autoconsent';
 
 export default class TabActions {
   constructor(tabId, url, frame) {
@@ -76,5 +76,17 @@ export default class TabActions {
       type: 'hide',
       selectors,
     }, { frameId });
+  }
+
+  async getBrowserTab() {
+    return browser.tabs.get(this.id);
+  }
+
+  async goto(url) {
+    return browser.tabs.update(this.id, { url });
+  }
+
+  get browser() {
+    return browser;
   }
 }
