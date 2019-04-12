@@ -155,13 +155,13 @@ browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
     const tab = new TabActions(tabId, tabInfo.url, consentFrames.get(tabId));
     // look for elements to hide. Async to CMP detection
     let elementsHidden = false;
-    setTimeout(async () => {
-      const cosmetics = await getCosmeticsForSite(url.hostname);
-      tab.hideElements(cosmetics).then((hidden) => {
-        console.log('element(s) hidden', hidden);
-        elementsHidden = hidden && hidden.length > 0;
-      });
-    }, 1000);
+    // setTimeout(async () => {
+    //   const cosmetics = await getCosmeticsForSite(url.hostname);
+    //   tab.hideElements(cosmetics).then((hidden) => {
+    //     console.log('element(s) hidden', hidden);
+    //     elementsHidden = hidden && hidden.length > 0;
+    //   });
+    // }, 1000);
 
     // start CMP detection.
     const rule = await detectDialog(tab, 5);

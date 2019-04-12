@@ -56,6 +56,10 @@ module.exports = {
       {
         from: 'node_modules/bulma/css/bulma.css',
         to: 'css',
+      },
+      {
+        from: 'node_modules/@cliqz/autoconsent/dist/autoconsent.css',
+        to: 'css',
       }
     ]),
   ],
