@@ -41,7 +41,7 @@ export default class Detector {
       try {
         suspicious = await doDetect(feature, doc);
       } catch (e) {
-        error = e;
+        error = e.toString();
       }
 
       if ([true, false].indexOf(suspicious) === -1) {
