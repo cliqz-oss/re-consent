@@ -29,7 +29,7 @@ node('docker') {
         // tag artifact with commit id
         artifactName = "${extName}-${version}-${commit.substring(0, 7)}.zip"
         def uploadLocation = "s3://${s3BasePath}/${env.BRANCH_NAME}/${artifactName}"
-        currentBuild.description = uploadLocation
+        currentBuild.description = "https://s3.amazonaws.com/${s3BasePath}/${env.BRANCH_NAME}/${artifactName}"
         sh "mv build/${extName}-${version}.zip build/${artifactName}"
         withS3Credentials {
             sh "aws s3 cp build/${artifactName} ${uploadLocation} --acl public-read"
