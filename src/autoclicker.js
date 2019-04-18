@@ -1,7 +1,11 @@
 import browser from 'webextension-polyfill';
-import { rules, getCosmeticsForSite } from '@cliqz/autoconsent';
+import {
+  rules,
+  Tab as TabActions,
+  getCosmeticsForSite,
+  STATIC_COSMETICS,
+} from '@cliqz/autoconsent';
 import setBrowserExtensionIcon from './icons';
-import TabActions from './autoconsent/tabs';
 import { showOverlay, showConsentModal, hideOverlay, showNotification } from './autoconsent/overlay';
 
 const consentFrames = new Map();
@@ -128,6 +132,7 @@ class TabConsent {
     });
     await Promise.all(deletions);
     await this.saveActionPreference('site', POPUP_ACTIONS.ASK);
+    tabCmps.delete(this.tab.id);
     browser.tabs.reload(this.tab.id);
   }
 }
@@ -150,18 +155,23 @@ async function detectDialog(tab, retries) {
 browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
   const url = new URL(tabInfo.url);
   const host = url.hostname;
-
   if (changeInfo.status === 'complete' && !tabGuards.has(tabId)) {
+    if (tabCmps.has(tabId) && new URL(tabCmps.get(tabId).url).hostname === host) {
+      return;
+    }
     const tab = new TabActions(tabId, tabInfo.url, consentFrames.get(tabId));
     // look for elements to hide. Async to CMP detection
     let elementsHidden = false;
-    // setTimeout(async () => {
-    //   const cosmetics = await getCosmeticsForSite(url.hostname);
-    //   tab.hideElements(cosmetics).then((hidden) => {
-    //     console.log('element(s) hidden', hidden);
-    //     elementsHidden = hidden && hidden.length > 0;
-    //   });
-    // }, 1000);
+    setTimeout(async () => {
+      const cosmetics = await getCosmeticsForSite(url.hostname);
+      tab.hideElements(cosmetics).then(async (hidden) => {
+        console.log('element(s) hidden', hidden);
+        elementsHidden = hidden && hidden.length > 0;
+        if (!elementsHidden && await tab.elementExists(STATIC_COSMETICS.join(','))) {
+          elementsHidden = true;
+        }
+      });
+    }, 1000);
 
     // start CMP detection.
     const rule = await detectDialog(tab, 5);
