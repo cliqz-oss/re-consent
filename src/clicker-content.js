@@ -96,7 +96,7 @@ function createOverlay() {
 
   // reduce z-index of any other popup
   function reduceZIndex(e) {
-    if (parseInt(window.getComputedStyle(e).zIndex) >= 2147483647) {
+    if (parseInt(window.getComputedStyle(e).zIndex, 10) >= 2147483647) {
       e.style = 'z-index: 2147483646 !important';
     }
   }
@@ -190,7 +190,6 @@ function createOverlay() {
 let overlay = null;
 
 chrome.runtime.onMessage.addListener((message) => {
-  console.log('[re:consent]', message.type, message.selector);
   if (message.type === 'prompt') {
     if (!overlay) {
       overlay = createOverlay();
