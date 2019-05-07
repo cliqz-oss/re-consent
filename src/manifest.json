@@ -17,7 +17,8 @@
     "storage",
     "tabs",
     "notifications",
-    "browsingData"
+    "browsingData",
+    "webNavigation"
   ],
   "content_scripts": [
     {

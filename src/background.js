@@ -7,9 +7,9 @@ import { telemetry, TELEMETRY_ACTION } from './telemetry';
 import { getConsentType } from './utils';
 import setBrowserExtensionIcon from './icons';
 
-import cmp from './autoclicker';
+import autoclicker from './autoclicker';
 
-window.cmp = cmp;
+window.autoclicker = autoclicker;
 
 async function detectFeatures(url, dispatch) {
   url = new URL(url);

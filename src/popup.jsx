@@ -35,7 +35,7 @@ const store = createStore(reducer);
 
 browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => {
   const element = window.document.createElement('div');
-  const { cmp } = await browser.runtime.getBackgroundPage();
+  const { autoclicker } = await browser.runtime.getBackgroundPage();
 
   window.document.body.appendChild(element);
   window.document.body.style.width = '340px';
@@ -46,9 +46,9 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
     locale = DEFAULT_LOCALE;
   }
 
-  if (cmp.tabs.has(tab.id)) {
+  if (autoclicker.tabConsentManagers.has(tab.id)) {
     // auto-consent triggered
-    const cmpStatus = cmp.tabs.get(tab.id);
+    const cmpStatus = autoclicker.tabConsentManagers.get(tab.id);
     const siteName = new URL(tab.url).hostname;
     const status = await cmpStatus.getConsentStatus();
     ReactDOM.render(
@@ -63,7 +63,7 @@ browser.tabs.query({ active: true, currentWindow: true }).then(async ([tab]) => 
           consent={{}}
           cmp={cmpStatus}
           consentStatus={status}
-          tab={cmp.getTab(tab.id)}
+          tab={cmpStatus.tab}
         />
       </IntlProvider>,
       element,
