@@ -36,7 +36,7 @@ node('docker') {
         }
     }
 
-    if (env.BRANCH_NAME == 'master') {
+    if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'autoclick') {
         stage('Sign Extension') {
             def artifactUrl = "https://s3.amazonaws.com/${s3BasePath}/${env.BRANCH_NAME}/${artifactName}"
             build job: 'addon-repack', parameters: [
@@ -45,6 +45,7 @@ node('docker') {
                 string(name: 'XPI_SIGN_REPO_URL', value: 'git@github.com:cliqz/xpi-sign.git'),
                 string(name: 'CHANNEL', value: 'browser')
             ]
+            print "https://s3.amazonaws.com/cdncliqz/update/browser_pre/gdprtool@cliqz.com/gdprtool@cliqz.com-${version}-browser-signed.xpi"
         }
     }
 }
