@@ -127,12 +127,9 @@ class TabConsent {
   }
 }
 
-browser.webNavigation.onCompleted.addListener(async (details) => {
-  console.log('xxx navigation');
-  const { tabId, frameId } = details;
-
-  if (frameId === 0 && !tabGuards.has(tabId)) {
-    const url = new URL(details.url);
+browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tabInfo) => {
+  if (changeInfo.status === 'complete' && !tabGuards.has(tabId)) {
+    const url = new URL(tabInfo.url);
     const host = url.hostname;
     const cmp = await autoconsent.checkTab(tabId);
     // look for elements to hide. Async to CMP detection
@@ -148,7 +145,7 @@ browser.webNavigation.onCompleted.addListener(async (details) => {
     // start CMP detection.
     try {
       if (cmp.getCMPName() !== null) {
-        console.log('Detected CMP', cmp.getCMPName(), tabId);
+        console.log('Detected CMP', cmp.getCMPName(), tabId, tabInfo.url);
         setBrowserExtensionIcon('SETTINGS_DETECTED', tabId);
         browser.pageAction.show(tabId);
         const tabStatus = new TabConsent(url, cmp);
