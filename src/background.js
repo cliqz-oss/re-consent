@@ -9,7 +9,6 @@ import { telemetry, TELEMETRY_ACTION } from './telemetry';
 import { getNumberOfAllowedConsents } from './consent/utils';
 import { APPLICATION_STATE_ICON_NAME } from './constants';
 import { checkIsChrome, getConsentType } from './utils';
-import './census';
 
 function doSetBrowserExtensionIcon(tabId, pathTemplate) {
   const isChrome = checkIsChrome();
