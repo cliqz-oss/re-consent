@@ -83,7 +83,7 @@ const Popup = ({
               <PopupListItemCheckbox
                 key={purposeId}
                 title={purposeTitle}
-                checked={allowed}
+                checked={!!allowed}
                 disabled={disabled}
                 disabledHelpText={disabledHelpText}
                 checkboxLabels={{
