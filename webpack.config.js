@@ -9,7 +9,6 @@ module.exports = {
   entry: {
     'background': './src/background.js',
     'content': './src/content.js',
-    'content-page-bridge': './src/content-page-bridge.js',
     'popup': './src/popup.jsx',
   },
   mode,

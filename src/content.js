@@ -1,3 +1,5 @@
+/* eslint-disable no-eval */
+/* eslint-disable no-underscore-dangle */
 import browser from 'webextension-polyfill';
 import { createStore, applyMiddleware } from 'redux';
 
@@ -6,6 +8,56 @@ import { getApplicationState } from './selectors';
 import { APPLICATION_STATE } from './constants';
 import { checkIsChrome } from './utils';
 import checkIsWhiteListed from './consent/whitelist';
+
+function queryCmp(method) {
+  return new Promise((resolve) => {
+    const resultName = `_cmpResult${method}`;
+    window.eval(`window.__cmp("${method}", null, (r) => window.${resultName} = r);`);
+    let t = 0;
+    const timer = setInterval(() => {
+      if (window.wrappedJSObject[resultName]) {
+        clearTimeout(timer);
+        resolve(window.wrappedJSObject[resultName]);
+      } else if (t > 10) {
+        // Apparently some pages just don't call the callback.
+        // To prevent our app of not responding because of that, after a timeout the promise is
+        // automatically resolved with `null`.
+        clearTimeout(timer);
+        resolve(null);
+      } else {
+        t += 1;
+      }
+    }, 100);
+  });
+}
+
+async function cmpCheck(retries) {
+  if (typeof window.wrappedJSObject.__cmp !== 'function') {
+    if (retries > 0) {
+      setTimeout(() => cmpCheck(retries - 1), 1000);
+    } else {
+      browser.runtime.sendMessage({ type: 'detectConsent', consent: null });
+    }
+    return;
+  }
+  const consentData = await queryCmp('getConsentData');
+  const vendorConsents = await queryCmp('getVendorConsents');
+  const vendorList = await queryCmp('getVendorList');
+
+  // Only `vendorList` is save to be null.
+  if (consentData && vendorConsents) {
+    browser.runtime.sendMessage({
+      type: 'detectConsent',
+      consent: {
+        consentData,
+        vendorConsents,
+        vendorList,
+      },
+    });
+  } else {
+    browser.runtime.sendMessage({ type: 'detectConsent', consent: null });
+  }
+}
 
 // only run on HTML documents
 if (document.documentElement && document.documentElement.nodeName === 'HTML') {
@@ -85,12 +137,9 @@ if (document.documentElement && document.documentElement.nodeName === 'HTML') {
     }
   });
 
-  const scriptTag = document.createElement('script');
-  scriptTag.src = browser.runtime.getURL('content-page-bridge.js');
-  const target = document.documentElement;
-  target.appendChild(scriptTag);
-  scriptTag.parentNode.removeChild(scriptTag);
-
   browser.runtime.sendMessage({ type: 'contentReady', url });
   browser.runtime.sendMessage({ type: 'detectFeatures', url });
+
+  cmpCheck(3);
 }
+
